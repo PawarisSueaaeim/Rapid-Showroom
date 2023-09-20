@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+    background: #343434;
+    color: #ffff;
+}
+
+.logo {
+    margin: 0.5rem 1.5rem;
+}
+
+.menu ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li a {
+    display: block;
+    padding: 1rem;
+    color: aliceblue;
+}
+
+.menu li:hover {
+    background-color: orange;
+}
