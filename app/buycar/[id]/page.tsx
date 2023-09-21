@@ -1,7 +1,11 @@
-export default function Page({params} : {
+import React from 'react'
+
+type Props = {
     params : {id: string}
-}){
-    return (
-        <h1>ID : {params.id}</h1>
-    )
+}
+
+export default function Detail({params}: Props) {
+  return (
+    <div>Detail: car_ID = {params.id}</div>
+  )
 }
