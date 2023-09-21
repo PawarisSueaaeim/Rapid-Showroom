@@ -1,5 +1,9 @@
-export default function Page(){
-    return (
-        <h1>Sale car</h1>
-    )
+import React from 'react'
+
+type Props = {}
+
+export default function Salecar({}: Props) {
+  return (
+    <div>Salecar</div>
+  )
 }

@@ -1,5 +1,9 @@
-export default function Page() {
-    return (
-        <h1>เกี่ยวกับเรา</h1>
-    )
+import React from 'react'
+
+type Props = {}
+
+export default function About({}: Props) {
+  return (
+    <div>About</div>
+  )
 }

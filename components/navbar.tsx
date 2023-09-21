@@ -1,24 +1,28 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import classes from "@/style/components/navbar.module.css";
 import Box from "@mui/material/Box";
 import Image from "next/image";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
     <Box className={classes.container}>
       <div className={classes.logo}>
-        <Image src="/rapid-logo.png" alt="logo" width={100} height={40}/>
+        <Link href="/">
+          <Image src="/image/rapid-logo.png" alt="logo" width={150} height={50} />
+        </Link>
       </div>
       <div className={classes.menu}>
         <ul>
           <li>
-            <a href="/">หน้าแรก</a>
+            <Link href="/">หน้าแรก</Link>
           </li>
           <li>
-            <a href="/buycar">ซื้อรถ</a>
+            <Link href="/buycar">ซื้อรถ</Link>
           </li>
           <li>
-            <a href="/salecar">ขายรถ</a>
+            <Link href="/salecar">ขายรถ</Link>
           </li>
         </ul>
       </div>
