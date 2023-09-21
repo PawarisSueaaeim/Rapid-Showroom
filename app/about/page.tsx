@@ -4,6 +4,6 @@ type Props = {}
 
 export default function About({}: Props) {
   return (
-    <div>About test</div>
+    <div>About us</div>
   )
 }
