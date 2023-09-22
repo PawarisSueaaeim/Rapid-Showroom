@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import CardItem from "@/modules/card"
+import CardItem from "@/components/carditem";
 import { Box } from "@mui/material";
 import Grid from '@mui/material/Grid';
 
