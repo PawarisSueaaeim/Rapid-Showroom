@@ -4,7 +4,6 @@ import classes from "@/style/components/card.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { Box } from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { IoIosArrowForward } from "react-icons/Io";
 
 type Props = {

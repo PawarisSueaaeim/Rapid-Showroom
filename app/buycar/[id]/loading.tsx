@@ -1,9 +1,10 @@
+import { Box } from '@mui/material'
 import React from 'react'
 
 type Props = {}
 
 export default function Loading({}: Props) {
   return (
-    <div>Loading...</div>
+    <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>Loading...</Box>
   )
 }
