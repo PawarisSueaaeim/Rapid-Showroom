@@ -2,3 +2,9 @@
     display: flex;
     justify-content: center;
 }
+
+.grid_card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 12px;
+}

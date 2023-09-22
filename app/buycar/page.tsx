@@ -2,12 +2,13 @@ import React from "react";
 import axios from "axios";
 import CardItem from "@/components/carditem";
 import { Box } from "@mui/material";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
+import classes from "@/style/page/buycar/buycar.module.css";
 
-interface IPokemon {
+type IPokemon = {
   name: string;
   url: string;
-}
+};
 
 type Props = {};
 
@@ -18,16 +19,12 @@ export default async function Buycar({}: Props) {
   const data = await response.data.results;
 
   return (
-    <Box className="container" sx={{ flexGrow: 1 }} padding={8}>
-      <Grid container spacing={{ xs: 1, md: 3 }}>
+    <div>
+      <div className={classes.grid_card}>
         {data.map((poke: IPokemon, index: number) => {
-          return (
-            <Grid item xs={12} sm={6} md={3} key={`${poke.name}-${index}`}>
-              <CardItem name={poke.name} url={poke.url}/>
-            </Grid>
-          );
+          return <CardItem name={poke.name} url={poke.url} key={index} />;
         })}
-      </Grid>
-    </Box>
+      </div>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
-import { Box, Typography } from "@mui/material";
-import axios from "axios";
+import React from "react";
 import Image from "next/image";
-import React, { Fragment } from "react";
+
+import { Box, Typography } from "@mui/material";
 
 type Props = {
   params: { id: string };

@@ -16,13 +16,13 @@ export default function BuycarLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Fragment>
+    <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} paddingX={6} paddingY={4}>
       <Box display={"flex"} justifyContent={"center"}>
         <Box marginTop={8}>
           <h1>Showroom</h1>
         </Box>
       </Box>
       {children}
-    </Fragment>
+    </Box>
   );
 }
