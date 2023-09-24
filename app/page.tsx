@@ -1,10 +1,7 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
 import Link from "next/link";
-
 import classes from "@/style/page/home.module.css";
-import AboutUsPage from "./about/page";
-import ContactUsPage from "./contact/page";
 
 type Props = {};
 
@@ -32,20 +29,10 @@ export default function Home({}: Props) {
   };
 
   return (
-    <Box style={{
-      overflowY: 'scroll',
-      scrollSnapType: 'y mandatory',
-      scrollBehavior: 'smooth',
-    }}>
+    <Box className={classes.container}>
       <Box
-        style={{
-          ...backgroundImageHome,
-          scrollSnapAlign: 'center',
-        }}
-        display={"flex"}
-        justifyContent={"space-between"}
-        alignItems={"center"}
-        flexDirection={"column"}
+        className={classes.container_first_child}
+        style={backgroundImageHome}
       >
         <Box
           display={"flex"}
@@ -62,7 +49,12 @@ export default function Home({}: Props) {
             Perspiciatis placeat vel tempore?
           </span>
         </Box>
-        <Box display={"flex"} gap={6} marginBottom={8}>
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          gap={6}
+          marginTop={24}
+        >
           <Link href="/about">
             <Button>About Us</Button>
           </Link>
@@ -73,15 +65,8 @@ export default function Home({}: Props) {
       </Box>
       {/* About Us */}
       <Box
-        style={{
-          ...backgroundImageAbout,
-          scrollSnapAlign: 'center',
-        }}
-        display={"flex"}
-        justifyContent={"space-between"}
-        alignItems={"center"}
-        flexDirection={"column"}
-        className={classes.container_scroll_snap}
+        className={classes.container_first_child}
+        style={backgroundImageAbout}
       >
         <Box
           display={"flex"}
@@ -98,7 +83,12 @@ export default function Home({}: Props) {
             Perspiciatis placeat vel tempore?
           </span>
         </Box>
-        <Box display={"flex"} gap={6} marginBottom={8}>
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          gap={6}
+          marginTop={24}
+        >
           <Link href="/about">
             <Button>About Us</Button>
           </Link>
@@ -109,15 +99,8 @@ export default function Home({}: Props) {
       </Box>
       {/* Contact Us */}
       <Box
-        style={{
-          ...backgroundImageContact,
-          scrollSnapAlign: 'center',
-        }}
-        display={"flex"}
-        justifyContent={"space-between"}
-        alignItems={"center"}
-        flexDirection={"column"}
-        className={classes.container_scroll_snap}
+        className={classes.container_first_child}
+        style={backgroundImageContact}
       >
         <Box
           display={"flex"}
@@ -134,7 +117,12 @@ export default function Home({}: Props) {
             Perspiciatis placeat vel tempore?
           </span>
         </Box>
-        <Box display={"flex"} gap={6} marginBottom={8}>
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          gap={6}
+          marginTop={24}
+        >
           <Link href="/about">
             <Button>About Us</Button>
           </Link>
