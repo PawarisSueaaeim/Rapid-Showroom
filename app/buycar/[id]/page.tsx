@@ -1,7 +1,8 @@
 import React from "react";
 import Image from "next/image";
-
+import ButtonCapsule from "@/components/common/button/buttonCapsule";
 import { Box, Typography } from "@mui/material";
+import Link from "next/link";
 
 type Props = {
   params: { id: string };
@@ -36,6 +37,15 @@ export default async function Detail({ params }: Props) {
       <Typography variant="h5" style={{ color: "#0E2C77" }}>
         {data.name}
       </Typography>
+      <Box marginTop={2}>
+        <Link href="/buycar">
+          <ButtonCapsule
+            title={"ดูรถเพิ่ม"}
+            color={"#fff"}
+            bgColor={"#4679C7"}
+          />
+        </Link>
+      </Box>
     </Box>
   );
 }
