@@ -7,9 +7,10 @@ type Props = {
     border?: string,
     boxShadow?: boolean,
     outline?: boolean,
+    fontSize?: number,
 }
 
-export default function buttonCapsule({title , color, bgColor, border, boxShadow, outline}: Props) {
+export default function ButtonCapsule({title , color, bgColor, border, boxShadow, outline, fontSize}: Props) {
   return (
     <div>
         <button style={{
@@ -19,7 +20,7 @@ export default function buttonCapsule({title , color, bgColor, border, boxShadow
             boxShadow: boxShadow ? '0 0 10px rgba(0,0,0,0.1)' : 'none',
             width: '100%',
             padding: '8px',
-            fontSize: '10px',
+            fontSize: fontSize,
             color: color,
             textAlign: 'center',
             textDecoration: 'none',

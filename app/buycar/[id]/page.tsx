@@ -3,6 +3,7 @@ import Image from "next/image";
 import ButtonCapsule from "@/components/common/button/buttonCapsule";
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
+import DealerMeet from "@/components/dealerMeet";
 
 type Props = {
   params: { id: string };
@@ -15,13 +16,14 @@ export default async function Detail({ params }: Props) {
     next: { revalidate: 10 },
   });
   const data = await response.json();
+  console.log(data);
 
   return (
     <Box
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
-      marginX={8}
+      marginX={1}
     >
       <Box marginTop={4}>
         <Image
@@ -45,6 +47,18 @@ export default async function Detail({ params }: Props) {
             bgColor={"#4679C7"}
           />
         </Link>
+      </Box>
+      <Box display={"flex"} alignItems={"center"} marginTop={2}>
+        <Typography variant="h4" style={{ color: "#0E2C77" }}>
+          {data.base_experience}
+        </Typography>
+        <Typography variant="h6" marginLeft={2}>
+          บาท
+        </Typography>
+      </Box>
+      <Typography>เลขไมล์: {data.weight} km</Typography>
+      <Box marginY={1} width={"100%"}>
+        <DealerMeet/>
       </Box>
     </Box>
   );
