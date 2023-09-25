@@ -1,10 +1,31 @@
 .container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .grid_card {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 12px;
+}
+
+.custom_selection {
+  margin: 8px;
+  position: relative;
+}
+
+.custom_selection select {
+  padding: 6px;
+  color: #fff;
+  font-size: 12px;
+  width: 100%;
+  border-radius: 3px;
+  background-color: #4679c7;
+}
+
+.custom-hr {
+  .custom-hr {
+    width: 100%;
+    border: 1px solid #5a5a5a;
+  }
 }
