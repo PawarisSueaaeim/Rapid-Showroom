@@ -4,6 +4,7 @@ import InfoIcon from "@mui/icons-material/Info";
 
 import { CalendarCustom } from "./common/calendar";
 import { ButtonCapsule } from "./common/button";
+import GoogleCaptcha from "./common/captcha/googleCaptcha";
 
 type Props = {};
 
@@ -31,6 +32,7 @@ export default function dealerMeet({}: Props) {
         <TextField id="name-to-dealer" label="ชื่อ" variant="standard" />
         <TextField id="tel-to-dealer" label="เบอร์โรศัพท์" variant="standard" />
         <TextField id="email-to-dealer" label="อีเมล์" variant="standard" />
+        <GoogleCaptcha/>
         <Box marginY={2}>
           <ButtonCapsule
             title={"นัดดีลเลอร์"}

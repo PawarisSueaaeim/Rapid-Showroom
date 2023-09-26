@@ -1,0 +1,1 @@
+export {default as GoogleCaptchaV3 } from './googleCaptcha';
