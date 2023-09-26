@@ -39,10 +39,17 @@ export default async function Detail({ params }: Props) {
       <Typography variant="h5" style={{ color: "#0E2C77" }}>
         {data.name}
       </Typography>
-      <Box marginTop={2}>
+      <Box marginTop={2} display={"flex"} gap={2}>
         <Link href="/buycar">
           <ButtonCapsule
             title={"ดูรถเพิ่ม"}
+            color={"#fff"}
+            bgColor={"#4679C7"}
+          />
+        </Link>
+        <Link href="/buycar">
+          <ButtonCapsule
+            title={"ดูรถใกล้เคียง"}
             color={"#fff"}
             bgColor={"#4679C7"}
           />
