@@ -1,19 +1,102 @@
-import React, { Fragment } from "react";
+"use client";
+// import from in side
+import React from "react";
 import classes from "@/style/components/footer.module.css";
+import Image from "next/image";
+// import from out side
+import { Box, Grid, Typography } from "@mui/material";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
 
-const footer = () => {
+type Props = {};
+
+const Footer = ({}: Props) => {
+  const backgroundFooterImage = {
+    backgroundImage: 'url("../image/bg-footer.png")',
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    height: "100%",
+  };
+
   return (
-    <div className={classes.container}>
-      <div className={classes.copyright}>
-        <h3>RAPID AUTO</h3>
-        <p>© 2022 RAPID GROUP CO., LTD</p>
-      </div>
-      <div className={classes.service}>
-        <p>Term of service</p>
-        <p>Privacy Policy</p>
-      </div>
-    </div>
+    <Box style={backgroundFooterImage}>
+      <Grid container paddingTop={6} paddingX={4} paddingBottom={4}>
+        <Grid item xs={12} md={6}>
+          <Typography variant="h4" color={"#fff"}>
+            Rapid Auto
+          </Typography>
+          <span className={classes.footer_location}>
+            <strong>บจก.แรพพิด มอเตอร์</strong> 6/10 อาคารพิพัฒนสิน ชั้น 9
+          </span>
+          <span className={classes.footer_location}>
+            ซอยพัฒนสิน แขวงทุ่งมหาเมฆ เขตสาทร กรุงเทพฯ 10120
+          </span>
+          <Box display={"flex"} flexDirection={"column"} marginTop={1}>
+            <span className={classes.footer_location}>
+              <PhoneIcon />
+              091 921 1919
+            </span>
+            <span className={classes.footer_location}>
+              <EmailIcon />
+              example@gmail.com
+            </span>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Box display={"flex"} flexDirection={"column"} marginTop={4}>
+            <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} width={"50%"}>
+              <span className={classes.footer_contact}>Term of Service</span>
+              <Image
+                src="../icons/icon-arrow-right.svg"
+                alt="icon-arrow-right.svg"
+                width={14}
+                height={14}
+              />
+            </Box>
+            <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} width={"50%"}>
+              <span className={classes.footer_contact}>Privacy Policy</span>
+              <Image
+                src="/icons/icon-arrow-right.svg"
+                alt="icon-arrow-right.svg"
+                width={14}
+                height={14}
+              />
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+      <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}>
+          <Box display={"flex"} gap={2}>
+            <Image
+              src="/icons/facebook.png"
+              alt="icon-facebook"
+              width={24}
+              height={24}
+            />
+            <Image
+              src="/icons/instagram.png"
+              alt="icon-instagram"
+              width={24}
+              height={24}
+            />
+            <Image
+              src="/icons/telegram.png"
+              alt="icon-telegram"
+              width={24}
+              height={24}
+            />
+            <Image
+              src="/icons/ticktok.png"
+              alt="icon-ticktok"
+              width={24}
+              height={24}
+            />
+          </Box>
+          <Box><span className={classes.footer_copyright}>© 2022 RAPID GROUP CO., LTD</span></Box>
+        </Box>
+    </Box>
   );
 };
 
-export default footer;
+export default Footer;
