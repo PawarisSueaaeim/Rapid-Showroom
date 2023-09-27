@@ -1,3 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@100;300;500;700&family=Roboto:wght@100;300;500;700&display=swap");
+
+* {
+  font-family: "Prompt", sans-serif !important;
+}
+
+p,span {
+  font-weight: 300;
+}
+
+strong {
+  font-weight: 700;
+}
+
 body {
   color: black;
   margin: 0;

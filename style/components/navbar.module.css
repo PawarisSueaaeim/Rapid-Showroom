@@ -1,8 +1,9 @@
-.container {
+.container{
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    position: fixed;
+    position: absolute;
+    padding-top: 1.5rem;
     inline-size: 100%;
 }
 

@@ -1,1 +1,1 @@
-export { default as CardItems } from './carditem';
+export { default as CardItems } from './cardItem';
