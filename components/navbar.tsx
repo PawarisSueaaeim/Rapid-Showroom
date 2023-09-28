@@ -20,7 +20,6 @@ const Navbar = ({}: Props) => {
   const currentURL = usePathname();
 
   useEffect(() => {
-    // setShowMenu(isMobileMode);
   }, [isMobileMode]);
 
   return (

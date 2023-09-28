@@ -30,7 +30,7 @@ export default function About({}: Props) {
           of the used car business to cover from upstream to downstream.
         </span>
         <Image
-          src="/image/about-parking-01.png"
+          src="/images/about-parking-01.png"
           alt="about-parking-01"
           width={348}
           height={227}

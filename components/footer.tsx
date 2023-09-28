@@ -1,25 +1,36 @@
 "use client";
 // import from in side
-import React from "react";
+import React, { Fragment } from "react";
 import classes from "@/style/components/footer.module.css";
 import Image from "next/image";
 // import from out side
 import { Box, Grid, Typography } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
+import { usePathname } from "next/navigation";
 
 type Props = {};
 
 const Footer = ({}: Props) => {
+  const currentURL = usePathname();
+
   const backgroundFooterImage = {
-    backgroundImage: 'url("../image/bg-footer.png")',
+    backgroundImage: 'url("../images/bg-footer.png")',
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     height: "100%",
   };
 
-  return (
+  const isContactPath = () => {
+    if (currentURL === "/contact") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  return isContactPath() ? null : (
     <Box style={backgroundFooterImage}>
       <Grid container paddingTop={6} paddingX={4} paddingBottom={4}>
         <Grid item xs={12} md={6}>
@@ -45,7 +56,12 @@ const Footer = ({}: Props) => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Box display={"flex"} flexDirection={"column"} marginTop={4}>
-            <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} width={"50%"}>
+            <Box
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              width={"50%"}
+            >
               <span className={classes.footer_contact}>Term of Service</span>
               <Image
                 src="../icons/icon-arrow-right.svg"
@@ -54,7 +70,12 @@ const Footer = ({}: Props) => {
                 height={14}
               />
             </Box>
-            <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} width={"50%"}>
+            <Box
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              width={"50%"}
+            >
               <span className={classes.footer_contact}>Privacy Policy</span>
               <Image
                 src="/icons/icon-arrow-right.svg"
@@ -66,35 +87,44 @@ const Footer = ({}: Props) => {
           </Box>
         </Grid>
       </Grid>
-      <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"}>
-          <Box display={"flex"} gap={2}>
-            <Image
-              src="/icons/facebook.png"
-              alt="icon-facebook"
-              width={24}
-              height={24}
-            />
-            <Image
-              src="/icons/instagram.png"
-              alt="icon-instagram"
-              width={24}
-              height={24}
-            />
-            <Image
-              src="/icons/telegram.png"
-              alt="icon-telegram"
-              width={24}
-              height={24}
-            />
-            <Image
-              src="/icons/ticktok.png"
-              alt="icon-ticktok"
-              width={24}
-              height={24}
-            />
-          </Box>
-          <Box><span className={classes.footer_copyright}>© 2022 RAPID GROUP CO., LTD</span></Box>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <Box display={"flex"} gap={2}>
+          <Image
+            src="/icons/facebook.png"
+            alt="icon-facebook"
+            width={24}
+            height={24}
+          />
+          <Image
+            src="/icons/instagram.png"
+            alt="icon-instagram"
+            width={24}
+            height={24}
+          />
+          <Image
+            src="/icons/telegram.png"
+            alt="icon-telegram"
+            width={24}
+            height={24}
+          />
+          <Image
+            src="/icons/ticktok.png"
+            alt="icon-ticktok"
+            width={24}
+            height={24}
+          />
         </Box>
+        <Box>
+          <span className={classes.footer_copyright}>
+            © 2022 RAPID GROUP CO., LTD
+          </span>
+        </Box>
+      </Box>
     </Box>
   );
 };
