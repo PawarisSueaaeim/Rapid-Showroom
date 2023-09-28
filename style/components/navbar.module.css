@@ -3,7 +3,7 @@
     flex-flow: row wrap;
     justify-content: space-between;
     position: absolute;
-    padding-top: 1.5rem;
+    width: 100%;
     inline-size: 100%;
 }
 
@@ -32,4 +32,18 @@
 .menu li:hover {
     background-color: rgb(213, 213, 213);
     transition: 0.3s;
+}
+
+.navigation_car {
+    font-size: 24px;
+    color: #fff;
+    font-weight: 300;
+    width: 100%;
+}
+
+.navigation_us {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 300;
+    width: 100%;
 }
