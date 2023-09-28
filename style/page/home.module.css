@@ -4,15 +4,6 @@
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
-    /* height: 100vh; */
-}
-.container_first_child {
-    /* display: flex; */
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    flex: none;
-    /* scroll-snap-align: start; */
 }
 .welcome {
     display: flex;

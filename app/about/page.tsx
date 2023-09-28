@@ -1,51 +1,66 @@
-import { Box, Button } from "@mui/material";
-import Link from "next/link";
+// import from inside
+import Image from "next/image";
 import React from "react";
 import classes from "@/style/page/aboutus.module.css";
-
+// import from outside
+import { Box, Typography } from "@mui/material";
 type Props = {};
 
 export default function About({}: Props) {
-  const backgroundImageStyle = {
-    backgroundImage: 'url("../../image/Homepage-02.avif")',
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    height: "100vh",
-  };
-
   return (
     <Box
-      style={backgroundImageStyle}
       display={"flex"}
-      justifyContent={"space-between"}
       alignItems={"center"}
       flexDirection={"column"}
-      className={classes.container_about}
+      marginTop={14}
     >
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        paddingX={"10%"}
-        paddingY={"12%"}
+      <Typography
+        style={{
+          fontSize: "24px",
+          color: "#000",
+          fontWeight: 400,
+        }}
       >
-        <h1>About Us</h1>
+        About Us
+      </Typography>
+      <Box margin={2}>
         <span>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore harum
-          ad doloremque a, porro veritatis sequi temporibus ratione minima optio
-          quos ipsam possimus, perspiciatis impedit est. Perspiciatis placeat
-          vel tempore?
+          As Rapid Capital has experience in providing loans to a group of used
+          car business owners, we realize how important to expand the ecosystem
+          of the used car business to cover from upstream to downstream.
         </span>
+        <Image
+          src="/image/about-parking-01.png"
+          alt="about-parking-01"
+          width={348}
+          height={227}
+          className={classes.image_parking_01}
+        />
       </Box>
-      <Box display={"flex"} gap={6} marginBottom={8}>
-        <Link href="/about">
-          <Button>About Us</Button>
-        </Link>
-        <Link href="/contact">
-          <Button>Contact Us</Button>
-        </Link>
-      </Box>
+      <ul className={classes.list_about_detail}>
+          <li>
+            Prepare to be an infrastructure of EVs aftermarket to promote the
+            prices of used EVs and, therefore, sustainably promote the use of
+            EVs in Thailand.
+          </li>
+          <li>
+            Use an in-house digital platform to sell and/or buy car(s) in the
+            used car market.
+          </li>
+          <li>
+            Plan to initiate over 50 automated used car centers, where used cars
+            are parked and picked up when the sale takes place.
+          </li>
+          <li>
+            Be the first company ever to introduce an online-to-offline (O2O)
+            experience to the used car industry.
+          </li>
+        </ul>
+        <Image
+          src="/image/about-parking-02.png"
+          alt="about-parking-02"
+          width={430}
+          height={378}/>
     </Box>
   );
 }
