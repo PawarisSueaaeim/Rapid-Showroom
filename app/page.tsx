@@ -7,7 +7,7 @@ type Props = {};
 
 export default function Home({}: Props) {
   const backgroundImageHome = {
-    backgroundImage: 'url("../image/bg01.png")',
+    backgroundImage: 'url("../images/bg01.png")',
     backgroundSize: "cover",
   };
 

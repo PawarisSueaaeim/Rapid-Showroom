@@ -1,51 +1,69 @@
-import { Box, Button } from "@mui/material";
-import Link from "next/link";
+// import from inside
 import React from "react";
-import classes from '@/style/page/contactus.module.css'
+import classes from "@/style/page/contactus.module.css";
+// import from outside
+import { Box, Typography } from "@mui/material";
+import Image from "next/image";
 
 type Props = {};
 
 export default function Contact({}: Props) {
-  const backgroundImageStyle = {
-    backgroundImage: 'url("../../image/Homepage-03.avif")',
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    height: "100vh",
-  };
-
   return (
-    <Box
-      style={backgroundImageStyle}
-      display={"flex"}
-      justifyContent={"space-between"}
-      alignItems={"center"}
-      flexDirection={"column"}
-      className={classes.container_contact}
-    >
+    <Box display={"flex"} alignItems={"center"} flexDirection={"column"}>
+      <Image
+        src="/images/map.png"
+        alt="map"
+        width={500}
+        height={415}
+        className={classes.contact_map}
+      />
       <Box
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}
-        paddingX={"10%"}
-        paddingY={"12%"}
+        bgcolor={"#fff"}
+        color={"#000"}
+        marginTop={5}
       >
-        <h1>Contact Us</h1>
-        <span>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore harum
-          ad doloremque a, porro veritatis sequi temporibus ratione minima optio
-          quos ipsam possimus, perspiciatis impedit est. Perspiciatis placeat
-          vel tempore?
-        </span>
+        <Box display={"flex"}>
+          <span className={classes.logo_text}>Rapid Auto</span>
+          <span className={classes.location_text}>บจก.แรพพิด มอเตอร์</span>
+        </Box>
+        <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+          <span className={classes.location_text}>
+            อาคารพิพัฒนสิน ชั้น 9 ซอยพัฒนสิน
+          </span>
+          <span className={classes.location_text}>
+            แขวงทุ่งมหาเมฆ เขตสาทร กรุงเทพฯ 10120
+          </span>
+        </Box>
       </Box>
-      <Box display={"flex"} gap={6} marginBottom={8}>
-        <Link href="/about">
-          <Button>About Us</Button>
-        </Link>
-        <Link href="/contact">
-          <Button>Contact Us</Button>
-        </Link>
+      <Box display={"flex"} alignItems={"center"} marginTop={6} gap={4}>
+        <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+          <Image
+            src="/icons/icon-contact-call.png"
+            alt="icon-contact-call"
+            width={96}
+            height={94}
+          />
+          <span className={classes.contact_text}>092 212 1233</span>
+        </Box>
+        <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+          <Image
+            src="/icons/icon-contact-mail.png"
+            alt="icon-contact-mail"
+            width={96}
+            height={94}
+          />
+          <span className={classes.contact_text}>example@gmail.com</span>
+        </Box>
       </Box>
+      <Box display={"flex"} gap={2} marginTop={9}>
+          <Image src="/icons/instagram.png" alt="instagram" width={41} height={41}/>
+          <Image src="/icons/telegram.png" alt="telegram" width={41} height={41}/>
+          <Image src="/icons/facebook.png" alt="facebook" width={41} height={41}/>
+          <Image src="/icons/ticktok.png" alt="ticktok" width={41} height={41}/>
+        </Box>
     </Box>
   );
 }
