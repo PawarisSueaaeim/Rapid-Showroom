@@ -4,18 +4,20 @@
   font-family: "Prompt", sans-serif !important;
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
 p,span {
   font-weight: 300;
 }
 
 strong {
   font-weight: 700;
-}
-
-body {
-  color: black;
-  margin: 0;
-  padding: 0;
 }
 
 a {
