@@ -19,10 +19,8 @@ export default function DealerMeet({}: Props) {
   const handleCaptchaVerify = (response: string | null) => {
     if (response) {
       setIsVerified(true);
-      console.log("reCAPTCHA verified:", response);
     } else {
       setIsVerified(false);
-      console.error("reCAPTCHA verification failed");
     }
   };
 

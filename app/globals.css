@@ -6,13 +6,17 @@
 
 html, body {
   max-width: 100%;
-  overflow-x: hidden;
   color: black;
   margin: 0;
   padding: 0;
 }
 
-p,span {
+/* Set defualt text element */
+p {
+  font-weight: 100;
+}
+
+span {
   font-weight: 300;
 }
 
@@ -26,4 +30,60 @@ a {
 
 ul {
   list-style-type: none;
+}
+
+/* global style text margin*/
+.m-0 {
+  margin: 0;
+}
+.m-2 {
+  margin: 2px;
+}
+.m-4 {
+  margin: 4px;
+}
+.m-6 {
+  margin: 6px;
+}
+
+/* global style text font-size*/
+
+.fs-12px {
+  font-size: 12px;
+}
+
+.fs-14px {
+  font-size: 14px;
+}
+
+.fs-16px {
+  font-size: 16px;
+}
+
+.fs-20px {
+  font-size: 20px;
+}
+
+.fs-22px {
+  font-size: 22px;
+}
+
+.fs-24px {
+  font-size: 24px;
+}
+
+.fs-32px {
+  font-size: 32px;
+}
+
+.fw-200 {
+  font-weight: 100;
+}
+
+.fw-400 {
+  font-weight: 400;
+}
+
+.fw-500 {
+  font-weight: 500;
 }
