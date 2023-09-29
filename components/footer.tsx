@@ -4,7 +4,7 @@ import React, { Fragment } from "react";
 import classes from "@/style/components/footer.module.css";
 import Image from "next/image";
 // import from out side
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import { usePathname } from "next/navigation";
@@ -13,6 +13,7 @@ type Props = {};
 
 const Footer = ({}: Props) => {
   const currentURL = usePathname();
+  const isMobileMode = useMediaQuery("(max-width:600px)");
 
   const backgroundFooterImage = {
     backgroundImage: 'url("../images/bg-footer.png")',
@@ -60,7 +61,7 @@ const Footer = ({}: Props) => {
               display={"flex"}
               alignItems={"center"}
               justifyContent={"space-between"}
-              width={"50%"}
+              width={isMobileMode ? "50%" : "30%"}
             >
               <span className={classes.footer_contact}>Term of Service</span>
               <Image
@@ -74,7 +75,7 @@ const Footer = ({}: Props) => {
               display={"flex"}
               alignItems={"center"}
               justifyContent={"space-between"}
-              width={"50%"}
+              width={isMobileMode ? "50%" : "30%"}
             >
               <span className={classes.footer_contact}>Privacy Policy</span>
               <Image

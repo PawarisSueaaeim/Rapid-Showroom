@@ -16,7 +16,6 @@ export default async function Detail({ params }: Props) {
     next: { revalidate: 10 },
   });
   const data = await response.json();
-  console.log(data);
 
   return (
     <Box
