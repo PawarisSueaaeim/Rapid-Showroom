@@ -12,13 +12,13 @@ export default function About({}: Props) {
       display={"flex"}
       alignItems={"center"}
       flexDirection={"column"}
-      marginTop={14}
     >
       <Typography
         style={{
           fontSize: "24px",
           color: "#000",
           fontWeight: 400,
+          marginTop: "100px",
         }}
       >
         About Us
