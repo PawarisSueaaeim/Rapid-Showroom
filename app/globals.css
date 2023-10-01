@@ -60,6 +60,10 @@ ul {
   font-size: 16px;
 }
 
+.fs-18px {
+  font-size: 18px;
+}
+
 .fs-20px {
   font-size: 20px;
 }
@@ -76,7 +80,9 @@ ul {
   font-size: 32px;
 }
 
-.fw-200 {
+/* global style font weight */
+
+.fw-100 {
   font-weight: 100;
 }
 
@@ -87,3 +93,26 @@ ul {
 .fw-500 {
   font-weight: 500;
 }
+
+/* global style color */
+
+.tc-blue {
+  color: #4679C7;
+}
+
+.tc-green {
+  color: #4BAF73;
+}
+
+/* global style text upper/lower */
+
+.text-upper {
+  text-transform: uppercase;
+}
+
+.text-lower {
+  text-transform: lowercase;
+}
+
+
+

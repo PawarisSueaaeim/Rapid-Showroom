@@ -1,10 +1,10 @@
 import * as React from "react";
 import axios from "axios";
-import classes from "@/style/components/card.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { Box } from "@mui/material";
-import { IoIosArrowForward } from "react-icons/Io";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { currency } from "@/utils/hooks/currency";
 
 type Props = {
   name: string;
@@ -16,37 +16,49 @@ export default async function CardItem({ name, url }: Props) {
   const data = await response.data;
 
   return (
-    <Box className={classes.container}>
-      <div className={classes.image}>
-        <Image
-          src={data?.sprites?.other?.home?.front_default}
-          width={150}
-          height={150}
-          alt={name}
-        />
-      </div>
-      <div className={classes.model_container}>
-        <span className={classes.model_name}>{data.name}</span>
-        <span className={classes.submodel_name}>{data.name}</span>
-      </div>
-      <div className={classes.content}>
-        <span>เลขไมล์: {data.weight}</span>
-        <span>เกียร์: {data.height}</span>
-        <span>ดีลเลอร์ โทร: {data.weight}</span>
-      </div>
-      <div className={classes.price}>
-        <h3>{data.base_experience}</h3>
-        <span>บาท</span>
-      </div>
-      <Link href={`/buycar/${data.id}`}>
-        <button className={classes.button_booking_car}>จองรถ</button>
-      </Link>
-      <Link href={`/detail/${data.id}`}>
-        <div className={classes.button_detail}>
-          <p>ดูรายละเอียด</p>
-          <IoIosArrowForward size={20}/>
-        </div>
-      </Link>
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      alignItems={"center"}
+      style={{ border: "1px solid #D9D9D9" }}
+    >
+      <Image
+        src={data?.sprites?.other?.home?.front_default}
+        width={120}
+        height={120}
+        alt={name}
+      />
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        width={"100%"}
+        paddingLeft={3}
+      >
+        <span className="fs-18px tc-blue text-upper">
+          <strong>{data.name}</strong>
+        </span>
+        <span className="fs-12px fw-100 tc-blue text-upper">{data.name}</span>
+        <span className="fs-12px">เลขไมล์: {currency(data.weight, 0)} Km</span>
+        <span className="fs-18px tc-blue">
+          <strong>{currency(data.base_experience, 0)} ฿</strong>
+        </span>
+      </Box>
+      <Box
+        display={"flex"}
+        justifyContent={"flex-end"}
+        alignItems={"center"}
+        width={"100%"}
+        marginRight={3}
+        style={{
+          color: "#000",
+          fontSize: "12px",
+        }}
+      >
+        <RemoveRedEyeIcon style={{ fontSize: "10px" }} />
+        <Link href={`/buycar/${data.id}`}>
+          <span>View car</span>
+        </Link>
+      </Box>
     </Box>
   );
 }
