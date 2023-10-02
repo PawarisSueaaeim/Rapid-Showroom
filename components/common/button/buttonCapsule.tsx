@@ -9,6 +9,9 @@ type Props = {
   boxShadow?: boolean;
   outline?: boolean;
   fontSize?: number;
+  fontWeight?: number;
+  height?: number;
+  marginX?: number;
 };
 
 export default function ButtonCapsule({
@@ -20,6 +23,9 @@ export default function ButtonCapsule({
   boxShadow,
   outline,
   fontSize,
+  fontWeight,
+  height,
+  marginX,
 }: Props) {
   return (
     <div>
@@ -31,8 +37,10 @@ export default function ButtonCapsule({
           borderRadius: "28px",
           boxShadow: boxShadow ? "0 0 10px rgba(0,0,0,0.1)" : "none",
           width: "100%",
-          padding: "8px",
+          marginInline: marginX,
+          height: height,
           fontSize: fontSize,
+          fontWeight: fontWeight ? fontWeight : 300,
           color: color,
           textAlign: "center",
           textDecoration: "none",

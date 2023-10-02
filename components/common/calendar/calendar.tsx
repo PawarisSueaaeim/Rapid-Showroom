@@ -1,34 +1,53 @@
 import { Box, TextField } from "@mui/material";
-import React from "react";
+import * as React from "react";
+import classes from '@/style/components/common/calendar.module.css'
 
 type Props = {
-    id: string;
-    label?: string;
-    defaultValue?: string;
-    type: string;
+  id: string;
+  label?: string;
+  defaultValue?: string;
+  type: string;
+  value: string;
+  onChange: (newValue: string) => void;
 };
 
-export default function CalendarCustom({id, label, type, defaultValue}: Props) {
+export default function CalendarCustom({
+  id,
+  label,
+  type,
+  defaultValue,
+  value,
+  onChange,
+}: Props) {
   return (
-    <div>
-        <TextField
+    <Box>
+      <TextField
         id={id}
         label={label ? label : ""}
         type={type}
-        defaultValue={defaultValue ? defaultValue : "วัน เดือน ปี"}
-        sx={{ width: 220 }}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        style={{
-            width: "100%",
+        value={value}
+        defaultValue={defaultValue ? defaultValue : ""}
+        onChange={(e) => onChange(e.target.value)}
+        size="small"
+        className={classes.hidden_icons}
+        InputProps={{
+          style: {
             backgroundColor: "#4679C7",
-            borderRadius: "5px",
-            border: "none",
-            color: "white",
-            fontSize: "16px",
+          },
+          inputProps: {
+            style: {
+              color: "#fff",
+              border: "none",
+            },
+          },
+        }}
+        sx={{
+          '& fieldset': {
+            border: 'none',
+          },
+          width: "100%",
         }}
       />
-    </div>
+    </Box>
   );
 }

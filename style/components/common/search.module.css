@@ -15,11 +15,6 @@
     color: #fff;
 }
 
-.closeIcon:hover {
-    rotate: 180;
-    transition: 0.3s;
-}
-
 .dataResult {
     margin-top: 5px;
     padding-top: 5px;
