@@ -1,9 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import ButtonCapsule from "@/components/common/button/buttonCapsule";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import Link from "next/link";
-import DealerMeet from "@/components/dealerMeet";
+import DealerMeet from "@/components/modules/dealerMeet";
+import { currency } from "@/utils/hooks/currency";
 
 type Props = {
   params: { id: string };
@@ -22,7 +23,6 @@ export default async function Detail({ params }: Props) {
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
-      marginX={1}
     >
       <Box marginTop={4}>
         <Image
@@ -32,18 +32,17 @@ export default async function Detail({ params }: Props) {
           alt={`${data.name}`}
         />
       </Box>
-      <Typography variant="h2" style={{ color: "#0E2C77" }}>
-        {data.name}
-      </Typography>
-      <Typography variant="h5" style={{ color: "#0E2C77" }}>
-        {data.name}
-      </Typography>
+      <span className="text-upper fs-24px tc-blue"><strong>{data.name}</strong></span>
+      <span className="text-upper fs-12px tc-blue tw-100">{data.name}</span>
       <Box marginTop={2} display={"flex"} gap={2}>
         <Link href="/buycar">
           <ButtonCapsule
             title={"ดูรถเพิ่ม"}
             color={"#fff"}
             bgColor={"#4679C7"}
+            fontSize={12}
+            height={22}
+            marginX={22}
           />
         </Link>
         <Link href="/buycar">
@@ -51,20 +50,18 @@ export default async function Detail({ params }: Props) {
             title={"ดูรถใกล้เคียง"}
             color={"#fff"}
             bgColor={"#4679C7"}
+            fontSize={12}
+            height={22}
+            marginX={12}
           />
         </Link>
       </Box>
       <Box display={"flex"} alignItems={"center"} marginTop={2}>
-        <Typography variant="h4" style={{ color: "#0E2C77" }}>
-          {data.base_experience}
-        </Typography>
-        <Typography variant="h6" marginLeft={2}>
-          บาท
-        </Typography>
+        <span className="fs-18px"><strong className="fs-32px tc-blue">{currency(data.base_experience, 0)}</strong> บาท</span>
       </Box>
-      <Typography>เลขไมล์: {data.weight} km</Typography>
-      <Box marginY={1} width={"100%"}>
-        <DealerMeet/>
+      <span className="fs-14px">เลขไมล์: {currency(data.weight,0)} Km</span>
+      <Box width={"100%"}>
+        <DealerMeet />
       </Box>
     </Box>
   );
