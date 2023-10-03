@@ -2,7 +2,7 @@
 import { Box, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import classes from "@/style/components/module/corousel.module.css";
+import classes from "@/style/components/module/carousel.module.css";
 
 type Props = {};
 
@@ -48,8 +48,12 @@ export default function Carousel({}: Props) {
   }, [slide]);
 
   return (
-    <Box className={classes.carousel}>
-      <Box width={isMobileMode ? "100%" : "50%"} margin={2}>
+    <Box
+      width={600}
+      height={isMobileMode ? 300 : 400}
+      className={classes.carousel}
+    >
+      <Box width={isMobileMode ? "100%" : "100%"} margin={2}>
         {images.map((image) => {
           return (
             <Image

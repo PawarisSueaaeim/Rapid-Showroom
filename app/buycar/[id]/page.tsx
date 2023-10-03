@@ -4,7 +4,7 @@ import ButtonCapsule from "@/components/common/button/buttonCapsule";
 import { Box } from "@mui/material";
 import Link from "next/link";
 import DealerMeet from "@/components/modules/dealerMeet";
-import { currency } from "@/utils/hooks/currency";
+import { currency } from "@/utils/currency";
 
 type Props = {
   params: { id: string };

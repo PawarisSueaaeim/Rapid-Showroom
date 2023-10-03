@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Box } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import { currency } from "@/utils/hooks/currency";
+import { currency } from "@/utils/currency";
 
 type Props = {
   name: string;

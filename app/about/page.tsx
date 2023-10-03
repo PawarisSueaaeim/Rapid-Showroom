@@ -1,9 +1,8 @@
-// import from inside
 import Image from "next/image";
 import React from "react";
 import classes from "@/style/page/aboutus.module.css";
-// import from outside
 import { Box, Typography } from "@mui/material";
+
 type Props = {};
 
 export default function About({}: Props) {

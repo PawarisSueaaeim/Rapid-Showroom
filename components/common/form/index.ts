@@ -1,2 +1,2 @@
 export { default as InputCustom } from "./inputCustom";
-export { default as SelectionCustom } from "./selectionCustom";
+export { default as SelectCustom } from "./selectionCustom";

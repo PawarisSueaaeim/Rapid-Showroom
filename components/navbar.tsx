@@ -51,7 +51,7 @@ const Navbar = ({}: Props) => {
               <Typography variant="h5" color={"#fff"}>
                 RAPID
               </Typography>
-              <Typography variant="h5" color={"#000"}>
+              <Typography variant="h5" color={!isMobileMode && currentURL !== '/' ? "#6FB6F8" : "#000"}>
                 AUTO
               </Typography>
             </Box>

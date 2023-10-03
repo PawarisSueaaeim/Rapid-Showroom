@@ -1,18 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { Box, Grid, TextField, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import { CalendarCustom } from "../common/calendar";
 import { ButtonCapsule } from "../common/button";
+import { InputCustom } from "../common/form";
 import ReCAPTCHA from "react-google-recaptcha";
-import dayjs, { Dayjs } from "dayjs";
-import Stack from "@mui/material/Stack";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import classes from '@/style/components/common/form.module.css';
 
 type Props = {};
 
@@ -51,7 +45,7 @@ export default function DealerMeet({}: Props) {
     >
       <span className="fs-18px tc-blue">นัดดีลเลอร์</span>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={6} md={2}>
           <CalendarCustom
             id={"date"}
             type={"date"}
@@ -59,7 +53,7 @@ export default function DealerMeet({}: Props) {
             onChange={handleDateChange}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} md={2}>
           <CalendarCustom
             id={"date"}
             type={"time"}
@@ -73,9 +67,9 @@ export default function DealerMeet({}: Props) {
         <span className="fs-16px tc-blue">กรุณากรอกข้อมูลให้ครบถ้วน</span>
       </Box>
       <Box display={"flex"} flexDirection={"column"}>
-        <TextField id="name-to-dealer" label="ชื่อ" variant="standard"/>
-        <TextField id="tel-to-dealer" label="เบอร์โทรศัพท์" variant="standard" />
-        <TextField id="email-to-dealer" label="อีเมล์" variant="standard" />
+        <InputCustom id="name-to-dealer" type="text" placeholder="ชื่อ"/>
+        <InputCustom id="tel-to-dealer" type="text" placeholder="โทรศัพท์"/>
+        <InputCustom id="email-to-dealer" type="text" placeholder="อีเมล"/>
         <Box marginY={2}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box>

@@ -1,39 +1,25 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
+import classes from '@/style/components/common/form.module.css';
 
 type Props = {
     id: string,
     label?: string,
     defaultValue?: string,
+    type?: string,
     data: {}[],
 };
 
-export default function SelectionCustom({id,label,defaultValue,data} : Props) {
-    console.log(data)
+export default function SelectionCustom({id,label,defaultValue,data,type} : Props) {
   return (
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { width: '100%' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-        <TextField
-          id={id}
-          select
-          label={label}
-          defaultValue={defaultValue}
-          variant="standard"
-        >
-          {data.map((option: any) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+    <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
+        <select className={type === "unborder" ? classes.select_custom : ""}>
+          {data.map((item:any, index:number) => {
+            return (
+              <option key={index} value={item.value}>{item.label}</option>
+            )
+          })}
+        </select>
     </Box>
   );
 }
