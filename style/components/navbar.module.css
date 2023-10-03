@@ -26,11 +26,11 @@
 .menu li a {
     display: block;
     padding: 1rem;
-    color: rgb(3, 3, 3);
+    color: rgb(255, 255, 255);
 }
 
 .menu li:hover {
-    background-color: rgb(213, 213, 213);
+    background-color: rgb(56, 56, 56);
     transition: 0.3s;
 }
 

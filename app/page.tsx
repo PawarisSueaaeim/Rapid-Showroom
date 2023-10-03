@@ -14,8 +14,10 @@ type Props = {};
 
 export default function Home({}: Props) {
   const backgroundImageHome = {
-    backgroundImage: 'url("../images/bg01.png")',
+    backgroundImage: 'url("../images/bg-desktop.png")',
     backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
   };
 
   return (
@@ -35,7 +37,10 @@ export default function Home({}: Props) {
           เต็มรูปแบบแห่งแรกในประเทศไทย
         </span>
       </Box>
+      <Box display={"flex"} justifyContent={"center"}>
       <Carousel />
+      </Box>
+      
       <Grid container>
         <Grid item xs={12} md={6}>
           <Certified />

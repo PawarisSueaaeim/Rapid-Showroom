@@ -1,11 +1,11 @@
-"use client"
-import { Box, Grid } from "@mui/material";
+"use client";
+import { Box, Grid, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React, { useState } from "react";
-import "@/style/components/common/input.css";
-import { SelectionCustom , InputCustom } from "@/components/common/form";
-import { CalendarCustom } from "@/components/common/calendar";
-import { ButtonCapsule } from "@/components/common/button"; 
+import classes from "@/style/components/common/form.module.css";
+import { SelectCustom, InputCustom } from "@/components/common/form";
+import { CalendarCustom, CalendarOutline } from "@/components/common/calendar";
+import { ButtonCapsule } from "@/components/common/button";
 
 type Props = {};
 
@@ -51,6 +51,8 @@ export default function Salecar({}: Props) {
   const [dateSellCar, setDateSellCar] = useState("");
   const [timeSellCar, setTimeSellCar] = useState("");
 
+  const isMobileMode = useMediaQuery("(max-width:600px)");
+
   const handlerDateSellCar = (dateValue: string) => {
     setDateSellCar(dateValue);
   };
@@ -64,7 +66,7 @@ export default function Salecar({}: Props) {
       flexDirection={"column"}
       alignItems={"center"}
       paddingTop={13}
-      paddingX={2}
+      paddingX={isMobileMode ? 2 : "20%"}
     >
       <span className="fs-24px">Sell Car</span>
       <Image
@@ -76,52 +78,80 @@ export default function Salecar({}: Props) {
       <span className="fs-18px">ข้อมูลรถ</span>
       <Grid container columnSpacing={2}>
         <Grid item xs={12}>
-          <InputCustom id="brand" type="text" placeholder="ยี่ห้อ"/>
+          <InputCustom id="brand" type="text" placeholder="ยี่ห้อ" />
         </Grid>
         <Grid item xs={6}>
-          <InputCustom id="model" type="text" placeholder="รุ่น"/>
+          <InputCustom id="model" type="text" placeholder="รุ่น" />
         </Grid>
         <Grid item xs={6}>
-          <InputCustom id="sub-model" type="text" placeholder="รุ่นย่อย"/>
+          <InputCustom id="sub-model" type="text" placeholder="รุ่นย่อย" />
         </Grid>
         <Grid item xs={6}>
-          <InputCustom id="years" type="text" placeholder="ปี"/>
+          <InputCustom id="years" type="text" placeholder="ปี" />
         </Grid>
         <Grid item xs={6}>
-          <InputCustom id="color" type="text" placeholder="สี"/>
+          <InputCustom id="color" type="text" placeholder="สี" />
         </Grid>
         <Grid item xs={6}>
-          <SelectionCustom id="gear" data={gear} defaultValue="all"/>
+          <SelectCustom
+            id="gear"
+            data={gear}
+            defaultValue="all"
+            type="unborder"
+          />
         </Grid>
         <Grid item xs={6}>
-          <InputCustom id="mi" type="text" placeholder="เลขไมล์"/>
+          <InputCustom id="mi" type="text" placeholder="เลขไมล์" />
         </Grid>
         <Grid item xs={6}>
-          <SelectionCustom id="car_id" data={car_id} defaultValue="all"/>
+          <SelectCustom
+            id="car_id"
+            data={car_id}
+            defaultValue="all"
+            type="unborder"
+          />
         </Grid>
         <Grid item xs={6}>
-          <InputCustom id="provice" type="text" placeholder="จังหวัด (ทะเบียน)"/>
+          <InputCustom
+            id="provice"
+            type="text"
+            placeholder="จังหวัด (ทะเบียน)"
+          />
         </Grid>
         <Grid item xs={6}>
-          <CalendarCustom id="date-sell-car" type="date" value={dateSellCar} onChange={handlerDateSellCar}/>
+          <CalendarOutline
+            id="date-sell-car"
+            type="date"
+            value={dateSellCar}
+            onChange={handlerDateSellCar}
+          />
         </Grid>
         <Grid item xs={6}>
-          <CalendarCustom id="time-sell-car" type="time" value={timeSellCar} onChange={handlerTimeSellCar}/>
+          <CalendarOutline
+            id="time-sell-car"
+            type="time"
+            value={timeSellCar}
+            onChange={handlerTimeSellCar}
+          />
         </Grid>
         <Grid item xs={12}>
-          <InputCustom id="nickname" type="text" placeholder="ชื่อเล่น"/>
+          <InputCustom id="nickname" type="text" placeholder="ชื่อเล่น" />
         </Grid>
         <Grid item xs={12}>
-          <InputCustom id="telephone" type="text" placeholder="โทรศัพท์"/>
+          <InputCustom id="telephone" type="text" placeholder="โทรศัพท์" />
         </Grid>
         <Grid item xs={12}>
-          <InputCustom id="e-mail" type="text" placeholder="อีเมล"/>
+          <InputCustom id="e-mail" type="text" placeholder="อีเมล" />
         </Grid>
       </Grid>
       <Box width={"100%"} margin={4}>
-      <ButtonCapsule title="ขายรถ" color="#fff" bgColor="#4679C7" height={42}/>
+        <ButtonCapsule
+          title="ขายรถ"
+          color="#fff"
+          bgColor="#4679C7"
+          height={42}
+        />
       </Box>
-      
     </Box>
   );
 }

@@ -1,4 +1,9 @@
-.hidden_icons::-webkit-calendar-picker-indicator {
-  display: none;
-  -webkit-appearance: none;
+.calendar_outline {
+  color: #8F9DA3;
+  font-size: 16px;
+  font-weight: 300;
+  height: 43px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #8F9DA3;
 }
