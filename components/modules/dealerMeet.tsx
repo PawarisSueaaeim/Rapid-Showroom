@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Box, Grid } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
-import { CalendarCustom } from "../common/calendar";
+import { Calendar } from "../common/calendar";
 import { ButtonCapsule } from "../common/button";
 import { InputCustom } from "../common/form";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -46,19 +46,21 @@ export default function DealerMeet({}: Props) {
       <span className="fs-18px tc-blue">นัดดีลเลอร์</span>
       <Grid container spacing={2}>
         <Grid item xs={6} md={2}>
-          <CalendarCustom
+          <Calendar
             id={"date"}
             type={"date"}
             value={date}
             onChange={handleDateChange}
+            style="custom"
           />
         </Grid>
         <Grid item xs={6} md={2}>
-          <CalendarCustom
+          <Calendar
             id={"date"}
             type={"time"}
             value={time}
             onChange={handleTimeChange}
+            style="custom"
           />
         </Grid>
       </Grid>

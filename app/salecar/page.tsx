@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import classes from "@/style/components/common/form.module.css";
 import { SelectCustom, InputCustom } from "@/components/common/form";
-import { CalendarCustom, CalendarOutline } from "@/components/common/calendar";
+import { Calendar } from "@/components/common/calendar";
 import { ButtonCapsule } from "@/components/common/button";
 
 type Props = {};
@@ -119,19 +119,21 @@ export default function Salecar({}: Props) {
           />
         </Grid>
         <Grid item xs={6}>
-          <CalendarOutline
+          <Calendar
             id="date-sell-car"
             type="date"
             value={dateSellCar}
             onChange={handlerDateSellCar}
+            style="outline"
           />
         </Grid>
         <Grid item xs={6}>
-          <CalendarOutline
+          <Calendar
             id="time-sell-car"
             type="time"
             value={timeSellCar}
             onChange={handlerTimeSellCar}
+            style="outline"
           />
         </Grid>
         <Grid item xs={12}>

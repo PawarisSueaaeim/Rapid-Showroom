@@ -1,2 +1,1 @@
-export { default as CalendarCustom } from "./calendarCustom";
-export { default as CalendarOutline } from "./calendarOutline";
+export { default as Calendar } from "./calendar";

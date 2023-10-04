@@ -15,6 +15,7 @@ type Props = {};
 
 export default async function Buycar({}: Props) {
   const getAllPokemon = process.env.NEXT_PUBLIC_API_URL;
+  const getAllCar = process.env.NEXT_PUBLIC_SHOWROOM_API_URL+'/showrooms/cars';
 
   const response = await axios.get(`${getAllPokemon}`);
   const data = await response.data.results;
