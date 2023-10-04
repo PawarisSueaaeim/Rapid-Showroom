@@ -7,8 +7,9 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { currency } from "@/utils/currency";
 
 type Props = {
-  name: string;
-  url: string;
+  id: string,
+  name: string,
+  url: string,
 };
 
 export default async function CardItem({ name, url }: Props) {

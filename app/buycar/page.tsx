@@ -46,7 +46,7 @@ export default async function Buycar({}: Props) {
         {data.map((poke: IPokemon, index: number) => {
           return (
             <Grid item xs={6} md={3} lg={2} key={index}>
-              <CardItems name={poke.name} url={poke.url} />
+              <CardItems id={`${poke.name+index}`} name={poke.name} url={poke.url} />
             </Grid>
           );
         })}
