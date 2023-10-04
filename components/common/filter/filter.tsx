@@ -1,8 +1,103 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
-import classes from "@/style/page/buycar/buycar.module.css";
+import { SelectCustom } from "../form";
 
 type Props = {};
+
+const brandData = [
+  {
+    label: "ยี่ห้อ",
+    value: "all",
+  },
+  {
+    label: "Honda",
+    value: "honda",
+  },
+  {
+    label: "Toyota",
+    value: "toyota",
+  },
+  {
+    label: "BMW",
+    value: "bmw",
+  },
+];
+
+const modelData = [
+  {
+    label: "ยี่ห้อ",
+    value: "all",
+  },
+  {
+    label: "Honda",
+    value: "honda",
+  },
+  {
+    label: "Toyota",
+    value: "toyota",
+  },
+  {
+    label: "BMW",
+    value: "bmw",
+  },
+];
+
+const subModelData = [
+  {
+    label: "ยี่ห้อ",
+    value: "all",
+  },
+  {
+    label: "Honda",
+    value: "honda",
+  },
+  {
+    label: "Toyota",
+    value: "toyota",
+  },
+  {
+    label: "BMW",
+    value: "bmw",
+  },
+];
+
+const minData = [
+  {
+    label: "ยี่ห้อ",
+    value: "all",
+  },
+  {
+    label: "Honda",
+    value: "honda",
+  },
+  {
+    label: "Toyota",
+    value: "toyota",
+  },
+  {
+    label: "BMW",
+    value: "bmw",
+  },
+];
+
+const maxData = [
+  {
+    label: "ยี่ห้อ",
+    value: "all",
+  },
+  {
+    label: "Honda",
+    value: "honda",
+  },
+  {
+    label: "Toyota",
+    value: "toyota",
+  },
+  {
+    label: "BMW",
+    value: "bmw",
+  },
+];
 
 export default function Filter({}: Props) {
   return (
@@ -10,54 +105,19 @@ export default function Filter({}: Props) {
       <Box paddingX={1} paddingBottom={3}>
         <Grid container>
           <Grid item xs={12} md={4}>
-            <div className={classes.custom_selection}>
-              <select>
-                <option value="0">ยี่ห้อ</option>
-                <option value="1">Honda</option>
-                <option value="2">BMW</option>
-                <option value="3">Mercedes</option>
-              </select>
-            </div>
+            <SelectCustom id={"brand"} data={brandData} />
           </Grid>
           <Grid item xs={6} md={4}>
-            <div className={classes.custom_selection}>
-              <select>
-                <option value="0">รุ่น</option>
-                <option value="1">Honda</option>
-                <option value="2">BMW</option>
-                <option value="3">Mercedes</option>
-              </select>
-            </div>
+            <SelectCustom id={"model"} data={modelData} />
           </Grid>
           <Grid item xs={6} md={4}>
-            <div className={classes.custom_selection}>
-              <select>
-                <option value="0">รุ่นย่อย</option>
-                <option value="1">Honda</option>
-                <option value="2">BMW</option>
-                <option value="3">Mercedes</option>
-              </select>
-            </div>
+            <SelectCustom id={"sub-model"} data={subModelData} />
           </Grid>
           <Grid item xs={6} md={4}>
-            <div className={classes.custom_selection}>
-              <select>
-                <option value="0">ราคา min</option>
-                <option value="1">0</option>
-                <option value="2">100,000</option>
-                <option value="3">1,000,000</option>
-              </select>
-            </div>
+            <SelectCustom id={"min-for-sale"} data={minData} />
           </Grid>
           <Grid item xs={6} md={4}>
-            <div className={classes.custom_selection}>
-              <select>
-                <option value="0">ราคา max</option>
-                <option value="1">99,999</option>
-                <option value="2">999,999</option>
-                <option value="3">10,000,000</option>
-              </select>
-            </div>
+            <SelectCustom id={"max-for-sale"} data={maxData} />
           </Grid>
         </Grid>
       </Box>
