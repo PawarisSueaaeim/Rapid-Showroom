@@ -1,9 +1,25 @@
+.calendar_custom {
+  color: #fff;
+  background-color: #4679c7;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 300;
+  height: 35px;
+  width: 100%;
+  padding-left: 10px;
+  border: none;
+}
+.calendar_custom::-webkit-calendar-picker-indicator {
+  filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg)
+    brightness(95%) contrast(80%) brightness(0) invert(1);
+}
+
 .calendar_outline {
-  color: #8F9DA3;
+  color: #8f9da3;
   font-size: 16px;
   font-weight: 300;
   height: 43px;
   width: 100%;
   border: none;
-  border-bottom: 1px solid #8F9DA3;
+  border-bottom: 1px solid #8f9da3;
 }

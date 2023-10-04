@@ -4,20 +4,18 @@ import classes from "@/style/components/common/calendar.module.css";
 
 type Props = {
   id: string;
-  label?: string;
-  defaultValue?: string;
   type: string;
   value: string;
   onChange: (newValue: string) => void;
+  style: "custom" | "outline";
 };
 
-export default function CalendarOutline({
+export default function Calendar({
   id,
-  label,
   type,
-  defaultValue,
   value,
   onChange,
+  style,
 }: Props) {
   return (
     <Box>
@@ -26,7 +24,7 @@ export default function CalendarOutline({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={classes.calendar_outline}
+        className={style === "outline" ? classes.calendar_outline : classes.calendar_custom}
       />
     </Box>
   );
