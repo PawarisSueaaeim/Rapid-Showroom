@@ -5,6 +5,7 @@
     position: absolute;
     width: 100%;
     inline-size: 100%;
+    z-index: 10;
 }
 
 .logo {
