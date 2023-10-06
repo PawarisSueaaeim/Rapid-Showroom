@@ -1,82 +1,88 @@
 "use client";
-import { Box, useMediaQuery } from "@mui/material";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import * as React from "react";
+import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import SwipeableViews from "react-swipeable-views";
+import { autoPlay } from "react-swipeable-views-utils";
 import classes from "@/style/components/module/carousel.module.css";
+import { useMediaQuery } from "@mui/material";
 
-type Props = {};
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-export default function Carousel({}: Props) {
-  const [slide, setSlide] = useState("1");
+const images = [
+  {
+    id: 0,
+    alt: "image-car-01",
+    src: "/images/image-car-01.png",
+  },
+  {
+    id: 1,
+    alt: "image-car-02",
+    src: "/images/image-car-02.png",
+  },
+  {
+    id: 2,
+    alt: "image-car-03",
+    src: "/images/image-car-03.png",
+  },
+  {
+    id: 3,
+    alt: "image-car-04",
+    src: "/images/image-car-04.png",
+  },
+];
+
+function Carousel() {
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
-  const images = [
-    {
-      id: "1",
-      alt: "image-car-01",
-      src: "/images/image-car-01.png",
-    },
-    {
-      id: "2",
-      alt: "image-car-02",
-      src: "/images/image-car-02.png",
-    },
-    {
-      id: "3",
-      alt: "image-car-03",
-      src: "/images/image-car-03.png",
-    },
-    {
-      id: "4",
-      alt: "image-car-04",
-      src: "/images/image-car-04.png",
-    },
-  ];
-
-  useEffect(() => {
-    // ตั้งเวลาในการเปลี่ยนรูปทุก 10 วินาที
-    const timer = setInterval(() => {
-      // หาค่า id ของรูปถัดไป
-      const nextSlideId = slide === "4" ? "1" : String(parseInt(slide, 10) + 1);
-      setSlide(nextSlideId);
-    }, 5000); // 1000 = 1s
-
-    // เริ่มนับใหม่เมื่อ component ถูก unmount
-    return () => {
-      clearInterval(timer);
-    };
-  }, [slide]);
+  const handleStepChange = (step: number) => {
+    setActiveStep(step);
+  };
 
   return (
     <Box
-      width={600}
-      height={isMobileMode ? 300 : 400}
-      className={classes.carousel}
+      display={"flex"}
+      flexDirection={"column"}
+      alignItems="center"  // Center horizontally
+      justifyContent="center"  // Center vertically
+      sx={{ maxWidth: isMobileMode ? 500 : 500, flexGrow: 1 }}
     >
-      <Box width={isMobileMode ? "100%" : "100%"} margin={2}>
-        {images.map((image) => {
-          return (
-            <Image
-              key={image.id}
-              src={image.src}
-              alt={image.alt}
-              width={390}
-              height={300}
-              className={
-                slide === image.id ? classes.slide : classes.slide_hidden
-              }
-            />
-          );
-        })}
-      </Box>
+      <AutoPlaySwipeableViews
+        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+        index={activeStep}
+        onChangeIndex={handleStepChange}
+        enableMouseEvents
+      >
+        {images.map((step, index) => (
+          <div key={step.id}>
+            {Math.abs(activeStep - index) <= 2 ? (
+              <Box
+                component="img"
+                sx={{
+                  display: "block",
+                  overflow: "hidden",
+                  width: "100%",
+                }}
+                src={step.src}
+                alt={step.alt}
+              />
+            ) : null}
+          </div>
+        ))}
+      </AutoPlaySwipeableViews>
       <span className={classes.indicators}>
         {images.map((item) => {
           return (
             <button
               key={item.id}
-              onClick={() => setSlide(item.id)}
+              onClick={() => setActiveStep(item.id)}
               className={
-                slide === item.id ? classes.indicator_active : classes.indicator
+                activeStep === item.id
+                  ? classes.indicator_active
+                  : classes.indicator
               }
             />
           );
@@ -85,3 +91,5 @@ export default function Carousel({}: Props) {
     </Box>
   );
 }
+
+export default Carousel;

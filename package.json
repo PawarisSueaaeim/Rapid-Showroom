@@ -37,6 +37,8 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "@types/react-google-recaptcha": "^2.1.5"
+    "@types/react-google-recaptcha": "^2.1.5",
+    "@types/react-swipeable-views": "^0.13.3",
+    "@types/react-swipeable-views-utils": "^0.13.5"
   }
 }
