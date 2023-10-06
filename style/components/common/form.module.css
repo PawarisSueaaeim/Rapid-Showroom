@@ -1,23 +1,33 @@
 .select_custom {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #8F9DA3;
-    height: 43px;
-    color: #8F9DA3;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 15px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #8f9da3;
+  height: 43px;
+  color: #8f9da3;
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 15px;
+}
 
+.select_blue {
+  margin: 8px;
+  position: relative;
+  padding: 6px;
+  color: #fff;
+  font-size: 12px;
+  width: 100%;
+  border-radius: 3px;
+  background-color: #4679c7;
 }
 
 .input_custom {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 1px solid #8F9DA3;
-    font-size: 16px;
-    font-weight: 300;
-    height: 35px;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #8f9da3;
+  font-size: 16px;
+  font-weight: 300;
+  height: 35px;
 }

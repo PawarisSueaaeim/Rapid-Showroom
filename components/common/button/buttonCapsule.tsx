@@ -1,4 +1,5 @@
 import React from "react";
+import { FaSistrix } from "react-icons/fa";
 
 type Props = {
   disabled?: boolean;
@@ -12,6 +13,8 @@ type Props = {
   fontWeight?: number;
   height?: number;
   marginX?: number;
+  paddingX?: number;
+  icon?: string;
 };
 
 export default function ButtonCapsule({
@@ -26,18 +29,34 @@ export default function ButtonCapsule({
   fontWeight,
   height,
   marginX,
+  paddingX,
+  icon,
 }: Props) {
+  
+  const renderIcon = (icon: string | undefined) => {
+    switch (icon) {
+      case "search":
+        return <FaSistrix style={{ fontSize: 16 }} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div>
       <button
         disabled={disabled}
         style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           backgroundColor: disabled ? "gray" : bgColor,
           border: border ? border : "none",
           borderRadius: "28px",
           boxShadow: boxShadow ? "0 0 10px rgba(0,0,0,0.1)" : "none",
           width: "100%",
           marginInline: marginX,
+          paddingInline: paddingX,
           height: height,
           fontSize: fontSize,
           fontWeight: fontWeight ? fontWeight : 300,
@@ -48,7 +67,8 @@ export default function ButtonCapsule({
           cursor: "pointer",
         }}
       >
-        {title}
+        <p className="fs-14px fw-200 m-4">{title}</p>
+        {renderIcon(icon)}
       </button>
     </div>
   );

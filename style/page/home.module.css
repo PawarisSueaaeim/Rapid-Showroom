@@ -4,6 +4,11 @@
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  padding-bottom: 2rem;
+}
+
+.strip_top {
+  width: 100%;
 }
 
 .primary_text {

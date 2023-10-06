@@ -96,7 +96,6 @@ export default function Salecar({}: Props) {
           <SelectCustom
             id="gear"
             data={gear}
-            defaultValue="all"
             type="unborder"
           />
         </Grid>
@@ -107,7 +106,6 @@ export default function Salecar({}: Props) {
           <SelectCustom
             id="car_id"
             data={car_id}
-            defaultValue="all"
             type="unborder"
           />
         </Grid>

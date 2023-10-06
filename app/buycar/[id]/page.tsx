@@ -45,7 +45,7 @@ export default async function Detail({ params }: Props) {
             marginX={22}
           />
         </Link>
-        <Link href="/buycar">
+        <Link href={`/nearmodel/${data.id}`}>
           <ButtonCapsule
             title={"ดูรถใกล้เคียง"}
             color={"#fff"}
