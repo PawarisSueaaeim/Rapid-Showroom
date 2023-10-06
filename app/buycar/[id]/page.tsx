@@ -5,35 +5,36 @@ import { Box } from "@mui/material";
 import Link from "next/link";
 import DealerMeet from "@/components/modules/dealerMeet";
 import { currency } from "@/utils/currency";
+import axios from "axios";
 
 type Props = {
   params: { id: string };
 };
 
 export default async function Detail({ params }: Props) {
-  const getAllPokemon = process.env.NEXT_PUBLIC_API_URL;
+  const getCar = process.env.NEXT_PUBLIC_SHOWROOM_API_URL+'/showrooms/vehicles';
 
-  const response = await fetch(`${getAllPokemon}/${params.id}`, {
-    next: { revalidate: 10 },
-  });
-  const data = await response.json();
+  const response = await axios.get(`${getCar}/${params.id}`)
+  const data = await response.data.data;
+  console.log(data)
 
   return (
     <Box
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
+      paddingTop={10}
     >
-      <Box marginTop={4}>
+      <Box>
         <Image
-          src={data?.sprites?.other?.home?.front_default}
-          width={250}
+          src={data.main_image}
+          width={350}
           height={250}
-          alt={`${data.name}`}
+          alt={`${data.main_image}`}
         />
       </Box>
-      <span className="text-upper fs-24px tc-blue"><strong>{data.name}</strong></span>
-      <span className="text-upper fs-12px tc-blue tw-100">{data.name}</span>
+      <span className="text-upper fs-24px tc-blue"><strong>{data.model}</strong></span>
+      <span className="text-upper fs-12px tc-blue tw-100">{data.submodel}</span>
       <Box marginTop={2} display={"flex"} gap={2}>
         <Link href="/buycar">
           <ButtonCapsule
@@ -45,7 +46,7 @@ export default async function Detail({ params }: Props) {
             marginX={22}
           />
         </Link>
-        <Link href={`/nearmodel/${data.id}`}>
+        <Link href={`/nearmodel/${data.vehicle_id}`}>
           <ButtonCapsule
             title={"ดูรถใกล้เคียง"}
             color={"#fff"}
@@ -57,9 +58,9 @@ export default async function Detail({ params }: Props) {
         </Link>
       </Box>
       <Box display={"flex"} alignItems={"center"} marginTop={2}>
-        <span className="fs-18px"><strong className="fs-32px tc-blue">{currency(data.base_experience, 0)}</strong> บาท</span>
+        <span className="fs-18px"><strong className="fs-32px tc-blue">{currency(data.listing_price, 0)}</strong> บาท</span>
       </Box>
-      <span className="fs-14px">เลขไมล์: {currency(data.weight,0)} Km</span>
+      <span className="fs-14px">เลขไมล์: {currency(data.mileage,0)} Km</span>
       <Box width={"100%"}>
         <DealerMeet />
       </Box>

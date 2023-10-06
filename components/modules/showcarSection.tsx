@@ -5,25 +5,37 @@ import { CardItems } from "../common/card";
 import { ButtonCapsule } from "../common/button";
 import Link from "next/link";
 import Image from "next/image";
+import { ICar } from '@/components/types/car';
 
 type Props = {};
 
 export default async function ShowcarSection({}: Props) {
-  const baseURL = "https://pokeapi.co/api/v2/pokemon?limit=6&offset=0";
+  const getCar = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/showrooms/vehicles";
 
-  const response = await axios.get(baseURL);
-  const data = await response.data.results;
+  const response = await axios.post(getCar, {
+    page: 1,
+    per_page: 6,
+    orderby: "vehicle_id",
+    search: "",
+    sort: "desc",
+  });
+  const data = await response.data.data;
 
   return (
     <Box display={"flex"} flexDirection={"column"}>
       <Grid container>
-        {data.map((car: any, index: number) => {
+        {data.map((car: ICar) => {
           return (
-            <Grid item xs={6} md={3} lg={2} key={index}>
+            <Grid item xs={6} md={3} lg={2} key={car.vehicle_id}>
               <CardItems
-                id={`${car.name + index}`}
-                name={car.name}
-                url={car.url}
+                vehicle_id={`${car.vehicle_id}`}
+                brand={car.brand}
+                model={car.model}
+                submodel={car.submodel}
+                price={car.listing_price}
+                gear={car.gear_type}
+                mileage={car.mileage}
+                image={car.image}
               />
             </Grid>
           );
@@ -35,7 +47,7 @@ export default async function ShowcarSection({}: Props) {
           flexDirection: "column",
           alignItems: "center",
           padding: "2rem",
-          background: "linear-gradient(#fff, #4679C7)" 
+          background: "linear-gradient(#fff, #4679C7)",
         }}
       >
         <span className="fs-22px tc-blue">รถคันอื่นๆที่อาจโดนใจคุณ</span>
@@ -49,7 +61,12 @@ export default async function ShowcarSection({}: Props) {
             marginX={2}
           />
         </Link>
-        <Image src='/images/image-car-05.png' alt="image-car-05" width={250} height={100}/>
+        <Image
+          src="/images/image-car-05.png"
+          alt="image-car-05"
+          width={250}
+          height={100}
+        />
       </Box>
     </Box>
   );
