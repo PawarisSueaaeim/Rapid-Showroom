@@ -103,11 +103,7 @@ export default function Salecar({}: Props) {
           <InputCustom id="mi" type="text" placeholder="เลขไมล์" />
         </Grid>
         <Grid item xs={6}>
-          <SelectCustom
-            id="car_id"
-            data={car_id}
-            type="unborder"
-          />
+        <InputCustom id="card_id" type="text" placeholder="ทะเบียน" />
         </Grid>
         <Grid item xs={6}>
           <InputCustom

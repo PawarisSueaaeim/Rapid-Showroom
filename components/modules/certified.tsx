@@ -9,12 +9,13 @@ type Props = {};
 
 export default function Certified({}: Props) {
   const isMobileMode = useMediaQuery("(max-width:600px)");
+
   return (
     <Box
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
-      marginTop={4}
+      marginTop={isMobileMode ? 4 : 20}
     >
       <Typography fontSize={30} fontWeight={700} color={"#000"}>
         Rapid Certified car

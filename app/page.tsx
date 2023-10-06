@@ -3,12 +3,12 @@ import React, { Fragment } from "react";
 import { Box, Grid } from "@mui/material";
 import classes from "@/style/page/home.module.css";
 import {
-  Carousel,
   Certified,
   WhyRapid,
   SalecarWithRapid,
   ContactSection,
   ShowcarSection,
+  Carousel,
 } from "@/components/modules";
 
 type Props = {};
@@ -62,11 +62,8 @@ export default function Home({}: Props) {
               ทีจะมอบประสบการณ์การซื้อขายรถยนต์แบบ O2O (online to offline)
               เต็มรูปแบบแห่งแรกในประเทศไทย
             </span>
+            <Carousel/>
           </Box>
-          <Box display={"flex"} justifyContent={"center"}>
-            <Carousel />
-          </Box>
-
           <Grid container>
             <Grid item xs={12} md={6}>
               <Certified />
