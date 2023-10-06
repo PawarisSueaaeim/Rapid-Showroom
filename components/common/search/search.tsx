@@ -18,7 +18,7 @@ export default function Search({ placeholder, data }: Props) {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
     const filteredData = data.filter((item: any) => {
-      return item.name.toLowerCase().includes(searchWord.toLowerCase());
+      return item.model.toLowerCase().includes(searchWord.toLowerCase());
     });
 
     if(searchWord){
@@ -50,7 +50,7 @@ export default function Search({ placeholder, data }: Props) {
           {filteredData.map((value: any, index: number) => {
             return (
               <Box key={index} className={classes.dataItem}>
-                {value.name}
+                {value.model}
               </Box>
             );
           })}

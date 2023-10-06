@@ -1,5 +1,4 @@
 import * as React from "react";
-import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { Box } from "@mui/material";
@@ -7,14 +6,17 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { currency } from "@/utils/currency";
 
 type Props = {
-  id: string,
-  name: string,
-  url: string,
+  vehicle_id: string,
+  brand?: string,
+  model: string,
+  submodel: string,
+  price: number,
+  gear?: string,
+  mileage: number,
+  image: string,
 };
 
-export default async function CardItem({ name, url }: Props) {
-  const response = await axios.get(url);
-  const data = await response.data;
+export default async function CardItem({ vehicle_id, brand, model, submodel, price, gear, mileage, image }: Props) {
 
   return (
     <Box
@@ -24,10 +26,10 @@ export default async function CardItem({ name, url }: Props) {
       style={{ border: "1px solid #D9D9D9" }}
     >
       <Image
-        src={data?.sprites?.other?.home?.front_default}
-        width={120}
+        src={image}
+        width={190}
         height={120}
-        alt={name}
+        alt={image}
       />
       <Box
         display={"flex"}
@@ -36,12 +38,12 @@ export default async function CardItem({ name, url }: Props) {
         paddingLeft={3}
       >
         <span className="fs-18px tc-blue text-upper">
-          <strong>{data.name}</strong>
+          <strong>{model}</strong>
         </span>
-        <span className="fs-12px fw-100 tc-blue text-upper">{data.name}</span>
-        <span className="fs-12px">เลขไมล์: {currency(data.weight, 0)} Km</span>
+        <span className="fs-12px fw-100 tc-blue text-upper">{submodel}</span>
+        <span className="fs-12px">เลขไมล์: {currency(mileage)} Km</span>
         <span className="fs-18px tc-blue">
-          <strong>{currency(data.base_experience, 0)} ฿</strong>
+          <strong>{currency(price)} ฿</strong>
         </span>
       </Box>
       <Box
@@ -56,7 +58,7 @@ export default async function CardItem({ name, url }: Props) {
         }}
       >
         <RemoveRedEyeIcon style={{ fontSize: "10px" }} />
-        <Link href={`/buycar/${data.id}`}>
+        <Link href={`/buycar/${vehicle_id}`}>
           <span>View car</span>
         </Link>
       </Box>

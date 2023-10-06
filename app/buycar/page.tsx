@@ -5,20 +5,21 @@ import { CardItems } from "@/components/common/card";
 import { Search } from "@/components/common/search";
 import { Box } from "@mui/material";
 import { Filter } from "@/components/common/filter";
-
-type IPokemon = {
-  name: string;
-  url: string;
-};
+import { ICar } from "@/components/types/car";
 
 type Props = {};
 
 export default async function Buycar({}: Props) {
-  const getAllPokemon = process.env.NEXT_PUBLIC_API_URL;
-  const getAllCar = process.env.NEXT_PUBLIC_SHOWROOM_API_URL+'/showrooms/cars';
+  const getCar = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/showrooms/vehicles";
 
-  const response = await axios.get(`${getAllPokemon}`);
-  const data = await response.data.results;
+  const response = await axios.post(getCar, {
+    page: 1,
+    per_page: 20,
+    orderby: "vehicle_id",
+    search: "",
+    sort: "desc",
+  });
+  const data = await response.data.data;
 
   return (
     <Box
@@ -43,10 +44,19 @@ export default async function Buycar({}: Props) {
       </Box>
 
       <Grid container>
-        {data.map((poke: IPokemon, index: number) => {
+        {data.map((car: ICar) => {
           return (
-            <Grid item xs={6} md={3} lg={2} key={index}>
-              <CardItems id={`${poke.name+index}`} name={poke.name} url={poke.url} />
+            <Grid item xs={6} md={3} lg={2} key={car.vehicle_id}>
+              <CardItems
+                vehicle_id={car.vehicle_id}
+                brand={car.brand}
+                model={car.model}
+                submodel={car.submodel}
+                price={car.listing_price}
+                gear={car.gear_type}
+                mileage={car.mileage}
+                image={car.image}
+              />
             </Grid>
           );
         })}
