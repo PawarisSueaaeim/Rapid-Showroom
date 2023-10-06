@@ -46,8 +46,6 @@ function Carousel() {
     <Box
       display={"flex"}
       flexDirection={"column"}
-      alignItems="center"  // Center horizontally
-      justifyContent="center"  // Center vertically
       sx={{ maxWidth: isMobileMode ? 500 : 500, flexGrow: 1 }}
     >
       <AutoPlaySwipeableViews
