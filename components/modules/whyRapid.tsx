@@ -13,7 +13,7 @@ export default function WhyRapid({}: Props) {
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
-      marginTop={isMobileMode ? 2 : 40}
+      marginTop={isMobileMode ? 2 : 100}
     >
       <span className="fs-20px">ทำไมต้อง Rapid Auto</span>
       <Box display={"flex"} alignItems={"center"} gap={6} paddingTop={3}>
