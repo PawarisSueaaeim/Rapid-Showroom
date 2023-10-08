@@ -9,6 +9,8 @@ import { useMediaQuery } from "@mui/material";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
+type Props = {};
+
 const images = [
   {
     id: 0,
@@ -32,7 +34,7 @@ const images = [
   },
 ];
 
-function Carousel() {
+function Carousel({}: Props) {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -55,7 +57,7 @@ function Carousel() {
         enableMouseEvents
       >
         {images.map((step, index) => (
-          <div key={step.id}>
+          <div key={index}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"
