@@ -15,6 +15,7 @@ type Props = {
   marginX?: number;
   paddingX?: number;
   icon?: string;
+  onClick?: () => void;
 };
 
 export default function ButtonCapsule({
@@ -31,6 +32,7 @@ export default function ButtonCapsule({
   marginX,
   paddingX,
   icon,
+  onClick,
 }: Props) {
   
   const renderIcon = (icon: string | undefined) => {
@@ -46,6 +48,7 @@ export default function ButtonCapsule({
     <div>
       <button
         disabled={disabled}
+        onClick={onClick}
         style={{
           display: 'flex',
           alignItems: 'center',

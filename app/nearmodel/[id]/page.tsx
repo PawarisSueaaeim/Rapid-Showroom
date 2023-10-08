@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default async function NearModel({ params }: Props) {
-  const getCar = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/showrooms/vehicles";
+  const getCar = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/showrooms/vehicles/relation";
 
   const response = await axios.post(getCar, {
     page: 1,

@@ -1,19 +1,32 @@
 "use client";
-import React, { useState } from "react";
-import { Box, Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Grid, textFieldClasses } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import { Calendar } from "../common/calendar";
 import { ButtonCapsule } from "../common/button";
 import { InputCustom } from "../common/form";
 import ReCAPTCHA from "react-google-recaptcha";
-import classes from '@/style/components/common/form.module.css';
+import { isThaiText, isPhoneNumber, isEmail } from "@/utils/inputFormat";
 
 type Props = {};
 
 export default function DealerMeet({}: Props) {
-  const [isVerified, setIsVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState<boolean>(false);
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [telephone, setTelephone] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [checkedBot, setCheckedBot] = useState<boolean>(false);
+
+  const siteKey: string | undefined =
+    process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || "";
+
+  useEffect(() => {
+    if (date && time && name && telephone && email !== "" && checkedBot){
+      setIsVerified(true);
+    }
+  },[checkedBot, date, email, name, telephone, time])
 
   const handleDateChange = (newValue: string) => {
     setDate(newValue);
@@ -21,16 +34,38 @@ export default function DealerMeet({}: Props) {
   const handleTimeChange = (newValue: string) => {
     setTime(newValue);
   };
-
-  const siteKey: string | undefined =
-    process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || "";
+  const handleNameChange = (event: any) => {
+    const textInput = event.target.value;
+    if (isThaiText(textInput)){
+      setName(textInput);
+    }
+  };
+  const handleTelephoneChange = (event: any) => {
+    const textInput = event.target.value;
+    if(isPhoneNumber(textInput)){
+      setTelephone(textInput);
+    }
+  };
+  const handleEmailChange = (event: any) => {
+    const textInput = event.target.value;
+    if(isEmail(textInput)){
+      setEmail(textInput);
+    }
+  };
 
   const handleCaptchaVerify = (response: string | null) => {
     if (response) {
-      setIsVerified(true);
+      setCheckedBot(true);
     } else {
-      setIsVerified(false);
+      setCheckedBot(false);
     }
+  };
+  const handleSubmit = () => {
+    console.log(date)
+    console.log(time)
+    console.log(name)
+    console.log(telephone)
+    console.log(email)
   };
 
   return (
@@ -65,13 +100,33 @@ export default function DealerMeet({}: Props) {
         </Grid>
       </Grid>
       <Box display={"flex"} marginTop={2}>
-        <span className="fs-14px tc-blue"><InfoIcon/></span>
+        <span className="fs-14px tc-blue">
+          <InfoIcon />
+        </span>
         <span className="fs-16px tc-blue">กรุณากรอกข้อมูลให้ครบถ้วน</span>
       </Box>
       <Box display={"flex"} flexDirection={"column"}>
-        <InputCustom id="name-to-dealer" type="text" placeholder="ชื่อ"/>
-        <InputCustom id="tel-to-dealer" type="text" placeholder="โทรศัพท์"/>
-        <InputCustom id="email-to-dealer" type="text" placeholder="อีเมล"/>
+        <InputCustom
+          id="name-to-dealer"
+          type="text"
+          placeholder="ชื่อ"
+          value={name}
+          onChange={handleNameChange}
+        />
+        <InputCustom
+          id="tel-to-dealer"
+          type="text"
+          placeholder="โทรศัพท์"
+          value={telephone}
+          onChange={handleTelephoneChange}
+        />
+        <InputCustom
+          id="email-to-dealer"
+          type="text"
+          placeholder="อีเมล"
+          value={email}
+          onChange={handleEmailChange}
+        />
         <Box marginY={2}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box>
@@ -83,6 +138,7 @@ export default function DealerMeet({}: Props) {
             color={"#fff"}
             fontSize={16}
             height={40}
+            onClick={handleSubmit}
           />
         </Box>
       </Box>
