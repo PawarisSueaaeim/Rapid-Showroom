@@ -11,6 +11,9 @@ import { isThaiText, isPhoneNumber, isEmail } from "@/utils/inputFormat";
 type Props = {};
 
 export default function DealerMeet({}: Props) {
+  const [verifyName, setVerifyName] = useState<boolean>(false);
+  const [verifyTelephone, setVerifyTelephone] = useState<boolean>(false);
+  const [verifyEmail, setVerifyEmail] = useState<boolean>(false);
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
@@ -23,10 +26,10 @@ export default function DealerMeet({}: Props) {
     process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || "";
 
   useEffect(() => {
-    if (date && time && name && telephone && email !== "" && checkedBot){
+    if (date && time !== "" && verifyName && verifyTelephone && verifyEmail && checkedBot){
       setIsVerified(true);
     }
-  },[checkedBot, date, email, name, telephone, time])
+  },[checkedBot, date, email, name, telephone, time, verifyEmail, verifyName, verifyTelephone])
 
   const handleDateChange = (newValue: string) => {
     setDate(newValue);
@@ -36,20 +39,23 @@ export default function DealerMeet({}: Props) {
   };
   const handleNameChange = (event: any) => {
     const textInput = event.target.value;
-    if (isThaiText(textInput)){
-      setName(textInput);
+    setName(textInput);
+    if(isThaiText(textInput)){
+      setVerifyName(true);
     }
   };
   const handleTelephoneChange = (event: any) => {
     const textInput = event.target.value;
+    setTelephone(textInput);
     if(isPhoneNumber(textInput)){
-      setTelephone(textInput);
+      setVerifyTelephone(true);
     }
   };
   const handleEmailChange = (event: any) => {
     const textInput = event.target.value;
+    setEmail(textInput);
     if(isEmail(textInput)){
-      setEmail(textInput);
+      setVerifyEmail(true);
     }
   };
 
