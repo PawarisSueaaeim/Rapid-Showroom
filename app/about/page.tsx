@@ -22,7 +22,7 @@ export default function About({}: Props) {
       >
         About Us
       </Typography>
-      <Box margin={2}>
+      <Box margin={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
         <span>
           As Rapid Capital has experience in providing loans to a group of used
           car business owners, we realize how important to expand the ecosystem

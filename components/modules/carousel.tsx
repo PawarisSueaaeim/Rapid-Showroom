@@ -57,7 +57,12 @@ function Carousel({}: Props) {
         enableMouseEvents
       >
         {images.map((step, index) => (
-          <div key={index}>
+          <div key={index} style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+          }}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"
