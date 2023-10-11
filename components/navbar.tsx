@@ -37,6 +37,7 @@ const Navbar = ({}: Props) => {
       <Box
         display={"flex"}
         justifyContent={"space-between"}
+        alignItems={"center"}
         paddingTop={isMobileMode ? 3 : 0}
         paddingBottom={1}
         width={"100%"}
@@ -90,17 +91,18 @@ const Navbar = ({}: Props) => {
       </Box>
 
       <Box
-        display={showMenu ? "flex" : "none"}
+        display={"flex"}
         flexDirection={"column"}
         height={"100vh"}
         width={"200px"}
         zIndex={10}
-        right={0}
+        right={showMenu ? "0" : "-100%"}
         padding={2}
         style={{
           backgroundColor: "#1A417B",
           color: "#fff",
-          position: "absolute",
+          position: "fixed",
+          transition: "0.3s",
         }}
       >
         <CloseIcon onClick={() => setShowMenu(!showMenu)} />
