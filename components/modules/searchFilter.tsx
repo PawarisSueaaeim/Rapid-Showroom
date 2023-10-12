@@ -1,5 +1,5 @@
 "use client";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import classes from "@/style/components/common/form.module.css";
@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { NewSearch } from "../common/search";
 import { CardItems } from "../common/card";
 import { ICar } from "../types/car";
+import Image from "next/image";
 
 type Props = {};
 
@@ -60,6 +61,8 @@ export default function SearchFilter({}: Props) {
 
   const [dataVehicle, setDataVehicle] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [pagetotal, setPagetotal] = useState(0);
+  const [page, setPage] = useState(1);
   const [dataBrandsSelect, setDataBrandsSelect] = useState([]);
   const [dataModelsSelect, setDataModelsSelect] = useState([]);
   const [dataSubmodelsSelect, setDataSubmodelsSelect] = useState([]);
@@ -67,7 +70,10 @@ export default function SearchFilter({}: Props) {
   useEffect(() => {
     getAllVehicle();
     getBrandVehicle();
+    getModelVehicle();
+    getSubmodelVehicle();
   }, [
+    page,
     searchBrand,
     searchModel,
     searchSubmodel,
@@ -82,8 +88,8 @@ export default function SearchFilter({}: Props) {
       const response = await axios.post(
         getAll,
         {
-          page: 1,
-          per_page: 20,
+          page: page,
+          per_page: 10,
           orderby: "vehicle_id",
           search: "",
           sort: "desc",
@@ -98,6 +104,7 @@ export default function SearchFilter({}: Props) {
           },
         }
       );
+      setPagetotal(response.data.total_pages);
       setDataVehicle(response.data.data);
     } catch (error) {
       console.log("Error get all vehicle api", error);
@@ -113,6 +120,22 @@ export default function SearchFilter({}: Props) {
       setDataBrandsSelect(response.data.data);
     } catch (error) {
       console.log("Error get brand vehicle api", error);
+    }
+  };
+
+  const getModelVehicle = async () => {
+    if (searchModel !== null) {
+      const response = await axios.get(getModel + `?brand_id=${searchBrand}`);
+      setDataModelsSelect(response.data.data);
+    }
+  };
+
+  const getSubmodelVehicle = async () => {
+    if (searchSubmodel !== null) {
+      const response = await axios.get(
+        getSubmodel + `?model_id=${searchModel}`
+      );
+      setDataSubmodelsSelect(response.data.data);
     }
   };
 
@@ -133,9 +156,8 @@ export default function SearchFilter({}: Props) {
     try {
       router.push(`?brand_id=${searchBrand}&model_id=${event.target.value}`);
       const response = await axios.get(
-        getSubmodel + `?model_id=${searchBrand}`
+        getSubmodel + `?model_id=${event.target.value}`
       );
-      console.log(response.data.data);
       setDataSubmodelsSelect(response.data.data);
     } catch (error) {
       console.log(error);
@@ -155,6 +177,10 @@ export default function SearchFilter({}: Props) {
     router.push(
       `?brand_id=${searchBrand}&model_id=${searchModel}&submodel_id=${searchSubmodel}&min_price=${searchMinPrice}&max_price=${event.target.value}`
     );
+  };
+
+  const renderPage = (event: any, pageValue: number) => {
+    setPage(pageValue);
   };
 
   return (
@@ -254,24 +280,60 @@ export default function SearchFilter({}: Props) {
         <NewSearch data={dataVehicle} placeholder="กรอกคำค้นหา" />
       </Box>
 
-      <Grid container>
-        {dataVehicle.map((car: ICar) => {
-          return (
-            <Grid item xs={6} md={3} lg={2} key={car.vehicle_id}>
-              <CardItems
-                vehicle_id={car.vehicle_id}
-                brand={car.brand}
-                model={car.model}
-                submodel={car.submodel}
-                price={car.listing_price}
-                gear={car.gear_type}
-                mileage={car.mileage}
-                image={car.image}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
+      {isLoading ? (
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          height={200}
+        >
+          <Image
+            src="/icons/icon-loading.gif"
+            alt="icon-loading"
+            width={30}
+            height={30}
+            className={classes.image_parking_01}
+          />
+        </Box>
+      ) : (
+        <Grid container>
+          {dataVehicle.map((car: ICar, index: number) => {
+            return (
+              <Grid
+                item
+                xs={6}
+                md={3}
+                lg={2}
+                key={`${car.vehicle_id}-${index}`}
+              >
+                <CardItems
+                  vehicle_id={car.vehicle_id}
+                  brand={car.brand}
+                  model={car.model}
+                  submodel={car.submodel}
+                  price={car.listing_price}
+                  gear={car.gear_type}
+                  mileage={car.mileage}
+                  image={car.image}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+      )}
+      <Box
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        margin={2}
+      >
+        <Pagination
+          count={pagetotal}
+          page={page}
+          shape="rounded"
+          onChange={(event, pageValue) => renderPage(event, pageValue)}
+        />
+      </Box>
     </Box>
   );
 }
