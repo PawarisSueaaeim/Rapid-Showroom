@@ -25,11 +25,11 @@ const brandData = [
 
 const modelData = [
   {
-    label: "ยี่ห้อ",
+    label: "รุ่น",
     value: "all",
   },
   {
-    label: "Honda",
+    label: "",
     value: "honda",
   },
   {
@@ -61,7 +61,7 @@ const subModelData = [
   },
 ];
 
-const minData = [
+const minPriceData = [
   {
     label: "ยี่ห้อ",
     value: "all",
@@ -80,7 +80,7 @@ const minData = [
   },
 ];
 
-const maxData = [
+const maxPriceData = [
   {
     label: "ยี่ห้อ",
     value: "all",
@@ -114,10 +114,10 @@ export default function Filter({}: Props) {
             <SelectCustom id={"sub-model"} data={subModelData} />
           </Grid>
           <Grid item xs={6} md={4}>
-            <SelectCustom id={"min-for-sale"} data={minData} />
+            <SelectCustom id={"min-for-sale"} data={minPriceData} />
           </Grid>
           <Grid item xs={6} md={4}>
-            <SelectCustom id={"max-for-sale"} data={maxData} />
+            <SelectCustom id={"max-for-sale"} data={maxPriceData} />
           </Grid>
         </Grid>
       </Box>
