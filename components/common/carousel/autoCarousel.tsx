@@ -27,8 +27,6 @@ function AutoCarousel({images}: Props) {
     setActiveStep(step);
   };
 
-  console.log(images)
-
   return (
     <Box
       display={"flex"}
