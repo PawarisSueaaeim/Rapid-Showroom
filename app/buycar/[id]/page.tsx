@@ -6,6 +6,7 @@ import Link from "next/link";
 import DealerMeet from "@/components/modules/dealerMeet";
 import { currency } from "@/utils/currency";
 import axios from "axios";
+import { Carousel } from "@/components/common/carousel";
 
 type Props = {
   params: { id: string };
@@ -16,7 +17,7 @@ export default async function Detail({ params }: Props) {
 
   const response = await axios.get(`${getCar}/${params.id}`)
   const data = await response.data.data;
-  console.log(data)
+  console.log(data.gallery)
 
   return (
     <Box
@@ -25,13 +26,8 @@ export default async function Detail({ params }: Props) {
       alignItems={"center"}
       paddingTop={10}
     >
-      <Box>
-        <Image
-          src={data.main_image}
-          width={350}
-          height={250}
-          alt={`${data.main_image}`}
-        />
+      <Box padding={4}>
+        <Carousel images={data.gallery}/>
       </Box>
       <span className="text-upper fs-24px tc-blue"><strong>{data.model}</strong></span>
       <span className="text-upper fs-12px tc-blue tw-100">{data.submodel}</span>

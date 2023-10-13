@@ -8,8 +8,31 @@ import {
   SalecarWithRapid,
   ContactSection,
   ShowcarSection,
-  Carousel,
 } from "@/components/modules";
+import { AutoCarousel } from "@/components/common/carousel";
+
+const images = [
+  {
+    id: 0,
+    alt: "image-car-01",
+    src: "/images/image-car-01.png",
+  },
+  {
+    id: 1,
+    alt: "image-car-02",
+    src: "/images/image-car-02.png",
+  },
+  {
+    id: 2,
+    alt: "image-car-03",
+    src: "/images/image-car-03.png",
+  },
+  {
+    id: 3,
+    alt: "image-car-04",
+    src: "/images/image-car-04.png",
+  },
+];
 
 type Props = {};
 
@@ -62,7 +85,7 @@ export default function Home({}: Props) {
               ทีจะมอบประสบการณ์การซื้อขายรถยนต์แบบ O2O (online to offline)
               เต็มรูปแบบแห่งแรกในประเทศไทย
             </span>
-            <Carousel/>
+            <AutoCarousel images={images}/>
           </Box>
           <Grid container>
             <Grid item xs={12} md={6}>

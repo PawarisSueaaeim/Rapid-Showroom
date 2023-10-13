@@ -9,32 +9,15 @@ import { useMediaQuery } from "@mui/material";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-type Props = {};
+type Props = {
+  images: Array<{
+    id: number;
+    alt: string;
+    src: string;
+  }>;
+};
 
-const images = [
-  {
-    id: 0,
-    alt: "image-car-01",
-    src: "/images/image-car-01.png",
-  },
-  {
-    id: 1,
-    alt: "image-car-02",
-    src: "/images/image-car-02.png",
-  },
-  {
-    id: 2,
-    alt: "image-car-03",
-    src: "/images/image-car-03.png",
-  },
-  {
-    id: 3,
-    alt: "image-car-04",
-    src: "/images/image-car-04.png",
-  },
-];
-
-function Carousel({}: Props) {
+function AutoCarousel({images}: Props) {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -43,6 +26,8 @@ function Carousel({}: Props) {
   const handleStepChange = (step: number) => {
     setActiveStep(step);
   };
+
+  console.log(images)
 
   return (
     <Box
@@ -97,4 +82,4 @@ function Carousel({}: Props) {
   );
 }
 
-export default Carousel;
+export default AutoCarousel;
