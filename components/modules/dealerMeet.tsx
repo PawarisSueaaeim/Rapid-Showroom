@@ -1,12 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Box, Grid, textFieldClasses } from "@mui/material";
-import InfoIcon from "@mui/icons-material/Info";
+import { Box, Grid } from "@mui/material";
 import { Calendar } from "../common/calendar";
 import { ButtonCapsule } from "../common/button";
 import { InputCustom } from "../common/form";
 import ReCAPTCHA from "react-google-recaptcha";
 import { isThaiText, isPhoneNumber, isEmail } from "@/utils/inputFormat";
+import classes from "@/style/components/module/dealerMeet.module.css";
+import Image from "next/image";
 
 type Props = {};
 
@@ -26,10 +27,27 @@ export default function DealerMeet({}: Props) {
     process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || "";
 
   useEffect(() => {
-    if (date && time !== "" && verifyName && verifyTelephone && verifyEmail && checkedBot){
+    if (
+      date &&
+      time !== "" &&
+      verifyName &&
+      verifyTelephone &&
+      verifyEmail &&
+      checkedBot
+    ) {
       setIsVerified(true);
     }
-  },[checkedBot, date, email, name, telephone, time, verifyEmail, verifyName, verifyTelephone])
+  }, [
+    checkedBot,
+    date,
+    email,
+    name,
+    telephone,
+    time,
+    verifyEmail,
+    verifyName,
+    verifyTelephone,
+  ]);
 
   const handleDateChange = (newValue: string) => {
     setDate(newValue);
@@ -40,21 +58,21 @@ export default function DealerMeet({}: Props) {
   const handleNameChange = (event: any) => {
     const textInput = event.target.value;
     setName(textInput);
-    if(isThaiText(textInput)){
+    if (isThaiText(textInput)) {
       setVerifyName(true);
     }
   };
   const handleTelephoneChange = (event: any) => {
     const textInput = event.target.value;
     setTelephone(textInput);
-    if(isPhoneNumber(textInput)){
+    if (isPhoneNumber(textInput)) {
       setVerifyTelephone(true);
     }
   };
   const handleEmailChange = (event: any) => {
     const textInput = event.target.value;
     setEmail(textInput);
-    if(isEmail(textInput)){
+    if (isEmail(textInput)) {
       setVerifyEmail(true);
     }
   };
@@ -67,51 +85,37 @@ export default function DealerMeet({}: Props) {
     }
   };
   const handleSubmit = () => {
-    console.log(date)
-    console.log(time)
-    console.log(name)
-    console.log(telephone)
-    console.log(email)
+    console.log(date);
+    console.log(time);
+    console.log(name);
+    console.log(telephone);
+    console.log(email);
   };
 
   return (
-    <Box
-      display={"flex"}
-      flexDirection={"column"}
-      style={{
-        marginTop: "27px",
-        padding: "23px",
-        borderTop: "0.5px solid #8F9DA3",
-      }}
-    >
+    <Box className={classes.container}>
       <span className="fs-18px tc-blue">นัดดีลเลอร์</span>
-      <Grid container spacing={2}>
-        <Grid item xs={6} md={2}>
-          <Calendar
-            id={"date"}
-            type={"date"}
-            value={date}
-            onChange={handleDateChange}
-            style="custom"
-          />
-        </Grid>
-        <Grid item xs={6} md={2}>
-          <Calendar
-            id={"date"}
-            type={"time"}
-            value={time}
-            onChange={handleTimeChange}
-            style="custom"
-          />
-        </Grid>
-      </Grid>
-      <Box display={"flex"} marginTop={2}>
-        <span className="fs-14px tc-blue">
-          <InfoIcon />
-        </span>
+      <Box className={classes.calendar}>
+        <Calendar
+          id={"date"}
+          type={"date"}
+          value={date}
+          onChange={handleDateChange}
+          style="custom"
+        />
+        <Calendar
+          id={"date"}
+          type={"time"}
+          value={time}
+          onChange={handleTimeChange}
+          style="custom"
+        />
+      </Box>
+      <Box className={classes.form_label}>
+        <Image src="/icons/icon-info.png" alt="icon-info" width={20} height={20}/>
         <span className="fs-16px tc-blue">กรุณากรอกข้อมูลให้ครบถ้วน</span>
       </Box>
-      <Box display={"flex"} flexDirection={"column"}>
+      <Box className={classes.form}>
         <InputCustom
           id="name-to-dealer"
           type="text"
@@ -133,10 +137,10 @@ export default function DealerMeet({}: Props) {
           value={email}
           onChange={handleEmailChange}
         />
-        <Box marginY={2}>
+        <Box className={classes.recaptcha}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box>
-        <Box marginY={2}>
+        <Box className={classes.btn_submit}>
           <ButtonCapsule
             disabled={!isVerified}
             title={"นัดดีลเลอร์"}
