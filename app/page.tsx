@@ -58,7 +58,6 @@ export default function Home({}: Props) {
           left: 0,
         }}
       />
-
       <Box
         style={{
           ...backgroundImageHome,

@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import { Calendar } from "../common/calendar";
 import { ButtonCapsule } from "../common/button";
 import { InputCustom } from "../common/form";
-import ReCAPTCHA from "react-google-recaptcha";
 import { isThaiText, isPhoneNumber, isEmail } from "@/utils/inputFormat";
+import ReCAPTCHA from "react-google-recaptcha";
 import classes from "@/style/components/module/dealerMeet.module.css";
 import Image from "next/image";
 
@@ -76,7 +76,6 @@ export default function DealerMeet({}: Props) {
       setVerifyEmail(true);
     }
   };
-
   const handleCaptchaVerify = (response: string | null) => {
     if (response) {
       setCheckedBot(true);
@@ -84,6 +83,7 @@ export default function DealerMeet({}: Props) {
       setCheckedBot(false);
     }
   };
+
   const handleSubmit = () => {
     console.log(date);
     console.log(time);
