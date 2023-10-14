@@ -1,9 +1,7 @@
 "use client";
-// import from in side
-import React, { Fragment } from "react";
+import React from "react";
 import classes from "@/style/components/footer.module.css";
 import Image from "next/image";
-// import from out side
 import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";

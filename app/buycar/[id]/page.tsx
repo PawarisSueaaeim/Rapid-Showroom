@@ -38,7 +38,7 @@ export default async function Detail({ params }: Props) {
             height={30}
           />
         </Link>
-        <Link href={`/nearmodel/${data.vehicle_id}`}>
+        <Link href={`/nearmodel/${data.vehicle_id}?model=${data.model}&submodel=${data.submodel}`}>
           <ButtonCapsule
             title={"ดูรถใกล้เคียง"}
             color={"#fff"}
@@ -56,7 +56,7 @@ export default async function Detail({ params }: Props) {
       </span>
       <span className="fs-14px">เลขไมล์: {currency(data.mileage, 0)} Km</span>
       <Box className={classes.dealer_meet}>
-        <DealerMeet />
+        <DealerMeet vehicle_id={data.vehicle_id}/>
       </Box>
     </Box>
   );

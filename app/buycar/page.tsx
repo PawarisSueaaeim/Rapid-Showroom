@@ -15,7 +15,6 @@ export default async function Buycar({}: Props) {
       <Box display={"flex"} justifyContent={"center"} marginBottom={2}>
         <span className="fs-22px">Showroom</span>
       </Box>
-
       <SearchFilter/>
     </Box>
   );

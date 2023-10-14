@@ -1,11 +1,9 @@
 "use client";
-// import from inside
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "@/style/components/navbar.module.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-// import from outside
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -18,9 +16,6 @@ const Navbar = ({}: Props) => {
 
   const isMobileMode = useMediaQuery("(max-width:600px)");
   const currentURL = usePathname();
-
-  useEffect(() => {
-  }, [isMobileMode]);
 
   return (
     <Box
