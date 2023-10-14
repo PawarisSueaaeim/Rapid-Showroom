@@ -1,13 +1,12 @@
 import React from "react";
-import Image from "next/image";
-import ButtonCapsule from "@/components/common/button/buttonCapsule";
-import { Box } from "@mui/material";
 import Link from "next/link";
+import axios from "axios";
+import { Box } from "@mui/material";
+import classes from "@/style/page/buycar/buycar_id.module.css";
+import ButtonCapsule from "@/components/common/button/buttonCapsule";
 import DealerMeet from "@/components/modules/dealerMeet";
 import { currency } from "@/utils/currency";
-import axios from "axios";
 import { Carousel } from "@/components/common/carousel";
-import classes from "@/style/page/buycar/buycar_id.module.css";
 
 type Props = {
   params: { id: string };

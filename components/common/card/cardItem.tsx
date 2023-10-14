@@ -7,16 +7,14 @@ import { currency } from "@/utils/currency";
 
 type Props = {
   vehicle_id: string,
-  brand?: string,
   model: string,
   submodel: string,
   price: number,
-  gear?: string,
   mileage: number,
   image: string,
 };
 
-export default async function CardItem({ vehicle_id, brand, model, submodel, price, gear, mileage, image }: Props) {
+export default async function CardItem({ vehicle_id, model, submodel, price, mileage, image }: Props) {
 
   return (
     <Box

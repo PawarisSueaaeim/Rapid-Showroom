@@ -308,11 +308,9 @@ export default function SearchFilter({}: Props) {
               >
                 <CardItems
                   vehicle_id={car.vehicle_id}
-                  brand={car.brand}
                   model={car.model}
                   submodel={car.submodel}
                   price={car.listing_price}
-                  gear={car.gear_type}
                   mileage={car.mileage}
                   image={car.image}
                 />
