@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function Carousel({ images }: Props) {
-  const [imageId, setImageId] = useState(1);
+  const [imageId, setImageId] = useState(0);
 
   const handleStepChange = (step: number) => {
     setImageId(step);

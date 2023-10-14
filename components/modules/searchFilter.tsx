@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { NewSearch } from "../common/search";
 import { CardItems } from "../common/card";
 import { ICar } from "../types/car";
-import Image from "next/image";
+import { IsLoading } from "../common/loading";
 
 type Props = {};
 
@@ -112,7 +112,6 @@ export default function SearchFilter({}: Props) {
       setIsLoading(false);
     }
   };
-  console.log(dataVehicle);
 
   const getBrandVehicle = async () => {
     try {
@@ -138,7 +137,6 @@ export default function SearchFilter({}: Props) {
       setDataSubmodelsSelect(response.data.data);
     }
   };
-
   const selectedBrandHandler = async (event: any) => {
     try {
       router.push(`?brand_id=${event.target.value}`);
@@ -281,20 +279,7 @@ export default function SearchFilter({}: Props) {
       </Box>
 
       {isLoading ? (
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          height={200}
-        >
-          <Image
-            src="/icons/icon-loading.gif"
-            alt="icon-loading"
-            width={30}
-            height={30}
-            className={classes.image_parking_01}
-          />
-        </Box>
+        <IsLoading/>
       ) : (
         <Grid container>
           {dataVehicle.map((car: ICar, index: number) => {

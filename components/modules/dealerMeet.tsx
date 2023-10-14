@@ -9,9 +9,11 @@ import ReCAPTCHA from "react-google-recaptcha";
 import classes from "@/style/components/module/dealerMeet.module.css";
 import Image from "next/image";
 
-type Props = {};
+type Props = {
+  vehicle_id: string,
+};
 
-export default function DealerMeet({}: Props) {
+export default function DealerMeet({ vehicle_id }: Props) {
   const [verifyName, setVerifyName] = useState<boolean>(false);
   const [verifyTelephone, setVerifyTelephone] = useState<boolean>(false);
   const [verifyEmail, setVerifyEmail] = useState<boolean>(false);
@@ -90,6 +92,7 @@ export default function DealerMeet({}: Props) {
     console.log(name);
     console.log(telephone);
     console.log(email);
+    console.log("vehicle_id", vehicle_id)
   };
 
   return (
@@ -112,7 +115,12 @@ export default function DealerMeet({}: Props) {
         />
       </Box>
       <Box className={classes.form_label}>
-        <Image src="/icons/icon-info.png" alt="icon-info" width={20} height={20}/>
+        <Image
+          src="/icons/icon-info.png"
+          alt="icon-info"
+          width={20}
+          height={20}
+        />
         <span className="fs-16px tc-blue">กรุณากรอกข้อมูลให้ครบถ้วน</span>
       </Box>
       <Box className={classes.form}>
