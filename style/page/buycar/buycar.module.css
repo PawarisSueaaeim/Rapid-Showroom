@@ -1,15 +1,17 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  padding-top: 5rem;
 }
 
-.grid_card {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: 12px;
+.title_page {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
-.custom-hr {
-    width: 100%;
-    border: 1px solid #5a5a5a;
+.soldout {
+  height: 36vh;
 }

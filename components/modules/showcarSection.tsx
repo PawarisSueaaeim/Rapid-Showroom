@@ -24,7 +24,7 @@ export default async function ShowcarSection({}: Props) {
 
   return (
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-      {data === undefined || data.lenght < 0 ? (
+      {data === undefined || data.lenght === undefined ? (
         <span className="fs-32px fw-500 tc-red">Sold out</span>
       ) : (
         <Box>

@@ -2,6 +2,7 @@ import React from "react";
 import { Box } from "@mui/material";
 import { SearchFilter } from "@/components/modules";
 import axios from "axios";
+import classes from "@/style/page/buycar/buycar.module.css";
 
 type Props = {};
 
@@ -19,17 +20,13 @@ export default async function Buycar({}: Props) {
 
   return (
     <Box
-      display={"flex"}
-      flexDirection={"column"}
-      justifyContent={"center"}
-      alignItems={"center"}
-      paddingTop={10}
+      className={classes.container}
     >
-      <Box display={"flex"} justifyContent={"center"} marginBottom={2}>
+      <Box className={classes.title_page}>
         <span className="fs-22px">Showroom</span>
       </Box>
-      {data === undefined || data.lenght < 0 ? (
-        <Box height={"36vh"}>
+      {data === undefined || data.lenght === undefined ? (
+        <Box className={classes.soldout}>
           <span className="tc-red fs-32px fw-500">Sold Out</span>
         </Box>
       ) : (
