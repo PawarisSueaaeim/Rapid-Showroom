@@ -105,6 +105,10 @@ ul {
   color: #4BAF73;
 }
 
+.tc-red {
+  color: #c00000;
+}
+
 /* global style text upper/lower */
 
 .text-upper {
