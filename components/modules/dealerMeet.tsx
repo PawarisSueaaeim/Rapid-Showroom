@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { Calendar } from "../common/calendar";
 import { ButtonCapsule } from "../common/button";
 import { InputCustom } from "../common/form";
-import { isThaiText, isPhoneNumber, isEmail } from "@/utils/inputFormat";
+import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
 import ReCAPTCHA from "react-google-recaptcha";
 import classes from "@/style/components/module/dealerMeet.module.css";
 import Image from "next/image";

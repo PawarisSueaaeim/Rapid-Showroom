@@ -24,9 +24,6 @@ export default async function ShowcarSection({}: Props) {
 
   return (
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-      {data === undefined || data.lenght === undefined ? (
-        <span className="fs-32px fw-500 tc-red">Sold out</span>
-      ) : (
         <Box>
           <Grid container>
             {data.map((car: ICar) => {
@@ -38,7 +35,7 @@ export default async function ShowcarSection({}: Props) {
                     submodel={car.submodel}
                     price={car.listing_price}
                     mileage={car.mileage}
-                    image={car.image}
+                    image={car.main_image}
                   />
                 </Grid>
               );
@@ -72,7 +69,6 @@ export default async function ShowcarSection({}: Props) {
             />
           </Box>
         </Box>
-      )}
     </Box>
   );
 }

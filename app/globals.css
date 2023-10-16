@@ -48,6 +48,9 @@ ul {
 }
 
 /* global style text font-size*/
+.fs-8px {
+  font-size: 8px;
+}
 
 .fs-12px {
   font-size: 12px;

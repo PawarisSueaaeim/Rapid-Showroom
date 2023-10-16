@@ -25,13 +25,7 @@ export default async function Buycar({}: Props) {
       <Box className={classes.title_page}>
         <span className="fs-22px">Showroom</span>
       </Box>
-      {data === undefined || data.lenght === undefined ? (
-        <Box className={classes.soldout}>
-          <span className="tc-red fs-32px fw-500">Sold Out</span>
-        </Box>
-      ) : (
-        <SearchFilter />
-      )}
+      <SearchFilter />
     </Box>
   );
 }

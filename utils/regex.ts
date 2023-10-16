@@ -3,6 +3,11 @@ export const isThaiText = (inputText: string): boolean => {
     return regexPattern.test(inputText);
 };
 
+export const isPlateId = (inputText: string): boolean => {
+    const regexPattern = /^\d?[ก-ฮ]{2}\d{1,4}$/;
+    return regexPattern.test(inputText);
+}
+
 export const isPhoneNumber = (inputText: string): boolean => {
     const regexPattern = /^[0-9]{0,10}$/;
     return regexPattern.test(inputText);
