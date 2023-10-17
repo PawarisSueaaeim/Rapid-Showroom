@@ -3,12 +3,11 @@
 import { Box, Grid, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { SelectCustom, InputCustom } from "@/components/common/form";
+import { InputCustom } from "@/components/common/form";
 import { Calendar } from "@/components/common/calendar";
 import { ButtonCapsule } from "@/components/common/button";
 import { isPlateId } from "@/utils/regex";
 import { UpLoadImages } from "@/components/common/uploadFile";
-import { Carousel } from "@/components/common/carousel";
 import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
 

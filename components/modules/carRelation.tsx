@@ -1,5 +1,5 @@
 "use client";
-import { Box, Grid, useMediaQuery } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React from "react";
 import { ICar } from "../types/car";
 import { CardItems } from "../common/card";
@@ -38,7 +38,7 @@ export default function CarRelation({ data }: Props) {
                 submodel={car.submodel}
                 price={car.listing_price}
                 mileage={car.mileage}
-                image={car.image}
+                image={car.main_image}
               />
             </Grid>
           );
