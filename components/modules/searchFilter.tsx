@@ -81,11 +81,12 @@ export default function SearchFilter({}: Props) {
     searchMaxPrice,
   ]);
 
-  const getAllVehicle = async () => {
-    try {
-      setIsLoading(true);
-      setDataVehicle([]);
-      const response = await axios.post(
+  const getAllVehicle = () => {
+    setIsLoading(true);
+    setDataVehicle([]);
+
+    axios
+      .post(
         getAll,
         {
           page: page,
@@ -103,64 +104,76 @@ export default function SearchFilter({}: Props) {
             max_price: searchMaxPrice,
           },
         }
-      );
-      setPagetotal(response.data.total_pages);
-      setDataVehicle(response.data.data);
-    } catch (error) {
-      console.log("Error get all vehicle api", error);
-    } finally {
-      setIsLoading(false);
-    }
+      )
+      .then((response) => {
+        setPagetotal(response.data.total_pages);
+        setDataVehicle(response.data.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log("Error get all vehicle api", error);
+        setIsLoading(false);
+      });
   };
 
-  const getBrandVehicle = async () => {
-    try {
-      const response = await axios.get(getBrand);
-      setDataBrandsSelect(response.data.data);
-    } catch (error) {
-      console.log("Error get brand vehicle api", error);
-    }
+  const getBrandVehicle = () => {
+    axios
+      .get(getBrand)
+      .then((response) => {
+        setDataBrandsSelect(response.data.data);
+      })
+      .catch((error) => {
+        console.log("Error get brand vehicle api", error);
+      });
   };
 
-  const getModelVehicle = async () => {
+  const getModelVehicle = () => {
     if (searchModel !== null) {
-      const response = await axios.get(getModel + `?brand_id=${searchBrand}`);
-      setDataModelsSelect(response.data.data);
+      axios.get(getModel + `?brand_id=${searchBrand}`)
+        .then(response => {
+          setDataModelsSelect(response.data.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   };
-
-  const getSubmodelVehicle = async () => {
+  
+  const getSubmodelVehicle = () => {
     if (searchSubmodel !== null) {
-      const response = await axios.get(
-        getSubmodel + `?model_id=${searchModel}`
-      );
-      setDataSubmodelsSelect(response.data.data);
-    }
+      axios.get(getSubmodel + `?model_id=${searchModel}`)
+        .then(response => {
+          setDataSubmodelsSelect(response.data.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    };
   };
-  const selectedBrandHandler = async (event: any) => {
-    try {
-      router.push(`?brand_id=${event.target.value}`);
-      setDataModelsSelect([]);
-      const response = await axios.get(
-        getModel + `?brand_id=${event.target.value}`
-      );
-      setDataModelsSelect(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
+  
+  const selectedBrandHandler = (event: any) => {
+    router.push(`?brand_id=${event.target.value}`);
+    setDataModelsSelect([]);
+    axios.get(getModel + `?brand_id=${event.target.value}`)
+      .then(response => {
+        setDataModelsSelect(response.data.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
-
-  const selectedModelHandler = async (event: any) => {
-    try {
-      router.push(`?brand_id=${searchBrand}&model_id=${event.target.value}`);
-      const response = await axios.get(
-        getSubmodel + `?model_id=${event.target.value}`
-      );
-      setDataSubmodelsSelect(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
+  
+  const selectedModelHandler = (event: any) => {
+    router.push(`?brand_id=${searchBrand}&model_id=${event.target.value}`);
+    axios.get(getSubmodel + `?model_id=${event.target.value}`)
+      .then(response => {
+        setDataSubmodelsSelect(response.data.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
+  
   const selectedSubmodelHandler = (event: any) => {
     router.push(
       `?brand_id=${searchBrand}&model_id=${searchModel}&submodel_id=${event.target.value}`
@@ -279,7 +292,7 @@ export default function SearchFilter({}: Props) {
       </Box>
 
       {isLoading ? (
-        <IsLoading/>
+        <IsLoading />
       ) : (
         <Grid container>
           {dataVehicle.map((car: ICar, index: number) => {

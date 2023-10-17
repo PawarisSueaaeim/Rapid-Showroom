@@ -1,7 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { SearchFilter } from "@/components/modules";
-import axios from "axios";
 import classes from "@/style/page/buycar/buycar.module.css";
 
 type Props = {};
