@@ -7,7 +7,6 @@ import SwipeableViews from "react-swipeable-views";
 type Props = {
   images: Array<{
     sv_img_id: number;
-    name: string;
     url_path: string;
   }>;
 };
