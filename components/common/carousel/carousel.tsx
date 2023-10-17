@@ -7,8 +7,7 @@ import SwipeableViews from "react-swipeable-views";
 type Props = {
   images: Array<{
     sv_img_id: number;
-    name: string;
-    path: string;
+    url_path: string;
   }>;
 };
 
@@ -37,24 +36,24 @@ export default function Carousel({ images }: Props) {
           overflow: "hidden",
         }}
       >
-        {images.map((item) => (
+        {images.map((item, index) => (
           <img
-            key={item.sv_img_id}
+            key={index}
             className={classes.img_slider}
-            alt={item.path}
-            src={item.path}
+            alt={item.url_path}
+            src={item.url_path}
           />
         ))}
       </SwipeableViews>
 
       <span className={classes.indicators}>
-        {images.map((item) => {
+        {images.map((_,index) => {
           return (
             <button
-              key={item.sv_img_id-1}
-              onClick={() => setImageId(item.sv_img_id-1)}
+              key={index}
+              onClick={() => setImageId(index)}
               className={
-                imageId === item.sv_img_id-1
+                imageId === index
                   ? classes.indicator_active
                   : classes.indicator
               }

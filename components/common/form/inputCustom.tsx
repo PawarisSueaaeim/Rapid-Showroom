@@ -6,6 +6,7 @@ type Props = {
   type: string;
   placeholder?: string;
   value?: string;
+  alert?: string;
   onChange?: (value: any) => void;
 };
 
@@ -14,6 +15,7 @@ export default function InputCustom({
   type,
   placeholder,
   value,
+  alert,
   onChange,
 }: Props) {
   return (
@@ -26,6 +28,7 @@ export default function InputCustom({
         value={value}
         onChange={onChange}
       />
+      <span className="tc-red fs-10px">{alert}</span>
     </div>
   );
 }

@@ -1,21 +1,20 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { SearchFilter } from "@/components/modules";
+import axios from "axios";
+import classes from "@/style/page/buycar/buycar.module.css";
 
 type Props = {};
 
 export default async function Buycar({}: Props) {
   return (
     <Box
-      display={"flex"}
-      flexDirection={"column"}
-      justifyContent={"center"}
-      paddingTop={10}
+      className={classes.container}
     >
-      <Box display={"flex"} justifyContent={"center"} marginBottom={2}>
+      <Box className={classes.title_page}>
         <span className="fs-22px">Showroom</span>
       </Box>
-      <SearchFilter/>
+      <SearchFilter />
     </Box>
   );
 }
