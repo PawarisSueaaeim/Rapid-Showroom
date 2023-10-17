@@ -24,7 +24,7 @@ export default async function CardItem({ vehicle_id, model, submodel, price, mil
       style={{ border: "1px solid #D9D9D9" }}
     >
       <Image
-        src={image}
+        src={image ? image : "/images/image-mockup-car.png"}
         width={190}
         height={120}
         alt={image}

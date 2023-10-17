@@ -112,6 +112,7 @@ export default function SearchFilter({}: Props) {
       setIsLoading(false);
     }
   };
+  console.log(dataVehicle);
 
   const getBrandVehicle = async () => {
     try {
