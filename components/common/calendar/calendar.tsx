@@ -8,15 +8,17 @@ type Props = {
   value: string;
   onChange: (newValue: string) => void;
   style: "custom" | "outline";
+  disablePastDate?: "today" | "yesterday";
 };
 
-export default function Calendar({
-  id,
-  type,
-  value,
-  onChange,
-  style,
-}: Props) {
+export default function Calendar({ id, type, value, onChange, style, disablePastDate }: Props) {
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() + 1);
+
+  const formattedToday = today.toISOString().split("T")[0];
+  const formattedYesterday = yesterday.toISOString().split("T")[0];
+
   return (
     <Box>
       <input
@@ -24,7 +26,12 @@ export default function Calendar({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={style === "outline" ? classes.calendar_outline : classes.calendar_custom}
+        className={
+          style === "outline"
+            ? classes.calendar_outline
+            : classes.calendar_custom
+        }
+        min={disablePastDate === "yesterday" ? formattedToday : formattedYesterday}
       />
     </Box>
   );
