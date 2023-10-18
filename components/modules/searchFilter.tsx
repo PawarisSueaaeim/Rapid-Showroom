@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Box, Grid, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";

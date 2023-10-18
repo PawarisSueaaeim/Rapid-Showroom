@@ -8,6 +8,11 @@ export const isPlateId = (inputText: string): boolean => {
     return regexPattern.test(inputText);
 }
 
+export const isMileage = (inputText: string): boolean => {
+    const regexPattern = /^[1-9]\d*$/;
+    return regexPattern.test(inputText);
+}
+
 export const isPhoneNumber = (inputText: string): boolean => {
     const regexPattern = /^[0-9]{0,10}$/;
     return regexPattern.test(inputText);
