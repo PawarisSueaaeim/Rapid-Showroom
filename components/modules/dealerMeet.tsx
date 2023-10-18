@@ -8,12 +8,25 @@ import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
 import ReCAPTCHA from "react-google-recaptcha";
 import classes from "@/style/components/module/dealerMeet.module.css";
 import Image from "next/image";
+import axios from "axios";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type Props = {
-  vehicle_id: string,
+  modelId: string;
+  vehicleId: string;
+  listingVparkId: string;
 };
 
-export default function DealerMeet({ vehicle_id }: Props) {
+export default function DealerMeet({
+  modelId,
+  vehicleId,
+  listingVparkId,
+}: Props) {
+  const booking = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/booking";
+
+  const router = useRouter();
+
   const [verifyName, setVerifyName] = useState<boolean>(false);
   const [verifyTelephone, setVerifyTelephone] = useState<boolean>(false);
   const [verifyEmail, setVerifyEmail] = useState<boolean>(false);
@@ -87,12 +100,23 @@ export default function DealerMeet({ vehicle_id }: Props) {
   };
 
   const handleSubmit = () => {
-    console.log(date);
-    console.log(time);
-    console.log(name);
-    console.log(telephone);
-    console.log(email);
-    console.log("vehicle_id", vehicle_id)
+    axios
+      .put(booking, {
+        listing_vpark_id: listingVparkId,
+        model_id: modelId,
+        booking_date: date + " " + time,
+        name: name,
+        email: email,
+        phone_no: telephone,
+        branch_id: 1,
+        referral: 'ty3eWtbmcXyYSJvYRlu0DGS1MWjctPbt29VZbvP9kBLnPdKdsB',
+      })
+      .then((response) => {
+        router.push(`?status=${response.data.status}`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -105,6 +129,7 @@ export default function DealerMeet({ vehicle_id }: Props) {
           value={date}
           onChange={handleDateChange}
           style="custom"
+          disablePastDate={"today"}
         />
         <Calendar
           id={"date"}
@@ -149,15 +174,17 @@ export default function DealerMeet({ vehicle_id }: Props) {
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box>
         <Box className={classes.btn_submit}>
-          <ButtonCapsule
-            disabled={!isVerified}
-            title={"นัดดีลเลอร์"}
-            bgColor={"#4679C7"}
-            color={"#fff"}
-            fontSize={16}
-            height={40}
-            onClick={handleSubmit}
-          />
+          <Link href="/success">
+            <ButtonCapsule
+              disabled={!isVerified}
+              title={"นัดดีลเลอร์"}
+              bgColor={"#4679C7"}
+              color={"#fff"}
+              fontSize={16}
+              height={40}
+              onClick={handleSubmit}
+            />
+          </Link>
         </Box>
       </Box>
     </Box>

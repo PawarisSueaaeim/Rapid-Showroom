@@ -356,6 +356,7 @@ export default function Salecar({}: Props) {
             value={dateSellCar}
             onChange={handlerDateSellCar}
             style="outline"
+            disablePastDate="yesterday"
           />
         </Grid>
         <Grid item xs={6}>

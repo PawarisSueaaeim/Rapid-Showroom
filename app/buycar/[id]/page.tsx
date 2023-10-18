@@ -57,7 +57,7 @@ export default async function Detail({ params }: Props) {
       </span>
       <span className="fs-14px">เลขไมล์: {currency(data.mileage, 0)} Km</span>
       <Box className={classes.dealer_meet}>
-        <DealerMeet vehicle_id={data.vehicle_id}/>
+        <DealerMeet modelId={data.model_id} vehicleId={data.vehicle_id} listingVparkId={data.listing_vpark_id}/>
       </Box>
     </Box>
   );
