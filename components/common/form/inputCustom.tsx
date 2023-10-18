@@ -5,8 +5,8 @@ type Props = {
   id: string;
   type: string;
   placeholder?: string;
-  value?: string;
-  alert?: string;
+  value?: string | number;
+  alert?: string | null;
   onChange?: (value: any) => void;
 };
 
@@ -28,7 +28,7 @@ export default function InputCustom({
         value={value}
         onChange={onChange}
       />
-      <span className="tc-red fs-10px">{alert}</span>
+      <span className="tc-red fs-8px">{alert}</span>
     </div>
   );
 }

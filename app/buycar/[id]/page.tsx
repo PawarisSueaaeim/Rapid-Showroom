@@ -18,7 +18,6 @@ export default async function Detail({ params }: Props) {
 
   const response = await axios.get(`${getCar}/${params.id}`);
   const data = await response.data.data;
-  console.log(data);
 
   return (
     <Box className={classes.container}>
@@ -39,7 +38,7 @@ export default async function Detail({ params }: Props) {
             height={30}
           />
         </Link>
-        <Link href={`/nearmodel/${data.vehicle_id}?model=${data.model}&submodel=${data.submodel}`}>
+        <Link href={`/nearmodel/${data.model_id}?model=${data.model}`}>
           <ButtonCapsule
             title={"ดูรถใกล้เคียง"}
             color={"#fff"}

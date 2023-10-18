@@ -3,7 +3,7 @@ import axios from "axios";
 import React from "react";
 
 type Props = {
-  params: { id: string };
+  params: { model_id: string };
 };
 
 export default async function NearModel({ params }: Props) {
@@ -15,8 +15,15 @@ export default async function NearModel({ params }: Props) {
     orderby: "vehicle_id",
     search: "",
     sort: "desc",
-  });
+  },
+  {
+    params: {
+      model_id: params.model_id,
+    }
+  }
+  );
   const data = await response.data.data;
+  console.log(data);
 
   return (
     <CarRelation data={data}/>
