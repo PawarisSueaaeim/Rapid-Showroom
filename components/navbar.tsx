@@ -44,10 +44,16 @@ const Navbar = ({}: Props) => {
               sx={{ fontStyle: "oblique", fontWeight: 500 }}
               gap={1}
             >
-              <Typography variant="h5" color={"#fff"}>
+              <Typography
+                variant="h5"
+                color={currentURL !== "/" ? "#fff" : "#000"}
+              >
                 RAPID
               </Typography>
-              <Typography variant="h5" color={!isMobileMode && currentURL !== '/' ? "#6FB6F8" : "#000"}>
+              <Typography
+                variant="h5"
+                color={!isMobileMode && currentURL !== "/" ? "#6FB6F8" : "#000"}
+              >
                 AUTO
               </Typography>
             </Box>
@@ -57,7 +63,7 @@ const Navbar = ({}: Props) => {
           {isMobileMode ? (
             <Box marginX={2}>
               <Image
-                src="/icons/icon-show-menu.svg"
+                src="/icons/icon-show-menu-02.png"
                 alt="icon-show-menu"
                 width={20}
                 height={20}
@@ -66,18 +72,18 @@ const Navbar = ({}: Props) => {
             </Box>
           ) : (
             <Box>
-              <ul>
+              <ul className="fw-100 fs-18px">
                 <li>
-                  <Link href="/buycar">Buy Car</Link>
+                  <Link href="/buycar">ซื้อรถ</Link>
                 </li>
                 <li>
-                  <Link href="/salecar">Sell Car</Link>
+                  <Link href="/salecar">ขายรถ</Link>
                 </li>
                 <li>
-                  <Link href="/about">About Us</Link>
+                  <Link href="/contact">ติดต่อเรา</Link>
                 </li>
                 <li>
-                  <Link href="/contact">Contact Us</Link>
+                  <Link href="/about">เกี่ยวกับเรา</Link>
                 </li>
               </ul>
             </Box>
@@ -94,8 +100,8 @@ const Navbar = ({}: Props) => {
         right={showMenu ? "0" : "-100%"}
         padding={2}
         style={{
-          backgroundColor: "#1A417B",
-          color: "#fff",
+          backgroundColor: "#D9D9D9",
+          color: "#000",
           position: "fixed",
           transition: "0.3s",
         }}
@@ -106,25 +112,19 @@ const Navbar = ({}: Props) => {
           flexDirection={"column"}
           marginTop={2}
           alignItems={"center"}
+          gap={3}
         >
           <Link href="/buycar" onClick={() => setShowMenu(!showMenu)}>
-            <span className={classes.navigation_car}>Buy Car</span>
+            <span className="tc-black fs-20px fw-100">ซื้อรถ</span>
           </Link>
           <Link href="/salecar" onClick={() => setShowMenu(!showMenu)}>
-            <span className={classes.navigation_car}>Sell Car</span>
-          </Link>
-        </Box>
-        <Box
-          display={"flex"}
-          flexDirection={"column"}
-          marginTop={2}
-          alignItems={"center"}
-        >
-          <Link href="/about" onClick={() => setShowMenu(!showMenu)}>
-            <span className={classes.navigation_us}>About Us</span>
+            <span className="tc-black fs-20px fw-100">ขายรถ</span>
           </Link>
           <Link href="/contact" onClick={() => setShowMenu(!showMenu)}>
-            <span className={classes.navigation_us}>Contact Us</span>
+            <span className="tc-black fs-20px fw-100">ติดต่อเรา</span>
+          </Link>
+          <Link href="/about" onClick={() => setShowMenu(!showMenu)}>
+            <span className="tc-black fs-20px fw-100">เกี่ยวกับเรา</span>
           </Link>
         </Box>
       </Box>
