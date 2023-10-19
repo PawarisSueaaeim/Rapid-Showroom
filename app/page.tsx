@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { Fragment } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, TableBody, Typography } from "@mui/material";
 import classes from "@/style/page/home.module.css";
 import {
   Certified,
@@ -10,6 +10,8 @@ import {
   ShowcarSection,
 } from "@/components/modules";
 import { AutoCarousel } from "@/components/common/carousel";
+import { ButtonPleumDesign } from "@/components/common/button";
+import { ColorSet } from "@/constants";
 
 const images = [
   {
@@ -37,92 +39,71 @@ const images = [
 type Props = {};
 
 export default function Home({}: Props) {
-  const backgroundImageHome = {
-    backgroundImage: 'url("../images/bg-desktop-main.jpg")',
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-  };
-
   return (
     <Fragment>
-      <img
-        src="/images/strip-top.png"
-        alt="strip-top"
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "150px",
-          zIndex: 1,
-          top: 0,
-          left: 0,
-        }}
-      />
-      <Box
-        style={{
-          ...backgroundImageHome,
-          paddingBottom: "1.5rem",
-        }}
-      >
-        <Box
-          style={{
-            position: "relative",
-            zIndex: 9,
-          }}
-        >
-          <Box
-            display={"flex"}
-            flexDirection={"column"}
-            alignItems={"center"}
-            padding={2}
-            paddingTop={18}
-          >
-            <strong className={classes.primary_text}>
-              เราคือศูนย์ซื้อขายรถยนต์มือสองแบบดิจิทัล
-            </strong>
-            <span className="fs-12px">
-              ทีจะมอบประสบการณ์การซื้อขายรถยนต์แบบ O2O (online to offline)
-              เต็มรูปแบบแห่งแรกในประเทศไทย
+      <Box className={classes.bgImage01}>
+        <Box className={classes.container_column}>
+          <Box className={classes.title_1_page}>
+            <span className="tc-blue fs-24px">
+              เราคือศูนย์ซื้อขายรถยนต์มือสอง
             </span>
-            <AutoCarousel images={images}/>
+            <span className="tc-blue fs-24px">แบบดิจิทัล</span>
           </Box>
-          <Grid container>
-            <Grid item xs={12} md={6}>
-              <Certified />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <WhyRapid />
-            </Grid>
-          </Grid>
-          <SalecarWithRapid />
-          <ContactSection />
+          <Box className={classes.subtitile_1_page}>
+            <span className="tc-white fs-20px">
+              ที่จะมอบประสบการณ์การซื้อขายรถยนต์
+            </span>
+            <span className="tc-white fs-20px">
+              แบบ O2O (Online to Offline) เต็มรูปแบบแห่งแรกในประเทศไทย
+            </span>
+          </Box>
+
+          <Box className={classes.btn_1_page}>
+            <ButtonPleumDesign
+              title={"ซื้อรถ"}
+              bgColor={ColorSet.btnWhite}
+              bgHoverColor={ColorSet.btnWhiteHover}
+              textcolor={ColorSet.textBlack}
+            />
+            <ButtonPleumDesign
+              title={"ขายรถ"}
+              bgColor={ColorSet.btnGray}
+              bgHoverColor={ColorSet.btnGrayHover}
+              textcolor={ColorSet.textBlack}
+            />
+          </Box>
         </Box>
       </Box>
-      <ShowcarSection />
-      <img
-        src="/images/strip-mid.png"
-        alt="strip-top"
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "452px",
-          zIndex: 1,
-          top: "65%",
-          left: 0,
-        }}
-      />
-      <img
-        src="/images/strip-bottom.png"
-        alt="strip-top"
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "636px",
-          zIndex: 1,
-          top: "148%",
-          left: 0,
-        }}
-      />
+      <Box className={classes.bgImage02}>
+        <Box className={classes.backdropWhite}>
+          <Box className={classes.title_2_page}>
+            <span className="fs-24px fw-500">Rapid Certified car</span>
+            <span className="fs-20px">
+              รัปประกันคุณภาพ ด้วยการตรวจเช็คสภาพกว่า 50 จุดจากผู้ชำนาญการ
+            </span>
+            <Grid container>
+              <Grid item xs={12} md={6}>
+                <Typography className={classes.why_rapid}>
+                  <span className="fs-24px fw-500">ทำไมต้อง Rapid Auto</span>
+                  <Typography className={classes.why_rapid_list}>
+                    <span className="fs-16px">รถสวย</span>
+                    <span className="fs-16px">ไม่ย้อมแมว</span>
+                    <span className="fs-16px">เรามั่นใจในคุณภาพ</span>
+                    <span className="fs-16px">การการันตีคืนเงิน</span>
+                    <span className="fs-16px">รับประกับ 1 ปี</span>
+                  </Typography>
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Box>
+      <Box className={classes.bgImage03}>
+        <Box className={classes.backdropGray}></Box>
+      </Box>
     </Fragment>
   );
 }

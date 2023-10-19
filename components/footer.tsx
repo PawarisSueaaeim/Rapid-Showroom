@@ -14,7 +14,7 @@ const Footer = ({}: Props) => {
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
   const backgroundFooterImage = {
-    backgroundImage: 'url("../images/bg-footer.png")',
+    backgroundImage: 'url("../images/image-footer-01.png")',
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
@@ -31,13 +31,19 @@ const Footer = ({}: Props) => {
 
   return isContactPath() ? null : (
     <Box style={backgroundFooterImage}>
+      <Box style={{
+        opacity: 0.8,
+        backgroundColor: "#fff",
+        width: "100%",
+        height: "100%",
+      }}>
       <Grid container paddingTop={6} paddingX={4} paddingBottom={4}>
         <Grid item xs={12} md={6}>
-          <Typography variant="h4" color={"#fff"}>
+          <Typography variant="h4" color={"#000"}>
             Rapid Auto
           </Typography>
           <span className={classes.footer_location}>
-            <strong>บจก.แรพพิด มอเตอร์</strong> 6/10 อาคารพิพัฒนสิน ชั้น 9
+            <strong className="fw-400">บจก.แรพพิด มอเตอร์</strong> 6/10 อาคารพิพัฒนสิน ชั้น 9
           </span>
           <span className={classes.footer_location}>
             ซอยพัฒนสิน แขวงทุ่งมหาเมฆ เขตสาทร กรุงเทพฯ 10120
@@ -53,38 +59,6 @@ const Footer = ({}: Props) => {
             </span>
           </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Box display={"flex"} flexDirection={"column"} marginTop={4}>
-            <Box
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"space-between"}
-              width={isMobileMode ? "50%" : "30%"}
-            >
-              <span className={classes.footer_contact}>Term of Service</span>
-              <Image
-                src="../icons/icon-arrow-right.svg"
-                alt="icon-arrow-right.svg"
-                width={14}
-                height={14}
-              />
-            </Box>
-            <Box
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"space-between"}
-              width={isMobileMode ? "50%" : "30%"}
-            >
-              <span className={classes.footer_contact}>Privacy Policy</span>
-              <Image
-                src="/icons/icon-arrow-right.svg"
-                alt="icon-arrow-right.svg"
-                width={14}
-                height={14}
-              />
-            </Box>
-          </Box>
-        </Grid>
       </Grid>
       <Box
         display={"flex"}
@@ -92,38 +66,14 @@ const Footer = ({}: Props) => {
         justifyContent={"center"}
         alignItems={"center"}
       >
-        <Box display={"flex"} gap={2}>
-          <Image
-            src="/icons/facebook.png"
-            alt="icon-facebook"
-            width={24}
-            height={24}
-          />
-          <Image
-            src="/icons/instagram.png"
-            alt="icon-instagram"
-            width={24}
-            height={24}
-          />
-          <Image
-            src="/icons/telegram.png"
-            alt="icon-telegram"
-            width={24}
-            height={24}
-          />
-          <Image
-            src="/icons/ticktok.png"
-            alt="icon-ticktok"
-            width={24}
-            height={24}
-          />
-        </Box>
         <Box>
           <span className={classes.footer_copyright}>
             © 2022 RAPID GROUP CO., LTD
           </span>
         </Box>
       </Box>
+      </Box>
+      
     </Box>
   );
 };
