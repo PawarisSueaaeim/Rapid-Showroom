@@ -1,47 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { Fragment } from "react";
-import { Box, Grid, TableBody, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import classes from "@/style/page/home.module.css";
 import {
-  Certified,
-  WhyRapid,
-  SalecarWithRapid,
-  ContactSection,
-  ShowcarSection,
+  ShowcarSectionHome,
 } from "@/components/modules";
-import { AutoCarousel } from "@/components/common/carousel";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
 import Image from "next/image";
-
-const images = [
-  {
-    id: 0,
-    alt: "image-car-01",
-    src: "/images/image-car-01.png",
-  },
-  {
-    id: 1,
-    alt: "image-car-02",
-    src: "/images/image-car-02.png",
-  },
-  {
-    id: 2,
-    alt: "image-car-03",
-    src: "/images/image-car-03.png",
-  },
-  {
-    id: 3,
-    alt: "image-car-04",
-    src: "/images/image-car-04.png",
-  },
-];
+import Link from "next/link";
 
 type Props = {};
 
 export default function Home({}: Props) {
   return (
-    <Fragment>
+    <Box>
       <Box className={classes.bgImage01}>
         <Box className={classes.container_column}>
           <Box className={classes.title_1_page}>
@@ -58,20 +31,23 @@ export default function Home({}: Props) {
               แบบ O2O (Online to Offline) เต็มรูปแบบแห่งแรกในประเทศไทย
             </span>
           </Box>
-
           <Box className={classes.btn_1_page}>
-            <ButtonPleumDesign
-              title={"ซื้อรถ"}
-              backgroundBtnColor={ColorSet.btnWhite}
-              backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-              textBtnColor={ColorSet.textBlack}
-            />
-            <ButtonPleumDesign
-              title={"ขายรถ"}
-              backgroundBtnColor={ColorSet.btnGray}
-              backgroundBtnHoverColor={ColorSet.btnGrayHover}
-              textBtnColor={ColorSet.textBlack}
-            />
+            <Link href={"/buycar"}>
+              <ButtonPleumDesign
+                title={"ซื้อรถ"}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                textBtnColor={ColorSet.textBlack}
+              />
+            </Link>
+            <Link href={"/salecar"}>
+              <ButtonPleumDesign
+                title={"ขายรถ"}
+                backgroundBtnColor={ColorSet.btnGray}
+                backgroundBtnHoverColor={ColorSet.btnGrayHover}
+                textBtnColor={ColorSet.textBlack}
+              />
+            </Link>
           </Box>
         </Box>
       </Box>
@@ -134,24 +110,40 @@ export default function Home({}: Props) {
             </Grid>
           </Box>
           <Box className={classes.btn_2_page}>
-            <ButtonPleumDesign
-              title={"ซื้อรถ"}
-              backgroundBtnColor={ColorSet.btnWhite}
-              backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-              textBtnColor={ColorSet.textBlack}
-            />
-            <ButtonPleumDesign
-              title={"ขายรถ"}
-              backgroundBtnColor={ColorSet.btnGray}
-              backgroundBtnHoverColor={ColorSet.btnGrayHover}
-              textBtnColor={ColorSet.textBlack}
-            />
+            <Link href={"/buycar"}>
+              <ButtonPleumDesign
+                title={"ซื้อรถ"}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                textBtnColor={ColorSet.textBlack}
+              />
+            </Link>
+            <Link href={"/salecar"}>
+              <ButtonPleumDesign
+                title={"ขายรถ"}
+                backgroundBtnColor={ColorSet.btnGray}
+                backgroundBtnHoverColor={ColorSet.btnGrayHover}
+                textBtnColor={ColorSet.textBlack}
+              />
+            </Link>
           </Box>
         </Box>
       </Box>
       <Box className={classes.bgImage03}>
-        <Box className={classes.backdropGray}></Box>
+        <Box className={classes.backdropGray}>
+          <ShowcarSectionHome />
+          <Box className={classes.btn_3_page}>
+            <Link href={"./buycar"}>
+              <ButtonPleumDesign
+                title={"ดูรถยอดนิยมเพิ่มเติม"}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                textBtnColor={ColorSet.textBlack}
+              />
+            </Link>
+          </Box>
+        </Box>
       </Box>
-    </Fragment>
+    </Box>
   );
 }

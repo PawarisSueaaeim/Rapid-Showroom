@@ -17,7 +17,7 @@ const ColorButton = styled(Button)<ButtonProps>(({textBtnColor,backgroundBtnColo
   "&:hover": {
     backgroundColor: backgroundBtnHoverColor,
   },
-  width: 150,
+  width: 170,
 }));
 
 export default function ButtonPleumDesign({ title,textBtnColor, backgroundBtnColor, backgroundBtnHoverColor }: Props) {
