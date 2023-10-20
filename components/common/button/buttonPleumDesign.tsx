@@ -2,28 +2,27 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Button, { ButtonProps } from "@mui/material/Button";
-import { ColorSet } from "@/constants";
 
 type Props = {
   title: string;
-  textcolor: string;
-  bgColor: string;
-  bgHoverColor: string;
+  textBtnColor: string;
+  backgroundBtnColor: string;
+  backgroundBtnHoverColor: string;
 };
 
 //@ts-ignore
-const ColorButton = styled(Button)<ButtonProps>(({textColor,bgColor,bgHoverColor}) => ({
-  color: textColor,
-  backgroundColor: bgColor,
+const ColorButton = styled(Button)<ButtonProps>(({textBtnColor,backgroundBtnColor,backgroundBtnHoverColor}) => ({
+  color: textBtnColor,
+  backgroundColor: backgroundBtnColor,
   "&:hover": {
-    backgroundColor: bgHoverColor,
+    backgroundColor: backgroundBtnHoverColor,
   },
   width: 150,
 }));
 
-export default function ButtonPleumDesign({ title,textcolor, bgColor, bgHoverColor }: Props) {
+export default function ButtonPleumDesign({ title,textBtnColor, backgroundBtnColor, backgroundBtnHoverColor }: Props) {
   return (
     //@ts-ignore
-      <ColorButton variant="contained" textColor={textcolor} bgColor={bgColor} bgHoverColor={bgHoverColor}>{title}</ColorButton>
+      <ColorButton variant="contained" textBtnColor={textBtnColor} backgroundBtnColor={backgroundBtnColor} backgroundBtnHoverColor={backgroundBtnHoverColor}>{title}</ColorButton>
   );
 }
