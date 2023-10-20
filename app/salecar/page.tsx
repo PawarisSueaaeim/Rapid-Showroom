@@ -226,7 +226,7 @@ export default function Salecar({}: Props) {
         gear_type: gearType,
         province_id: provinceId,
         branch_id: 1,
-        image: uploadedImageData,
+        images: uploadedImageData,
         referral: "ty3eWtbmcXyYSJvYRlu0DGS1MWjctPbt29VZbvP9kBLnPdKdsB",
       })
       .then((response) => {

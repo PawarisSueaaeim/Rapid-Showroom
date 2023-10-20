@@ -59,7 +59,8 @@ export default function About({}: Props) {
           src="/image/about-parking-02.png"
           alt="about-parking-02"
           width={430}
-          height={378}/>
+          height={378}
+        />
     </Box>
   );
 }
