@@ -81,6 +81,15 @@
   margin-inline: 2rem;
 }
 
+.btn_3_page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 41vh;
+  margin-inline: 2rem;
+}
+
 .why_rapid {
   margin-top: 4rem;
   margin-left: 10rem;
@@ -140,6 +149,9 @@
   }
   .btn_2_page {
     margin-top: 7vh;
+  }
+  .btn_3_page {
+    margin-top: 2vh;
   }
 }
 
