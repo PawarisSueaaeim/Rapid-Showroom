@@ -59,7 +59,7 @@ const Navbar = ({}: Props) => {
             </Box>
           </Link>
         </Box>
-        <Box className={classes.menu}>
+        <Box className={currentURL !== "/" ? classes.menu_2 : classes.menu}>
           {isMobileMode ? (
             <Box marginX={2}>
               <Image
@@ -84,6 +84,9 @@ const Navbar = ({}: Props) => {
                 </li>
                 <li>
                   <Link href="/about">เกี่ยวกับเรา</Link>
+                </li>
+                <li>
+                  <Link href="/login">เข้าสู่ระบบ</Link>
                 </li>
               </ul>
             </Box>
@@ -125,6 +128,9 @@ const Navbar = ({}: Props) => {
           </Link>
           <Link href="/about" onClick={() => setShowMenu(!showMenu)}>
             <span className="tc-black fs-20px fw-100">เกี่ยวกับเรา</span>
+          </Link>
+          <Link href="/login" onClick={() => setShowMenu(!showMenu)}>
+            <span className="tc-black fs-20px fw-100">เข้าสู่ระบบ</span>
           </Link>
         </Box>
       </Box>

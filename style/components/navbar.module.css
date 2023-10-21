@@ -18,17 +18,38 @@
     padding-top: 0.3rem;
 }
 
+.menu_2 {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.3rem;
+}
+
 .menu ul {
     display: flex;
     margin: 0;
     padding: 0;
 }
 
+.menu_2 ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+
 .menu li a {
     display: block;
     padding: 1rem;
     color: rgb(0, 0, 0);
 }
+
+.menu_2 li a {
+    display: block;
+    padding: 1rem;
+    color: #fff;
+}
+
+
 
 .menu li:hover {
     background-color: rgb(211, 211, 211);

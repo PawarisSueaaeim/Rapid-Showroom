@@ -230,7 +230,7 @@ export default function Salecar({}: Props) {
         referral: "ty3eWtbmcXyYSJvYRlu0DGS1MWjctPbt29VZbvP9kBLnPdKdsB",
       })
       .then((response) => {
-        router.push(`?status=${response.data.status}`);
+        router.push(`?status=${response.data.status}&havepasswd=${"NO"}`);
       })
       .catch((error) => {
         console.log(error);
