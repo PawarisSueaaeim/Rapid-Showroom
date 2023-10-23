@@ -6,6 +6,9 @@ import React, { useEffect, useState } from "react";
 import { CardItemPleumDesign } from "../common/card";
 import { ICar } from "../types/car";
 import classes from "@/style/components/module/showcarSectionHome.module.css";
+import Link from "next/link";
+import { ButtonPleumDesign } from "../common/button";
+import { ColorSet } from "@/constants";
 
 type Props = {};
 
@@ -21,7 +24,7 @@ export default function ShowcarSectionHome({}: Props) {
     axios
       .post(getCar, {
         page: 1,
-        per_page: isMobileMode ? 6 : 12,
+        per_page: 6,
         orderby: "vehicle_id",
         search: "",
         sort: "desc",
@@ -58,6 +61,16 @@ export default function ShowcarSectionHome({}: Props) {
           );
         })}
       </Grid>
+      <Box className={classes.btn_3_page}>
+        <Link href={"./buycar"}>
+          <ButtonPleumDesign
+            title={"ดูรถยอดนิยมเพิ่มเติม"}
+            backgroundBtnColor={ColorSet.btnWhite}
+            backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+            textBtnColor={ColorSet.textBlack}
+          />
+        </Link>
+      </Box>
     </Box>
   );
 }

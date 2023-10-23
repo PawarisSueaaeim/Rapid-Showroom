@@ -1,15 +1,24 @@
 .container {
-    padding: 5rem;
+  padding: 5rem;
+}
+
+.btn_3_page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 4vh;
+  margin-inline: 2rem;
 }
 
 @media screen and (max-width: 920px) {
-    .container {
-        padding: 2rem;
-    }
+  .container {
+    padding: 2rem;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    .container {
-        padding: 2rem 0;
-    }
+  .container {
+    padding: 2rem 0;
+  }
 }
