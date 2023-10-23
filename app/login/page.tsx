@@ -1,16 +1,19 @@
 "use client";
-import { Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Alert, Box } from "@mui/material";
+import React, { useState } from "react";
 import classes from "@/style/page/login/login.module.css";
 import { InputEmail, InputPassword } from "@/components/common/form";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type Props = {};
 
 export default function Login({}: Props) {
-    const router = useRouter();
+  const router = useRouter();
+  const searchParans = useSearchParams();
+  const isValid = searchParans.get("status");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,10 +25,12 @@ export default function Login({}: Props) {
   };
 
   const renderSubmit = () => {
-    console.log(email)
-    console.log(password)
+    console.log(email);
+    console.log(password);
     if (email === "test@example.com" && password === "1234") {
-        router.push('/accept')
+      router.push("/accept");
+    } else {
+      router.push("?status=inValid");
     }
   };
 
@@ -46,6 +51,11 @@ export default function Login({}: Props) {
         backgroundBtnColor={ColorSet.btnGray}
         backgroundBtnHoverColor={ColorSet.btnGrayHover}
       />
+      {isValid === "inValid" ? (
+        <Alert severity="warning">
+          รหัสผ่านไม่ถูกต้อง กรุณากรอกใหม่อีกครั้ง
+        </Alert>
+      ) : null}
     </Box>
   );
 }

@@ -132,16 +132,6 @@ export default function Home({}: Props) {
       <Box className={classes.bgImage03}>
         <Box className={classes.backdropGray}>
           <ShowcarSectionHome />
-          <Box className={classes.btn_3_page}>
-            <Link href={"./buycar"}>
-              <ButtonPleumDesign
-                title={"ดูรถยอดนิยมเพิ่มเติม"}
-                backgroundBtnColor={ColorSet.btnWhite}
-                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                textBtnColor={ColorSet.textBlack}
-              />
-            </Link>
-          </Box>
         </Box>
       </Box>
     </Box>
