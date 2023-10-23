@@ -20,7 +20,6 @@ type Props = {
 
 export default function DealerMeet({
   modelId,
-  vehicleId,
   listingVparkId,
 }: Props) {
   const booking = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/booking";

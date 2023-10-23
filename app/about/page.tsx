@@ -56,7 +56,7 @@ export default function About({}: Props) {
           </li>
         </ul>
         <Image
-          src="/image/about-parking-02.png"
+          src="/images/about-parking-02.png"
           alt="about-parking-02"
           width={430}
           height={378}

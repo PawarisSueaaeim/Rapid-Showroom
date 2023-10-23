@@ -1,14 +1,14 @@
 .container {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    height: 100vh;
+    margin-top: 5rem;
+    padding-inline: 1rem;
+    padding-bottom: 3rem;
 }
 
 .btn_container {
     display: flex;
-    align-items: centers;
+    align-items: center;
     gap: 2rem;
     margin-top: 4rem;
 }
