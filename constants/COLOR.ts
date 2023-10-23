@@ -5,8 +5,12 @@ const colors = {
     red: '#c00000',
     blue: '#4679C7',
     green: '#4BAF73',
+
     darkBlue: '#1A417B',
     darkGray: '#7C7C7C',
+    darkRed: '#8B0000',
+
+    lightRed: '#ffb09c',
 }
 
 export const ColorSet = {
@@ -22,5 +26,8 @@ export const ColorSet = {
     btnGrayHover: colors.white,
     btnGray: colors.gray,
     btnGrayActive: colors.darkGray,
+    btnRedHover: colors.lightRed,
+    btnRed: colors.red,
+    btnRedActive: colors.darkRed
 }
 

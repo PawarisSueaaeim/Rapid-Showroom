@@ -3,5 +3,23 @@
     flex-direction: column;
     border-radius: 10px;
     border: none;
+    gap: 1rem;
+    padding: 1.5rem;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.image_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data_model {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn_container {
+    display: flex;
+    gap: 0.5rem;
 }
