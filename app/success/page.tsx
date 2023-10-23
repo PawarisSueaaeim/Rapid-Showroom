@@ -1,7 +1,9 @@
 "use client";
 import { ButtonCapsule } from "@/components/common/button";
 import { InputPassword } from "@/components/common/form";
-import { Box } from "@mui/material";
+import { ColorSet } from "@/constants";
+import { Box, TextField, useMediaQuery } from "@mui/material";
+import { green } from "@mui/material/colors";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -13,11 +15,7 @@ export default function Success({}: Props) {
   const searchParams = useSearchParams();
   const havepasswd = searchParams.get("havepasswd");
 
-  const [password, setPassword] = useState("");
-
-  const passwordHandler = (event: any) => {
-    setPassword(event.target.value);
-  };
+  const isMobileMode = useMediaQuery("(max-width:600px)");
 
   return (
     <Box
@@ -34,8 +32,11 @@ export default function Success({}: Props) {
         height={70}
       />
       <span className="fs-32px tc-green m-2">ส่งข้อมูลสำเร็จ</span>
-      <span className="fs-14px">กรุณารอการติดต่อกลับจากเจ้าหน้าที่</span>
-      <span className="fs-14px m-2">ภายใน 1 วัน</span>
+      <span className="fs-16px">เราจะทำการเสนอราคากลับ</span>
+      <span className="fs-16px">ในอีเมลของท่านภายในสามสิบนาที</span>
+      <span className="fs-16px m-2">
+        กรุณาเช็คอีเมลของท่านที่ให้ไว้กับระบบด้วย
+      </span>
       {havepasswd === "NO" ? (
         <Box
           display={"flex"}
@@ -43,25 +44,35 @@ export default function Success({}: Props) {
           flexDirection={"column"}
           marginTop={2}
         >
-          <span className="fs-14px">
-            กรุณากรอกรหัสเพื่อรอดูผลการประเมินราคา
-          </span>
-          <InputPassword onChange={passwordHandler} />
-          <Box marginTop={2}>
-            <Link href="/login">
-              <ButtonCapsule
-                title={"ยืนยัน"}
-                bgColor={"#4679C7"}
-                color={"#fff"}
-              />
-            </Link>
+          <span className="fs-16px">กรุณาเลือกวิธีดูผลประเมินราคา</span>
+          <Box marginTop={2} gap={4}>
+            <Box>
+              <Link href="/emaillogin">
+                <ButtonCapsule
+                  title={"ดูผลผ่าน RAPID AUTO"}
+                  bgColor={"#4679C7"}
+                  color={"#fff"}
+                />
+              </Link>
+            </Box>
+            {isMobileMode ? (
+              <Box marginTop={2}>
+                <Link href="/linelogin">
+                  <ButtonCapsule
+                    title={"ดูผลผ่าน LINE"}
+                    bgColor={"#00B900"}
+                    color={"#fff"}
+                  />
+                </Link>
+              </Box>
+            ) : null}
           </Box>
         </Box>
       ) : (
         <Box marginTop={2}>
-          <Link href="/">
+          <Link href="/login">
             <ButtonCapsule
-              title={"กลับหน้าหลัก"}
+              title={"ดูผลผ่าน RAPID AUTO"}
               bgColor={"#4679C7"}
               color={"#fff"}
             />
