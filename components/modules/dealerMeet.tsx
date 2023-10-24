@@ -127,7 +127,7 @@ export default function DealerMeet({
           value={date}
           onChange={handleDateChange}
           style="custom"
-          disablePastDate={"today"}
+          disablePastDate={"yesterday"}
         />
         <Calendar
           id={"date"}
