@@ -38,7 +38,7 @@ export default function Salecar({}: Props) {
   const [gearType, setGearType] = useState("");
   const [dateSellCar, setDateSellCar] = useState("");
   const [timeSellCar, setTimeSellCar] = useState("");
-  const [mileage, setMileage] = useState(1);
+  const [mileage, setMileage] = useState(0);
   const [plateId, setPlateId] = useState("");
   const [provinceId, setProvinceId] = useState(0);
   const [nickname, setNickname] = useState("");
@@ -376,11 +376,11 @@ export default function Salecar({}: Props) {
         <Grid item xs={6}>
           <InputCustom
             id="mileage"
-            type="text"
+            type="number"
             placeholder="เลขไมล์"
             value={mileage}
             onChange={handlerMileageOnChange}
-            alert={mileage !== 0 ? null : "**กรุณากรอกเลขไมลส์ของรถ"}
+            alert={mileage ? null : "**กรุณากรอกเลขไมล์ของรถที่ถูกต้อง"}
           />
         </Grid>
         <Grid item xs={6}>

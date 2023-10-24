@@ -12,7 +12,6 @@ type Props = {
 export default function CarRelation({ data }: Props) {
   const searchParams = useSearchParams();
   const model = searchParams.get("model");
-  const submodel = searchParams.get("submodel");
 
   return (
     <Box

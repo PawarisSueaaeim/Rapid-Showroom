@@ -12,7 +12,7 @@ export const isPlateId = (inputText: string): boolean => {
 
 // ใส่ได้แค่ตัวเลข จะ return true ................................
 export const isMileage = (inputText: string): boolean => {
-    const regexPattern = /^[1-9]\d*$/;
+    const regexPattern = /^[1-9][0-9]*$/;
     return regexPattern.test(inputText);
 }
 
