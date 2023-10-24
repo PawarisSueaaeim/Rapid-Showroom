@@ -126,20 +126,20 @@ export default function Salecar({}: Props) {
 
   const handlerValidate = () => {
     if (
-      brandId === 0 ||
-      modelId === 0 ||
-      submodelId === 0 ||
-      year === "" ||
-      colorId === 0 ||
-      gearType === "" ||
-      dateSellCar === "" ||
-      timeSellCar === "" ||
-      mileage === 0 ||
-      plateId === "" ||
-      provinceId === 0 ||
-      nickname === "" ||
-      telephone === "" ||
-      email === "" ||
+      brandId == 0 ||
+      modelId == 0 ||
+      submodelId == 0 ||
+      year == "" ||
+      colorId == 0 ||
+      gearType == "" ||
+      dateSellCar == "" ||
+      timeSellCar == "" ||
+      mileage == 0 ||
+      plateId == "" ||
+      provinceId == 0 ||
+      nickname == "" ||
+      telephone == "" ||
+      email == "" ||
       uploadedImageData.length <= 0
     ) {
       setIsCanSubmit(false);
@@ -166,6 +166,7 @@ export default function Salecar({}: Props) {
 
   const handlerModelOnChange = (event: any) => {
     setModelId(event.target.value);
+    setSubmodelId(0);
     renderGetSubmodels(event.target.value);
   };
   const handlerSubmodelOnChange = (event: any) => {
@@ -280,7 +281,7 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {brandId !== 0 ? "" : "**กรุณาเลือกยี่ห้อ"}
+            {brandId != 0 ? "" : "**กรุณาเลือกยี่ห้อ"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -298,25 +299,27 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {modelId !== 0 ? "" : "**กรุณาเลือกรุ่น"}
+            {modelId != 0 ? "" : "**กรุณาเลือกรุ่น"}
           </span>
         </Grid>
         <Grid item xs={6}>
           <select
             onChange={handlerSubmodelOnChange}
             className={classes.selection_custom}
+            value={submodelId}
           >
             <option value={0}>รุ่นย่อย</option>
-            {dataSubmodel.map((item: any, index: number) => {
-              return (
-                <option key={index} value={item.sub_model_id}>
-                  {item.name}
-                </option>
-              );
-            })}
+            {dataSubmodel != undefined &&
+              dataSubmodel.map((item: any, index: number) => {
+                return (
+                  <option key={index} value={item.sub_model_id}>
+                    {item.name}
+                  </option>
+                );
+              })}
           </select>
           <span className="tc-red fs-8px">
-            {submodelId !== 0 ? "" : "**กรุณาเลือกรุ่นย่อย"}
+            {submodelId != 0 ? "" : "**กรุณาเลือกรุ่นย่อย"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -334,7 +337,7 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {year !== "" ? "" : "**กรุณาเลือกปีของรุ่นรถ"}
+            {year != "" ? "" : "**กรุณาเลือกปีของรุ่นรถ"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -352,7 +355,7 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {colorId !== 0 ? "" : "**กรุณาเลือกสีรถ"}
+            {colorId != 0 ? "" : "**กรุณาเลือกสีรถ"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -370,7 +373,7 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {gearType !== "" ? "" : "**กรุณาเลือกประเภทเกียร์"}
+            {gearType != "" ? "" : "**กรุณาเลือกประเภทเกียร์"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -378,9 +381,9 @@ export default function Salecar({}: Props) {
             id="mileage"
             type="number"
             placeholder="เลขไมล์"
-            value={mileage}
+            // value={mileage}
             onChange={handlerMileageOnChange}
-            alert={mileage ? null : "**กรุณากรอกเลขไมล์ของรถที่ถูกต้อง"}
+            alert={mileage !== 0 ? null : "**กรุณากรอกเลขไมล์ของรถที่ถูกต้อง"}
           />
         </Grid>
         <Grid item xs={6}>
@@ -389,7 +392,7 @@ export default function Salecar({}: Props) {
             type="text"
             placeholder="ทะเบียน"
             onChange={handlerPlateIdOnChange}
-            alert={plateId !== "" ? null : "**กรุณากรอกทะเบียนรถ"}
+            alert={plateId != "" ? null : "**กรุณากรอกทะเบียนรถ"}
           />
         </Grid>
         <Grid item xs={6}>
@@ -407,7 +410,7 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {provinceId !== 0 ? "" : "**กรุณาเลือกจังหวัด(ทะเบียน)"}
+            {provinceId != 0 ? "" : "**กรุณาเลือกจังหวัด(ทะเบียน)"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -420,7 +423,7 @@ export default function Salecar({}: Props) {
             disablePastDate="yesterday"
           />
           <span className="tc-red fs-8px">
-            {dateSellCar !== "" ? "" : "**กรุณาเลือกวันที่ต้องการขายรถ"}
+            {dateSellCar != "" ? "" : "**กรุณาเลือกวันที่ต้องการขายรถ"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -432,7 +435,7 @@ export default function Salecar({}: Props) {
             style="outline"
           />
           <span className="tc-red fs-8px">
-            {timeSellCar !== "" ? "" : "**กรุณาเลือกเวลาที่ต้องการขายรถ"}
+            {timeSellCar != "" ? "" : "**กรุณาเลือกเวลาที่ต้องการขายรถ"}
           </span>
         </Grid>
         <Grid item xs={12}>
@@ -441,7 +444,7 @@ export default function Salecar({}: Props) {
             type="text"
             placeholder="ชื่อเล่น"
             onChange={handlerNicknameOnChange}
-            alert={nickname !== "" ? null : "**กรุณากรอกชื่อเล่น"}
+            alert={nickname != "" ? null : "**กรุณากรอกชื่อเล่น"}
           />
         </Grid>
         <Grid item xs={12}>
@@ -450,7 +453,7 @@ export default function Salecar({}: Props) {
             type="text"
             placeholder="โทรศัพท์"
             onChange={handlerTelephoneOnChange}
-            alert={telephone !== "" ? null : "**กรุณากรอกเบอร์โทรศัทพ์"}
+            alert={telephone != "" ? null : "**กรุณากรอกเบอร์โทรศัทพ์"}
           />
         </Grid>
         <Grid item xs={12}>
@@ -459,7 +462,7 @@ export default function Salecar({}: Props) {
             type="text"
             placeholder="อีเมล"
             onChange={handlerEmailOnChange}
-            alert={email !== "" ? null : "**กรุณากรอกเมล"}
+            alert={email != "" ? null : "**กรุณากรอกเมล"}
           />
         </Grid>
       </Grid>
