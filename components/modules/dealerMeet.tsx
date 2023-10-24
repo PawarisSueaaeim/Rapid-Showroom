@@ -46,8 +46,7 @@ export default function DealerMeet({
       time !== "" &&
       verifyName &&
       verifyTelephone &&
-      verifyEmail &&
-      checkedBot
+      verifyEmail
     ) {
       setIsVerified(true);
     }
@@ -169,9 +168,9 @@ export default function DealerMeet({
           value={email}
           onChange={handleEmailChange}
         />
-        <Box className={classes.recaptcha}>
+        {/* <Box className={classes.recaptcha}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
-        </Box>
+        </Box> */}
         <Box className={classes.btn_submit}>
           <Link href="/success">
             <ButtonCapsule
