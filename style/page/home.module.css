@@ -49,6 +49,7 @@
 }
 
 .title_1_page {
+  word-break: break-word;
   margin: 8rem 1rem 0 2.5rem;
 }
 
@@ -60,15 +61,16 @@
 }
 
 .subtitile_1_page {
-  margin: 5rem 1rem 0 2.5rem;
+  margin: 1rem 1rem 0 2.5rem;
 }
 
 .btn_1_page {
   display: flex;
   align-items: center;
-  justify-content: center;  
-  gap: 2rem;
-  margin-top: 55vh;
+  justify-content: center;
+  gap: 0.5rem;
+  z-index: 99;
+  margin-top: 60vh;
   margin-inline: 2rem;
 }
 
@@ -76,7 +78,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 0.5rem;
   margin-top: 31vh;
   margin-inline: 2rem;
 }
@@ -103,7 +105,7 @@
 
 .icon_with_text {
   display: flex;
-  gap: 0.5rem;
+  gap: 1.5rem;
   align-items: center;
 }
 
@@ -136,19 +138,16 @@
   }
 
   .btn_1_page {
-    margin-top: 47vh;
+    margin-top: 50vh;
   }
   .btn_2_page {
-    margin-top: 7vh;
-  }
-  .btn_3_page {
-    margin-top: 2vh;
+    margin-top: 5vh;
   }
 }
 
 @media screen and (max-width: 600px) {
   .bgImage01 {
-    background-position-x: -600px;
+    background-position-x: -500px;
   }
 
   .bgImage02 {
@@ -157,5 +156,27 @@
 
   .bgImage03 {
     background-position-x: -450px;
+    height: 110vh;
+  }
+  .backdropGray {
+    height: 110vh;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .bgImage01 {
+    background-position-x: -500px;
+  }
+
+  .bgImage02 {
+    background-position-x: -450px;
+  }
+
+  .bgImage03 {
+    background-position-x: -450px;
+    height: 120vh;
+  }
+  .backdropGray {
+    height: 120vh;
   }
 }

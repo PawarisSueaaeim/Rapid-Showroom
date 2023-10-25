@@ -23,6 +23,7 @@ export default async function NearModel({ params }: Props) {
   }
   );
   const data = await response.data.data;
+  console.log(data);
 
   return (
     <CarRelation data={data}/>

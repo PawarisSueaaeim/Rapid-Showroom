@@ -37,8 +37,8 @@ export default function Login({}: Props) {
   return (
     <Box className={classes.container}>
       <Box className={classes.content}>
-        <span className="fs-24px fw-400 tc-black">RAPID AUTO</span>
-        <span className="fs-20px">เข้าสู่ระบบเพื่อดูผลการประเมินราคา</span>
+        <span className="fs-24px fw-400 tc-black">Sign in</span>
+        <span className="fs-20px">เพื่อดูผลการประเมินราคา</span>
       </Box>
       <Box className={classes.login_form}>
         <InputEmail onChange={emailHandler} />

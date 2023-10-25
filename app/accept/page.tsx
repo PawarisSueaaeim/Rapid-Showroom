@@ -11,6 +11,7 @@ type Props = {};
 export default function Accept({}: Props) {
   const carList = [
     {
+      vehicle_id: "1",
       brand: "BMW",
       model: "series 3",
       submodel: "sedan",
@@ -18,6 +19,7 @@ export default function Accept({}: Props) {
       province: "สุโขทัย",
     },
     {
+      vehicle_id: "2",
       brand: "BMW",
       model: "series 3",
       submodel: "sedan",
@@ -25,6 +27,7 @@ export default function Accept({}: Props) {
       province: "สุโขทัย",
     },
     {
+      vehicle_id: "3",
       brand: "BMW",
       model: "series 3",
       submodel: "sedan",
@@ -32,6 +35,7 @@ export default function Accept({}: Props) {
       province: "สุโขทัย",
     },
     {
+      vehicle_id: "4",
       brand: "BMW",
       model: "series 3",
       submodel: "sedan",
@@ -42,12 +46,14 @@ export default function Accept({}: Props) {
   return (
     <Box className={classes.container}>
       <span className="fs-20px fw-400 m-6">รายการขาย</span>
-      <hr/>
+      <hr />
       <Grid container spacing={2}>
         {carList.map((list, index) => {
           return (
             <Grid item key={index} xs={12} sm={6} md={4}>
-              <CardAccept />
+              <Link href={`/accept/${list.vehicle_id}`}>
+                <CardAccept />
+              </Link>
             </Grid>
           );
         })}

@@ -31,12 +31,11 @@ export default function Success({}: Props) {
         width={70}
         height={70}
       />
-      <span className="fs-32px tc-green m-2">ส่งข้อมูลสำเร็จ</span>
-      <span className="fs-16px">เราจะทำการเสนอราคากลับ</span>
-      <span className="fs-16px">ในอีเมลของท่านภายในสามสิบนาที</span>
-      <span className="fs-16px m-2">
-        กรุณาเช็คอีเมลของท่านที่ให้ไว้กับระบบด้วย
-      </span>
+      <span className="fs-32px m-2 tc-darkblue">ส่งข้อมูลสำเร็จ</span>
+      <span className="fs-16px">เราได้รับข้อมูลรถของท่านครบถ้วนแล้ว</span>
+      <span className="fs-16px">ระบบจะจัดส่งราคาประเมินไปที่</span>
+      <span className="fs-16px">E-mail ที่ได้ลงทะเบียนของท่านภายใน 30 นาที</span>
+      <span className="fs-16px">(หากท่านไม่ได้รับกรุณาตรวจสอบใน Junk Mail)</span>
       {havepasswd === "NO" ? (
         <Box
           display={"flex"}
@@ -44,13 +43,12 @@ export default function Success({}: Props) {
           flexDirection={"column"}
           marginTop={2}
         >
-          <span className="fs-16px">กรุณาเลือกวิธีดูผลประเมินราคา</span>
           <Box marginTop={2} gap={4}>
             <Box>
               <Link href="/emaillogin">
                 <ButtonCapsule
-                  title={"ดูผลผ่าน RAPID AUTO"}
-                  bgColor={"#4679C7"}
+                  title={"ดูผลทันทีผ่าน RAPID AUTO"}
+                  bgColor={"#1A417B"}
                   color={"#fff"}
                 />
               </Link>
@@ -59,7 +57,8 @@ export default function Success({}: Props) {
               <Box marginTop={2}>
                 <Link href="/linelogin">
                   <ButtonCapsule
-                    title={"ดูผลผ่าน LINE"}
+                    title={"LINE"}
+                    fontWeight={700}
                     bgColor={"#00B900"}
                     color={"#fff"}
                   />
@@ -72,8 +71,8 @@ export default function Success({}: Props) {
         <Box marginTop={2}>
           <Link href="/login">
             <ButtonCapsule
-              title={"ดูผลผ่าน RAPID AUTO"}
-              bgColor={"#4679C7"}
+              title={"ดูผลทันทีผ่าน RAPID AUTO"}
+              bgColor={"#1A417B"}
               color={"#fff"}
             />
           </Link>

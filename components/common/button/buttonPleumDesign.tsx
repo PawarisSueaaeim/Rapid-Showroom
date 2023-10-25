@@ -13,18 +13,36 @@ type Props = {
 };
 
 //@ts-ignore
-const ColorButton = styled(Button)<ButtonProps>(({textBtnColor,width,backgroundBtnColor,backgroundBtnHoverColor}) => ({
-  color: textBtnColor,
-  backgroundColor: backgroundBtnColor,
-  "&:hover": {
-    backgroundColor: backgroundBtnHoverColor,
-  },
-  width: width ? width : 170,
-}));
+const ColorButton = styled(Button)<ButtonProps>(
+  ({ textBtnColor, width, backgroundBtnColor, backgroundBtnHoverColor }) => ({
+    color: textBtnColor,
+    backgroundColor: backgroundBtnColor,
+    "&:hover": {
+      backgroundColor: backgroundBtnHoverColor,
+    },
+    width: width ? width : 170,
+  })
+);
 
-export default function ButtonPleumDesign({onClick, title,width,textBtnColor, backgroundBtnColor, backgroundBtnHoverColor }: Props) {
+export default function ButtonPleumDesign({
+  onClick,
+  title,
+  width,
+  textBtnColor,
+  backgroundBtnColor,
+  backgroundBtnHoverColor,
+}: Props) {
   return (
-    //@ts-ignore
-      <ColorButton variant="contained" onClick={onClick} textBtnColor={textBtnColor} width={width} backgroundBtnColor={backgroundBtnColor} backgroundBtnHoverColor={backgroundBtnHoverColor}>{title}</ColorButton>
+    
+    <ColorButton
+      variant="contained"
+      onClick={onClick}
+      textBtnColor={textBtnColor}
+      width={width}
+      backgroundBtnColor={backgroundBtnColor}
+      backgroundBtnHoverColor={backgroundBtnHoverColor}
+    >
+      {title}
+    </ColorButton>
   );
 }

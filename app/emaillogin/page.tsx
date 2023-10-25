@@ -22,13 +22,14 @@ export default function EmailLogin({}: Props) {
       justifyContent={"center"}
       height={"100vh"}
     >
-      <span className="fs-32px fw-400">RAPID AUTO</span>
-      <span className="fs-14px">กรุณากรอกรหัสเพื่อรอดูผลการประเมินราคา</span>
+      <span className="fs-32px fw-400">Create Password</span>
       <InputPassword onChange={passwordHandler} />
+      <span className="fs-14px">Confirm password</span>
+      <InputPassword onChange={passwordHandler} placeholder={"Confirm password"}/>
       <Box marginTop={4}>
         <Link href={"/login"}>
           <ButtonPleumDesign
-            title={"ยืนยัน"}
+            title={"Submit"}
             backgroundBtnColor={ColorSet.btnWhite}
             backgroundBtnHoverColor={ColorSet.btnWhiteHover}
             textBtnColor={ColorSet.textBlack}

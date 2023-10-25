@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { Calendar } from "../common/calendar";
 import { ButtonCapsule } from "../common/button";
-import { InputCustom } from "../common/form";
+import { Date, InputCustom, Time } from "../common/form";
 import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
 import ReCAPTCHA from "react-google-recaptcha";
 import classes from "@/style/components/module/dealerMeet.module.css";
@@ -77,9 +77,9 @@ export default function DealerMeet({
   };
   const handleTelephoneChange = (event: any) => {
     const textInput = event.target.value;
-    setTelephone(textInput);
     if (isPhoneNumber(textInput)) {
       setVerifyTelephone(true);
+      setTelephone(textInput);
     }
   };
   const handleEmailChange = (event: any) => {
@@ -161,13 +161,13 @@ export default function DealerMeet({
           value={telephone}
           onChange={handleTelephoneChange}
         />
-        <InputCustom
+        {/* <InputCustom
           id="email-to-dealer"
           type="text"
           placeholder="อีเมล"
           value={email}
           onChange={handleEmailChange}
-        />
+        /> */}
         {/* <Box className={classes.recaptcha}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box> */}

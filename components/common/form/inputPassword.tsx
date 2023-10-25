@@ -12,10 +12,11 @@ import React from "react";
 
 
 type Props = {
+  placeholder?: string,
   onChange: (value: any) => void
 };
 
-export default function InputMui({onChange}: Props) {
+export default function InputMui({placeholder,onChange}: Props) {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -46,7 +47,7 @@ export default function InputMui({onChange}: Props) {
             </IconButton>
           </InputAdornment>
         }
-        label="Password"
+        label={placeholder}
       />
     </FormControl>
   );

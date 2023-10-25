@@ -37,13 +37,16 @@ const Footer = ({}: Props) => {
         width: "100%",
         height: "100%",
       }}>
-      <Grid container paddingTop={6} paddingX={4} paddingBottom={4}>
+      <Grid container paddingTop={2} paddingX={1} paddingBottom={4}>
         <Grid item xs={12} md={6}>
-          <Typography variant="h4" color={"#000"}>
+          {/* <Typography variant="h4" color={"#000"}>
             Rapid Auto
-          </Typography>
+          </Typography> */}
+          <Image src="/icons/icon-rapid-auto.png" alt="icon-rapid-auto" width={225} height={75}/>
+          <Box marginX={2}>
+          <strong className="fw-400">บริษัท แรพพิด มอเตอร์ จำกัด</strong>
           <span className={classes.footer_location}>
-            <strong className="fw-400">บจก.แรพพิด มอเตอร์</strong> 6/10 อาคารพิพัฒนสิน ชั้น 9
+             6/10 อาคารพิพัฒนสิน ชั้น 9
           </span>
           <span className={classes.footer_location}>
             ซอยพัฒนสิน แขวงทุ่งมหาเมฆ เขตสาทร กรุงเทพฯ 10120
@@ -58,6 +61,8 @@ const Footer = ({}: Props) => {
               example@gmail.com
             </span>
           </Box>
+          </Box>
+          
         </Grid>
       </Grid>
       <Box

@@ -21,13 +21,13 @@ const Navbar = ({}: Props) => {
     <Box
       className={classes.container}
       // Check ว่าอยู่ path ไหนถ้าอยู่หน้า home ไม่ต้องมีสี bg
-      style={
-        currentURL === "/"
-          ? {}
-          : {
-              backgroundColor: "#1A417B",
-            }
-      }
+      // style={
+      //   currentURL === "/"
+      //     ? {}
+      //     : {
+      //         backgroundColor: "#1A417B",
+      //       }
+      // }
     >
       <Box
         display={"flex"}
@@ -44,18 +44,7 @@ const Navbar = ({}: Props) => {
               sx={{ fontStyle: "oblique", fontWeight: 500 }}
               gap={1}
             >
-              <Typography
-                variant="h5"
-                color={currentURL !== "/" ? "#fff" : "#000"}
-              >
-                RAPID
-              </Typography>
-              <Typography
-                variant="h5"
-                color={!isMobileMode && currentURL !== "/" ? "#6FB6F8" : "#000"}
-              >
-                AUTO
-              </Typography>
+              <Image src="/icons/icon-rapid-auto.png" alt="icon-rapid-auto" width={190} height={65}/>
             </Box>
           </Link>
         </Box>
