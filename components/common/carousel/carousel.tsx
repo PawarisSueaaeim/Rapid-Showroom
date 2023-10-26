@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classes from "@/style/components/module/carousel.module.css";
 import SwipeableViews from "react-swipeable-views";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Box } from "@mui/material";
-import { ColorSet } from "@/constants";
 
 type Props = {
   onClickRemove?: any;
@@ -22,13 +21,14 @@ export default function Carousel({
   images,
 }: Props) {
   const [imageId, setImageId] = useState(0);
-
-  useEffect(() => {
-    handleStepChange;
-  },[])
   
   const handleStepChange = (step: number) => {
     setImageId(step);
+  };
+
+  const renderRemoveImage = () => {
+    onClickRemove(imageId);
+    setImageId(0);
   };
   return (
     <Box
@@ -36,7 +36,6 @@ export default function Carousel({
         width: "100%",
         height: "100%",
         position: "relative",
-        border: "1px solid red",
       }}
     >
       <SwipeableViews
@@ -84,7 +83,7 @@ export default function Carousel({
         >
           <DeleteForeverIcon
             onClick={() => {
-              onClickRemove(imageId);
+              renderRemoveImage();
             }}
           />
         </Box>
