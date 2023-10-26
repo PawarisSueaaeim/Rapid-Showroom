@@ -20,7 +20,7 @@ export default function CardAccept({}: Props) {
       </Box>
       <Box className={classes.data_model}>
         <span className="fs-20px tc-black fw-400">BMW series 3 sedan</span>
-        <span className="fs-14px tc-black">ทะเบียน: สส8888 กรุงเทพฯ</span>
+        <span className="fs-14px tc-black">ทะเบียน: สส8888 กรุงเทพมหานครฯ</span>
 
         <span className="fs-16px fw-400 tc-black">ราคาที่ได้รับ</span>
         <span className="fs-16px fw-400 tc-black">min: 800,000 บาท</span>

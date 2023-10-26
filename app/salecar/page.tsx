@@ -38,7 +38,7 @@ export default function Salecar({}: Props) {
   const [gearType, setGearType] = useState("");
   const [dateSellCar, setDateSellCar] = useState("");
   const [timeSellCar, setTimeSellCar] = useState("");
-  const [mileage, setMileage] = useState(0);
+  const [mileage, setMileage] = useState("");
   const [plateId, setPlateId] = useState("");
   const [provinceId, setProvinceId] = useState(0);
   const [nickname, setNickname] = useState("");
@@ -134,7 +134,7 @@ export default function Salecar({}: Props) {
       gearType === "" ||
       dateSellCar === "" ||
       timeSellCar === "" ||
-      mileage === 0 ||
+      mileage === "" ||
       plateId === "" ||
       provinceId === 0 ||
       nickname === "" ||
@@ -184,12 +184,16 @@ export default function Salecar({}: Props) {
     const inputText = event.target.value;
     if (isMileage(inputText)) {
       setMileage(event.target.value);
+    } else if (inputText === 0 || inputText === '') {
+      setMileage("");
     }
   };
   const handlerPlateIdOnChange = (event: any) => {
-    const input = event.target.value;
-    if (isPlateId(input)) {
-      setPlateId(input);
+    const inputText = event.target.value;
+    if (isPlateId(inputText)) {
+      setPlateId(inputText);
+    }else if (inputText === ''){
+      setPlateId('');
     }
   };
   const handlerProvinceOnChange = (event: any) => {
@@ -389,7 +393,7 @@ export default function Salecar({}: Props) {
             type="text"
             placeholder="ทะเบียน"
             onChange={handlerPlateIdOnChange}
-            alert={plateId !== "" ? null : "**กรุณากรอกทะเบียนรถ"}
+            alert={plateId !== "" ? null : "**กรุณากรอกทะเบียนรถที่ถูกต้อง"}
           />
         </Grid>
         <Grid item xs={6}>

@@ -1,28 +1,42 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "@/style/components/module/carousel.module.css";
 import SwipeableViews from "react-swipeable-views";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { Box } from "@mui/material";
+import { ColorSet } from "@/constants";
 
 type Props = {
+  onClickRemove?: any;
+  removeImage?: boolean;
   images: Array<{
-    sv_img_id: number;
+    sv_img_id?: number;
     url_path: string;
   }>;
 };
 
-export default function Carousel({ images }: Props) {
+export default function Carousel({
+  onClickRemove,
+  removeImage,
+  images,
+}: Props) {
   const [imageId, setImageId] = useState(0);
 
+  useEffect(() => {
+    handleStepChange;
+  },[])
+  
   const handleStepChange = (step: number) => {
     setImageId(step);
   };
   return (
-    <div
+    <Box
       style={{
         width: "100%",
         height: "100%",
         position: "relative",
+        border: "1px solid red",
       }}
     >
       <SwipeableViews
@@ -47,20 +61,34 @@ export default function Carousel({ images }: Props) {
       </SwipeableViews>
 
       <span className={classes.indicators}>
-        {images.map((_,index) => {
+        {images.map((_, index) => {
           return (
             <button
               key={index}
               onClick={() => setImageId(index)}
               className={
-                imageId === index
-                  ? classes.indicator_active
-                  : classes.indicator
+                imageId === index ? classes.indicator_active : classes.indicator
               }
             />
           );
         })}
       </span>
-    </div>
+      {removeImage && (
+        <Box
+          style={{
+            position: "absolute",
+            zIndex: "1000",
+            top: 15,
+            right: 15,
+          }}
+        >
+          <DeleteForeverIcon
+            onClick={() => {
+              onClickRemove(imageId);
+            }}
+          />
+        </Box>
+      )}
+    </Box>
   );
 }

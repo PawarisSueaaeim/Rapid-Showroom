@@ -1,5 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
+import Image from "next/image";
+import { Carousel } from "../carousel";
 
 interface ImageData {
   url_path: string;
@@ -53,12 +55,9 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
           alignItems={"center"}
           justifyContent={"center"}
         >
-          {selectedImages.map((_, index) => (
-            <Box key={index} display={"flex"} margin={1} gap={1}>
-              <span>{`car-image ${index + 1}`}</span>
-              <button onClick={() => handleRemoveImage(index)}>X</button>
-            </Box>
-          ))}
+          <Box display={"flex"} margin={1} gap={1}>
+            <Carousel removeImage={true}  onClickRemove={handleRemoveImage} images={selectedImages} />
+          </Box>
           <input
             type="file"
             accept="image/*"
