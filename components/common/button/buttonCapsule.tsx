@@ -62,7 +62,6 @@ export default function ButtonCapsule({
           paddingInline: paddingX,
           height: height,
           fontSize: fontSize,
-          fontWeight: fontWeight ? fontWeight : 300,
           color: color,
           textAlign: "center",
           textDecoration: "none",
@@ -70,7 +69,9 @@ export default function ButtonCapsule({
           cursor: "pointer",
         }}
       >
-        <p className="fs-14px fw-200 m-4">{title}</p>
+        <span className="fs-14px m-4" style={{
+          fontWeight: fontWeight ? fontWeight : "200",
+        }}>{title}</span>
         {renderIcon(icon)}
       </button>
     </div>

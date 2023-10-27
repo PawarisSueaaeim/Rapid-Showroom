@@ -58,7 +58,7 @@ export default function Success({}: Props) {
                 <Link href="/linelogin">
                   <ButtonCapsule
                     title={"LINE"}
-                    fontWeight={700}
+                    fontWeight={500}
                     bgColor={"#00B900"}
                     color={"#fff"}
                   />
