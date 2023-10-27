@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { Fragment } from "react";
+import React from "react";
 import { Box, Grid } from "@mui/material";
 import classes from "@/style/page/home.module.css";
 import { ShowcarSectionHome } from "@/components/modules";
@@ -16,9 +16,8 @@ export default function Home({}: Props) {
       <Box className={classes.bgImage01}>
         <Box className={classes.container_column}>
           <Box className={classes.title_1_page}>
-            <span className="fs-24px">
-              Thailand first Digital Pre-owned car center
-            </span>
+            <span className="fs-24px">Thailand first Digital</span>
+            <span className="fs-24px">Pre-owned car center</span>
           </Box>
           <Box className={classes.subtitile_1_page}>
             <span className="tc-white fs-20px">

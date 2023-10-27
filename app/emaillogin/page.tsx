@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { InputPassword } from "@/components/common/form";

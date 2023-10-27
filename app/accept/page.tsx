@@ -17,6 +17,7 @@ export default function Accept({}: Props) {
       submodel: "sedan",
       plateId: "ตด8888",
       province: "สุโขทัย",
+      uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
     },
     {
       vehicle_id: "2",
@@ -25,6 +26,7 @@ export default function Accept({}: Props) {
       submodel: "sedan",
       plateId: "ตด8888",
       province: "สุโขทัย",
+      uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
     },
     {
       vehicle_id: "3",
@@ -33,6 +35,7 @@ export default function Accept({}: Props) {
       submodel: "sedan",
       plateId: "ตด8888",
       province: "สุโขทัย",
+      uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
     },
     {
       vehicle_id: "4",
@@ -41,6 +44,7 @@ export default function Accept({}: Props) {
       submodel: "sedan",
       plateId: "ตด8888",
       province: "สุโขทัย",
+      uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
     },
   ];
   return (
@@ -51,7 +55,7 @@ export default function Accept({}: Props) {
         {carList.map((list, index) => {
           return (
             <Grid item key={index} xs={12} sm={6} md={4}>
-              <Link href={`/accept/${list.vehicle_id}`}>
+              <Link href={`/accept/${list.uuid}`}>
                 <CardAccept />
               </Link>
             </Grid>

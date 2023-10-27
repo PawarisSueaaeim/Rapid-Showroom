@@ -31,7 +31,7 @@ export default function InputMui({placeholder,error,onChange}: Props) {
 
   return (
     <FormControl sx={{ m: 0, width: "25ch" }} variant="outlined">
-      <InputLabel htmlFor="outlined-adornment-password">{placeholder}</InputLabel>
+      <InputLabel htmlFor="outlined-adornment-password">{placeholder ? placeholder : "Password"}</InputLabel>
       <OutlinedInput
         id="outlined-adornment-password"
         type={showPassword ? "text" : "password"}
