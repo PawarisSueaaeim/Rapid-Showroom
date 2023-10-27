@@ -13,10 +13,11 @@ import React from "react";
 
 type Props = {
   placeholder?: string,
+  error?: boolean,
   onChange: (value: any) => void
 };
 
-export default function InputMui({placeholder,onChange}: Props) {
+export default function InputMui({placeholder,error,onChange}: Props) {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -29,12 +30,14 @@ export default function InputMui({placeholder,onChange}: Props) {
 
 
   return (
-    <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-      <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+    <FormControl sx={{ m: 0, width: "25ch" }} variant="outlined">
+      <InputLabel htmlFor="outlined-adornment-password">{placeholder}</InputLabel>
       <OutlinedInput
         id="outlined-adornment-password"
         type={showPassword ? "text" : "password"}
         onChange={onChange}
+        error={error}
+        placeholder={placeholder}
         endAdornment={
           <InputAdornment position="end">
             <IconButton

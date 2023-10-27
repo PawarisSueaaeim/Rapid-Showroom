@@ -10,10 +10,12 @@ type Props = {
   backgroundBtnHoverColor: string;
   width?: number;
   onClick?: (event: MouseEvent) => void;
+  disabled?: boolean;
 };
 
-//@ts-ignore
+
 const ColorButton = styled(Button)<ButtonProps>(
+  //@ts-ignore
   ({ textBtnColor, width, backgroundBtnColor, backgroundBtnHoverColor }) => ({
     color: textBtnColor,
     backgroundColor: backgroundBtnColor,
@@ -31,16 +33,19 @@ export default function ButtonPleumDesign({
   textBtnColor,
   backgroundBtnColor,
   backgroundBtnHoverColor,
+  disabled,
 }: Props) {
   return (
     
     <ColorButton
       variant="contained"
+      //@ts-ignore
       onClick={onClick}
       textBtnColor={textBtnColor}
       width={width}
       backgroundBtnColor={backgroundBtnColor}
       backgroundBtnHoverColor={backgroundBtnHoverColor}
+      disabled={disabled}
     >
       {title}
     </ColorButton>

@@ -5,7 +5,7 @@ import classes from "@/style/page/buycar/buycar.module.css";
 
 type Props = {};
 
-export default async function Buycar({}: Props) {
+export default function Buycar({}: Props) {
   return (
     <Box
       className={classes.container}

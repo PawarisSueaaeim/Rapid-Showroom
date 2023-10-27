@@ -27,3 +27,8 @@ export const isEmail = (inputText: string): boolean => {
     const regexPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     return regexPattern.test(inputText);
 }
+
+export const passwordValidation = (inputText: string) => {
+    const regexPattern = /^(?=.*[A-Za-z])(?=.*\d{2,}).{6,}$/;
+    return regexPattern.test(inputText);
+};

@@ -172,7 +172,7 @@ export default function DealerMeet({
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box> */}
         <Box className={classes.btn_submit}>
-          <Link href="/looksuccess">
+          <Link href="/Booksuccess">
             <ButtonCapsule
               disabled={!isVerified}
               title={"นัดดีลเลอร์"}
