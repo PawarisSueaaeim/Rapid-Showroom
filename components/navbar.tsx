@@ -7,7 +7,6 @@ import Image from "next/image";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Typography } from "@mui/material";
 
 type Props = {};
 
@@ -20,14 +19,6 @@ const Navbar = ({}: Props) => {
   return (
     <Box
       className={classes.container}
-      // Check ว่าอยู่ path ไหนถ้าอยู่หน้า home ไม่ต้องมีสี bg
-      // style={
-      //   currentURL === "/"
-      //     ? {}
-      //     : {
-      //         backgroundColor: "#1A417B",
-      //       }
-      // }
     >
       <Box
         display={"flex"}
@@ -48,7 +39,7 @@ const Navbar = ({}: Props) => {
             </Box>
           </Link>
         </Box>
-        <Box className={currentURL !== "/" ? classes.menu_2 : classes.menu}>
+        <Box className={classes.menu}>
           {isMobileMode ? (
             <Box marginX={2}>
               <Image

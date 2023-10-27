@@ -1,16 +1,20 @@
+"use client"
 import Image from "next/image";
 import React from "react";
 import classes from "@/style/page/aboutus.module.css";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 
 type Props = {};
 
 export default function About({}: Props) {
+  const isMobileMode = useMediaQuery("(max-width:600px)");
+
   return (
     <Box
       display={"flex"}
       alignItems={"center"}
       flexDirection={"column"}
+      paddingX={isMobileMode ? 0 : 30}
     >
       <Typography
         style={{

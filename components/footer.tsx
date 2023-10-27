@@ -51,16 +51,6 @@ const Footer = ({}: Props) => {
           <span className={classes.footer_location}>
             ซอยพัฒนสิน แขวงทุ่งมหาเมฆ เขตสาทร กรุงเทพฯ 10120
           </span>
-          <Box display={"flex"} flexDirection={"column"} marginTop={1}>
-            <span className={classes.footer_location}>
-              <PhoneIcon />
-              091 921 1919
-            </span>
-            <span className={classes.footer_location}>
-              <EmailIcon />
-              example@gmail.com
-            </span>
-          </Box>
           </Box>
           
         </Grid>
