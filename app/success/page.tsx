@@ -1,13 +1,10 @@
 "use client";
 import { ButtonCapsule } from "@/components/common/button";
-import { InputPassword } from "@/components/common/form";
-import { ColorSet } from "@/constants";
-import { Box, TextField, useMediaQuery } from "@mui/material";
-import { green } from "@mui/material/colors";
+import { Box, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 
 type Props = {};
 
