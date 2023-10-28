@@ -25,8 +25,6 @@ export default function Login({}: Props) {
   };
 
   const renderSubmit = () => {
-    console.log(email);
-    console.log(password);
     if (email === "test@example.com" && password === "1234") {
       router.push("/accept");
     } else {

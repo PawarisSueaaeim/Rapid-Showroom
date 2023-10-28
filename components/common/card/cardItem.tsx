@@ -14,7 +14,7 @@ type Props = {
   image: string;
 };
 
-export default async function CardItem({
+export default function CardItem({
   vehicle_id,
   model,
   submodel,

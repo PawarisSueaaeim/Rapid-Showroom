@@ -68,7 +68,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  z-index: 99;
+  z-index: 2;
   margin-top: 60vh;
   margin-inline: 2rem;
 }

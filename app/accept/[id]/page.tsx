@@ -68,8 +68,6 @@ export default function CardAcceptById({ params }: Props) {
     });
   };
 
-  console.log(dataVehicle);
-
   const renderSectionButton = () => {
     if (dataVehicle.status === "close") {
       return (
