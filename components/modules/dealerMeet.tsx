@@ -43,6 +43,7 @@ export default function DealerMeet({
 
   useEffect(() => {
     if (
+      checkedBot &&
       date &&
       time &&
       verifyName &&
@@ -51,6 +52,7 @@ export default function DealerMeet({
       setIsVerified(true);
     }
   }, [
+    checkedBot,
     date,
     email,
     name,
@@ -160,9 +162,9 @@ export default function DealerMeet({
           value={email}
           onChange={handleEmailChange}
         /> */}
-        {/* <Box className={classes.recaptcha}>
+        <Box className={classes.recaptcha}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
-        </Box> */}
+        </Box>
         <Box className={classes.btn_submit}>
           <Link href="/booksuccess">
             <ButtonCapsule
