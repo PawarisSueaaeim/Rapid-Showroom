@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import { Calendar } from "../common/calendar";
 import { ButtonCapsule } from "../common/button";
 import { Date, InputCustom, Time } from "../common/form";
 import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
@@ -11,7 +10,8 @@ import Image from "next/image";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
+import moment from "moment";
 
 type Props = {
   modelId: string;
@@ -31,11 +31,11 @@ export default function DealerMeet({
   const [verifyTelephone, setVerifyTelephone] = useState<boolean>(false);
   const [verifyEmail, setVerifyEmail] = useState<boolean>(false);
   const [isVerified, setIsVerified] = useState<boolean>(false);
-  const [date, setDate] = useState<Dayjs | null>(dayjs(''));
-  const [time, setTime] = useState<Dayjs | null>(dayjs(''));
+  const [date, setDate] = useState<string>('');
+  const [time, setTime] = useState<string>('');
   const [name, setName] = useState<string>("");
   const [telephone, setTelephone] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [email, setEmail] = useState<string>("test@example.com");
   const [checkedBot, setCheckedBot] = useState<boolean>(false);
 
   const siteKey: string | undefined =
@@ -46,28 +46,29 @@ export default function DealerMeet({
       date &&
       time &&
       verifyName &&
-      verifyTelephone &&
-      verifyEmail
+      verifyTelephone 
     ) {
       setIsVerified(true);
     }
   }, [
-    checkedBot,
     date,
     email,
     name,
     telephone,
     time,
-    verifyEmail,
     verifyName,
     verifyTelephone,
   ]);
 
   const handleDateChange = (date: Dayjs | null) => {
-    setDate(date);
+    //@ts-ignore
+    const formatDate = moment(date.$d).format('YYYY-MM-DD');
+    setDate(formatDate);
   };
   const handleTimeChange = (time: Dayjs | null) => {
-    setTime(time);
+    //@ts-ignore
+    const formatTime = moment(time.$d).format('HH:mm:ss');
+    setTime(formatTime);
   };
 
   const handleNameChange = (event: any) => {
@@ -111,7 +112,7 @@ export default function DealerMeet({
         email: email,
         phone_no: telephone,
         branch_id: 1,
-        referral: 'ty3eWtbmcXyYSJvYRlu0DGS1MWjctPbt29VZbvP9kBLnPdKdsB',
+        referral: '',
       })
       .then((response) => {
         router.push(`?status=${response.data.status}`);
@@ -126,7 +127,7 @@ export default function DealerMeet({
       <span className="fs-18px tc-blue">นัดดีลเลอร์</span>
       <Box className={classes.calendar}>
         <Date onDateChange={handleDateChange}/>
-        <Time date={date}/>
+        <Time onTimeChange={handleTimeChange} date={date}/>
       </Box>
       <Box className={classes.form_label}>
         <Image
@@ -163,7 +164,7 @@ export default function DealerMeet({
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box> */}
         <Box className={classes.btn_submit}>
-          <Link href="/Booksuccess">
+          <Link href="/booksuccess">
             <ButtonCapsule
               disabled={!isVerified}
               title={"นัดดีลเลอร์"}
