@@ -1,28 +1,33 @@
-import * as React from 'react';
-import dayjs, { Dayjs } from 'dayjs';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import * as React from "react";
+import dayjs, { Dayjs } from "dayjs";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-export default function ResponsiveDatePickers() {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-07'));
+type Props = {
+  onDateChange: (date: Dayjs | null) => void;
+};
+
+export default function ResponsiveDatePickers({onDateChange}: Props) {
+  const [value, setValue] = React.useState<Dayjs | null>(dayjs(""));
+
+  const handleDateChange = (newValue: Dayjs | null) => {
+    setValue(newValue);
+    onDateChange(newValue);
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Stack spacing={3}>
         <DatePicker
-          disableFuture
           label="เลือกวันที่นัดดีลเลอร์"
-          openTo="year"
-          disablePast={true}
-          views={['year', 'month', 'day']}
+          views={["year", "month", "day"]}
           value={value}
+          disablePast={true}
           onChange={(newValue) => {
-            setValue(newValue);
+            handleDateChange(newValue);
           }}
           //@ts-ignore
           renderInput={(params) => <TextField {...params} />}

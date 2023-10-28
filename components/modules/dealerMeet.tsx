@@ -11,6 +11,7 @@ import Image from "next/image";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import dayjs, { Dayjs } from "dayjs";
 
 type Props = {
   modelId: string;
@@ -30,8 +31,8 @@ export default function DealerMeet({
   const [verifyTelephone, setVerifyTelephone] = useState<boolean>(false);
   const [verifyEmail, setVerifyEmail] = useState<boolean>(false);
   const [isVerified, setIsVerified] = useState<boolean>(false);
-  const [date, setDate] = useState<string>("");
-  const [time, setTime] = useState<string>("");
+  const [date, setDate] = useState<Dayjs | null>(dayjs(''));
+  const [time, setTime] = useState<Dayjs | null>(dayjs(''));
   const [name, setName] = useState<string>("");
   const [telephone, setTelephone] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -43,7 +44,7 @@ export default function DealerMeet({
   useEffect(() => {
     if (
       date &&
-      time !== "" &&
+      time &&
       verifyName &&
       verifyTelephone &&
       verifyEmail
@@ -62,12 +63,13 @@ export default function DealerMeet({
     verifyTelephone,
   ]);
 
-  const handleDateChange = (newValue: string) => {
-    setDate(newValue);
+  const handleDateChange = (date: Dayjs | null) => {
+    setDate(date);
   };
-  const handleTimeChange = (newValue: string) => {
-    setTime(newValue);
+  const handleTimeChange = (time: Dayjs | null) => {
+    setTime(time);
   };
+
   const handleNameChange = (event: any) => {
     const textInput = event.target.value;
     setName(textInput);
@@ -82,6 +84,7 @@ export default function DealerMeet({
       setTelephone(textInput);
     }
   };
+
   const handleEmailChange = (event: any) => {
     const textInput = event.target.value;
     setEmail(textInput);
@@ -89,6 +92,7 @@ export default function DealerMeet({
       setVerifyEmail(true);
     }
   };
+
   const handleCaptchaVerify = (response: string | null) => {
     if (response) {
       setCheckedBot(true);
@@ -121,21 +125,8 @@ export default function DealerMeet({
     <Box className={classes.container}>
       <span className="fs-18px tc-blue">นัดดีลเลอร์</span>
       <Box className={classes.calendar}>
-        <Calendar
-          id={"date"}
-          type={"date"}
-          value={date}
-          onChange={handleDateChange}
-          style="custom"
-          disablePastDate={"yesterday"}
-        />
-        <Calendar
-          id={"date"}
-          type={"time"}
-          value={time}
-          onChange={handleTimeChange}
-          style="custom"
-        />
+        <Date onDateChange={handleDateChange}/>
+        <Time date={date}/>
       </Box>
       <Box className={classes.form_label}>
         <Image
