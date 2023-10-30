@@ -20,7 +20,7 @@ const vehicleMockData = [
     submodel: "F30",
     year: "2015",
     mileage: "60,000",
-    price: "890,000",
+    listing_price: "890,000",
     image: "https://laravel.rapidmotors.tech/images/f30_blue3.png",
   },
   {
@@ -30,7 +30,7 @@ const vehicleMockData = [
     submodel: "F30",
     year: "2015",
     mileage: "60,000",
-    price: "890,000",
+    listing_price: "890,000",
     image: "https://laravel.rapidmotors.tech/images/f30_white3.png",
   },
   {
@@ -40,7 +40,7 @@ const vehicleMockData = [
     submodel: "F30",
     year: "2015",
     mileage: "60,000",
-    price: "890,000",
+    listing_price: "890,000",
     image: "https://laravel.rapidmotors.tech/images/f30_red3.png",
   },
   {
@@ -50,7 +50,7 @@ const vehicleMockData = [
     submodel: "F30",
     year: "2015",
     mileage: "60,000",
-    price: "890,000",
+    listing_price: "890,000",
     image: "https://laravel.rapidmotors.tech/images/f30_blue3.png",
   },
   {
@@ -60,7 +60,7 @@ const vehicleMockData = [
     submodel: "F30",
     year: "2015",
     mileage: "60,000",
-    price: "890,000",
+    listing_price: "890,000",
     image: "https://laravel.rapidmotors.tech/images/f30_white3.png",
   },
   {
@@ -70,7 +70,7 @@ const vehicleMockData = [
     submodel: "F30",
     year: "2015",
     mileage: "60,000",
-    price: "890,000",
+    listing_price: "890,000",
     image: "https://laravel.rapidmotors.tech/images/f30_red3.png",
   },
 ];
@@ -103,7 +103,7 @@ export default function ShowcarSectionHome({}: Props) {
   return (
     <Box className={classes.container}>
       <Grid container spacing={isMobileMode ? 0 : 2}>
-        {vehicleMockData.map((vehicle: any, index: number) => {
+        {vehiclesData.map((vehicle: ICar, index: number) => {
           return (
             <Grid
               item
@@ -118,7 +118,7 @@ export default function ShowcarSectionHome({}: Props) {
                 model={vehicle.model}
                 year={vehicle.year}
                 submodel={vehicle.submodel}
-                price={vehicle.price}
+                price={vehicle.listing_price}
                 mileage={vehicle.mileage}
                 image={vehicle.image}
               />
