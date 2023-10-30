@@ -12,5 +12,5 @@ export interface ICar {
     year: string;
     brand_id: string;
     province: string;
-    main_image: string;
+    image: string;
 }

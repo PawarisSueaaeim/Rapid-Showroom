@@ -311,7 +311,7 @@ export default function SearchFilter({}: Props) {
                   submodel={car.submodel}
                   price={car.listing_price}
                   mileage={car.mileage}
-                  image={car.main_image}
+                  image={car.image}
                 />
               </Grid>
             );

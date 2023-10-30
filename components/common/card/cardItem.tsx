@@ -34,7 +34,7 @@ export default function CardItem({
           src={image ? image : "/images/image-mockup-car.png"}
           width={190}
           height={120}
-          alt={image}
+          alt={`${model}-${submodel}-${vehicle_id}`}
         />
         <Box
           display={"flex"}

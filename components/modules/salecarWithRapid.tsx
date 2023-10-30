@@ -3,7 +3,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import classes from "@/style/page/home.module.css";
+import classes from "@/style/page/home/home.module.css";
 
 type Props = {};
 

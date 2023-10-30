@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { Box, Grid } from "@mui/material";
-import classes from "@/style/page/home.module.css";
+import classes from "@/style/page/home/home.module.css";
 import { ShowcarSectionHome } from "@/components/modules";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
@@ -12,7 +12,7 @@ type Props = {};
 
 export default function Home({}: Props) {
   return (
-    <Box>
+    <Box className={classes.home_container}>
       <Box className={classes.bgImage01}>
         <Box className={classes.container_column}>
           <Box className={classes.title_1_page}>
