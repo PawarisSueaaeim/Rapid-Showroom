@@ -9,7 +9,7 @@ import { currency } from "@/utils/currency";
 import { Carousel } from "@/components/common/carousel";
 
 type Props = {
-  params: { id: string };
+  params: { id: string;};
 };
 
 export default async function Detail({ params }: Props) {
@@ -56,7 +56,11 @@ export default async function Detail({ params }: Props) {
       </span>
       <span className="fs-14px">เลขไมล์: {currency(data.mileage, 0)} Km</span>
       <Box className={classes.dealer_meet}>
-        <DealerMeet modelId={data.model_id} vehicleId={data.vehicle_id} listingVparkId={data.listing_vpark_id}/>
+        <DealerMeet
+          modelId={data.model_id}
+          vehicleId={data.vehicle_id}
+          listingVparkId={data.listing_vpark_id}
+        />
       </Box>
     </Box>
   );

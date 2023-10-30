@@ -110,7 +110,7 @@ const Navbar = ({}: Props) => {
             <span className="tc-black fs-20px fw-100">เกี่ยวกับเรา</span>
           </Link>
           <Link href="/login" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px fw-100">{currentURL === '/accept' ? "ออกจากระบบ" : "เข้าสู่ระบบ"}</span>
+            <span className="tc-black fs-20px fw-100">{currentURL === '/acceptance' ? "ออกจากระบบ" : "เข้าสู่ระบบ"}</span>
           </Link>
         </Box>
       </Box>
