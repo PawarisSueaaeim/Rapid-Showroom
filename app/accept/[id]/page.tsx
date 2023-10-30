@@ -15,7 +15,8 @@ type Props = {
 export default function CardAcceptById({ params }: Props) {
   const getDataAcceptPrice =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/accept-price";
-  const cancelSellCar = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/accept-price/cancel";
+  const cancelSellCar =
+    process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/accept-price/cancel";
 
   const [dataVehicle, setDataVehicle] = useState<any>({});
 
@@ -25,51 +26,60 @@ export default function CardAcceptById({ params }: Props) {
 
   const getDataAcceptPriceResponse = () => {
     axios
-    .post(getDataAcceptPrice, {
-      uuid: `${params.id}`,
-    })
-    .then((response) => {
-      setDataVehicle(response.data.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .post(getDataAcceptPrice, {
+        uuid: `${params.id}`,
+      })
+      .then((response) => {
+        setDataVehicle(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const acceptPriceHandler = () => {
-    axios.patch(getDataAcceptPrice, {
-      accept_price: -1,
-      uuid: params.id,
-    }).then(() => {
-      getDataAcceptPriceResponse();
-    }).catch((error) => {
-      console.log(error)
-    });
+    axios
+      .patch(getDataAcceptPrice, {
+        accept_price: 1,
+        uuid: params.id,
+      })
+      .then(() => {
+        getDataAcceptPriceResponse();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const notAcceptPriceHandler = () => {
-    axios.patch(getDataAcceptPrice, {
-      accept_price: 1,
-      uuid: params.id,
-    }).then(() => {
-      getDataAcceptPriceResponse();
-    }).catch((error) => {
-      console.log(error)
-    });
+    axios
+      .patch(getDataAcceptPrice, {
+        accept_price: -1,
+        uuid: params.id,
+      })
+      .then(() => {
+        getDataAcceptPriceResponse();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const cancelSellCarHandler = () => {
-    axios.patch(cancelSellCar, {
-      uuid: params.id,
-    }).then(() => {
-      getDataAcceptPriceResponse();
-    }).catch((error) => {
-      console.log(error);
-    });
+    axios
+      .patch(cancelSellCar, {
+        uuid: params.id,
+      })
+      .then(() => {
+        getDataAcceptPriceResponse();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const renderSectionButton = () => {
-    if (dataVehicle.status === "close") {
+    if (dataVehicle.is_client_accept_price == 0) {
       return (
         <Fragment>
           <ButtonPleumDesign
@@ -88,7 +98,10 @@ export default function CardAcceptById({ params }: Props) {
           />
         </Fragment>
       );
-    } else if (dataVehicle.status === 'open') {
+    } else if (
+      dataVehicle.status == "open" &&
+      dataVehicle.is_client_accept_price == 1
+    ) {
       return (
         <Fragment>
           <ButtonPleumDesign
@@ -99,7 +112,7 @@ export default function CardAcceptById({ params }: Props) {
             textBtnColor={ColorSet.textBlack}
           />
         </Fragment>
-      )
+      );
     }
   };
 
