@@ -9,21 +9,15 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
 type Props = {
   date?: string;
-  onTimeChange: (newTime: Dayjs | null) => void;
 };
 
-export default function TimeValidationTimePicker({onTimeChange, date }: Props) {
+export default function TimeValidationTimePicker({ date }: Props) {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs());
 
   //@ts-ignore
   const currentDate = moment(dayjs().$d).format("YYYY-MM-DD");
   //@ts-ignore
   const dateProps = moment(date.$d).format("YYYY-MM-DD");
-
-  const handleTimeChange = (newValue: Dayjs | null) => {
-    setValue(newValue);
-    onTimeChange(newValue);
-  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -33,8 +27,10 @@ export default function TimeValidationTimePicker({onTimeChange, date }: Props) {
           renderInput={(params) => <TextField {...params} />}
           value={value}
           label="เลือกเวลานัดดีลเลอร์"
-          onChange={handleTimeChange}
-          minTime={dateProps === currentDate ? dayjs().add(1, "hours") : undefined}
+          onChange={(newValue) => {
+            setValue(newValue);
+          }}
+          minTime={dateProps === currentDate ? dayjs().add(1, "hours") : null}
         />
       </Stack>
     </LocalizationProvider>

@@ -15,7 +15,7 @@ type Props = {
 export default function CardAcceptById({ params }: Props) {
   const getDataAcceptPrice =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/accept-price";
-  const cancelSellCar = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/cancel";
+  const cancelSellCar = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/accept-price/cancel";
 
   const [dataVehicle, setDataVehicle] = useState<any>({});
 

@@ -2,7 +2,7 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React from "react";
-import classes from "@/style/page/home.module.css";
+import classes from "@/style/page/home/home.module.css";
 import Link from "next/link";
 
 type Props = {};
