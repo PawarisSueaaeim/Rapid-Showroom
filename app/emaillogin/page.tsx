@@ -55,6 +55,7 @@ export default function EmailLogin({}: Props) {
   }, [password, confirmPassword]);
 
   const renderOnSubmit = () => {
+    setIsMatch(false);
     axios
       .post(register, {
         name: name,

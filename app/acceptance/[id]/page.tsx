@@ -20,6 +20,9 @@ export default function CardAcceptById({ params }: Props) {
 
   const [dataVehicle, setDataVehicle] = useState<any>({});
 
+  const [disableAccept, setDisableAccept] = useState<boolean>(false);
+  const [cancel, setCancel] = useState<boolean>(false);
+
   useEffect(() => {
     getDataAcceptPriceResponse();
   }, []);
@@ -38,6 +41,7 @@ export default function CardAcceptById({ params }: Props) {
   };
 
   const acceptPriceHandler = () => {
+    setDisableAccept(true);
     axios
       .patch(getDataAcceptPrice, {
         accept_price: 1,
@@ -52,6 +56,7 @@ export default function CardAcceptById({ params }: Props) {
   };
 
   const notAcceptPriceHandler = () => {
+    setDisableAccept(true);
     axios
       .patch(getDataAcceptPrice, {
         accept_price: -1,
@@ -66,6 +71,7 @@ export default function CardAcceptById({ params }: Props) {
   };
 
   const cancelSellCarHandler = () => {
+    setCancel(true);
     axios
       .patch(cancelSellCar, {
         uuid: params.id,
@@ -88,6 +94,7 @@ export default function CardAcceptById({ params }: Props) {
             backgroundBtnColor={ColorSet.btnWhite}
             backgroundBtnHoverColor={ColorSet.btnWhiteHover}
             textBtnColor={ColorSet.textBlack}
+            disabled={disableAccept}
           />
           <ButtonPleumDesign
             title={"ไม่ยอมรับราคา"}
@@ -95,6 +102,7 @@ export default function CardAcceptById({ params }: Props) {
             backgroundBtnColor={ColorSet.btnGray}
             backgroundBtnHoverColor={ColorSet.btnGrayHover}
             textBtnColor={ColorSet.textBlack}
+            disabled={disableAccept}
           />
         </Fragment>
       );
@@ -110,6 +118,7 @@ export default function CardAcceptById({ params }: Props) {
             backgroundBtnColor={ColorSet.btnGray}
             backgroundBtnHoverColor={ColorSet.btnGrayHover}
             textBtnColor={ColorSet.textBlack}
+            disabled={cancel}
           />
         </Fragment>
       );

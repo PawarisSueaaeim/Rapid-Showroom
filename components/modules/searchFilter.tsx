@@ -6,7 +6,7 @@ import axios from "axios";
 import classes from "@/style/components/common/form.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import { NewSearch } from "../common/search";
-import { CardItems } from "../common/card";
+import { CardItemPleumDesign, CardItems } from "../common/card";
 import { ICar } from "../types/car";
 import { IsLoading } from "../common/loading";
 
@@ -130,51 +130,55 @@ export default function SearchFilter({}: Props) {
 
   const getModelVehicle = () => {
     if (searchModel !== null) {
-      axios.get(getModel + `?brand_id=${searchBrand}`)
-        .then(response => {
+      axios
+        .get(getModel + `?brand_id=${searchBrand}`)
+        .then((response) => {
           setDataModelsSelect(response.data.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     }
   };
-  
+
   const getSubmodelVehicle = () => {
     if (searchSubmodel !== null) {
-      axios.get(getSubmodel + `?model_id=${searchModel}`)
-        .then(response => {
+      axios
+        .get(getSubmodel + `?model_id=${searchModel}`)
+        .then((response) => {
           setDataSubmodelsSelect(response.data.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
-    };
+    }
   };
-  
+
   const selectedBrandHandler = (event: any) => {
     router.push(`?brand_id=${event.target.value}`);
     setDataModelsSelect([]);
-    axios.get(getModel + `?brand_id=${event.target.value}`)
-      .then(response => {
+    axios
+      .get(getModel + `?brand_id=${event.target.value}`)
+      .then((response) => {
         setDataModelsSelect(response.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
-  
+
   const selectedModelHandler = (event: any) => {
     router.push(`?brand_id=${searchBrand}&model_id=${event.target.value}`);
-    axios.get(getSubmodel + `?model_id=${event.target.value}`)
-      .then(response => {
+    axios
+      .get(getSubmodel + `?model_id=${event.target.value}`)
+      .then((response) => {
         setDataSubmodelsSelect(response.data.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
-  
+
   const selectedSubmodelHandler = (event: any) => {
     router.push(
       `?brand_id=${searchBrand}&model_id=${searchModel}&submodel_id=${event.target.value}`
@@ -196,7 +200,7 @@ export default function SearchFilter({}: Props) {
   };
 
   return (
-    <Box display={"flex"} flexDirection={"column"}>
+    <Box display={"flex"} flexDirection={"column"} width={"100%"}>
       <Box padding={2}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -293,21 +297,24 @@ export default function SearchFilter({}: Props) {
       </Box>
 
       {isLoading ? (
-        <CircularProgress />
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          height={"40vh"}
+        >
+          <CircularProgress />
+        </Box>
       ) : (
         <Grid container>
           {dataVehicle.map((car: ICar, index: number) => {
             return (
-              <Grid
-                item
-                xs={6}
-                md={3}
-                lg={2}
-                key={`${car.vehicle_id}-${index}`}
-              >
-                <CardItems
+              <Grid item xs={6} md={4} lg={3} key={`${car.vehicle_id}-${index}`}>
+                <CardItemPleumDesign
                   vehicle_id={car.vehicle_id}
+                  brand={car.brand}
                   model={car.model}
+                  year={car.year}
                   submodel={car.submodel}
                   price={car.listing_price}
                   mileage={car.mileage}

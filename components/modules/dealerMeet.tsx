@@ -105,6 +105,7 @@ export default function DealerMeet({
   };
 
   const handleSubmit = () => {
+    setIsVerified(false);
     axios
       .put(booking, {
         listing_vpark_id: listingVparkId,
@@ -121,6 +122,8 @@ export default function DealerMeet({
       })
       .catch((error) => {
         console.log(error);
+      }).finally(() => {
+        setIsVerified(true);
       });
   };
 

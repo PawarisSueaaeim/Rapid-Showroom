@@ -23,6 +23,7 @@ export default function Login({}: Props) {
   const [password, setPassword] = useState<string>("");
 
   const [alertPassword, setAlertPassword] = useState<boolean>(false);
+  const [disableLoginBtn, setDisableLoginBtn] = useState<boolean>(false);
 
   const emailHandler = (event: any) => {
     setEmail(event.target.value);
@@ -43,6 +44,7 @@ export default function Login({}: Props) {
   }, []);
 
   const renderSubmit = () => {
+    setDisableLoginBtn(true);
     axios
       .post(login, {
         email: email,
@@ -58,6 +60,8 @@ export default function Login({}: Props) {
       })
       .catch((error) => {
         console.log("Error login api", error);
+      }).finally(() => {
+        setDisableLoginBtn(false)
       });
   };
 
@@ -77,6 +81,7 @@ export default function Login({}: Props) {
         textBtnColor={ColorSet.textBlack}
         backgroundBtnColor={ColorSet.btnGray}
         backgroundBtnHoverColor={ColorSet.btnGrayHover}
+        disabled={disableLoginBtn}
       />
       {alertPassword ? (
         <Alert severity="warning">

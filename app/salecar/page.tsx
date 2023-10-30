@@ -213,6 +213,7 @@ export default function Salecar({}: Props) {
   };
 
   const renderSubmit = () => {
+    setIsCanSubmit(false);
     axios
       .put(baseURL + "/guests/seller", {
         name: nickname,
@@ -238,6 +239,8 @@ export default function Salecar({}: Props) {
       })
       .catch((error) => {
         console.log(error);
+      }).finally(() => {
+        setIsCanSubmit(true);
       });
   };
 
