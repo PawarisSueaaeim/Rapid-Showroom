@@ -55,7 +55,7 @@ export default function Accept({}: Props) {
         {carList.map((list, index) => {
           return (
             <Grid item key={index} xs={12} sm={6} md={4}>
-              <Link href={`/accept/${list.uuid}`}>
+              <Link href={`/acceptance/${list.uuid}`}>
                 <CardAccept />
               </Link>
             </Grid>

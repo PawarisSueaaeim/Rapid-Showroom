@@ -234,7 +234,7 @@ export default function Salecar({}: Props) {
         referral: "ty3eWtbmcXyYSJvYRlu0DGS1MWjctPbt29VZbvP9kBLnPdKdsB",
       })
       .then((response) => {
-        router.push(`?status=${response.data.status}&havepasswd=${"NO"}`);
+        router.push(`?status=${response.data.status}&email=${email}&name=${nickname}`);
       })
       .catch((error) => {
         console.log(error);

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { Box, Grid, Pagination } from "@mui/material";
+import { Box, CircularProgress, Grid, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import classes from "@/style/components/common/form.module.css";
@@ -293,7 +293,7 @@ export default function SearchFilter({}: Props) {
       </Box>
 
       {isLoading ? (
-        <IsLoading />
+        <CircularProgress />
       ) : (
         <Grid container>
           {dataVehicle.map((car: ICar, index: number) => {

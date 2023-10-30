@@ -41,12 +41,10 @@ export default function CardItem({
       }}
     >
       <Image
-        // src={image ? image : "/images/image-mockup-car.png"}
-        // src={"/images/image-car-01.png"}
-        src={image}
+        src={image ? image : "/images/image-mockup-car.png"}
         width={160}
         height={100}
-        alt={image}
+        alt={`${brand}-${model}-${submodel}-${vehicle_id}`}
       />
       <Box
         display={"flex"}
@@ -55,18 +53,21 @@ export default function CardItem({
         paddingLeft={3}
       >
         <span className="fs-18px text-upper">
-          {/* <strong>{brand} {model}</strong> */}
-          <strong>{brand} {model}</strong>
+          <strong>
+            {brand} {model}
+          </strong>
         </span>
-        {/* <span className="fs-12px">ปี: {year}</span> */}
-        <span className="fs-12px">Year: <span className="fw-400">{year}</span></span>
-        {/* <span className="fs-12px text-upper">{submodel}</span> */}
-        <span className="fs-12px">Submodel: <span className="fw-400">{submodel}</span></span>
-        <span className="fs-12px">mileage: <span className="fw-400">{mileage} km</span></span>
-        {/* <span className="fs-12px">เลขไมล์: {currency(mileage, 0)} Km</span> */}
+        <span className="fs-12px">
+          Year: <span className="fw-400">{year}</span>
+        </span>
+        <span className="fs-12px">
+          Submodel: <span className="fw-400">{submodel}</span>
+        </span>
+        <span className="fs-12px">
+          mileage: <span className="fw-400">{currency(mileage, 0)} km</span>
+        </span>
         <span className="fs-16px tc-blue">
-          {/* <strong>{currency(price, 0)} บาท</strong> */}
-          <strong>Price: {price} Baht</strong>
+          <strong>Price: {currency(price, 0)} Baht</strong>
         </span>
       </Box>
       <Box

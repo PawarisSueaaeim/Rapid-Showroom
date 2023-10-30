@@ -1,21 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Alert, Box } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "@/style/page/login/login.module.css";
 import { InputEmail, InputPassword } from "@/components/common/form";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
 import { useRouter, useSearchParams } from "next/navigation";
+import axios from "axios";
 
 type Props = {};
 
 export default function Login({}: Props) {
+  const login = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/members/login";
+  const logout = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/members/logout";
+
   const router = useRouter();
   const searchParans = useSearchParams();
-  const isValid = searchParans.get("status");
+  const registerSuccess = searchParans.get("status");
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const [alertPassword, setAlertPassword] = useState<boolean>(false);
 
   const emailHandler = (event: any) => {
     setEmail(event.target.value);
@@ -24,12 +31,34 @@ export default function Login({}: Props) {
     setPassword(event.target.value);
   };
 
+  useEffect(() => {
+    axios
+      .post(logout)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const renderSubmit = () => {
-    if (email === "test@example.com" && password === "1234") {
-      router.push("/accept");
-    } else {
-      router.push("?status=inValid");
-    }
+    axios
+      .post(login, {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.status == "OK") {
+          router.push("/acceptance");
+        } else {
+          setAlertPassword(true);
+        }
+      })
+      .catch((error) => {
+        console.log("Error login api", error);
+      });
   };
 
   return (
@@ -49,10 +78,13 @@ export default function Login({}: Props) {
         backgroundBtnColor={ColorSet.btnGray}
         backgroundBtnHoverColor={ColorSet.btnGrayHover}
       />
-      {isValid === "inValid" ? (
+      {alertPassword ? (
         <Alert severity="warning">
-          รหัสผ่านไม่ถูกต้อง กรุณากรอกใหม่อีกครั้ง
+          รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง
         </Alert>
+      ) : null}
+      {registerSuccess === "OK" ? (
+        <Alert severity="success">สมัครสมาชิกสำเร็จ!</Alert>
       ) : null}
     </Box>
   );
