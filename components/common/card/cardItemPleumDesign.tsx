@@ -81,7 +81,7 @@ export default function CardItem({
           fontSize: "12px",
         }}
       >
-        <Link href={`/buycar/${vehicle_id}`}>
+        <Link href={`/vehicles/${vehicle_id}`}>
           <span>ดูเพิ่มเติม</span>
         </Link>
       </Box>

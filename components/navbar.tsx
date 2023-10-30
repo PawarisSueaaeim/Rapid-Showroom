@@ -54,7 +54,7 @@ const Navbar = ({}: Props) => {
             <Box>
               <ul className="fw-100 fs-18px">
                 <li>
-                  <Link href="/buycar">ซื้อรถ</Link>
+                  <Link href="/vehicles">ซื้อรถ</Link>
                 </li>
                 <li>
                   <Link href="/salecar">ขายรถ</Link>
@@ -97,7 +97,7 @@ const Navbar = ({}: Props) => {
           alignItems={"center"}
           gap={3}
         >
-          <Link href="/buycar" onClick={() => setShowMenu(!showMenu)}>
+          <Link href="/vehicles" onClick={() => setShowMenu(!showMenu)}>
             <span className="tc-black fs-20px fw-100">ซื้อรถ</span>
           </Link>
           <Link href="/salecar" onClick={() => setShowMenu(!showMenu)}>

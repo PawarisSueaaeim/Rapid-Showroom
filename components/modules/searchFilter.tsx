@@ -6,9 +6,8 @@ import axios from "axios";
 import classes from "@/style/components/common/form.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import { NewSearch } from "../common/search";
-import { CardItemPleumDesign, CardItems } from "../common/card";
+import { CardItemPleumDesign } from "../common/card";
 import { ICar } from "../types/car";
-import { IsLoading } from "../common/loading";
 
 type Props = {};
 

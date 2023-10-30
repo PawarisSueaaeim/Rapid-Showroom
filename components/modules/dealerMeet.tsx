@@ -14,9 +14,9 @@ import { Dayjs } from "dayjs";
 import moment from "moment";
 
 type Props = {
-  modelId: string;
-  vehicleId: string;
-  listingVparkId: string;
+  modelId: number;
+  vehicleId: number;
+  listingVparkId: number;
 };
 
 export default function DealerMeet({
@@ -26,6 +26,9 @@ export default function DealerMeet({
   const booking = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/booking";
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const refferal = searchParams.get('ref') || null;
+  const soldType = searchParams.get('soldtype') || null;
 
   const [verifyName, setVerifyName] = useState<boolean>(false);
   const [verifyTelephone, setVerifyTelephone] = useState<boolean>(false);
@@ -115,7 +118,8 @@ export default function DealerMeet({
         email: email,
         phone_no: telephone,
         branch_id: 1,
-        referral: '',
+        referral: refferal,
+        soldType: soldType,
       })
       .then((response) => {
         router.push(`?status=${response.data.status}`);

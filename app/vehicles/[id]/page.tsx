@@ -9,15 +9,16 @@ import { currency } from "@/utils/currency";
 import { Carousel } from "@/components/common/carousel";
 
 type Props = {
-  params: { id: string;};
+  params: { id: string };
 };
 
 export default async function Detail({ params }: Props) {
+  
   const getCar =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/showrooms/vehicles";
 
   const response = await axios.get(`${getCar}/${params.id}`);
-  const data = await response.data.data;
+  const data = await response.data.data
 
   return (
     <Box className={classes.container}>
@@ -29,7 +30,7 @@ export default async function Detail({ params }: Props) {
       </span>
       <span className="text-upper fs-12px tc-blue tw-100">{data.submodel}</span>
       <Box className={classes.btn_container}>
-        <Link href="/buycar">
+        <Link href="/vehicles">
           <ButtonCapsule
             title={"ดูรถเพิ่ม"}
             color={"#fff"}

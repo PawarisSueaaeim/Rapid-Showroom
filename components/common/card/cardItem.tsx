@@ -29,7 +29,7 @@ export default function CardItem({
       alignItems={"center"}
       style={{ border: "1px solid #D9D9D9" }}
     >
-      <Link href={`/buycar/${vehicle_id}`}>
+      <Link href={`/vehicles/${vehicle_id}`}>
         <Image
           src={image ? image : "/images/image-mockup-car.png"}
           width={190}
@@ -63,7 +63,7 @@ export default function CardItem({
           }}
         >
           <RemoveRedEyeIcon style={{ fontSize: "10px" }} />
-          <Link href={`/buycar/${vehicle_id}`}>
+          <Link href={`/vehicles/${vehicle_id}`}>
             <span>View car</span>
           </Link>
         </Box>

@@ -127,7 +127,7 @@ export default function ShowcarSectionHome({}: Props) {
         })}
       </Grid>
       <Box className={classes.btn_3_page}>
-        <Link href={"./buycar"}>
+        <Link href={"./vehicles"}>
           <ButtonPleumDesign
             title={"ดูรถยอดนิยมเพิ่มเติม"}
             backgroundBtnColor={ColorSet.btnWhite}

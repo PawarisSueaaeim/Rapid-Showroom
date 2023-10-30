@@ -37,7 +37,7 @@ export default function Certified({}: Props) {
           height={260}
           className={classes.image_car_02}
         />
-        <Link href="/buycar" className={classes.box_btn_homepage}>
+        <Link href="/vehicles" className={classes.box_btn_homepage}>
           <Image
             src="/icons/icon-buycar.png"
             alt="icon-buycar"

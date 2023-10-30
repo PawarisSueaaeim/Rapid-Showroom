@@ -38,9 +38,9 @@ export default function Search({ placeholder, data }: Props) {
 
   useEffect(() => {
     if(!query){
-      router.push('/buycar');
+      router.push('/vehicles');
     }else{
-      router.push(`/buycar?search=${query}`)
+      router.push(`/vehicles?search=${query}`)
     }
     
   },[query, router])

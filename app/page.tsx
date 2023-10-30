@@ -26,7 +26,7 @@ export default function Home({}: Props) {
             <span className="tc-white fs-20px">ผ่าน Platform Rapid Auto</span>
           </Box>
           <Box className={classes.btn_1_page}>
-            <Link href={"/buycar"}>
+            <Link href={"/vehicles"}>
               <ButtonPleumDesign
                 title={"ซื้อรถ"}
                 backgroundBtnColor={ColorSet.btnWhite}
@@ -129,7 +129,7 @@ export default function Home({}: Props) {
             </Grid>
           </Box>
           <Box className={classes.btn_2_page}>
-            <Link href={"/buycar"}>
+            <Link href={"/vehicles"}>
               <ButtonPleumDesign
                 title={"ซื้อรถ"}
                 backgroundBtnColor={ColorSet.btnWhite}
