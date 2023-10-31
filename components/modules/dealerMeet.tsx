@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { ButtonCapsule } from "../common/button";
 import { Date, InputCustom, Time } from "../common/form";
-import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
+import { isThaiText, isPhoneNumber } from "@/utils/regex";
 import ReCAPTCHA from "react-google-recaptcha";
 import classes from "@/style/components/module/dealerMeet.module.css";
 import Image from "next/image";

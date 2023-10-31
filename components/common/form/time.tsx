@@ -37,6 +37,7 @@ export default function TimeValidationTimePicker({onTimeChange, date }: Props) {
            handleTimeChange(newValue);
           }}
           minTime={dateProps === currentDate ? dayjs().add(1, "hours") : null}
+          ampm={false}
         />
       </Stack>
     </LocalizationProvider>

@@ -26,6 +26,7 @@ export default function ResponsiveDatePickers({ onDateChange }: Props) {
           views={["year", "month", "day"]}
           value={value}
           disablePast={true}
+          format="DD/MM/YYYY"
           onChange={(newValue) => {
             handleDateChange(newValue);
           }}
