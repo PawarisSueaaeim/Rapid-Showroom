@@ -32,7 +32,6 @@ export default function DealerMeet({
 
   const [verifyName, setVerifyName] = useState<boolean>(false);
   const [verifyTelephone, setVerifyTelephone] = useState<boolean>(false);
-  const [verifyEmail, setVerifyEmail] = useState<boolean>(false);
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const [date, setDate] = useState<string>('');
   const [time, setTime] = useState<string>('');
@@ -91,14 +90,6 @@ export default function DealerMeet({
     }
   };
 
-  const handleEmailChange = (event: any) => {
-    const textInput = event.target.value;
-    setEmail(textInput);
-    if (isEmail(textInput)) {
-      setVerifyEmail(true);
-    }
-  };
-
   const handleCaptchaVerify = (response: string | null) => {
     if (response) {
       setCheckedBot(true);
@@ -133,7 +124,7 @@ export default function DealerMeet({
 
   return (
     <Box className={classes.container}>
-      <span className="fs-18px tc-blue">นัดดีลเลอร์</span>
+      <span className="fs-18px tc-blue">นัดดูรถ</span>
       <Box className={classes.calendar}>
         <Date onDateChange={handleDateChange}/>
         <Time onTimeChange={handleTimeChange} date={date}/>
@@ -162,13 +153,6 @@ export default function DealerMeet({
           value={telephone}
           onChange={handleTelephoneChange}
         />
-        {/* <InputCustom
-          id="email-to-dealer"
-          type="text"
-          placeholder="อีเมล"
-          value={email}
-          onChange={handleEmailChange}
-        /> */}
         <Box className={classes.recaptcha}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box>
@@ -176,7 +160,7 @@ export default function DealerMeet({
           <Link href="/booksuccess">
             <ButtonCapsule
               disabled={!isVerified}
-              title={"นัดดีลเลอร์"}
+              title={"ยืนยันนัดดูรถ"}
               bgColor={"#4679C7"}
               color={"#fff"}
               fontSize={16}

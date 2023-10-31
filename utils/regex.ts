@@ -5,8 +5,16 @@ export const isThaiText = (inputText: string): boolean => {
 };
 
 // ใส่ ตัวเลขก่อน1 ตัวหรือไม่ใส่ก็ได้ ตามด้วยตัวอักษรไทย 2 ตัว และตัวเลข 1-4 ตัว จะ return true ................................
-export const isPlateId = (inputText: string): boolean => {
-    const regexPattern = /^\d?[ก-ฮ]{2}\d{1,4}$/;
+export const isPlateId01 = (inputText: string): boolean => {
+    const regexPattern = /^[1-9]{0,1}$/;
+    return regexPattern.test(inputText);
+}
+export const isPlateId02 = (inputText: string): boolean => {
+    const regexPattern = /^[ก-ฮ]{0,2}$/;
+    return regexPattern.test(inputText);
+}
+export const isPlateId03 = (inputText: string): boolean => {
+    const regexPattern = /^\d{1,4}$/;
     return regexPattern.test(inputText);
 }
 

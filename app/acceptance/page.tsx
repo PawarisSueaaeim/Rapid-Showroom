@@ -4,17 +4,18 @@ import Link from "next/link";
 import React from "react";
 import classes from "@/style/page/accept/accept.module.css";
 import { CardAccept } from "@/components/common/card";
+import axios from "axios";
 
 type Props = {};
 
-export default function Accept({}: Props) {
+export default async function Accept({}: Props) {
   const carList = [
     {
       vehicle_id: "1",
       brand: "BMW",
       model: "series 3",
       submodel: "sedan",
-      plateId: "ตด8888",
+      plateId: "สส8888",
       province: "สุโขทัย",
       uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
     },
@@ -23,7 +24,7 @@ export default function Accept({}: Props) {
       brand: "BMW",
       model: "series 3",
       submodel: "sedan",
-      plateId: "ตด8888",
+      plateId: "สส8888",
       province: "สุโขทัย",
       uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
     },
@@ -32,7 +33,7 @@ export default function Accept({}: Props) {
       brand: "BMW",
       model: "series 3",
       submodel: "sedan",
-      plateId: "ตด8888",
+      plateId: "สส8888",
       province: "สุโขทัย",
       uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
     },
@@ -41,7 +42,7 @@ export default function Accept({}: Props) {
       brand: "BMW",
       model: "series 3",
       submodel: "sedan",
-      plateId: "ตด8888",
+      plateId: "สส8888",
       province: "สุโขทัย",
       uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
     },

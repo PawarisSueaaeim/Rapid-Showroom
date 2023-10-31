@@ -31,3 +31,15 @@
   font-weight: 300;
   height: 35px;
 }
+
+.input_custom_outline {
+  width: 100%;
+  padding: 12px 20px;
+  margin-top: 8px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid #8f9da3;
+  font-size: 16px;
+  font-weight: 300;
+  height: 35px;
+}

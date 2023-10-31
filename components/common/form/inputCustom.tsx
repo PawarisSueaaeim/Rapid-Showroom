@@ -8,6 +8,7 @@ type Props = {
   value?: string | number;
   alert?: string | null;
   onChange?: (value: any) => void;
+  padding?: string;
 };
 
 export default function InputCustom({
@@ -17,11 +18,15 @@ export default function InputCustom({
   value,
   alert,
   onChange,
+  padding
 }: Props) {
   return (
     <div>
       <input
         className={classes.input_custom}
+        style={{
+          padding: padding,
+        }}
         id={id}
         type={type}
         placeholder={placeholder}

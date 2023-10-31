@@ -38,14 +38,21 @@ export default function CardItem({
         borderRadius: isMobileMode ? 0 : "15px",
         border: "none",
         padding: "10px 4px 10px 4px",
+        boxShadow: isMobileMode ? "none" : "0px 1px 5px 0.25px #777",
       }}
     >
-      <Image
-        src={image ? image : "/images/image-mockup-car.png"}
-        width={160}
-        height={100}
-        alt={`${brand}-${model}-${submodel}-${vehicle_id}`}
-      />
+      <Box position={"relative"} style={{
+        width: 200,
+        height: 100
+      }}>
+        <Image
+          src={image ? image : "/images/image-mockup-car.png"}
+          layout="fill"
+          objectFit="cover"
+          alt={`${brand}-${model}-${submodel}-${vehicle_id}`}
+        />
+      </Box>
+
       <Box
         display={"flex"}
         flexDirection={"column"}

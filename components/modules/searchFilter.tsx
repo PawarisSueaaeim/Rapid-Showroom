@@ -1,6 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { Box, CircularProgress, Grid, Pagination } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Grid,
+  Pagination,
+  TextField,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import classes from "@/style/components/common/form.module.css";
@@ -8,6 +14,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { NewSearch } from "../common/search";
 import { CardItemPleumDesign } from "../common/card";
 import { ICar } from "../types/car";
+import { currency } from "@/utils/currency";
 
 type Props = {};
 
@@ -251,36 +258,22 @@ export default function SearchFilter({}: Props) {
             </select>
           </Grid>
           <Grid item xs={6}>
-            <select
-              onChange={selectedMinPriceDataHandler}
+            <input
+              type="text"
               value={searchMinPrice || ""}
-              className={classes.select_blue}
-            >
-              <option value="">ราคาเริ่มต้น</option>
-              {minPriceData.map((item: any, index: number) => {
-                return (
-                  <option key={index} value={item.value}>
-                    {item.label}
-                  </option>
-                );
-              })}
-            </select>
+              onChange={selectedMinPriceDataHandler}
+              className={classes.input_custom_outline}
+              placeholder="ราคาต่ำสุด"
+            />
           </Grid>
           <Grid item xs={6}>
-            <select
-              onChange={selectedMaxPriceDataHandler}
+            <input
+              type="text"
               value={searchMaxPrice || ""}
-              className={classes.select_blue}
-            >
-              <option value="99999999">ราคาสูงสุด</option>
-              {maxPriceData.map((item: any, index: number) => {
-                return (
-                  <option key={index} value={item.value}>
-                    {item.label}
-                  </option>
-                );
-              })}
-            </select>
+              onChange={selectedMaxPriceDataHandler}
+              className={classes.input_custom_outline}
+              placeholder="ราคาสูงสุด"
+            />
           </Grid>
         </Grid>
       </Box>
@@ -305,24 +298,33 @@ export default function SearchFilter({}: Props) {
           <CircularProgress />
         </Box>
       ) : (
-        <Grid container>
-          {dataVehicle.map((car: ICar, index: number) => {
-            return (
-              <Grid item xs={6} md={4} lg={3} key={`${car.vehicle_id}-${index}`}>
-                <CardItemPleumDesign
-                  vehicle_id={car.vehicle_id}
-                  brand={car.brand}
-                  model={car.model}
-                  year={car.year}
-                  submodel={car.submodel}
-                  price={car.listing_price}
-                  mileage={car.mileage}
-                  image={car.image}
-                />
-              </Grid>
-            );
-          })}
-        </Grid>
+        <Box marginTop={2}>
+          <Grid container spacing={2}>
+            {dataVehicle &&
+              dataVehicle.map((car: ICar, index: number) => {
+                return (
+                  <Grid
+                    item
+                    xs={6}
+                    md={3}
+                    lg={2}
+                    key={`${car.vehicle_id}-${index}`}
+                  >
+                    <CardItemPleumDesign
+                      vehicle_id={car.vehicle_id}
+                      brand={car.brand}
+                      model={car.model}
+                      year={car.year}
+                      submodel={car.submodel}
+                      price={car.listing_price}
+                      mileage={car.mileage}
+                      image={car.image}
+                    />
+                  </Grid>
+                );
+              })}
+          </Grid>
+        </Box>
       )}
       <Box
         display={"flex"}

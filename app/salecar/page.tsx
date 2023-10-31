@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { InputCustom } from "@/components/common/form";
 import { Calendar } from "@/components/common/calendar";
 import { ButtonCapsule } from "@/components/common/button";
-import { isPlateId, isMileage, isPhoneNumber } from "@/utils/regex";
+import { isMileage, isPhoneNumber, isPlateId01, isPlateId02, isPlateId03 } from "@/utils/regex";
 import { UpLoadImages } from "@/components/common/uploadFile";
 import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
@@ -39,7 +39,9 @@ export default function Salecar({}: Props) {
   const [dateSellCar, setDateSellCar] = useState("");
   const [timeSellCar, setTimeSellCar] = useState("");
   const [mileage, setMileage] = useState("");
-  const [plateId, setPlateId] = useState("");
+  const [plateId01, setPlateId01] = useState("");
+  const [plateId02, setPlateId02] = useState("");
+  const [plateId03, setPlateId03] = useState("");
   const [provinceId, setProvinceId] = useState(0);
   const [nickname, setNickname] = useState("");
   const [telephone, setTelephone] = useState("");
@@ -59,7 +61,8 @@ export default function Salecar({}: Props) {
     dateSellCar,
     timeSellCar,
     mileage,
-    plateId,
+    plateId02,
+    plateId03,
     provinceId,
     nickname,
     telephone,
@@ -135,7 +138,8 @@ export default function Salecar({}: Props) {
       dateSellCar === "" ||
       timeSellCar === "" ||
       mileage === "" ||
-      plateId === "" ||
+      plateId02 === "" ||
+      plateId03 === "" ||
       provinceId === 0 ||
       nickname === "" ||
       telephone === "" ||
@@ -184,16 +188,32 @@ export default function Salecar({}: Props) {
     const inputText = event.target.value;
     if (isMileage(inputText)) {
       setMileage(event.target.value);
-    } else if (inputText === 0 || inputText === '') {
+    } else if (inputText === 0 || inputText === "") {
       setMileage("");
     }
   };
-  const handlerPlateIdOnChange = (event: any) => {
+  const handlerPlateIdOnChange01 = (event: any) => {
     const inputText = event.target.value;
-    if (isPlateId(inputText)) {
-      setPlateId(inputText);
-    }else if (inputText === ''){
-      setPlateId('');
+    if (isPlateId01(inputText)){
+      setPlateId01(inputText);
+    }else if(inputText == ""){
+      setPlateId01(inputText);
+    }
+  };
+  const handlerPlateIdOnChange02 = (event: any) => {
+    const inputText = event.target.value;
+    if(isPlateId02(inputText)){
+      setPlateId02(inputText)
+    }else if(inputText == ""){
+      setPlateId02(inputText)
+    }
+  };
+  const handlerPlateIdOnChange03 = (event: any) => {
+    const inputText = event.target.value;
+    if(isPlateId03(inputText)){
+      setPlateId03(inputText)
+    }else if(inputText == ""){
+      setPlateId03(inputText)
     }
   };
   const handlerProvinceOnChange = (event: any) => {
@@ -224,7 +244,7 @@ export default function Salecar({}: Props) {
         brand_id: brandId,
         model_id: modelId,
         sub_model_id: submodelId,
-        license_plate: plateId,
+        license_plate: plateId01 + plateId02 + plateId03,
         year: year,
         mileage: mileage,
         color_id: colorId,
@@ -232,14 +252,16 @@ export default function Salecar({}: Props) {
         province_id: provinceId,
         branch_id: 1,
         images: uploadedImageData,
-        referral: "ty3eWtbmcXyYSJvYRlu0DGS1MWjctPbt29VZbvP9kBLnPdKdsB",
       })
       .then((response) => {
-        router.push(`?status=${response.data.status}&email=${email}&name=${nickname}`);
+        router.push(
+          `?status=${response.data.status}&email=${email}&name=${nickname}`
+        );
       })
       .catch((error) => {
         console.log(error);
-      }).finally(() => {
+      })
+      .finally(() => {
         setIsCanSubmit(true);
       });
   };
@@ -391,13 +413,32 @@ export default function Salecar({}: Props) {
           />
         </Grid>
         <Grid item xs={6}>
-          <InputCustom
-            id="plateId"
-            type="text"
-            placeholder="ทะเบียน"
-            onChange={handlerPlateIdOnChange}
-            alert={plateId !== "" ? null : "**กรุณากรอกทะเบียนรถที่ถูกต้อง"}
-          />
+          <Box display={"flex"} >
+            <InputCustom
+              id="plateId"
+              type="text"
+              value={plateId01}
+              placeholder="9"
+              onChange={handlerPlateIdOnChange01}
+              padding={"0px 15px"}
+            />
+            <InputCustom
+              id="plateId"
+              type="text"
+              value={plateId02}
+              placeholder="กก"
+              onChange={handlerPlateIdOnChange02}
+              padding={"0px 10px"}
+            />
+            <InputCustom
+              id="plateId"
+              type="text"
+              value={plateId03}
+              placeholder="9999"
+              onChange={handlerPlateIdOnChange03}
+              padding={"0px 6px"}
+            />
+          </Box>
         </Grid>
         <Grid item xs={6}>
           <select

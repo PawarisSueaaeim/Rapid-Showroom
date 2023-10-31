@@ -10,7 +10,7 @@ type Props = {
   onDateChange: (date: Dayjs | null) => void;
 };
 
-export default function ResponsiveDatePickers({onDateChange}: Props) {
+export default function ResponsiveDatePickers({ onDateChange }: Props) {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs(""));
 
   const handleDateChange = (newValue: Dayjs | null) => {
@@ -30,7 +30,11 @@ export default function ResponsiveDatePickers({onDateChange}: Props) {
             handleDateChange(newValue);
           }}
           //@ts-ignore
-          renderInput={(params) => <TextField {...params} />}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+            />
+          )}
         />
       </Stack>
     </LocalizationProvider>
