@@ -85,7 +85,7 @@ export default function CardAcceptById({ params }: Props) {
   };
 
   const renderSectionButton = () => {
-    if (dataVehicle.is_client_accept_price == 0) {
+    if (dataVehicle.is_client_accept_price == 0 ) {
       return (
         <Fragment>
           <ButtonPleumDesign
@@ -94,7 +94,7 @@ export default function CardAcceptById({ params }: Props) {
             backgroundBtnColor={ColorSet.btnWhite}
             backgroundBtnHoverColor={ColorSet.btnWhiteHover}
             textBtnColor={ColorSet.textBlack}
-            disabled={disableAccept}
+            disabled={dataVehicle.min_buy_price_label === "0" ? true : disableAccept}
           />
           <ButtonPleumDesign
             title={"ไม่ยอมรับราคา"}
@@ -102,7 +102,7 @@ export default function CardAcceptById({ params }: Props) {
             backgroundBtnColor={ColorSet.btnGray}
             backgroundBtnHoverColor={ColorSet.btnGrayHover}
             textBtnColor={ColorSet.textBlack}
-            disabled={disableAccept}
+            disabled={dataVehicle.min_buy_price_label === "0" ? true : disableAccept}
           />
         </Fragment>
       );

@@ -1,6 +1,5 @@
 import React from "react";
 import { Box } from "@mui/material";
-import Image from "next/image";
 import { Carousel } from "../carousel";
 
 interface ImageData {
@@ -9,9 +8,12 @@ interface ImageData {
 
 interface ImageUploadButtonProps {
   onUpload: (imageData: string[]) => void;
+  maxSize?: (value: boolean) => void;
 }
 
-const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
+const MAX_SIZE_BYTES = 10 * 1024**2;
+
+const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload , maxSize}) => {
   const [selectedImages, setSelectedImages] = React.useState<ImageData[]>([]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {

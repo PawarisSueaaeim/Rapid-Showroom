@@ -1,4 +1,3 @@
-
 import { Box, Grid } from "@mui/material";
 import Link from "next/link";
 import React from "react";
@@ -8,55 +7,46 @@ import axios from "axios";
 
 type Props = {};
 
+const token = "409|pPuqk7GAbbGDOOCc7vrVJ9d3KSYjBHfaBeCgcA3f4813816b";
+
 export default async function Accept({}: Props) {
-  const carList = [
+  const getSellCarList =
+    process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/members/vehicles";
+
+  const respoonse = await axios.post(
+    getSellCarList,
     {
-      vehicle_id: "1",
-      brand: "BMW",
-      model: "series 3",
-      submodel: "sedan",
-      plateId: "สส8888",
-      province: "สุโขทัย",
-      uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
+      page: 1,
+      per_page: 10,
+      orderby: "vehicle_id",
+      sort: "desc",
     },
     {
-      vehicle_id: "2",
-      brand: "BMW",
-      model: "series 3",
-      submodel: "sedan",
-      plateId: "สส8888",
-      province: "สุโขทัย",
-      uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
-    },
-    {
-      vehicle_id: "3",
-      brand: "BMW",
-      model: "series 3",
-      submodel: "sedan",
-      plateId: "สส8888",
-      province: "สุโขทัย",
-      uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
-    },
-    {
-      vehicle_id: "4",
-      brand: "BMW",
-      model: "series 3",
-      submodel: "sedan",
-      plateId: "สส8888",
-      province: "สุโขทัย",
-      uuid: '571ca5d6-d68b-44e1-81e8-d6360972e0fc',
-    },
-  ];
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const data = await respoonse.data.data;
+  
   return (
     <Box className={classes.container}>
       <span className="fs-20px fw-400 m-6">รายการขาย</span>
       <hr />
       <Grid container spacing={2}>
-        {carList.map((list, index) => {
+        {data.map((list: any, index: any) => {
           return (
             <Grid item key={index} xs={12} sm={6} md={4}>
               <Link href={`/acceptance/${list.uuid}`}>
-                <CardAccept />
+                <CardAccept
+                  brand={list.brand}
+                  model={list.model}
+                  subModel={list.sub_model}
+                  licensePlate={list.license_plate}
+                  minPrice={list.min_buy_price}
+                  maxPrice={list.max_buy_price}
+                  province={list.province}
+                />
               </Link>
             </Grid>
           );

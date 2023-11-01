@@ -30,6 +30,7 @@ export default function Salecar({}: Props) {
 
   const [isCanSubmit, setIsCanSubmit] = useState(false);
   const [uploadedImageData, setUploadedImageData] = useState<string[]>([]);
+  const [isImageLimit, setIsImageLimit] = useState(false);
   const [brandId, setBrandId] = useState(0);
   const [modelId, setModelId] = useState(0);
   const [submodelId, setSubmodelId] = useState(0);
@@ -113,7 +114,7 @@ export default function Salecar({}: Props) {
   };
 
   const renderGetYear = () => {
-    const startYear = 1960;
+    const startYear = new Date().getFullYear() - 20;
     const endYears = new Date().getFullYear();
 
     for (let i = startYear; i <= endYears; i++) {
@@ -154,6 +155,10 @@ export default function Salecar({}: Props) {
 
   const handleImageUpload = (imageDataArray: string[]) => {
     setUploadedImageData([...imageDataArray]);
+  };
+
+  const handleWithinLimit = (value: boolean) => {
+    setIsImageLimit(value);
   };
 
   const handlerDateSellCar = (dateValue: string) => {
@@ -291,7 +296,7 @@ export default function Salecar({}: Props) {
             : "**กรุณาอัพโหลดรูปรถที่ต้องการขาย"}
         </span>
       </Box>
-      <UpLoadImages onUpload={handleImageUpload} />
+      <UpLoadImages onUpload={handleImageUpload} maxSize={handleWithinLimit}/>
       <span className="fs-18px">ข้อมูลรถ</span>
       <Grid container columnSpacing={2}>
         <Grid item xs={12}>
@@ -478,6 +483,7 @@ export default function Salecar({}: Props) {
             value={timeSellCar}
             onChange={handlerTimeSellCar}
             style="outline"
+            selectedDate={dateSellCar}
           />
           <span className="tc-red fs-8px">
             {timeSellCar !== "" ? "" : "**กรุณาเลือกเวลาที่ต้องการขายรถ"}
@@ -512,6 +518,7 @@ export default function Salecar({}: Props) {
         </Grid>
       </Grid>
       <Box width={"100%"} margin={4}>
+        {isImageLimit && <span>**รูปทั้งหมดมีขนาดเกิน 10MB</span>}
         <Link href="/success">
           <ButtonCapsule
             title="ขายรถ"
