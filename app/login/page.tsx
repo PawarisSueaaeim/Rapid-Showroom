@@ -53,7 +53,7 @@ export default function Login({}: Props) {
       .then((response) => {
         console.log(response.data);
         if (response.data.status == "OK") {
-          router.push(`/acceptance/${response.data.access_token}`);
+          router.push(`/acceptance?userId=${response.data.access_token}`);
         } else {
           setAlertPassword(true);
         }

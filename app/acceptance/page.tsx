@@ -1,34 +1,45 @@
+"use client";
 import { Box, Grid } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import classes from "@/style/page/accept/accept.module.css";
 import { CardAccept } from "@/components/common/card";
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
 
 type Props = {};
 
-const token = "409|pPuqk7GAbbGDOOCc7vrVJ9d3KSYjBHfaBeCgcA3f4813816b";
+export default function Accept({}: Props) {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("userId");
 
-export default async function Accept({}: Props) {
+  const [data, setData] = useState([]);
+
   const getSellCarList =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/members/vehicles";
 
-  const respoonse = await axios.post(
-    getSellCarList,
-    {
-      page: 1,
-      per_page: 10,
-      orderby: "vehicle_id",
-      sort: "desc",
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  axios
+    .post(
+      getSellCarList,
+      {
+        page: 1,
+        per_page: 10,
+        orderby: "vehicle_id",
+        sort: "desc",
       },
-    }
-  );
-  const data = await respoonse.data.data;
-  
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((response) => {
+      setData(response.data.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   return (
     <Box className={classes.container}>
       <span className="fs-20px fw-400 m-6">รายการขาย</span>

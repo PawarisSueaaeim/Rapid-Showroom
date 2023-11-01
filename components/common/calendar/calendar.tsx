@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 import classes from "@/style/components/common/calendar.module.css";
+import moment from "moment";
 
 type Props = {
   id: string;
@@ -19,7 +20,6 @@ export default function Calendar({
   onChange,
   style,
   disablePastDate,
-  selectedDate,
 }: Props) {
   const today = new Date();
   const yesterday = new Date(today);
@@ -33,7 +33,7 @@ export default function Calendar({
       <input
         id={id}
         type={type}
-        value={value}
+        value={moment(value).format('DD/MM/YYYY')}
         onChange={(e) => onChange(e.target.value)}
         className={
           style === "outline"
@@ -41,14 +41,7 @@ export default function Calendar({
             : classes.calendar_custom
         }
         min={
-          // type === "date"
-          //   ? disablePastDate === "yesterday"
-          //     ? formattedToday
-          //     : formattedYesterday
-          //   : selectedDate === formattedToday
-          //   ? today.toISOString()
-          //   : undefined
-          type === 'time' ? "01-11-2023T09:00" : "00:00"
+          disablePastDate === "yesterday" ? formattedToday : formattedYesterday
         }
       />
     </Box>
