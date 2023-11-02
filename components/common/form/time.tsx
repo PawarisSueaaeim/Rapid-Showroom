@@ -18,7 +18,7 @@ export default function TimeValidationTimePicker({onTimeChange, date }: Props) {
   //@ts-ignore
   const currentDate = moment(dayjs().$d).format("YYYY-MM-DD");
   //@ts-ignore
-  const dateProps = moment(date.$d).format("YYYY-MM-DD");
+  const dateProps = moment(date).format("YYYY-MM-DD");
 
   const handleTimeChange = (newValue: Dayjs | null) => {
     setValue(newValue);
