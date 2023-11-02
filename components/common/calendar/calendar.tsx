@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
-import classes from "@/style/components/common/calendar.module.css";
+import classes from "@/style/components/common/calendar/calendar.module.css";
 import moment from "moment";
 
 type Props = {

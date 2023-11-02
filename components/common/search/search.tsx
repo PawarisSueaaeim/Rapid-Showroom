@@ -2,7 +2,7 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import classes from "@/style/components/common/search.module.css";
+import classes from "@/style/components/common/search/search.module.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/navigation";
 import {useDebounce} from "use-debounce";

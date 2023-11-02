@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import Box from '@mui/material/Box';
-import classes from '@/style/components/common/form.module.css';
+import classes from '@/style/components/common/form/form.module.css';
 
 type Props = {
     id: string,

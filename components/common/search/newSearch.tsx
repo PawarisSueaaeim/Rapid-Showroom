@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React, { useState } from "react";
-import classes from "@/style/components/common/search.module.css";
+import classes from "@/style/components/common/search/search.module.css";
 import { useRouter } from "next/navigation";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
