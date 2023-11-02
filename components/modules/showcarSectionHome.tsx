@@ -12,69 +12,6 @@ import { ColorSet } from "@/constants";
 
 type Props = {};
 
-const vehicleMockData = [
-  {
-    vehicle_id: "1",
-    brand: "BMW",
-    model: "Series 3",
-    submodel: "F30",
-    year: "2015",
-    mileage: "60,000",
-    listing_price: "890,000",
-    image: "https://laravel.rapidmotors.tech/images/f30_blue3.png",
-  },
-  {
-    vehicle_id: "2",
-    brand: "BMW",
-    model: "Series 3",
-    submodel: "F30",
-    year: "2015",
-    mileage: "60,000",
-    listing_price: "890,000",
-    image: "https://laravel.rapidmotors.tech/images/f30_white3.png",
-  },
-  {
-    vehicle_id: "3",
-    brand: "BMW",
-    model: "Series 3",
-    submodel: "F30",
-    year: "2015",
-    mileage: "60,000",
-    listing_price: "890,000",
-    image: "https://laravel.rapidmotors.tech/images/f30_red3.png",
-  },
-  {
-    vehicle_id: "1",
-    brand: "BMW",
-    model: "Series 3",
-    submodel: "F30",
-    year: "2015",
-    mileage: "60,000",
-    listing_price: "890,000",
-    image: "https://laravel.rapidmotors.tech/images/f30_blue3.png",
-  },
-  {
-    vehicle_id: "2",
-    brand: "BMW",
-    model: "Series 3",
-    submodel: "F30",
-    year: "2015",
-    mileage: "60,000",
-    listing_price: "890,000",
-    image: "https://laravel.rapidmotors.tech/images/f30_white3.png",
-  },
-  {
-    vehicle_id: "3",
-    brand: "BMW",
-    model: "Series 3",
-    submodel: "F30",
-    year: "2015",
-    mileage: "60,000",
-    listing_price: "890,000",
-    image: "https://laravel.rapidmotors.tech/images/f30_red3.png",
-  },
-];
-
 export default function ShowcarSectionHome({}: Props) {
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
