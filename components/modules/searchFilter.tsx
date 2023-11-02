@@ -6,6 +6,7 @@ import {
   Grid,
   Pagination,
   TextField,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -14,39 +15,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { NewSearch } from "../common/search";
 import { CardItemPleumDesign } from "../common/card";
 import { ICar } from "../types/car";
-import { currency } from "@/utils/currency";
 
 type Props = {};
-
-const minPriceData = [
-  {
-    label: "100,000",
-    value: 100000,
-  },
-  {
-    label: "1,000,000",
-    value: 1000000,
-  },
-  {
-    label: "10,000,000",
-    value: 10000000,
-  },
-];
-
-const maxPriceData = [
-  {
-    label: "999,999",
-    value: 999999,
-  },
-  {
-    label: "9,999,999",
-    value: 9999999,
-  },
-  {
-    label: "99,999,999",
-    value: 99999999,
-  },
-];
 
 export default function SearchFilter({}: Props) {
   const router = useRouter();
@@ -73,6 +43,8 @@ export default function SearchFilter({}: Props) {
   const [dataBrandsSelect, setDataBrandsSelect] = useState([]);
   const [dataModelsSelect, setDataModelsSelect] = useState([]);
   const [dataSubmodelsSelect, setDataSubmodelsSelect] = useState([]);
+
+  const isMobileMode = useMediaQuery("(max-width:600px)");
 
   useEffect(() => {
     getAllVehicle();
@@ -101,15 +73,11 @@ export default function SearchFilter({}: Props) {
           orderby: "vehicle_id",
           search: "",
           sort: "desc",
-        },
-        {
-          params: {
-            brand_id: searchBrand,
-            model_id: searchModel,
-            submodel_id: searchSubmodel,
-            min_price: searchMinPrice,
-            max_price: searchMaxPrice,
-          },
+          brand_id: searchBrand,
+          model_id: searchModel,
+          submodel_id: searchSubmodel,
+          min_price: searchMinPrice,
+          max_price: searchMaxPrice,
         }
       )
       .then((response) => {
@@ -298,7 +266,7 @@ export default function SearchFilter({}: Props) {
           <CircularProgress />
         </Box>
       ) : (
-        <Box marginTop={2}>
+        <Box marginTop={isMobileMode ? 0 : 2}>
           <Grid container spacing={2}>
             {dataVehicle &&
               dataVehicle.map((car: ICar, index: number) => {

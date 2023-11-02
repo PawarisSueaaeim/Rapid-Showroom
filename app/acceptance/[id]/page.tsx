@@ -3,7 +3,7 @@
 "use client";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
-import { Box } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 import axios from "axios";
 import Image from "next/image";
 import React, { Fragment, useEffect, useState } from "react";
@@ -22,6 +22,9 @@ export default function CardAcceptById({ params }: Props) {
 
   const [disableAccept, setDisableAccept] = useState<boolean>(false);
   const [cancel, setCancel] = useState<boolean>(false);
+  const [cancelMessage, setCancelMessage] = useState<string>("");
+  const [clientMessage, setClientMessage] = useState<string>("");
+  const [isSoldOut, setIsSoldOut] = useState<boolean>(false);
 
   useEffect(() => {
     getDataAcceptPriceResponse();
@@ -33,6 +36,10 @@ export default function CardAcceptById({ params }: Props) {
         uuid: `${params.id}`,
       })
       .then((response) => {
+        if (response.data.status == "FAIL") {
+          setIsSoldOut(true);
+          setClientMessage(response.data.client_message);
+        }
         setDataVehicle(response.data.data);
       })
       .catch((error) => {
@@ -76,7 +83,8 @@ export default function CardAcceptById({ params }: Props) {
       .patch(cancelSellCar, {
         uuid: params.id,
       })
-      .then(() => {
+      .then((response) => {
+        setCancelMessage(response.data.client_message);
         getDataAcceptPriceResponse();
       })
       .catch((error) => {
@@ -85,7 +93,7 @@ export default function CardAcceptById({ params }: Props) {
   };
 
   const renderSectionButton = () => {
-    if (dataVehicle.is_client_accept_price == 0 ) {
+    if (dataVehicle.is_client_accept_price == 0) {
       return (
         <Fragment>
           <ButtonPleumDesign
@@ -94,7 +102,9 @@ export default function CardAcceptById({ params }: Props) {
             backgroundBtnColor={ColorSet.btnWhite}
             backgroundBtnHoverColor={ColorSet.btnWhiteHover}
             textBtnColor={ColorSet.textBlack}
-            disabled={dataVehicle.min_buy_price_label === "0" ? true : disableAccept}
+            disabled={
+              dataVehicle.min_buy_price_label === "0" ? true : disableAccept
+            }
           />
           <ButtonPleumDesign
             title={"ไม่ยอมรับราคา"}
@@ -102,7 +112,9 @@ export default function CardAcceptById({ params }: Props) {
             backgroundBtnColor={ColorSet.btnGray}
             backgroundBtnHoverColor={ColorSet.btnGrayHover}
             textBtnColor={ColorSet.textBlack}
-            disabled={dataVehicle.min_buy_price_label === "0" ? true : disableAccept}
+            disabled={
+              dataVehicle.min_buy_price_label === "0" ? true : disableAccept
+            }
           />
         </Fragment>
       );
@@ -125,6 +137,8 @@ export default function CardAcceptById({ params }: Props) {
     }
   };
 
+  console.log(dataVehicle)
+
   return (
     <Box
       display={"flex"}
@@ -136,31 +150,38 @@ export default function CardAcceptById({ params }: Props) {
         padding: "0 2rem 0rem 2rem",
       }}
     >
-      <Image
-        src={dataVehicle.image}
-        alt={`${dataVehicle.brand}`}
-        width={300}
-        height={200}
-      />
-      <Box display={"flex"} flexDirection={"column"} width={"100%"}>
-        <span className="fw-400 fs-20px">
-          {dataVehicle.brand} {dataVehicle.model}
-        </span>
-        <span className="fs-18px">{dataVehicle.sub_model}</span>
-        <span className="fs-18px">
-          {dataVehicle.license_plate} {dataVehicle.province}
-        </span>
-        <span className="fs-18px">ราคาที่ได้รับ</span>
-        <span className="fs-20px fw-400">
-          Min: {dataVehicle.min_buy_price_label} บาท
-        </span>
-        <span className="fs-20px fw-400">
-          Max: {dataVehicle.max_buy_price_label} บาท
-        </span>
-      </Box>
-      <Box display={"flex"} gap={1} marginTop={2}>
-        {renderSectionButton()}
-      </Box>
+      {isSoldOut ? clientMessage : (
+        <>
+          <Image
+            src={dataVehicle.image}
+            alt={`${dataVehicle.brand}`}
+            width={300}
+            height={200}
+          />
+          <Box display={"flex"} flexDirection={"column"} width={"100%"}>
+            <span className="fw-400 fs-20px">
+              {dataVehicle.brand} {dataVehicle.model}
+            </span>
+            <span className="fs-18px">{dataVehicle.sub_model}</span>
+            <span className="fs-18px">
+              {dataVehicle.license_plate} {dataVehicle.province}
+            </span>
+            <span className="fs-18px">ราคาที่ได้รับ</span>
+            <span className="fs-20px fw-400">
+              Min: {dataVehicle.min_buy_price_label} บาท
+            </span>
+            <span className="fs-20px fw-400">
+              Max: {dataVehicle.max_buy_price_label} บาท
+            </span>
+          </Box>
+          <Box display={"flex"} gap={1} marginTop={2}>
+            {renderSectionButton()}
+          </Box>
+          <Box marginTop={4}>
+            <Alert severity="warning">{cancelMessage}</Alert>
+          </Box>
+        </>
+      )}
     </Box>
   );
 }

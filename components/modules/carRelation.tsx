@@ -1,9 +1,9 @@
 "use client";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, useMediaQuery } from "@mui/material";
 import React from "react";
 import { ICar } from "../types/car";
-import { CardItems } from "../common/card";
 import { useSearchParams } from "next/navigation";
+import { CardItemPleumDesign } from "../common/card";
 
 type Props = {
   data: Array<ICar>;
@@ -12,6 +12,7 @@ type Props = {
 export default function CarRelation({ data }: Props) {
   const searchParams = useSearchParams();
   const model = searchParams.get("model");
+  const isMobileMode = useMediaQuery("(max-width:600px)");
 
   return (
     <Box
@@ -20,6 +21,7 @@ export default function CarRelation({ data }: Props) {
       alignItems={"center"}
       paddingTop={15}
       paddingBottom={4}
+      paddingX={isMobileMode ? 0 : 8}
     >
       <Box display={"flex"} marginBottom={3} gap={1}>
         <span>ใกล้เคียงกับ</span>
@@ -30,13 +32,15 @@ export default function CarRelation({ data }: Props) {
       {data === undefined ? (
         <span className="tc-red fs-32px fw-500">Sold out</span>
       ) : (
-        <Grid container>
+        <Grid container spacing={isMobileMode ? 0 : 2}>
           {data.map((car: ICar) => {
             return (
               <Grid item xs={6} md={3} lg={2} key={car.vehicle_id}>
-                <CardItems
-                  vehicle_id={`${car.vehicle_id}`}
+                <CardItemPleumDesign
+                  vehicle_id={car.vehicle_id}
+                  brand={car.brand}
                   model={car.model}
+                  year={car.year}
                   submodel={car.submodel}
                   price={car.listing_price}
                   mileage={car.mileage}

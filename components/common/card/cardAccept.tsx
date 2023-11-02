@@ -2,7 +2,6 @@ import React from "react";
 import { Box } from "@mui/material";
 import classes from "@/style/components/common/card/cardAccept.module.css";
 import Image from "next/image";
-import { min } from "moment";
 
 type Props = {
   brand: string,
