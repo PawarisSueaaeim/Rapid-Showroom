@@ -33,7 +33,7 @@ export default function Calendar({
       <input
         id={id}
         type={type}
-        value={moment(value).format('DD/MM/YYYY')}
+        value={value}
         onChange={(e) => onChange(e.target.value)}
         className={
           style === "outline"
