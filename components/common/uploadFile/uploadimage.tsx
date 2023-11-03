@@ -34,9 +34,11 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload , maxSiz
       });
 
       Promise.all(imagePromises).then((imageDataArray) => {
-        setSelectedImages([...selectedImages, ...imageDataArray]);
-        //@ts-ignore
-        onUpload([...selectedImages, ...imageDataArray]);
+        if(selectedImages.length <= 4){
+          setSelectedImages([...selectedImages, ...imageDataArray]);
+          //@ts-ignore
+          onUpload([...selectedImages, ...imageDataArray]);
+        }
       });
     }
   };

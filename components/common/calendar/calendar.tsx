@@ -25,8 +25,8 @@ export default function Calendar({
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() + 1);
 
-  const formattedToday = today.toISOString().split("T")[0];
-  const formattedYesterday = yesterday.toISOString().split("T")[0];
+  const formattedToday = moment(today).format("DD/MM/YYYY");
+  const formattedYesterday = moment(yesterday).format("DD/MM/YYYY");
 
   return (
     <Box>
