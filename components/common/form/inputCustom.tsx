@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import classes from "@/style/components/common/form/form.module.css";
 
 type Props = {
@@ -9,6 +9,8 @@ type Props = {
   alert?: string | null;
   onChange?: (value: any) => void;
   padding?: string;
+  helper?: any;
+  disabled?: boolean;
 };
 
 export default function InputCustom({
@@ -16,9 +18,11 @@ export default function InputCustom({
   type,
   placeholder,
   value,
+  helper,
   alert,
   onChange,
-  padding
+  padding,
+  disabled,
 }: Props) {
   return (
     <div>
@@ -32,7 +36,9 @@ export default function InputCustom({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        disabled={disabled}
       />
+      <span>{helper}</span>
       <span className="tc-red fs-8px">{alert}</span>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import liff from "@line/liff";
 import { Box, TextField } from "@mui/material";
 import Link from "next/link";
@@ -9,6 +9,11 @@ import { ColorSet } from "@/constants";
 type Props = {};
 
 export default function LineLogin({}: Props) {
+  const [userId, setUserId] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [statusMessage, setStatusMessage] = useState<string | undefined>("");
+  const [pictureUrl, setPictureUrl] = useState<string | undefined>("");
+  const [email, setEmail] = useState<string | undefined>("");
 
   const lineLogin = () => {
     liff.init(
@@ -20,13 +25,18 @@ export default function LineLogin({}: Props) {
           liff
             .getProfile()
             .then((profile) => {
-              //   authen({
-              //     ...profile,
-              //     idToken: idToken,
-              //     email: liff.getDecodedIDToken().email,
-              //     type: "LINE",
-              //   });
+              // authen({
+              //   ...profile,
+              //   idToken: idToken,
+              //   email: liff.getDecodedIDToken().email,
+              //   type: "LINE",
+              // });
               console.log(profile);
+              setUserId(profile.userId);
+              setDisplayName(profile.displayName);
+              setStatusMessage(profile.statusMessage);
+              setPictureUrl(profile.pictureUrl);
+              setEmail(liff.getDecodedIDToken()?.email);
             })
             .catch((err) => console.error(err));
         } else {
@@ -38,7 +48,7 @@ export default function LineLogin({}: Props) {
   };
 
   useEffect(() => {
-    lineLogin();
+    lineLogin;
   }, []);
 
   return (
@@ -49,6 +59,11 @@ export default function LineLogin({}: Props) {
       alignItems={"center"}
       height={"100vh"}
     >
+      <span>userProfile: {userId}</span>
+      <span>displayName: {displayName}</span>
+      <span>statusMessage: {statusMessage}</span>
+      <span>pictureUrl: {pictureUrl}</span>
+      <span>email: {email}</span>
       <Box display={"flex"} flexDirection={"column"} marginTop={2}>
         <span className="fs-14px">กรุณากรอกเบอร์โทรเพื่อ</span>
         <span className="fs-14px">รับการแจ้งเตือนผลการประเมินราคาผ่านไลน์</span>

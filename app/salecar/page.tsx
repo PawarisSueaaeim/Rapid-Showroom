@@ -1,13 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { Box, Grid, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  useMediaQuery,
+} from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { InputCustom } from "@/components/common/form";
 import { Calendar } from "@/components/common/calendar";
 import { ButtonCapsule } from "@/components/common/button";
-import { isMileage, isPhoneNumber, isPlateId01, isPlateId02, isPlateId03 } from "@/utils/regex";
+import {
+  isMileage,
+  isPhoneNumber,
+  isPlateId01,
+  isPlateId02,
+  isPlateId03,
+} from "@/utils/regex";
 import { UpLoadImages } from "@/components/common/uploadFile";
 import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
@@ -43,6 +55,7 @@ export default function Salecar({}: Props) {
   const [plateId01, setPlateId01] = useState("");
   const [plateId02, setPlateId02] = useState("");
   const [plateId03, setPlateId03] = useState("");
+  const [checkboxPlateId, setCheckBoxlateId] = useState(false);
   const [provinceId, setProvinceId] = useState(0);
   const [nickname, setNickname] = useState("");
   const [telephone, setTelephone] = useState("");
@@ -199,27 +212,30 @@ export default function Salecar({}: Props) {
   };
   const handlerPlateIdOnChange01 = (event: any) => {
     const inputText = event.target.value;
-    if (isPlateId01(inputText)){
+    if (isPlateId01(inputText)) {
       setPlateId01(inputText);
-    }else if(inputText == ""){
+    } else if (inputText == "") {
       setPlateId01(inputText);
     }
   };
   const handlerPlateIdOnChange02 = (event: any) => {
     const inputText = event.target.value;
-    if(isPlateId02(inputText)){
-      setPlateId02(inputText)
-    }else if(inputText == ""){
-      setPlateId02(inputText)
+    if (isPlateId02(inputText)) {
+      setPlateId02(inputText);
+    } else if (inputText == "") {
+      setPlateId02(inputText);
     }
   };
   const handlerPlateIdOnChange03 = (event: any) => {
     const inputText = event.target.value;
-    if(isPlateId03(inputText)){
-      setPlateId03(inputText)
-    }else if(inputText == ""){
-      setPlateId03(inputText)
+    if (isPlateId03(inputText)) {
+      setPlateId03(inputText);
+    } else if (inputText == "") {
+      setPlateId03(inputText);
     }
+  };
+  const handlerCheckBoxOnChange = (event: any) => {
+    console.log(event.target.checked)
   };
   const handlerProvinceOnChange = (event: any) => {
     setProvinceId(event.target.value);
@@ -271,6 +287,12 @@ export default function Salecar({}: Props) {
       });
   };
 
+  const renderCheckboxNumberPlateId = () => {
+    return (
+      <FormControlLabel control={<Checkbox defaultChecked />} label="Label" />
+    );
+  };
+
   return (
     <Box
       display={"flex"}
@@ -296,7 +318,7 @@ export default function Salecar({}: Props) {
             : "**กรุณาอัพโหลดรูปรถที่ต้องการขาย"}
         </span>
       </Box>
-      <UpLoadImages onUpload={handleImageUpload} maxSize={handleWithinLimit}/>
+      <UpLoadImages onUpload={handleImageUpload} maxSize={handleWithinLimit} />
       <span className="fs-18px">ข้อมูลรถ</span>
       <Grid container columnSpacing={2}>
         <Grid item xs={12}>
@@ -418,31 +440,46 @@ export default function Salecar({}: Props) {
           />
         </Grid>
         <Grid item xs={6}>
-          <Box display={"flex"} >
-            <InputCustom
-              id="plateId"
-              type="text"
-              value={plateId01}
-              placeholder="9"
-              onChange={handlerPlateIdOnChange01}
-              padding={"0px 15px"}
-            />
-            <InputCustom
-              id="plateId"
-              type="text"
-              value={plateId02}
-              placeholder="กก"
-              onChange={handlerPlateIdOnChange02}
-              padding={"0px 10px"}
-            />
-            <InputCustom
-              id="plateId"
-              type="text"
-              value={plateId03}
-              placeholder="9999"
-              onChange={handlerPlateIdOnChange03}
-              padding={"0px 6px"}
-            />
+          <Box display={"flex"} flexDirection={"column"}>
+            <Box display={"flex"}>
+              <InputCustom
+                id="plateId"
+                type="text"
+                value={plateId01}
+                disabled={!checkboxPlateId}
+                placeholder={checkboxPlateId ? "9" : "-"}
+                onChange={handlerPlateIdOnChange01}
+                padding={"0px 15px"}
+              />
+              <InputCustom
+                id="plateId"
+                type="text"
+                value={plateId02}
+                placeholder="กก"
+                onChange={handlerPlateIdOnChange02}
+                padding={"0px 10px"}
+              />
+              <InputCustom
+                id="plateId"
+                type="text"
+                value={plateId03}
+                placeholder="9999"
+                onChange={handlerPlateIdOnChange03}
+                padding={"0px 6px"}
+              />
+            </Box>
+
+            <Box display={"flex"} alignItems={"center"} gap={1}>
+              <input
+                type="checkbox"
+                id="checkbox-plateId-first-number"
+                value="Bike"
+                onClick={() => setCheckBoxlateId(!checkboxPlateId)}
+              />
+              <span className="fs-8px">
+                มีเลขหน้าตัวอักษรหรือไม่
+              </span>
+            </Box>
           </Box>
         </Grid>
         <Grid item xs={6}>
