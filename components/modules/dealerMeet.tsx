@@ -113,7 +113,7 @@ export default function DealerMeet({
         soldType: soldType,
       })
       .then((response) => {
-        router.push(`?status=${response.data.status}`);
+        router.push(`?status=${response.data.status}&parkId=${listingVparkId}&date=${date}&time=${time}`);
       })
       .catch((error) => {
         console.log(error);

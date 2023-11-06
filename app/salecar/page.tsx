@@ -3,8 +3,6 @@
 "use client";
 import {
   Box,
-  Checkbox,
-  FormControlLabel,
   Grid,
   useMediaQuery,
 } from "@mui/material";
@@ -234,9 +232,6 @@ export default function Salecar({}: Props) {
       setPlateId03(inputText);
     }
   };
-  const handlerCheckBoxOnChange = (event: any) => {
-    console.log(event.target.checked)
-  };
   const handlerProvinceOnChange = (event: any) => {
     setProvinceId(event.target.value);
   };
@@ -285,12 +280,6 @@ export default function Salecar({}: Props) {
       .finally(() => {
         setIsCanSubmit(true);
       });
-  };
-
-  const renderCheckboxNumberPlateId = () => {
-    return (
-      <FormControlLabel control={<Checkbox defaultChecked />} label="Label" />
-    );
   };
 
   return (
@@ -446,8 +435,8 @@ export default function Salecar({}: Props) {
                 id="plateId"
                 type="text"
                 value={plateId01}
-                disabled={!checkboxPlateId}
-                placeholder={checkboxPlateId ? "9" : "-"}
+                disabled={checkboxPlateId}
+                placeholder={!checkboxPlateId ? "9" : "-"}
                 onChange={handlerPlateIdOnChange01}
                 padding={"0px 15px"}
               />
@@ -477,7 +466,7 @@ export default function Salecar({}: Props) {
                 onClick={() => setCheckBoxlateId(!checkboxPlateId)}
               />
               <span className="fs-8px">
-                มีเลขหน้าตัวอักษรหรือไม่
+                ไม่มีเลขหน้า
               </span>
             </Box>
           </Box>
