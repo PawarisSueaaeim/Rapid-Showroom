@@ -1,6 +1,6 @@
 "use client";
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NumericFormat, NumericFormatProps } from "react-number-format";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -8,7 +8,9 @@ import Image from "next/image";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
 import { useSelector } from "react-redux";
-import { IVehicleDetail } from "@/components/types/car";
+import axios from "axios";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 
 type Props = {};
 
@@ -53,19 +55,88 @@ const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
 );
 
 export default function Deposit({}: Props) {
-const depositData = useSelector((state: any) => state.deposit);
+  const depositData = useSelector((state: any) => state.deposit);
+  const isDeposit =
+    process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/deposit";
+  const getPaymentStatus =
+    process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/deposit/payment-status";
 
   const [isCheck, setIsCheck] = useState<boolean>(false);
-  const [values, setValues] = React.useState("5000");
+  const [values, setValues] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+  const [dataPamentStatus, setDataPamentStatus] = React.useState<any>({});
+  const [vdepositId, setVdepositId] = React.useState("");
 
+  useEffect(() => {
+    let intervalId: any;
+
+    if (open) {
+      intervalId = setInterval(() => {
+        axios
+          .post(getPaymentStatus, {
+            vdeposit_id: vdepositId,
+          })
+          .then((response) => {
+            console.log(response.data.data.deposit_payin_status);
+
+            if (response.data.data.deposit_payin_status === "paid") {
+              setOpen(false);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }, 2000);
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [open]);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
+
     if (parseInt(inputValue) < 5000) {
       setValues("5000");
     } else {
       setValues(inputValue);
     }
+  };
+
+  const handleGetPaymentStatus = (vdeposit_id: number) => {
+    axios
+      .post(getPaymentStatus, {
+        vdeposit_id: vdeposit_id,
+      })
+      .then((response) => {
+        setDataPamentStatus(response.data.data);
+        setVdepositId(vdeposit_id.toString());
+        handleOpen();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleOnClickNext = () => {
+    axios
+      .put(isDeposit, {
+        amount: values,
+        listing_vpark_id: 59,
+        guest_id: 123,
+      })
+      .then((response) => {
+        handleGetPaymentStatus(response.data.data.vdeposit_id);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -84,8 +155,8 @@ const depositData = useSelector((state: any) => state.deposit);
       />
       <Box display={"flex"} flexDirection={"column"}>
         <span className="fs-20px fw-400">
-          {/* {dataVehicle.model} {dataVehicle.model} {dataVehicle.submodel} */}
-          {depositData.brand}
+          {dataVehicle.model} {dataVehicle.model} {dataVehicle.submodel}
+          {/* {depositData.brand} */}
         </span>
         <span>
           ทะเบียน: <strong>{dataVehicle.plateId}</strong>
@@ -117,7 +188,12 @@ const depositData = useSelector((state: any) => state.deposit);
             type="checkbox"
             id="checkbox-plateId-first-number"
             value="Bike"
-            onClick={() => setIsCheck(!isCheck)}
+            onClick={() => {
+              setIsCheck(!isCheck);
+              if (isCheck) {
+                setValues("");
+              }
+            }}
           />
           <span className="fs-8px">ต้องการมัดจำรถ</span>
         </Box>
@@ -128,8 +204,54 @@ const depositData = useSelector((state: any) => state.deposit);
           backgroundBtnColor={ColorSet.btnWhite}
           backgroundBtnHoverColor={ColorSet.btnWhiteHover}
           textBtnColor={ColorSet.textBlack}
+          onClick={handleOnClickNext}
         />
       </Box>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 300,
+            bgcolor: "background.paper",
+            border: "none",
+            borderRadius: "5px",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            QR Code
+          </Typography>
+          <Box
+            width={"100%"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            flexDirection={"column"}
+            marginTop={2}
+          >
+            <Image
+              src={dataPamentStatus.qr_code}
+              alt="qr-code"
+              width={200}
+              height={200}
+            />
+            <Box display={"flex"} flexDirection={"column"} marginTop={2}>
+              <span>ราคามัดจำ: {dataPamentStatus.amount_label} บาท</span>
+              <span>กรุณาจ่ายภายในเวลา: {dataPamentStatus.qr_expired_at}</span>
+            </Box>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 }
