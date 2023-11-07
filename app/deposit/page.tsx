@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
@@ -60,6 +61,8 @@ export default function Deposit({}: Props) {
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/deposit";
   const getPaymentStatus =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/deposit/payment-status";
+
+    const router = useRouter();
 
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [values, setValues] = React.useState("");
@@ -125,18 +128,23 @@ export default function Deposit({}: Props) {
   };
 
   const handleOnClickNext = () => {
-    axios
-      .put(isDeposit, {
-        amount: values,
-        listing_vpark_id: 59,
-        guest_id: 123,
-      })
-      .then((response) => {
-        handleGetPaymentStatus(response.data.data.vdeposit_id);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (isCheck) {
+        axios
+        .put(isDeposit, {
+          amount: values,
+          listing_vpark_id: 59,
+          guest_id: 123,
+        })
+        .then((response) => {
+          handleGetPaymentStatus(response.data.data.vdeposit_id);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }else{
+        router.push('/booksuccess');
+    }
+   
   };
 
   return (
@@ -162,7 +170,7 @@ export default function Deposit({}: Props) {
           ทะเบียน: <strong>{dataVehicle.plateId}</strong>
         </span>
         <span>
-          ราคา: <strong>{dataVehicle.price}</strong>
+          ราคา: <strong>{dataVehicle.price}</strong> บาท
         </span>
         <span>เวลานัดหมาย</span>
         <span>วันที่ {dataVehicle.date}</span>

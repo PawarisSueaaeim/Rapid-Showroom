@@ -309,7 +309,7 @@ export default function Salecar({}: Props) {
       </Box>
       <UpLoadImages onUpload={handleImageUpload} maxSize={handleWithinLimit} />
       <span className="fs-18px">ข้อมูลรถ</span>
-      <Grid container columnSpacing={2}>
+      <Grid container spacing={1} >
         <Grid item xs={12}>
           <select
             onChange={handlerBrandOnChange}
