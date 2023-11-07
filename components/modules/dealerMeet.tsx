@@ -12,29 +12,58 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Dayjs } from "dayjs";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import {
+  setBrand,
+  setDateDeposit,
+  setDeposit,
+  setGuestId,
+  setImage,
+  setModel,
+  setPlateId,
+  setPrice,
+  setSubmodel,
+  setTimeDeposit,
+  setVparkId,
+} from "@/app/globalRedux/feature/dealerMeet/depositSlice";
 
 type Props = {
   modelId: number;
   vehicleId: number;
   listingVparkId: number;
+  brand: string;
+  model: string;
+  submodel: string;
+  price: string;
+  image: string;
+  plateId: string;
 };
 
 export default function DealerMeet({
   modelId,
+  vehicleId,
   listingVparkId,
+  brand,
+  model,
+  submodel,
+  price,
+  image,
+  plateId,
 }: Props) {
   const booking = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/booking";
 
+  const dispatch = useDispatch();
+
   const router = useRouter();
   const searchParams = useSearchParams();
-  const refferal = searchParams.get('ref') || null;
-  const soldType = searchParams.get('soldtype') || null;
+  const refferal = searchParams.get("ref") || null;
+  const soldType = searchParams.get("soldtype") || null;
 
   const [verifyName, setVerifyName] = useState<boolean>(false);
   const [verifyTelephone, setVerifyTelephone] = useState<boolean>(false);
   const [isVerified, setIsVerified] = useState<boolean>(false);
-  const [date, setDate] = useState<string>('');
-  const [time, setTime] = useState<string>('');
+  const [date, setDate] = useState<string>("");
+  const [time, setTime] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [telephone, setTelephone] = useState<string>("");
   const [email, setEmail] = useState<string>("test@example.com");
@@ -44,13 +73,7 @@ export default function DealerMeet({
     process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || "";
 
   useEffect(() => {
-    if (
-      checkedBot &&
-      date &&
-      time &&
-      verifyName &&
-      verifyTelephone 
-    ) {
+    if (checkedBot && date && time && verifyName && verifyTelephone) {
       setIsVerified(true);
     }
   }, [
@@ -66,12 +89,12 @@ export default function DealerMeet({
 
   const handleDateChange = (date: Dayjs | null) => {
     //@ts-ignore
-    const formatDate = moment(date.$d).format('YYYY-MM-DD');
+    const formatDate = moment(date.$d).format("YYYY-MM-DD");
     setDate(formatDate);
   };
   const handleTimeChange = (time: Dayjs | null) => {
     //@ts-ignore
-    const formatTime = moment(time.$d).format('HH:mm:ss');
+    const formatTime = moment(time.$d).format("HH:mm:ss");
     setTime(formatTime);
   };
 
@@ -113,11 +136,34 @@ export default function DealerMeet({
         soldType: soldType,
       })
       .then((response) => {
-        router.push(`?status=${response.data.status}&parkId=${listingVparkId}&date=${date}&time=${time}`);
+        router.push(
+          `?status=${response.data.status}&guest_id=${response.data.data.guest_id}&vpark_id=${listingVparkId}`
+        );
+        dispatch(setBrand(brand))
+        console.log(brand)
+        dispatch(setModel(model))
+        console.log(model)
+        dispatch(setSubmodel(submodel))
+        console.log(submodel)
+        dispatch(setDateDeposit(date))
+        console.log(date)
+        dispatch(setTimeDeposit(time))
+        console.log(time)
+        dispatch(setImage(image))
+        console.log(image)
+        dispatch(setGuestId(response.data.data.guest_id))
+        console.log(response.data.data.guest_id)
+        dispatch(setVparkId(listingVparkId))
+        console.log(listingVparkId)
+        dispatch(setPrice(price))
+        console.log(price)
+        dispatch(setPlateId(plateId))
+        console.log(plateId)
       })
       .catch((error) => {
         console.log(error);
-      }).finally(() => {
+      })
+      .finally(() => {
         setIsVerified(true);
       });
   };
@@ -126,8 +172,8 @@ export default function DealerMeet({
     <Box className={classes.container}>
       <span className="fs-18px tc-blue">นัดดูรถ</span>
       <Box className={classes.calendar}>
-        <Date onDateChange={handleDateChange}/>
-        <Time onTimeChange={handleTimeChange} date={date}/>
+        <Date onDateChange={handleDateChange} />
+        <Time onTimeChange={handleTimeChange} date={date} />
       </Box>
       <Box className={classes.form_label}>
         <Image
@@ -157,7 +203,7 @@ export default function DealerMeet({
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box>
         <Box className={classes.btn_submit}>
-          <Link href="/booksuccess">
+          <Link href="/deposit">
             <ButtonCapsule
               disabled={!isVerified}
               title={"ยืนยันนัดดูรถ"}

@@ -7,6 +7,8 @@ import ButtonCapsule from "@/components/common/button/buttonCapsule";
 import DealerMeet from "@/components/modules/dealerMeet";
 import { currency } from "@/utils/currency";
 import { Carousel } from "@/components/common/carousel";
+import { useDispatch } from "react-redux";
+import { setVehicle } from "@/app/globalRedux/feature/vehicles/detailSlice";
 
 type Props = {
   params: { id: string };
@@ -14,11 +16,16 @@ type Props = {
 
 export default async function Detail({ params }: Props) {
   
+  
   const getCar =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/showrooms/vehicles";
 
   const response = await axios.get(`${getCar}/${params.id}`);
   const data = await response.data.data
+
+  // console.log(data);
+
+  // dispatch(setVehicle(data));
 
   return (
     <Box className={classes.container}>
@@ -61,6 +68,12 @@ export default async function Detail({ params }: Props) {
           modelId={data.model_id}
           vehicleId={data.vehicle_id}
           listingVparkId={data.listing_vpark_id}
+          brand={data.brand}
+          model={data.model}
+          submodel={data.submodel}
+          price={data.listing_price_label}
+          image={data.main_image}
+          plateId={data.license_plate + data.province}
         />
       </Box>
     </Box>

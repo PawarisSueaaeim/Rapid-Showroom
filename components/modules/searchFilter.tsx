@@ -14,6 +14,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { NewSearch } from "../common/search";
 import { CardItemPleumDesign } from "../common/card";
 import { ICar } from "../types/car";
+import Link from "next/link";
 
 type Props = {};
 
@@ -64,21 +65,18 @@ export default function SearchFilter({}: Props) {
     setDataVehicle([]);
 
     axios
-      .post(
-        getAll,
-        {
-          page: page,
-          per_page: 10,
-          orderby: "vehicle_id",
-          search: "",
-          sort: "desc",
-          brand_id: searchBrand,
-          model_id: searchModel,
-          submodel_id: searchSubmodel,
-          min_price: searchMinPrice,
-          max_price: searchMaxPrice,
-        }
-      )
+      .post(getAll, {
+        page: page,
+        per_page: 10,
+        orderby: "vehicle_id",
+        search: "",
+        sort: "desc",
+        brand_id: searchBrand,
+        model_id: searchModel,
+        submodel_id: searchSubmodel,
+        min_price: searchMinPrice,
+        max_price: searchMaxPrice,
+      })
       .then((response) => {
         setPagetotal(response.data.total_pages);
         setDataVehicle(response.data.data);
@@ -277,16 +275,18 @@ export default function SearchFilter({}: Props) {
                     lg={2}
                     key={`${car.vehicle_id}-${index}`}
                   >
-                    <CardItemPleumDesign
-                      vehicle_id={car.vehicle_id}
-                      brand={car.brand}
-                      model={car.model}
-                      year={car.year}
-                      submodel={car.submodel}
-                      price={car.listing_price}
-                      mileage={car.mileage}
-                      image={car.image}
-                    />
+                    <Link href={`/vehicles/${car.vehicle_id}`}>
+                      <CardItemPleumDesign
+                        vehicle_id={car.vehicle_id}
+                        brand={car.brand}
+                        model={car.model}
+                        year={car.year}
+                        submodel={car.submodel}
+                        price={car.listing_price}
+                        mileage={car.mileage}
+                        image={car.image}
+                      />
+                    </Link>
                   </Grid>
                 );
               })}
