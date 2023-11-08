@@ -92,7 +92,6 @@ export default function SearchFilter({}: Props) {
   const getFilterVehicle = () => {
     axios.post(getFilter).then((response) => {
       setDataBrandsSelect(response.data.brands);
-      console.log(response.data.brands);
     }).catch((error) => {
       console.log(error);
     });

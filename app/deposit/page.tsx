@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -20,17 +21,6 @@ interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
   name: string;
 }
-
-const dataVehicle = {
-  image: "/images/car-blue.png",
-  brand: "BMW",
-  model: "Series 3",
-  submodel: "E30",
-  price: "10,000,000",
-  plateId: "1ทส0001",
-  date: "2023-11-23",
-  time: "14:59:59",
-};
 
 const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
   function NumericFormatCustom(props, ref) {
@@ -85,6 +75,7 @@ export default function Deposit({}: Props) {
 
             if (response.data.data.deposit_payin_status === "paid") {
               setOpen(false);
+              router.push('/booksuccess')
             }
           })
           .catch((error) => {
@@ -164,7 +155,6 @@ export default function Deposit({}: Props) {
       />
       <Box display={"flex"} flexDirection={"column"}>
         <span className="fs-20px fw-400">
-          {/* {dataVehicle.model} {dataVehicle.model} {dataVehicle.submodel} */}
           {depositData.brand} {depositData.model} {depositData.submodel}
         </span>
         <span>

@@ -23,6 +23,7 @@ import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { filteredDescription, filteredModel, filteredYear } from "@/utils/filter";
 
 type Props = {};
 
@@ -41,9 +42,9 @@ export default function Salecar({}: Props) {
   const [isCanSubmit, setIsCanSubmit] = useState(false);
   const [uploadedImageData, setUploadedImageData] = useState<string[]>([]);
   const [isImageLimit, setIsImageLimit] = useState(false);
-  const [brandId, setBrandId] = useState(0);
-  const [modelId, setModelId] = useState(0);
-  const [submodelId, setSubmodelId] = useState(0);
+  const [brand, setBrand] = useState("");
+  const [model, setModel] = useState("");
+  const [vehicleDetailId, setVehicleDetailId] = useState(0);
   const [year, setYear] = useState("");
   const [colorId, setColorId] = useState(0);
   const [gearType, setGearType] = useState("");
@@ -59,14 +60,16 @@ export default function Salecar({}: Props) {
   const [telephone, setTelephone] = useState("");
   const [email, setEmail] = useState("");
 
+  const [dataFilter, setDataFilter] = useState([]);
+
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
   useEffect(() => {
     handlerValidate();
   }, [
-    brandId,
-    modelId,
-    submodelId,
+    brand,
+    model,
+    vehicleDetailId,
     year,
     colorId,
     gearType,
@@ -84,32 +87,42 @@ export default function Salecar({}: Props) {
 
   useEffect(() => {
     renderGetBrands();
-    renderGetYear();
+    renderGetDataFilter();
+    // renderGetYear();
     renderGetGearType();
     renderGetColor();
     renderGetProvince();
   }, []);
 
   const renderGetBrands = () => {
-    axios.get(baseURL + "/vehicles/brands").then((response) => {
-      setDataBrand(response.data.data);
+    axios.post(baseURL + "/vehicles/get/vehicle_detail").then((response) => {
+      setDataBrand(response.data.brands);
+      console.log(response.data.brands);
+    }).catch((error) => {
+      console.log(error)
     });
   };
 
-  const renderGetModels = (brandId: number) => {
-    axios
-      .get(baseURL + `/vehicles/models?brand_id=${brandId}`)
-      .then((response) => {
-        setDataModel(response.data.data);
-      });
+  const renderGetDataFilter = () => {
+    axios.post(baseURL + "/vehicles/get/vehicle_detail").then((response) => {
+      setDataFilter(response.data);
+    }).catch((error) => {
+      console.log(error)
+    });
   };
 
-  const renderGetSubmodels = (modelId: number) => {
-    axios
-      .get(baseURL + `/vehicles/submodels?model_id=${modelId}`)
-      .then((response) => {
-        setDataSubmodel(response.data.data);
-      });
+  const renderGetModels = (brand: string) => {
+    setBrand(brand);
+    setDataModel(filteredModel(dataFilter, brand));
+  };
+
+  const renderSetYearsRadBook = (model: string) => {
+    setDataYears(filteredYear(dataFilter, brand, model));
+  };
+
+  const renderGetSubmodels = (years: number) => {
+    console.log(filteredDescription(dataFilter, brand, model, years));
+    setDataSubmodel(filteredDescription(dataFilter, brand, model, years));
   };
 
   const renderGetGearType = () => {
@@ -141,9 +154,9 @@ export default function Salecar({}: Props) {
 
   const handlerValidate = () => {
     if (
-      brandId === 0 ||
-      modelId === 0 ||
-      submodelId === 0 ||
+      brand === "" ||
+      model === "" ||
+      vehicleDetailId === 0 ||
       year === "" ||
       colorId === 0 ||
       gearType === "" ||
@@ -180,19 +193,22 @@ export default function Salecar({}: Props) {
   };
 
   const handlerBrandOnChange = (event: any) => {
-    setBrandId(event.target.value);
+    // setBrandId(event.target.value);
     renderGetModels(event.target.value);
   };
 
   const handlerModelOnChange = (event: any) => {
-    setModelId(event.target.value);
-    renderGetSubmodels(event.target.value);
+    // setModelId(event.target.value);
+    // renderGetSubmodels(event.target.value);
+    setModel(event.target.value);
+    renderSetYearsRadBook(event.target.value);
   };
   const handlerSubmodelOnChange = (event: any) => {
-    setSubmodelId(event.target.value);
+    setVehicleDetailId(event.target.value);
   };
   const handlerYearOnChange = (event: any) => {
     setYear(event.target.value);
+    renderGetSubmodels(event.target.value);
   };
   const handlerColorOnChange = (event: any) => {
     setColorId(event.target.value);
@@ -257,9 +273,7 @@ export default function Salecar({}: Props) {
         book_date: dateSellCar,
         book_time: timeSellCar,
         telephone_number: telephone,
-        brand_id: brandId,
-        model_id: modelId,
-        sub_model_id: submodelId,
+        vehicle_detail_id: vehicleDetailId,
         license_plate: plateId01 + plateId02 + plateId03,
         year: year,
         mileage: mileage,
@@ -318,14 +332,14 @@ export default function Salecar({}: Props) {
             <option value={0}>ยี่ห้อ</option>
             {dataBrand.map((item: any, index: number) => {
               return (
-                <option key={index} value={item.brand_id}>
-                  {item.name}
+                <option key={index+item} value={item}>
+                  {item}
                 </option>
               );
             })}
           </select>
           <span className="tc-red fs-8px">
-            {brandId !== 0 ? "" : "**กรุณาเลือกยี่ห้อ"}
+            {brand !== "" ? "" : "**กรุณาเลือกยี่ห้อ"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -336,36 +350,18 @@ export default function Salecar({}: Props) {
             <option value={0}>รุ่น</option>
             {dataModel.map((item: any, index: number) => {
               return (
-                <option key={index} value={item.model_id}>
-                  {item.name}
+                <option key={index+item} value={item}>
+                  {item}
                 </option>
               );
             })}
           </select>
           <span className="tc-red fs-8px">
-            {modelId !== 0 ? "" : "**กรุณาเลือกรุ่น"}
+            {model !== "" ? "" : "**กรุณาเลือกรุ่น"}
           </span>
         </Grid>
         <Grid item xs={6}>
-          <select
-            onChange={handlerSubmodelOnChange}
-            className={classes.selection_custom}
-          >
-            <option value={0}>รุ่นย่อย</option>
-            {dataSubmodel.map((item: any, index: number) => {
-              return (
-                <option key={index} value={item.sub_model_id}>
-                  {item.name}
-                </option>
-              );
-            })}
-          </select>
-          <span className="tc-red fs-8px">
-            {submodelId !== 0 ? "" : "**กรุณาเลือกรุ่นย่อย"}
-          </span>
-        </Grid>
-        <Grid item xs={6}>
-          <select
+        <select
             onChange={handlerYearOnChange}
             className={classes.selection_custom}
           >
@@ -381,6 +377,25 @@ export default function Salecar({}: Props) {
           <span className="tc-red fs-8px">
             {year !== "" ? "" : "**กรุณาเลือกปีของรุ่นรถ"}
           </span>
+        </Grid>
+        <Grid item xs={6}>
+        <select
+            onChange={handlerSubmodelOnChange}
+            className={classes.selection_custom}
+          >
+            <option value={0}>รายละเอียด</option>
+            {dataSubmodel.map((item: any, index: number) => {
+              return (
+                <option key={index} value={item.vehicle_detail_id}>
+                  {item.Description}
+                </option>
+              );
+            })}
+          </select>
+          <span className="tc-red fs-8px">
+            {vehicleDetailId !== 0 ? "" : "**กรุณาเลือกรุ่นย่อย"}
+          </span>
+          
         </Grid>
         <Grid item xs={6}>
           <select
