@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { daymontyearFormat } from "@/utils/dateHelper";
 
 type Props = {};
@@ -53,13 +53,18 @@ export default function Deposit({}: Props) {
   const getPaymentStatus =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/deposit/payment-status";
 
-    const router = useRouter();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const vparkId = searchParams.get("vpark_id");
+  const guestId = searchParams.get("guest_id");
 
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [values, setValues] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [dataPamentStatus, setDataPamentStatus] = React.useState<any>({});
   const [vdepositId, setVdepositId] = React.useState("");
+
+  const [disableNext, setDisableNext] = useState(false);
 
   useEffect(() => {
     let intervalId: any;
@@ -75,7 +80,7 @@ export default function Deposit({}: Props) {
 
             if (response.data.data.deposit_payin_status === "paid") {
               setOpen(false);
-              router.push('/booksuccess')
+              router.push("/booksuccess");
             }
           })
           .catch((error) => {
@@ -120,21 +125,25 @@ export default function Deposit({}: Props) {
   };
 
   const handleOnClickNext = () => {
+    setDisableNext(true);
     if (isCheck) {
-        axios
+      axios
         .put(isDeposit, {
           amount: values,
-          listing_vpark_id: 59,
-          guest_id: 123,
+          listing_vpark_id: vparkId,
+          guest_id: guestId,
         })
         .then((response) => {
           handleGetPaymentStatus(response.data.data.vdeposit_id);
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          setDisableNext(false);
         });
-    }else{
-        router.push('/booksuccess');
+    } else {
+      router.push("/booksuccess");
     }
   };
 
@@ -203,6 +212,7 @@ export default function Deposit({}: Props) {
           backgroundBtnHoverColor={ColorSet.btnWhiteHover}
           textBtnColor={ColorSet.textBlack}
           onClick={handleOnClickNext}
+          disabled={disableNext}
         />
       </Box>
 

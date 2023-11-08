@@ -73,11 +73,13 @@ export default function DealerMeet({
     process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || "";
 
   useEffect(() => {
-    if (checkedBot && date && time && verifyName && verifyTelephone) {
+    if (
+      // checkedBot && 
+      date && time && verifyName && verifyTelephone) {
       setIsVerified(true);
     }
   }, [
-    checkedBot,
+    // checkedBot,
     date,
     email,
     name,
@@ -138,28 +140,18 @@ export default function DealerMeet({
       })
       .then((response) => {
         router.push(
-          `?status=${response.data.status}&guest_id=${response.data.data.guest_id}&vpark_id=${listingVparkId}`
+          `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&vpark_id=${listingVparkId}`
         );
         dispatch(setBrand(brand))
-        console.log(brand)
         dispatch(setModel(model))
-        console.log(model)
         dispatch(setSubmodel(submodel))
-        console.log(submodel)
         dispatch(setDateDeposit(date))
-        console.log(date)
         dispatch(setTimeDeposit(time))
-        console.log(time)
         dispatch(setImage(image))
-        console.log(image)
         dispatch(setGuestId(response.data.data.guest_id))
-        console.log(response.data.data.guest_id)
         dispatch(setVparkId(listingVparkId))
-        console.log(listingVparkId)
         dispatch(setPrice(price))
-        console.log(price)
         dispatch(setPlateId(plateId))
-        console.log(plateId)
       })
       .catch((error) => {
         console.log(error);
@@ -200,11 +192,10 @@ export default function DealerMeet({
           value={telephone}
           onChange={handleTelephoneChange}
         />
-        <Box className={classes.recaptcha}>
+        {/* <Box className={classes.recaptcha}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
-        </Box>
+        </Box> */}
         <Box className={classes.btn_submit}>
-          <Link href="/deposit">
             <ButtonCapsule
               disabled={!isVerified}
               title={"ยืนยันนัดดูรถ"}
@@ -214,7 +205,6 @@ export default function DealerMeet({
               height={40}
               onClick={handleSubmit}
             />
-          </Link>
         </Box>
       </Box>
     </Box>

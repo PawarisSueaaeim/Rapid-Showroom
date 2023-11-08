@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { InputCustom } from "@/components/common/form";
+import { Date, InputCustom, Time } from "@/components/common/form";
 import { Calendar } from "@/components/common/calendar";
 import { ButtonCapsule } from "@/components/common/button";
 import {
@@ -24,6 +24,8 @@ import classes from "@/style/page/salecar.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { filteredDescription, filteredModel, filteredYear } from "@/utils/filter";
+import { Dayjs } from "dayjs";
+import moment from "moment";
 
 type Props = {};
 
@@ -164,11 +166,15 @@ export default function Salecar({}: Props) {
     setIsImageLimit(value);
   };
 
-  const handlerDateSellCar = (dateValue: string) => {
-    setDateSellCar(dateValue);
+  const handlerDateSellCar = (date: Dayjs | null) => {
+    //@ts-ignore
+    const formatDate = moment(date.$d).format("YYYY-MM-DD");
+    setDateSellCar(formatDate);
   };
-  const handlerTimeSellCar = (timeValue: string) => {
-    setTimeSellCar(timeValue);
+  const handlerTimeSellCar = (time: Dayjs | null) => {
+    //@ts-ignore
+    const formatTime = moment(time.$d).format("HH:mm:ss");
+    setTimeSellCar(formatTime);
   };
 
   const handlerBrandOnChange = (event: any) => {
@@ -458,28 +464,14 @@ export default function Salecar({}: Props) {
             {provinceId !== 0 ? "" : "**กรุณาเลือกจังหวัด(ทะเบียน)"}
           </span>
         </Grid>
-        <Grid item xs={6}>
-          <Calendar
-            id="date-sell-car"
-            type="date"
-            value={dateSellCar}
-            onChange={handlerDateSellCar}
-            style="outline"
-            disablePastDate={true}
-          />
+        <Grid item xs={6} marginTop={2}>
+          <Date onDateChange={handlerDateSellCar}/>
           <span className="tc-red fs-8px">
             {dateSellCar !== "" ? "" : "**กรุณาเลือกวันที่ต้องการขายรถ"}
           </span>
         </Grid>
-        <Grid item xs={6}>
-          <Calendar
-            id="time-sell-car"
-            type="time"
-            value={timeSellCar}
-            onChange={handlerTimeSellCar}
-            style="outline"
-            selectedDate={dateSellCar}
-          />
+        <Grid item xs={6} marginTop={2}>
+          <Time onTimeChange={handlerTimeSellCar} date={dateSellCar}/>
           <span className="tc-red fs-8px">
             {timeSellCar !== "" ? "" : "**กรุณาเลือกเวลาที่ต้องการขายรถ"}
           </span>

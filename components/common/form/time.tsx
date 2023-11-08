@@ -31,6 +31,7 @@ export default function TimeValidationTimePicker({onTimeChange, date }: Props) {
         <DesktopTimePicker
           //@ts-ignore
           renderInput={(params) => <TextField {...params} />}
+          disableMaskedInput={false}
           value={value}
           label="เลือกเวลานัดดีลเลอร์"
           onChange={(newValue) => {

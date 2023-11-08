@@ -16,19 +16,25 @@ type IDeposit = {
   plate_id: string;
 };
 
-const initialState: IDeposit = {
-  brand: "",
-  model: "",
-  submodel: "",
-  date: "",
-  time: "",
-  image: "",
-  guest_id: "",
-  vpark_id: "",
-  amount: 0,
-  price: 0,
-  plate_id: "",
-};
+export function getLocalStorage(key: string) {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const data = window.localStorage.getItem(key);
+    return JSON.parse(data!);
+  } else {
+    return "";
+  }
+}
+
+export function setLocalStorage(key: string, value: unknown) {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const data = JSON.stringify(value);
+    window.localStorage.setItem(key, data);
+  } else {
+    return
+  }
+}
+
+const initialState: IDeposit = getLocalStorage("deposit") || "{}";
 
 const depositSlice = createSlice({
   name: "deposit",
@@ -39,36 +45,47 @@ const depositSlice = createSlice({
     },
     setBrand: (state, action) => {
       state.brand = action.payload;
+      setLocalStorage("deposit", state);
     },
     setModel: (state, action) => {
       state.model = action.payload;
+      setLocalStorage("deposit", state);
     },
     setSubmodel: (state, action) => {
       state.submodel = action.payload;
+      setLocalStorage("deposit", state);
     },
     setDateDeposit: (state, action) => {
       state.date = action.payload;
+      setLocalStorage("deposit", state);
     },
     setTimeDeposit: (state, action) => {
       state.time = action.payload;
+      setLocalStorage("deposit", state);
     },
     setImage: (state, action) => {
       state.image = action.payload;
+      setLocalStorage("deposit", state);
     },
     setGuestId: (state, action) => {
       state.guest_id = action.payload;
+      setLocalStorage("deposit", state);
     },
     setVparkId: (state, action) => {
       state.vpark_id = action.payload;
+      setLocalStorage("deposit", state);
     },
     setAmount: (state, action) => {
       state.amount = action.payload;
+      setLocalStorage("deposit", state);
     },
     setPrice: (state, action) => {
       state.price = action.payload;
+      setLocalStorage("deposit", state);
     },
     setPlateId: (state, action) => {
       state.plate_id = action.payload;
+      setLocalStorage("deposit", state);
     },
   },
 });
