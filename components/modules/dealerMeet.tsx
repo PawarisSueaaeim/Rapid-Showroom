@@ -126,7 +126,8 @@ export default function DealerMeet({
     axios
       .put(booking, {
         listing_vpark_id: listingVparkId,
-        model_id: modelId,
+        brand: brand,
+        model: model,
         booking_date: date + " " + time,
         name: name,
         email: email,

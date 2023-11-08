@@ -1,7 +1,7 @@
 import moment from "moment";
 
 export const daymontyearFormat = (value: any) => {
-    const formattedDate = moment(value).format("DD/MM/YYYY HH:mm น.");
+    const formattedDate = moment(value).format("DD/MM/YYYY");
     return formattedDate;
 };
 

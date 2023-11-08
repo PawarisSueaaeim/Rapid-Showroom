@@ -36,6 +36,9 @@ export default function SearchFilter({}: Props) {
   const getSubmodel =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + `/vehicles/submodels`;
 
+  const getFilter = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + '/vehicles/get/vehicle_detail';
+
+
   const [dataVehicle, setDataVehicle] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [pagetotal, setPagetotal] = useState(0);
@@ -48,9 +51,7 @@ export default function SearchFilter({}: Props) {
 
   useEffect(() => {
     getAllVehicle();
-    getBrandVehicle();
-    getModelVehicle();
-    getSubmodelVehicle();
+    getFilterVehicle();
   }, [
     page,
     searchBrand,
@@ -86,6 +87,15 @@ export default function SearchFilter({}: Props) {
         console.log("Error get all vehicle api", error);
         setIsLoading(false);
       });
+  };
+
+  const getFilterVehicle = () => {
+    axios.post(getFilter).then((response) => {
+      setDataBrandsSelect(response.data.brands);
+      console.log(response.data.brands);
+    }).catch((error) => {
+      console.log(error);
+    });
   };
 
   const getBrandVehicle = () => {
@@ -181,10 +191,10 @@ export default function SearchFilter({}: Props) {
               className={classes.select_blue}
             >
               <option value="">ยี่ห้อ</option>
-              {dataBrandsSelect.map((item: any) => {
+              {dataBrandsSelect.map((item: any,index: number) => {
                 return (
-                  <option key={item.brand_id} value={item.brand_id}>
-                    {item.name}
+                  <option key={`${item}-${index}`} value={item}>
+                    {item}
                   </option>
                 );
               })}

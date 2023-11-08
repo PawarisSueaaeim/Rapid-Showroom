@@ -12,6 +12,7 @@ import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/navigation";
+import { daymontyearFormat } from "@/utils/dateHelper";
 
 type Props = {};
 
@@ -156,25 +157,25 @@ export default function Deposit({}: Props) {
       height={"100vh"}
     >
       <Image
-        src={dataVehicle.image}
+        src={depositData.image}
         alt="vehicle-image"
         width={300}
         height={200}
       />
       <Box display={"flex"} flexDirection={"column"}>
         <span className="fs-20px fw-400">
-          {dataVehicle.model} {dataVehicle.model} {dataVehicle.submodel}
-          {/* {depositData.brand} */}
+          {/* {dataVehicle.model} {dataVehicle.model} {dataVehicle.submodel} */}
+          {depositData.brand} {depositData.model} {depositData.submodel}
         </span>
         <span>
-          ทะเบียน: <strong>{dataVehicle.plateId}</strong>
+          ทะเบียน: <strong>{depositData.plate_id}</strong>
         </span>
         <span>
-          ราคา: <strong>{dataVehicle.price}</strong> บาท
+          ราคา: <strong>{depositData.price}</strong> บาท
         </span>
         <span>เวลานัดหมาย</span>
-        <span>วันที่ {dataVehicle.date}</span>
-        <span>เวลา {dataVehicle.time}</span>
+        <span>วันที่ {daymontyearFormat(depositData.date)}</span>
+        <span>เวลา {depositData.time}</span>
       </Box>
       <Box>
         <Stack direction="row" spacing={2}>
