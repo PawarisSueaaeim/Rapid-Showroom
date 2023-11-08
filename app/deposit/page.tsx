@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -11,7 +12,8 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { daymontyearFormat } from "@/utils/dateHelper";
 
 type Props = {};
 
@@ -19,17 +21,6 @@ interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
   name: string;
 }
-
-const dataVehicle = {
-  image: "/images/car-blue.png",
-  brand: "BMW",
-  model: "Series 3",
-  submodel: "E30",
-  price: "10,000,000",
-  plateId: "1ทส0001",
-  date: "2023-11-23",
-  time: "14:59:59",
-};
 
 const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
   function NumericFormatCustom(props, ref) {
@@ -62,13 +53,18 @@ export default function Deposit({}: Props) {
   const getPaymentStatus =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/deposit/payment-status";
 
-    const router = useRouter();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const vparkId = searchParams.get("vpark_id");
+  const guestId = searchParams.get("guest_id");
 
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [values, setValues] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [dataPamentStatus, setDataPamentStatus] = React.useState<any>({});
   const [vdepositId, setVdepositId] = React.useState("");
+
+  const [disableNext, setDisableNext] = useState(false);
 
   useEffect(() => {
     let intervalId: any;
@@ -84,6 +80,7 @@ export default function Deposit({}: Props) {
 
             if (response.data.data.deposit_payin_status === "paid") {
               setOpen(false);
+              router.push("/booksuccess");
             }
           })
           .catch((error) => {
@@ -128,23 +125,26 @@ export default function Deposit({}: Props) {
   };
 
   const handleOnClickNext = () => {
+    setDisableNext(true);
     if (isCheck) {
-        axios
+      axios
         .put(isDeposit, {
           amount: values,
-          listing_vpark_id: 59,
-          guest_id: 123,
+          listing_vpark_id: vparkId,
+          guest_id: guestId,
         })
         .then((response) => {
           handleGetPaymentStatus(response.data.data.vdeposit_id);
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          setDisableNext(false);
         });
-    }else{
-        router.push('/booksuccess');
+    } else {
+      router.push("/booksuccess");
     }
-   
   };
 
   return (
@@ -156,25 +156,24 @@ export default function Deposit({}: Props) {
       height={"100vh"}
     >
       <Image
-        src={dataVehicle.image}
+        src={depositData.image}
         alt="vehicle-image"
         width={300}
         height={200}
       />
       <Box display={"flex"} flexDirection={"column"}>
         <span className="fs-20px fw-400">
-          {dataVehicle.model} {dataVehicle.model} {dataVehicle.submodel}
-          {/* {depositData.brand} */}
+          {depositData.brand} {depositData.model} {depositData.submodel}
         </span>
         <span>
-          ทะเบียน: <strong>{dataVehicle.plateId}</strong>
+          ทะเบียน: <strong>{depositData.plate_id}</strong>
         </span>
         <span>
-          ราคา: <strong>{dataVehicle.price}</strong> บาท
+          ราคา: <strong>{depositData.price}</strong> บาท
         </span>
         <span>เวลานัดหมาย</span>
-        <span>วันที่ {dataVehicle.date}</span>
-        <span>เวลา {dataVehicle.time}</span>
+        <span>วันที่ {daymontyearFormat(depositData.date)}</span>
+        <span>เวลา {depositData.time}</span>
       </Box>
       <Box>
         <Stack direction="row" spacing={2}>
@@ -213,6 +212,7 @@ export default function Deposit({}: Props) {
           backgroundBtnHoverColor={ColorSet.btnWhiteHover}
           textBtnColor={ColorSet.textBlack}
           onClick={handleOnClickNext}
+          disabled={disableNext}
         />
       </Box>
 

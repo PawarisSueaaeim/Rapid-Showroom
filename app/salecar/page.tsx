@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { InputCustom } from "@/components/common/form";
+import { Date, InputCustom, Time } from "@/components/common/form";
 import { Calendar } from "@/components/common/calendar";
 import { ButtonCapsule } from "@/components/common/button";
 import {
@@ -23,6 +23,9 @@ import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { filteredDescription, filteredModel, filteredYear } from "@/utils/filter";
+import { Dayjs } from "dayjs";
+import moment from "moment";
 
 type Props = {};
 
@@ -33,7 +36,6 @@ export default function Salecar({}: Props) {
   const [dataBrand, setDataBrand] = useState([]);
   const [dataModel, setDataModel] = useState([]);
   const [dataSubmodel, setDataSubmodel] = useState([]);
-  const [dataGearType, setDataGearType] = useState([]);
   const [dataColor, setDataColor] = useState([]);
   const [dataProvince, setDataProvince] = useState([]);
   const [dataYears, setDataYears] = useState<string[]>([]);
@@ -41,12 +43,11 @@ export default function Salecar({}: Props) {
   const [isCanSubmit, setIsCanSubmit] = useState(false);
   const [uploadedImageData, setUploadedImageData] = useState<string[]>([]);
   const [isImageLimit, setIsImageLimit] = useState(false);
-  const [brandId, setBrandId] = useState(0);
-  const [modelId, setModelId] = useState(0);
-  const [submodelId, setSubmodelId] = useState(0);
+  const [brand, setBrand] = useState("");
+  const [model, setModel] = useState("");
+  const [vehicleDetailId, setVehicleDetailId] = useState(0);
   const [year, setYear] = useState("");
   const [colorId, setColorId] = useState(0);
-  const [gearType, setGearType] = useState("");
   const [dateSellCar, setDateSellCar] = useState("");
   const [timeSellCar, setTimeSellCar] = useState("");
   const [mileage, setMileage] = useState("");
@@ -59,17 +60,18 @@ export default function Salecar({}: Props) {
   const [telephone, setTelephone] = useState("");
   const [email, setEmail] = useState("");
 
+  const [dataFilter, setDataFilter] = useState([]);
+
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
   useEffect(() => {
     handlerValidate();
   }, [
-    brandId,
-    modelId,
-    submodelId,
+    brand,
+    model,
+    vehicleDetailId,
     year,
     colorId,
-    gearType,
     dateSellCar,
     timeSellCar,
     mileage,
@@ -84,53 +86,46 @@ export default function Salecar({}: Props) {
 
   useEffect(() => {
     renderGetBrands();
-    renderGetYear();
-    renderGetGearType();
+    renderGetDataFilter();
     renderGetColor();
     renderGetProvince();
   }, []);
 
   const renderGetBrands = () => {
-    axios.get(baseURL + "/vehicles/brands").then((response) => {
-      setDataBrand(response.data.data);
+    axios.post(baseURL + "/vehicles/get/vehicle_detail").then((response) => {
+      setDataBrand(response.data.brands);
+      console.log(response.data.brands);
+    }).catch((error) => {
+      console.log(error)
     });
   };
 
-  const renderGetModels = (brandId: number) => {
-    axios
-      .get(baseURL + `/vehicles/models?brand_id=${brandId}`)
-      .then((response) => {
-        setDataModel(response.data.data);
-      });
-  };
-
-  const renderGetSubmodels = (modelId: number) => {
-    axios
-      .get(baseURL + `/vehicles/submodels?model_id=${modelId}`)
-      .then((response) => {
-        setDataSubmodel(response.data.data);
-      });
-  };
-
-  const renderGetGearType = () => {
-    axios.get(baseURL + "/vehicles/gear-type").then((response) => {
-      setDataGearType(response.data.data);
+  const renderGetDataFilter = () => {
+    axios.post(baseURL + "/vehicles/get/vehicle_detail").then((response) => {
+      setDataFilter(response.data);
+    }).catch((error) => {
+      console.log(error)
     });
+  };
+
+  const renderGetModels = (brand: string) => {
+    setBrand(brand);
+    setDataModel(filteredModel(dataFilter, brand));
+  };
+
+  const renderSetYearsRadBook = (model: string) => {
+    setDataYears(filteredYear(dataFilter, brand, model));
+  };
+
+  const renderGetSubmodels = (years: number) => {
+    console.log(filteredDescription(dataFilter, brand, model, years));
+    setDataSubmodel(filteredDescription(dataFilter, brand, model, years));
   };
 
   const renderGetColor = () => {
     axios.get(baseURL + "/vehicles/colors").then((response) => {
       setDataColor(response.data.data);
     });
-  };
-
-  const renderGetYear = () => {
-    const startYear = new Date().getFullYear() - 20;
-    const endYears = new Date().getFullYear();
-
-    for (let i = startYear; i <= endYears; i++) {
-      dataYears.push(i.toString());
-    }
   };
 
   const renderGetProvince = () => {
@@ -141,12 +136,11 @@ export default function Salecar({}: Props) {
 
   const handlerValidate = () => {
     if (
-      brandId === 0 ||
-      modelId === 0 ||
-      submodelId === 0 ||
+      brand === "" ||
+      model === "" ||
+      vehicleDetailId === 0 ||
       year === "" ||
       colorId === 0 ||
-      gearType === "" ||
       dateSellCar === "" ||
       timeSellCar === "" ||
       mileage === "" ||
@@ -172,33 +166,34 @@ export default function Salecar({}: Props) {
     setIsImageLimit(value);
   };
 
-  const handlerDateSellCar = (dateValue: string) => {
-    setDateSellCar(dateValue);
+  const handlerDateSellCar = (date: Dayjs | null) => {
+    //@ts-ignore
+    const formatDate = moment(date.$d).format("YYYY-MM-DD");
+    setDateSellCar(formatDate);
   };
-  const handlerTimeSellCar = (timeValue: string) => {
-    setTimeSellCar(timeValue);
+  const handlerTimeSellCar = (time: Dayjs | null) => {
+    //@ts-ignore
+    const formatTime = moment(time.$d).format("HH:mm:ss");
+    setTimeSellCar(formatTime);
   };
 
   const handlerBrandOnChange = (event: any) => {
-    setBrandId(event.target.value);
     renderGetModels(event.target.value);
   };
 
   const handlerModelOnChange = (event: any) => {
-    setModelId(event.target.value);
-    renderGetSubmodels(event.target.value);
+    setModel(event.target.value);
+    renderSetYearsRadBook(event.target.value);
   };
   const handlerSubmodelOnChange = (event: any) => {
-    setSubmodelId(event.target.value);
+    setVehicleDetailId(event.target.value);
   };
   const handlerYearOnChange = (event: any) => {
     setYear(event.target.value);
+    renderGetSubmodels(event.target.value);
   };
   const handlerColorOnChange = (event: any) => {
     setColorId(event.target.value);
-  };
-  const handlerGearTypeOnChange = (event: any) => {
-    setGearType(event.target.value);
   };
   const handlerMileageOnChange = (event: any) => {
     const inputText = event.target.value;
@@ -240,7 +235,7 @@ export default function Salecar({}: Props) {
   };
   const handlerTelephoneOnChange = (event: any) => {
     const inputText = event.target.value;
-    if (isPhoneNumber(inputText)) {
+    if (isPhoneNumber(inputText) || inputText == "") {
       setTelephone(event.target.value);
     }
   };
@@ -257,14 +252,11 @@ export default function Salecar({}: Props) {
         book_date: dateSellCar,
         book_time: timeSellCar,
         telephone_number: telephone,
-        brand_id: brandId,
-        model_id: modelId,
-        sub_model_id: submodelId,
+        vehicle_detail_id: vehicleDetailId,
         license_plate: plateId01 + plateId02 + plateId03,
         year: year,
         mileage: mileage,
         color_id: colorId,
-        gear_type: gearType,
         province_id: provinceId,
         branch_id: 1,
         images: uploadedImageData,
@@ -318,14 +310,14 @@ export default function Salecar({}: Props) {
             <option value={0}>ยี่ห้อ</option>
             {dataBrand.map((item: any, index: number) => {
               return (
-                <option key={index} value={item.brand_id}>
-                  {item.name}
+                <option key={index+item} value={item}>
+                  {item}
                 </option>
               );
             })}
           </select>
           <span className="tc-red fs-8px">
-            {brandId !== 0 ? "" : "**กรุณาเลือกยี่ห้อ"}
+            {brand !== "" ? "" : "**กรุณาเลือกยี่ห้อ"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -336,36 +328,18 @@ export default function Salecar({}: Props) {
             <option value={0}>รุ่น</option>
             {dataModel.map((item: any, index: number) => {
               return (
-                <option key={index} value={item.model_id}>
-                  {item.name}
+                <option key={index+item} value={item}>
+                  {item}
                 </option>
               );
             })}
           </select>
           <span className="tc-red fs-8px">
-            {modelId !== 0 ? "" : "**กรุณาเลือกรุ่น"}
+            {model !== "" ? "" : "**กรุณาเลือกรุ่น"}
           </span>
         </Grid>
         <Grid item xs={6}>
-          <select
-            onChange={handlerSubmodelOnChange}
-            className={classes.selection_custom}
-          >
-            <option value={0}>รุ่นย่อย</option>
-            {dataSubmodel.map((item: any, index: number) => {
-              return (
-                <option key={index} value={item.sub_model_id}>
-                  {item.name}
-                </option>
-              );
-            })}
-          </select>
-          <span className="tc-red fs-8px">
-            {submodelId !== 0 ? "" : "**กรุณาเลือกรุ่นย่อย"}
-          </span>
-        </Grid>
-        <Grid item xs={6}>
-          <select
+        <select
             onChange={handlerYearOnChange}
             className={classes.selection_custom}
           >
@@ -381,6 +355,25 @@ export default function Salecar({}: Props) {
           <span className="tc-red fs-8px">
             {year !== "" ? "" : "**กรุณาเลือกปีของรุ่นรถ"}
           </span>
+        </Grid>
+        <Grid item xs={12}>
+        <select
+            onChange={handlerSubmodelOnChange}
+            className={classes.selection_custom}
+          >
+            <option value={0}>รายละเอียด</option>
+            {dataSubmodel.map((item: any, index: number) => {
+              return (
+                <option key={index} value={item.vehicle_detail_id}>
+                  {item.Description}
+                </option>
+              );
+            })}
+          </select>
+          <span className="tc-red fs-8px">
+            {vehicleDetailId !== 0 ? "" : "**กรุณาเลือกรุ่นย่อย"}
+          </span>
+          
         </Grid>
         <Grid item xs={6}>
           <select
@@ -401,24 +394,6 @@ export default function Salecar({}: Props) {
           </span>
         </Grid>
         <Grid item xs={6}>
-          <select
-            onChange={handlerGearTypeOnChange}
-            className={classes.selection_custom}
-          >
-            <option value={0}>เกียร์</option>
-            {dataGearType.map((item: any, index: number) => {
-              return (
-                <option key={index} value={item}>
-                  {item}
-                </option>
-              );
-            })}
-          </select>
-          <span className="tc-red fs-8px">
-            {gearType !== "" ? "" : "**กรุณาเลือกประเภทเกียร์"}
-          </span>
-        </Grid>
-        <Grid item xs={6}>
           <InputCustom
             id="mileage"
             type="number"
@@ -436,7 +411,7 @@ export default function Salecar({}: Props) {
                 type="text"
                 value={plateId01}
                 disabled={checkboxPlateId}
-                placeholder={!checkboxPlateId ? "9" : "-"}
+                placeholder={!checkboxPlateId ? "1-9" : "-"}
                 onChange={handlerPlateIdOnChange01}
                 padding={"0px 15px"}
               />
@@ -489,28 +464,14 @@ export default function Salecar({}: Props) {
             {provinceId !== 0 ? "" : "**กรุณาเลือกจังหวัด(ทะเบียน)"}
           </span>
         </Grid>
-        <Grid item xs={6}>
-          <Calendar
-            id="date-sell-car"
-            type="date"
-            value={dateSellCar}
-            onChange={handlerDateSellCar}
-            style="outline"
-            disablePastDate="yesterday"
-          />
+        <Grid item xs={6} marginTop={2}>
+          <Date onDateChange={handlerDateSellCar}/>
           <span className="tc-red fs-8px">
             {dateSellCar !== "" ? "" : "**กรุณาเลือกวันที่ต้องการขายรถ"}
           </span>
         </Grid>
-        <Grid item xs={6}>
-          <Calendar
-            id="time-sell-car"
-            type="time"
-            value={timeSellCar}
-            onChange={handlerTimeSellCar}
-            style="outline"
-            selectedDate={dateSellCar}
-          />
+        <Grid item xs={6} marginTop={2}>
+          <Time onTimeChange={handlerTimeSellCar} date={dateSellCar}/>
           <span className="tc-red fs-8px">
             {timeSellCar !== "" ? "" : "**กรุณาเลือกเวลาที่ต้องการขายรถ"}
           </span>
@@ -529,6 +490,7 @@ export default function Salecar({}: Props) {
             id="telephone"
             type="text"
             placeholder="โทรศัพท์"
+            value={telephone}
             onChange={handlerTelephoneOnChange}
             alert={telephone !== "" ? null : "**กรุณากรอกเบอร์โทรศัทพ์"}
           />

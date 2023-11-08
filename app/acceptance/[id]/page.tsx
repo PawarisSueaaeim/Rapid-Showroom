@@ -177,9 +177,9 @@ export default function CardAcceptById({ params }: Props) {
           <Box display={"flex"} gap={1} marginTop={2}>
             {renderSectionButton()}
           </Box>
-          <Box marginTop={4}>
+          {/* <Box marginTop={4}>
             <Alert severity="warning">{cancelMessage}</Alert>
-          </Box>
+          </Box> */}
         </>
       )}
     </Box>

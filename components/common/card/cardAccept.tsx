@@ -11,14 +11,15 @@ type Props = {
   province: string,
   minPrice: number,
   maxPrice: number,
+  image: string,
 };
 
-export default function CardAccept({brand, model, subModel, licensePlate, province, minPrice, maxPrice}: Props) {
+export default function CardAccept({brand, model, subModel, licensePlate, province, minPrice, maxPrice, image}: Props) {
   return (
     <Box className={classes.container}>
       <Box className={classes.image_container}>
         <Image
-          src="/images/image-car-01.png"
+          src={image}
           alt="image-mockup"
           width={300}
           height={200}
@@ -29,8 +30,8 @@ export default function CardAccept({brand, model, subModel, licensePlate, provin
         <span className="fs-14px tc-black">ทะเบียน: {licensePlate} {province}</span>
         <br/>
         <span className="fs-16px fw-400 tc-black">ราคาที่ได้รับ</span>
-        <span className="fs-16px tc-black">Min: <strong>{minPrice ? minPrice : "กำลังประเมินราคา..."}</strong> บาท</span>
-        <span className="fs-16px tc-black">Max: <strong>{maxPrice ? maxPrice : "กำลังประเมินราคา..."}</strong> บาท</span>
+        <span className="fs-16px tc-black">Min: <strong>{minPrice ? minPrice : "กำลังประเมินราคา"}</strong> บาท</span>
+        <span className="fs-16px tc-black">Max: <strong>{maxPrice ? maxPrice : "กำลังประเมินราคา"}</strong> บาท</span>
       </Box>
     </Box>
   );
