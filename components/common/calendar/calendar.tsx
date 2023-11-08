@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import React from "react";
 import classes from "@/style/components/common/calendar/calendar.module.css";
 import moment from "moment";
+import { daymontyearFormat } from "@/utils/dateHelper";
 
 type Props = {
   id: string;
@@ -9,7 +10,7 @@ type Props = {
   value: string;
   onChange: (newValue: string) => void;
   style: "custom" | "outline";
-  disablePastDate?: "today" | "yesterday";
+  disablePastDate?: boolean;
   selectedDate?: string;
 };
 
@@ -22,11 +23,8 @@ export default function Calendar({
   disablePastDate,
 }: Props) {
   const today = new Date();
-  const yesterday = new Date(today);
-  yesterday.setDate(today.getDate() + 1);
 
-  const formattedToday = moment(today).format("DD/MM/YYYY");
-  const formattedYesterday = moment(yesterday).format("DD/MM/YYYY");
+  const formattedToday = today.toISOString().split("T")[0];
 
   return (
     <Box>
@@ -40,9 +38,7 @@ export default function Calendar({
             ? classes.calendar_outline
             : classes.calendar_custom
         }
-        min={
-          disablePastDate === "yesterday" ? formattedToday : formattedYesterday
-        }
+        min={disablePastDate ? formattedToday : ""}
       />
     </Box>
   );

@@ -97,43 +97,6 @@ export default function SearchFilter({}: Props) {
     });
   };
 
-  const getBrandVehicle = () => {
-    axios
-      .get(getBrand)
-      .then((response) => {
-        setDataBrandsSelect(response.data.data);
-      })
-      .catch((error) => {
-        console.log("Error get brand vehicle api", error);
-      });
-  };
-
-  const getModelVehicle = () => {
-    if (searchModel !== null) {
-      axios
-        .get(getModel + `?brand_id=${searchBrand}`)
-        .then((response) => {
-          setDataModelsSelect(response.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
-
-  const getSubmodelVehicle = () => {
-    if (searchSubmodel !== null) {
-      axios
-        .get(getSubmodel + `?model_id=${searchModel}`)
-        .then((response) => {
-          setDataSubmodelsSelect(response.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
-
   const selectedBrandHandler = (event: any) => {
     router.push(`?brand_id=${event.target.value}`);
     setDataModelsSelect([]);

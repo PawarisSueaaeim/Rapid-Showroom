@@ -17,7 +17,7 @@ export default function LineLogin({}: Props) {
 
   const lineLogin = () => {
     liff.init(
-      { liffId: "2001288589-JPonqY8l" },
+      { liffId: "2001288589-9JaJdlpA" },
       () => {
         if (liff.isLoggedIn()) {
           const idToken = liff.getIDToken();
@@ -28,7 +28,7 @@ export default function LineLogin({}: Props) {
               // authen({
               //   ...profile,
               //   idToken: idToken,
-              //   email: liff.getDecodedIDToken().email,
+              //   email: liff.getDecodedIDToken()?.email,
               //   type: "LINE",
               // });
               console.log(profile);

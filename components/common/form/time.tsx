@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import moment from "moment";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { DesktopTimePicker } from "@mui/x-date-pickers";
 
 type Props = {
   date?: string;
@@ -28,7 +28,7 @@ export default function TimeValidationTimePicker({onTimeChange, date }: Props) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Stack spacing={3}>
-        <TimePicker
+        <DesktopTimePicker
           //@ts-ignore
           renderInput={(params) => <TextField {...params} />}
           value={value}

@@ -59,7 +59,7 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload , maxSiz
           alignItems={"center"}
           justifyContent={"center"}
         >
-          <Box display={"flex"} margin={1} gap={1}>
+          <Box display={"flex"} margin={1} gap={1} width={300} position={"relative"}>
             <Carousel removeImage={true}  onClickRemove={handleRemoveImage} images={selectedImages} />
           </Box>
           <input

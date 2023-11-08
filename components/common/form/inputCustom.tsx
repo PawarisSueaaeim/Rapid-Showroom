@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import classes from "@/style/components/common/form/form.module.css";
 
 type Props = {
@@ -30,6 +30,7 @@ export default function InputCustom({
         className={classes.input_custom}
         style={{
           padding: padding,
+          textAlign: disabled ? "center" : "left",
         }}
         id={id}
         type={type}

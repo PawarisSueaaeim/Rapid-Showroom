@@ -136,7 +136,6 @@ export default function Deposit({}: Props) {
     }else{
         router.push('/booksuccess');
     }
-   
   };
 
   return (

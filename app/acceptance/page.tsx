@@ -57,6 +57,7 @@ export default function Accept({}: Props) {
                   minPrice={list.min_buy_price}
                   maxPrice={list.max_buy_price}
                   province={list.province}
+                  image={list.image}
                 />
               </Link>
             </Grid>
