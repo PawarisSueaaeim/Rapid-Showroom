@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Box, Grid } from "@mui/material";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "@/style/page/accept/accept.module.css";
 import { CardAccept } from "@/components/common/card";
 import axios from "axios";
@@ -18,27 +19,29 @@ export default function Accept({}: Props) {
   const getSellCarList =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/members/vehicles";
 
-  axios
-    .post(
-      getSellCarList,
-      {
-        page: 1,
-        per_page: 10,
-        orderby: "vehicle_id",
-        sort: "desc",
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+  useEffect(() => {
+    axios
+      .post(
+        getSellCarList,
+        {
+          page: 1,
+          per_page: 10,
+          orderby: "vehicle_id",
+          sort: "desc",
         },
-      }
-    )
-    .then((response) => {
-      setData(response.data.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setData(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <Box className={classes.container}>

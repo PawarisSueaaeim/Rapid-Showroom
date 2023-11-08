@@ -6,13 +6,14 @@ import Image from "next/image";
 import React from "react";
 import html2canvas from "html2canvas";
 import { useSearchParams } from "next/navigation";
+import { useSelector } from "react-redux";
+import { daymontyearFormat } from "@/utils/dateHelper";
 
 type Props = {};
 
 export default function Booksuccess({}: Props) {
+  const bookingData = useSelector((state: any) => state.deposit);
   const searchParams = useSearchParams();
-  const date = searchParams.get("date");
-  const time = searchParams.get("time");
 
   const captureScreenshot = async () => {
     const targetElement = document.getElementById("data-car-booking");
@@ -48,18 +49,25 @@ export default function Booksuccess({}: Props) {
         display={"flex"}
         flexDirection={"column"}
         width={300}
+        marginTop={4}
       >
+        <span className="fs-20px fw-400">{bookingData.brand} {bookingData.model}</span>
+        <span className="fs-16px">ทะเบียน: {bookingData.plate_id}</span>
+        <span className="fs-16px">ราคา: {bookingData.price} บาท</span>
         <span>เวลานัดหมาย</span>
-        <span>วันที่ {date}</span>
-        <span>เวลา {time}</span>
+        <span>วันที่ {daymontyearFormat(bookingData.date)}</span>
+        <span>เวลา {bookingData.time} น.</span>
       </Box>
-        <ButtonPleumDesign
+      <Box marginTop={2}>
+      <ButtonPleumDesign
           title={"บันทึกรูป"}
           backgroundBtnColor={ColorSet.btnGray}
           backgroundBtnHoverColor={ColorSet.btnGrayHover}
           textBtnColor={ColorSet.textBlack}
           onClick={captureScreenshot}
         />
+      </Box>
+        
     </Box>
   );
 }
