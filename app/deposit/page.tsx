@@ -57,9 +57,15 @@ export default function Deposit({}: Props) {
   const searchParams = useSearchParams();
   const vparkId = searchParams.get("vpark_id");
   const guestId = searchParams.get("guest_id");
+  const brand = searchParams.get("brand");
+  const model = searchParams.get("model");
+  const plate_id = searchParams.get("plateId");
+  const price = searchParams.get("price");
+  const depositDate = searchParams.get("dateDeposit");
+  const depositTime = searchParams.get("timeDeposit");
 
   const [isCheck, setIsCheck] = useState<boolean>(false);
-  const [values, setValues] = React.useState("");
+  const [values, setValues] = React.useState("0");
   const [open, setOpen] = React.useState(false);
   const [dataPamentStatus, setDataPamentStatus] = React.useState<any>({});
   const [vdepositId, setVdepositId] = React.useState("");
@@ -80,7 +86,7 @@ export default function Deposit({}: Props) {
 
             if (response.data.data.deposit_payin_status === "paid") {
               setOpen(false);
-              router.push("/booksuccess");
+              router.push(`/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&deposit=${values}`);
             }
           })
           .catch((error) => {
@@ -143,7 +149,7 @@ export default function Deposit({}: Props) {
           setDisableNext(false);
         });
     } else {
-      router.push("/booksuccess");
+      router.push(`/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}`);
     }
   };
 
@@ -163,17 +169,22 @@ export default function Deposit({}: Props) {
       />
       <Box display={"flex"} flexDirection={"column"}>
         <span className="fs-20px fw-400">
-          {depositData.brand} {depositData.model} {depositData.submodel}
+          {/* {depositData.brand} {depositData.model} {depositData.submodel} */}
+          {brand !== "undefind" ? brand : ""} {model !== "undefind" ? model : ""}
         </span>
         <span>
-          ทะเบียน: <strong>{depositData.plate_id}</strong>
+          {/* ทะเบียน: <strong>{depositData.plate_id}</strong> */}
+          ทะเบียน: {plate_id}
         </span>
         <span>
-          ราคา: <strong>{depositData.price}</strong> บาท
+          {/* ราคา: <strong>{depositData.price}</strong> บาท */}
+          ราคา: <strong>{price}</strong> บาท
         </span>
         <span>เวลานัดหมาย</span>
-        <span>วันที่ {daymontyearFormat(depositData.date)}</span>
-        <span>เวลา {depositData.time}</span>
+        {/* <span>วันที่ {daymontyearFormat(depositData.date)}</span> */}
+        <span>วันที่ {daymontyearFormat(depositDate)}</span>
+        {/* <span>เวลา {depositData.time}</span> */}
+        <span>เวลา {depositTime}</span>
       </Box>
       <Box>
         <Stack direction="row" spacing={2}>

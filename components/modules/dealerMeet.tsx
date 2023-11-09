@@ -73,8 +73,12 @@ export default function DealerMeet({
 
   useEffect(() => {
     if (
-      // checkedBot && 
-      date && time && verifyName && verifyTelephone) {
+      // checkedBot &&
+      date &&
+      time &&
+      verifyName &&
+      verifyTelephone
+    ) {
       setIsVerified(true);
     }
   }, [
@@ -139,18 +143,18 @@ export default function DealerMeet({
       })
       .then((response) => {
         router.push(
-          `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&vpark_id=${listingVparkId}`
+          `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&vpark_id=${listingVparkId}&img=${image}&brand=${brand}&model=${model}&dateDeposit=${date}&timeDeposit=${time}&plateId=${plateId}&price=${price}`
         );
-        dispatch(setBrand(brand))
-        dispatch(setModel(model))
-        dispatch(setSubmodel(submodel))
-        dispatch(setDateDeposit(date))
-        dispatch(setTimeDeposit(time))
-        dispatch(setImage(image))
-        dispatch(setGuestId(response.data.data.guest_id))
-        dispatch(setVparkId(listingVparkId))
-        dispatch(setPrice(price))
-        dispatch(setPlateId(plateId))
+        // dispatch(setBrand(brand));
+        // dispatch(setModel(model));
+        // dispatch(setSubmodel(submodel));
+        // dispatch(setDateDeposit(date));
+        // dispatch(setTimeDeposit(time));
+        // dispatch(setImage(image));
+        // dispatch(setGuestId(response.data.data.guest_id));
+        // dispatch(setVparkId(listingVparkId));
+        // dispatch(setPrice(price));
+        // dispatch(setPlateId(plateId));
       })
       .catch((error) => {
         console.log(error);
@@ -195,15 +199,15 @@ export default function DealerMeet({
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box> */}
         <Box className={classes.btn_submit}>
-            <ButtonCapsule
-              disabled={!isVerified}
-              title={"ยืนยันนัดดูรถ"}
-              bgColor={"#4679C7"}
-              color={"#fff"}
-              fontSize={16}
-              height={40}
-              onClick={handleSubmit}
-            />
+          <ButtonCapsule
+            disabled={!isVerified}
+            title={"ยืนยันนัดดูรถ"}
+            bgColor={"#4679C7"}
+            color={"#fff"}
+            fontSize={16}
+            height={40}
+            onClick={handleSubmit}
+          />
         </Box>
       </Box>
     </Box>

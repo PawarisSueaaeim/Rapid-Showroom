@@ -14,6 +14,13 @@ type Props = {};
 export default function Booksuccess({}: Props) {
   const bookingData = useSelector((state: any) => state.deposit);
   const searchParams = useSearchParams();
+  const brand = searchParams.get('brand');
+  const model = searchParams.get('model');
+  const plateId = searchParams.get('plateId');
+  const price = searchParams.get('price');
+  const date = searchParams.get('date');
+  const time = searchParams.get('time');
+  const deposit = searchParams.get('deposit');
 
   const captureScreenshot = async () => {
     const targetElement = document.getElementById("data-car-booking");
@@ -51,12 +58,20 @@ export default function Booksuccess({}: Props) {
         width={300}
         marginTop={4}
       >
-        <span className="fs-20px fw-400">{bookingData.brand} {bookingData.model}</span>
+        {/* <span className="fs-20px fw-400">{bookingData.brand} {bookingData.model}</span>
         <span className="fs-16px">ทะเบียน: {bookingData.plate_id}</span>
         <span className="fs-16px">ราคา: {bookingData.price} บาท</span>
         <span>เวลานัดหมาย</span>
         <span>วันที่ {daymontyearFormat(bookingData.date)}</span>
-        <span>เวลา {bookingData.time} น.</span>
+        <span>เวลา {bookingData.time} น.</span> */}
+
+        <span className="fs-20px fw-400">{brand} {model}</span>
+        <span className="fs-16px">ทะเบียน: {plateId}</span>
+        <span className="fs-16px">ราคา: {price} บาท</span>
+        <span className="fs-16px">มัดจำ: {deposit} บาท</span>
+        <span className="fw-400">เวลานัดหมาย</span>
+        <span>วันที่ {daymontyearFormat(date)}</span>
+        <span>เวลา {time} น.</span>
       </Box>
       <Box marginTop={2}>
       <ButtonPleumDesign
