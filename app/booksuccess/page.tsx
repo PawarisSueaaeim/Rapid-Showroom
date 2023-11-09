@@ -68,7 +68,7 @@ export default function Booksuccess({}: Props) {
         <span className="fs-20px fw-400">{brand} {model}</span>
         <span className="fs-16px">ทะเบียน: {plateId}</span>
         <span className="fs-16px">ราคา: {price} บาท</span>
-        <span className="fs-16px">มัดจำ: {deposit} บาท</span>
+        <span className="fs-16px">มัดจำ: {deposit ? deposit : "0"} บาท</span>
         <span className="fw-400">เวลานัดหมาย</span>
         <span>วันที่ {daymontyearFormat(date)}</span>
         <span>เวลา {time} น.</span>

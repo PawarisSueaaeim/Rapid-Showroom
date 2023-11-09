@@ -39,12 +39,9 @@ type Props = {
 };
 
 export default function DealerMeet({
-  modelId,
-  vehicleId,
   listingVparkId,
   brand,
   model,
-  submodel,
   price,
   image,
   plateId,
