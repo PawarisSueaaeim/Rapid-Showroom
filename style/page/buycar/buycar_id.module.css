@@ -20,3 +20,10 @@
 .dealer_meet {
     width: 100%;
 }
+
+.page_not_found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}

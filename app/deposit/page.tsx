@@ -63,6 +63,7 @@ export default function Deposit({}: Props) {
   const price = searchParams.get("price");
   const depositDate = searchParams.get("dateDeposit");
   const depositTime = searchParams.get("timeDeposit");
+  const showroom_appointment_id = searchParams.get("showroom_appointment_id");
 
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [values, setValues] = React.useState("0");
@@ -138,6 +139,7 @@ export default function Deposit({}: Props) {
           amount: values,
           listing_vpark_id: vparkId,
           guest_id: guestId,
+          showroom_appointment_id: showroom_appointment_id,
         })
         .then((response) => {
           handleGetPaymentStatus(response.data.data.vdeposit_id);

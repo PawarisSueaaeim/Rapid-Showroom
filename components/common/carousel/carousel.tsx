@@ -9,7 +9,7 @@ import { Box } from "@mui/material";
 type Props = {
   onClickRemove?: any;
   removeImage?: boolean;
-  images: Array<{
+  images?: Array<{
     sv_img_id?: number;
     url_path: string;
   }>;
@@ -49,7 +49,8 @@ export default function Carousel({
           overflow: "hidden",
         }}
       >
-        {images.map((item, index) => (
+
+        {images && images.map((item, index) => (
           <img
             key={index}
             className={classes.img_slider}
@@ -60,7 +61,7 @@ export default function Carousel({
       </SwipeableViews>
 
       <span className={classes.indicators}>
-        {images.map((_, index) => {
+        {images && images.map((_, index) => {
           return (
             <button
               key={index}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { SearchFilter } from "@/components/modules";
+import { Search, SearchFilter } from "@/components/modules";
 import classes from "@/style/page/buycar/buycar.module.css";
 
 type Props = {};
@@ -14,6 +14,7 @@ export default function Vehicles({}: Props) {
         <span className="fs-22px">Showroom</span>
       </Box>
       <SearchFilter />
+      {/* <Search/> */}
     </Box>
   );
 }
