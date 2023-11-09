@@ -121,14 +121,12 @@ export default function Success({}: Props) {
                 </Box>
                 {isMobileMode ? (
                   <Box marginTop={2} width={200}>
-                    <Link href="/linelogin">
                       <ButtonCapsule
                         title={"LINE"}
                         fontWeight={500}
                         bgColor={"#00B900"}
                         color={"#fff"}
                       />
-                    </Link>
                   </Box>
                 ) : null}
               </Box>

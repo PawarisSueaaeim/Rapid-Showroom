@@ -59,11 +59,6 @@ export default function LineLogin({}: Props) {
       alignItems={"center"}
       height={"100vh"}
     >
-      <span>userProfile: {userId}</span>
-      <span>displayName: {displayName}</span>
-      <span>statusMessage: {statusMessage}</span>
-      <span>pictureUrl: {pictureUrl}</span>
-      <span>email: {email}</span>
       <Box display={"flex"} flexDirection={"column"} marginTop={2}>
         <span className="fs-14px">กรุณากรอกเบอร์โทรเพื่อ</span>
         <span className="fs-14px">รับการแจ้งเตือนผลการประเมินราคาผ่านไลน์</span>
