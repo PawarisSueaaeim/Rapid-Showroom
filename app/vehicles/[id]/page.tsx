@@ -76,7 +76,7 @@ export default async function Detail({ params }: Props) {
               model={data.model}
               submodel={data.submodel}
               price={data.listing_price_label}
-              image={data.main_image}
+              image={data.gallery[0].url_path}
               plateId={data.license_plate + " " + data.province}
             />
           </Box>

@@ -35,6 +35,7 @@ export default function Deposit({}: Props) {
   const searchParams = useSearchParams();
   const vparkId = searchParams.get("vpark_id");
   const guestId = searchParams.get("guest_id");
+  const imageUrl = searchParams.get("img");
   const brand = searchParams.get("brand");
   const model = searchParams.get("model");
   const plate_id = searchParams.get("plateId");
@@ -165,9 +166,9 @@ export default function Deposit({}: Props) {
       height={"100vh"}
     >
       <Image
-        src={depositData.image}
+        src={imageUrl ? imageUrl : ""}
         alt="vehicle-image"
-        width={300}
+        width={310}
         height={200}
       />
       <Box display={"flex"} flexDirection={"column"}>
