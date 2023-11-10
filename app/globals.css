@@ -34,6 +34,24 @@ ul {
   list-style-type: none;
 }
 
+ul li {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+li:active {
+  transform: scale(0.9);
+}
+
+.action {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.action:active {
+  transform: scale(0.9);
+}
+
 /* global style text margin*/
 .m-0 {
   margin: 0;

@@ -98,19 +98,19 @@ const Navbar = ({}: Props) => {
           gap={3}
         >
           <Link href="/vehicles" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px fw-100">ซื้อรถ</span>
+            <span className="tc-black fs-20px fw-100 action">ซื้อรถ</span>
           </Link>
           <Link href="/salecar" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px fw-100">ขายรถ</span>
+            <span className="tc-black fs-20px fw-100 action">ขายรถ</span>
           </Link>
           <Link href="/contact" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px fw-100">ติดต่อเรา</span>
+            <span className="tc-black fs-20px fw-100 action">ติดต่อเรา</span>
           </Link>
           <Link href="/about" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px fw-100">เกี่ยวกับเรา</span>
+            <span className="tc-black fs-20px fw-100 action">เกี่ยวกับเรา</span>
           </Link>
           <Link href="/login" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px fw-100">{currentURL === '/acceptance' ? "ออกจากระบบ" : "เข้าสู่ระบบ"}</span>
+            <span className="tc-black fs-20px fw-100 action">{currentURL === '/acceptance' ? "ออกจากระบบ" : "เข้าสู่ระบบ"}</span>
           </Link>
         </Box>
       </Box>
