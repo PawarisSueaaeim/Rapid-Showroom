@@ -162,7 +162,6 @@ export default function DealerMeet({
         console.log(error);
       })
       .finally(() => {
-        setIsVerified(true);
       });
   };
 

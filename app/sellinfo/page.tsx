@@ -51,7 +51,7 @@ export default function Accept({}: Props) {
         {data.map((list: any, index: any) => {
           return (
             <Grid item key={index} xs={12} sm={6} md={4}>
-              <Link href={`/acceptance/${list.uuid}`}>
+              <Link href={`/sellinfo/${list.uuid}`}>
                 <CardAccept
                   brand={list.brand}
                   model={list.model}
