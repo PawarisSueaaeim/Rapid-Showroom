@@ -51,7 +51,6 @@ export default function Login({}: Props) {
         password: password,
       })
       .then((response) => {
-        console.log(response.data);
         if (response.data.status == "OK") {
           router.push(`/acceptance?userId=${response.data.access_token}`);
         } else {

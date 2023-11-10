@@ -19,7 +19,6 @@ export default function Search({}: Props) {
       .post(baseURL + "/vehicles/get/vehicle_detail")
       .then((response) => {
         setBrandsData(response.data.brands)
-        console.log(response.data)
       })
       .catch((error) => {
         console.log(error);
@@ -33,8 +32,6 @@ export default function Search({}: Props) {
   const handlerBrandsOnChange = (newValues: any) => {
     setBrandsData(newValues)
   };
-
-  console.log(brandsData);
 
   return (
     <Box width={"100vw"}>

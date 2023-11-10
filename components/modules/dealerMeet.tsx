@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { ButtonCapsule } from "../common/button";
 import { Date, InputCustom, Time } from "../common/form";
-import { isThaiText, isPhoneNumber } from "@/utils/regex";
+import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
 import ReCAPTCHA from "react-google-recaptcha";
 import classes from "@/style/components/module/dealerMeet.module.css";
 import Image from "next/image";
@@ -62,7 +62,7 @@ export default function DealerMeet({
   const [time, setTime] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [telephone, setTelephone] = useState<string>("");
-  const [email, setEmail] = useState<string>("test@example.com");
+  const [email, setEmail] = useState<string>("");
   const [checkedBot, setCheckedBot] = useState<boolean>(false);
 
   const siteKey: string | undefined =
@@ -72,6 +72,7 @@ export default function DealerMeet({
     if (
       // checkedBot &&
       date &&
+      email &&
       time &&
       verifyName &&
       verifyTelephone
@@ -113,6 +114,10 @@ export default function DealerMeet({
       setVerifyTelephone(true);
       setTelephone(textInput);
     }
+  };
+  const handlerEmailOnChange = (event: any) => {
+    const textInput = event.target.value;
+    setEmail(textInput);
   };
 
   const handleCaptchaVerify = (response: string | null) => {
@@ -191,6 +196,13 @@ export default function DealerMeet({
           placeholder="โทรศัพท์"
           value={telephone}
           onChange={handleTelephoneChange}
+        />
+        <InputCustom
+          id="tel-to-dealer"
+          type="email"
+          placeholder="อีเมล"
+          value={email}
+          onChange={handlerEmailOnChange}
         />
         {/* <Box className={classes.recaptcha}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />

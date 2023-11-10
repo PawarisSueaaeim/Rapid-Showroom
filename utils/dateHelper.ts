@@ -5,6 +5,8 @@ export const daymontyearFormat = (value: any) => {
     return formattedDate;
 };
 
-export const thaiDateFormat = (value: any) => {
+export const countDownTime = (expir: any) => {
+    expir //output = 2023-11-10 12:28:35
     
-}
+    return 
+};

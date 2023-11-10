@@ -137,8 +137,6 @@ export default function CardAcceptById({ params }: Props) {
     }
   };
 
-  console.log(dataVehicle)
-
   return (
     <Box
       display={"flex"}

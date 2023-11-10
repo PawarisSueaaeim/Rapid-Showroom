@@ -94,7 +94,6 @@ export default function Salecar({}: Props) {
   const renderGetBrands = () => {
     axios.post(baseURL + "/vehicles/get/vehicle_detail").then((response) => {
       setDataBrand(response.data.brands);
-      console.log(response.data.brands);
     }).catch((error) => {
       console.log(error)
     });
@@ -118,7 +117,6 @@ export default function Salecar({}: Props) {
   };
 
   const renderGetSubmodels = (years: number) => {
-    console.log(filteredDescription(dataFilter, brand, model, years));
     setDataSubmodel(filteredDescription(dataFilter, brand, model, years));
   };
 

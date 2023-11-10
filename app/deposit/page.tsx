@@ -13,7 +13,9 @@ import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useRouter, useSearchParams } from "next/navigation";
-import { daymontyearFormat } from "@/utils/dateHelper";
+import { countDownTime, daymontyearFormat } from "@/utils/dateHelper";
+import { isMileage } from "@/utils/regex";
+import { CountDowntime } from "@/components/common/countDown";
 
 type Props = {};
 
@@ -21,30 +23,6 @@ interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
   name: string;
 }
-
-const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
-  function NumericFormatCustom(props, ref) {
-    const { onChange, ...other } = props;
-
-    return (
-      <NumericFormat
-        {...other}
-        getInputRef={ref}
-        onValueChange={(values: any) => {
-          onChange({
-            target: {
-              name: props.name,
-              value: values.value,
-            },
-          });
-        }}
-        thousandSeparator
-        valueIsNumericString
-        suffix=" ฿"
-      />
-    );
-  }
-);
 
 export default function Deposit({}: Props) {
   const depositData = useSelector((state: any) => state.deposit);
@@ -66,7 +44,7 @@ export default function Deposit({}: Props) {
   const showroom_appointment_id = searchParams.get("showroom_appointment_id");
 
   const [isCheck, setIsCheck] = useState<boolean>(false);
-  const [values, setValues] = React.useState("0");
+  const [values, setValues] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [dataPamentStatus, setDataPamentStatus] = React.useState<any>({});
   const [vdepositId, setVdepositId] = React.useState("");
@@ -103,17 +81,40 @@ export default function Deposit({}: Props) {
     };
   }, [open]);
 
+  useEffect(() => {
+    if(!isCheck){
+      setValues("0");
+    }
+  },[isCheck])
+
+  useEffect(() => {
+    if (isCheck == true && parseInt(values) < 5000){
+      setDisableNext(true);
+    } else {
+      setDisableNext(false);
+    }
+  },[values, isCheck]);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: any) => {
     const inputValue = event.target.value;
+    console.log(values)
 
-    if (parseInt(inputValue) < 5000) {
+    if(isMileage(inputValue)){
+      setValues(event.target.value);
+    }else if (inputValue === 0 || inputValue === "") {
       setValues("5000");
-    } else {
-      setValues(inputValue);
     }
+
+    // if (inputValue <= 5000 && inputValue > 0) {
+    //   setValues(5000);
+    // } else if (inputValue == 0) {
+    //   setValues(0);
+    // } else if (inputValue == ""){
+    //   setValues(inputValue);
+    // }
   };
 
   const handleGetPaymentStatus = (vdeposit_id: number) => {
@@ -188,18 +189,18 @@ export default function Deposit({}: Props) {
         {/* <span>เวลา {depositData.time}</span> */}
         <span>เวลา {depositTime}</span>
       </Box>
-      <Box>
+      <Box marginTop={2}>
         <Stack direction="row" spacing={2}>
           <TextField
-            label="Deposit"
+            label="Deposit (ขั้นต่ำ 5,000 บาท)"
             value={values}
             onChange={handleChange}
             disabled={!isCheck}
             name="numberformat"
             id="formatted-numberformat-input"
-            InputProps={{
-              inputComponent: NumericFormatCustom as any,
-            }}
+            // InputProps={{
+            //   inputComponent: NumericFormatCustom as any,
+            // }}
             variant="standard"
           />
         </Stack>
@@ -210,9 +211,6 @@ export default function Deposit({}: Props) {
             value="Bike"
             onClick={() => {
               setIsCheck(!isCheck);
-              if (isCheck) {
-                setValues("");
-              }
             }}
           />
           <span className="fs-8px">ต้องการมัดจำรถ</span>
@@ -267,8 +265,8 @@ export default function Deposit({}: Props) {
               height={200}
             />
             <Box display={"flex"} flexDirection={"column"} marginTop={2}>
-              <span>ราคามัดจำ: {dataPamentStatus.amount_label} บาท</span>
-              <span>กรุณาจ่ายภายในเวลา: {dataPamentStatus.qr_expired_at}</span>
+              <span className="fs-12px">ราคามัดจำ: {dataPamentStatus.amount_label} บาท (ค่าธรรมเนียม 20 บาท)</span>
+              <CountDowntime displayCountdown={open} setDisplayCountdown={(newBoolean: any) => setOpen(newBoolean)} dateAndTime={dataPamentStatus.qr_expired_at}/>
             </Box>
           </Box>
         </Box>

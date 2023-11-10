@@ -63,7 +63,6 @@ export default function EmailLogin({}: Props) {
         password: password,
       })
       .then((response) => {
-        console.log(response.data);
         if (response.data.status == 'success') {
           router.push(`/login?status=${response.data.status}`);
         }
