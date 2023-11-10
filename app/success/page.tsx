@@ -110,15 +110,6 @@ export default function Success({}: Props) {
                     />
                   </Link>
                 </Box>
-                <Box marginTop={2} width={200}>
-                  <Link href="/">
-                    <ButtonCapsule
-                      title={"Skip"}
-                      bgColor={"#1A417B"}
-                      color={"#fff"}
-                    />
-                  </Link>
-                </Box>
                 {isMobileMode ? (
                   <Box marginTop={2} width={200}>
                       <ButtonCapsule

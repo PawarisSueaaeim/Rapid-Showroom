@@ -2,27 +2,39 @@ export function filteredModel(
   unfilteredCategoryDatas: any,
   selectedBrand: any
 ) {
-  const modelsForDropdown = unfilteredCategoryDatas.models
-    .filter(
-      (unfilteredCategoryData: { brand: any }) =>
-        unfilteredCategoryData.brand === selectedBrand
-    )
-    .map((filteredCategoryData: { model: any }) => filteredCategoryData.model);
+  if (unfilteredCategoryDatas && unfilteredCategoryDatas.models) {
+    const modelsForDropdown = unfilteredCategoryDatas.models
+      .filter(
+        (unfilteredCategoryData: { brand: any }) =>
+          unfilteredCategoryData.brand === selectedBrand
+      )
+      .map(
+        (filteredCategoryData: { model: any }) => filteredCategoryData.model
+      );
 
-  return modelsForDropdown;
+    return modelsForDropdown;
+  } else {
+    return [];
+  }
 }
 
 export function filteredModelMulti(
   unfilteredCategoryDatas: any,
   selectedBrands: any
 ) {
-  const modelsForDropdown = unfilteredCategoryDatas.models
-    .filter((unfilteredCategoryData: { brand: any }) =>
-      selectedBrands.includes(unfilteredCategoryData.brand)
-    )
-    .map((filteredCategoryData: { model: any }) => filteredCategoryData.model);
+  if (unfilteredCategoryDatas && unfilteredCategoryDatas.models) {
+    const modelsForDropdown = unfilteredCategoryDatas.models
+      .filter((unfilteredCategoryData: { brand: any }) =>
+        selectedBrands.includes(unfilteredCategoryData.brand)
+      )
+      .map(
+        (filteredCategoryData: { model: any }) => filteredCategoryData.model
+      );
 
-  return modelsForDropdown;
+    return modelsForDropdown;
+  } else {
+    return [];
+  }
 }
 
 export function filteredYear(
@@ -30,16 +42,49 @@ export function filteredYear(
   selectedBrand: any,
   selectedModel: any
 ) {
-  const yearForDropdown = unfilteredCategoryDatas.years
-    .filter(
-      (unfilteredCategoryData: { brand: any; model: any }) =>
-        unfilteredCategoryData.brand === selectedBrand &&
-        unfilteredCategoryData.model === selectedModel
-    )
-    .map((filteredCategoryData: { year: any }) => filteredCategoryData.year);
+  if (unfilteredCategoryDatas && unfilteredCategoryDatas.years) {
+    const yearForDropdown = unfilteredCategoryDatas.years
+      .filter(
+        (unfilteredCategoryData: { brand: any; model: any }) =>
+          unfilteredCategoryData.brand === selectedBrand &&
+          unfilteredCategoryData.model === selectedModel
+      )
+      .map((filteredCategoryData: { year: any }) => filteredCategoryData.year);
 
-  return yearForDropdown;
+    return yearForDropdown;
+  } else {
+    return [];
+  }
 }
+
+export const filteredDetails = (
+  unfilteredCategoryDatas: any,
+  selectedBrand?: any,
+  selectedModel?: any,
+  selectedYear?: any
+) => {
+  if (unfilteredCategoryDatas && unfilteredCategoryDatas.detail) {
+    const descriptionForDropdown = unfilteredCategoryDatas.detail
+      .filter(
+        (unfilteredCategoryData: { brand: any; model: any; year: any }) => {
+          return (
+            (!selectedBrand ||
+              unfilteredCategoryData.brand === selectedBrand) &&
+            (!selectedModel ||
+              unfilteredCategoryData.model === selectedModel) &&
+            (!selectedYear || unfilteredCategoryData.year === selectedYear)
+          );
+        }
+      )
+      .map(
+        (filteredCategoryData: { Description: any }) => filteredCategoryData
+      );
+
+    return descriptionForDropdown;
+  } else {
+    return [];
+  }
+};
 
 export function filteredDescription(
   unfilteredCategoryDatas: any,
@@ -47,14 +92,20 @@ export function filteredDescription(
   selectedModel: any,
   selectedYear: any
 ) {
-  const descriptionForDropdown = unfilteredCategoryDatas.detail
-    .filter(
-      (unfilteredCategoryData: { brand: any; model: any; year: any }) =>
-        unfilteredCategoryData.brand === selectedBrand &&
-        unfilteredCategoryData.model === selectedModel &&
-        unfilteredCategoryData.year === selectedYear
-    )
-    .map((filteredCategoryData: { Description: any }) => filteredCategoryData);
+  if (unfilteredCategoryDatas && unfilteredCategoryDatas.detail) {
+    const descriptionForDropdown = unfilteredCategoryDatas.detail
+      .filter(
+        (unfilteredCategoryData: { brand: any; model: any; year: any }) =>
+          unfilteredCategoryData.brand === selectedBrand &&
+          unfilteredCategoryData.model === selectedModel &&
+          unfilteredCategoryData.year === selectedYear
+      )
+      .map(
+        (filteredCategoryData: { Description: any }) => filteredCategoryData
+      );
 
-  return descriptionForDropdown;
+    return descriptionForDropdown;
+  } else {
+    return [];
+  }
 }

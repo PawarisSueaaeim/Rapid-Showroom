@@ -506,7 +506,6 @@ export default function Salecar({}: Props) {
         </Grid>
       </Grid>
       <Box width={"100%"} margin={4}>
-        {isImageLimit && <span>**รูปทั้งหมดมีขนาดเกิน 10MB</span>}
         <Link href="/success">
           <ButtonCapsule
             title="ขายรถ"

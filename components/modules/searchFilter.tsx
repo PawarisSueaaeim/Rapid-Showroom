@@ -15,7 +15,12 @@ import { NewSearch } from "../common/search";
 import { CardItemPleumDesign } from "../common/card";
 import { ICar } from "../types/car";
 import Link from "next/link";
-import { filteredDescription, filteredModel, filteredYear } from "@/utils/filter";
+import {
+  filteredDescription,
+  filteredDetails,
+  filteredModel,
+  filteredYear,
+} from "@/utils/filter";
 
 type Props = {};
 
@@ -28,12 +33,12 @@ export default function SearchFilter({}: Props) {
   const searchDetailId = searchParams.get("detail_id");
   const searchMinPrice = searchParams.get("min_price");
   const searchMaxPrice = searchParams.get("max_price");
-  
+
   const getAll =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + `/showrooms/vehicles`;
 
-  const getFilter = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + '/vehicles/get/vehicle_detail';
-
+  const getFilter =
+    process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/vehicles/get/vehicle_detail";
 
   const [dataVehicle, setDataVehicle] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +48,7 @@ export default function SearchFilter({}: Props) {
   const [dataModelsSelect, setDataModelsSelect] = useState([]);
   const [dataYears, setDataYears] = useState([]);
   const [dataDetailSelect, setDataDetailSelect] = useState([]);
+  const [listDetailId, setListDetailId] = useState<any[]>([]);
 
   const [filterData, setFilterData] = useState([]);
 
@@ -54,9 +60,12 @@ export default function SearchFilter({}: Props) {
 
   useEffect(() => {
     getVehicle();
-  },[
-    page,
-  ])
+  }, [page, listDetailId]);
+
+  useEffect(() => {
+    const ids = dataDetailSelect.map((detail:any) => detail.vehicle_detail_id);
+   setListDetailId(ids)
+  }, [dataDetailSelect]);
 
   const getVehicle = () => {
     setIsLoading(true);
@@ -68,7 +77,7 @@ export default function SearchFilter({}: Props) {
         orderby: "vehicle_id",
         search: "",
         sort: "desc",
-        vehicle_detail_id: searchDetailId,
+        vehicle_detail_id: listDetailId,
         min_price: searchMinPrice,
         max_price: searchMaxPrice,
       })
@@ -84,27 +93,39 @@ export default function SearchFilter({}: Props) {
   };
 
   const getFilterVehicle = () => {
-    axios.post(getFilter).then((response) => {
-      setDataBrandsSelect(response.data.brands);
-      setFilterData(response.data)
-    }).catch((error) => {
-      console.log(error);
-    });
+    axios
+      .post(getFilter)
+      .then((response) => {
+        setDataBrandsSelect(response.data.brands);
+        setFilterData(response.data);
+        setDataDetailSelect(response.data.detail);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const selectedBrandHandler = (event: any) => {
     router.push(`?brand=${event.target.value}`);
     setDataModelsSelect(filteredModel(filterData, event.target.value));
+    setDataDetailSelect(filteredDetails(filterData, event.target.value));
   };
 
   const selectedModelHandler = (event: any) => {
     router.push(`?brand=${searchBrand}&model=${event.target.value}`);
     setDataYears(filteredYear(filterData, searchBrand, event.target.value));
+    setDataDetailSelect(
+      filteredDetails(filterData, searchBrand, event.target.value)
+    );
   };
 
   const selectedYearHandler = (event: any) => {
-    router.push(`?brand=${searchBrand}&model=${searchModel}&year=${event.target.value}`);
-    setDataDetailSelect(filteredDescription(filterData, searchBrand, searchModel, event.target.value));
+    router.push(
+      `?brand=${searchBrand}&model=${searchModel}&year=${event.target.value}`
+    );
+    setDataDetailSelect(
+      filteredDetails(filterData, searchBrand, searchModel, event.target.value)
+    );
   };
 
   const selectedDetailHandler = (event: any) => {
@@ -138,7 +159,7 @@ export default function SearchFilter({}: Props) {
               className={classes.select_blue}
             >
               <option value="">ยี่ห้อ</option>
-              {dataBrandsSelect.map((item: any,index: number) => {
+              {dataBrandsSelect.map((item: any, index: number) => {
                 return (
                   <option key={`${item}-${index}`} value={item}>
                     {item}
@@ -156,7 +177,7 @@ export default function SearchFilter({}: Props) {
               <option value="">รุ่น</option>
               {dataModelsSelect.map((item: any, index: number) => {
                 return (
-                  <option key={item+index} value={item}>
+                  <option key={item + index} value={item}>
                     {item}
                   </option>
                 );
@@ -172,7 +193,7 @@ export default function SearchFilter({}: Props) {
               <option value="">ปี</option>
               {dataYears.map((item: any, index: number) => {
                 return (
-                  <option key={item+index} value={item}>
+                  <option key={item + index} value={item}>
                     {item}
                   </option>
                 );
@@ -188,7 +209,10 @@ export default function SearchFilter({}: Props) {
               <option value="">รายละเอียด</option>
               {dataDetailSelect.map((item: any) => {
                 return (
-                  <option key={item.vehicle_detail_id} value={item.vehicle_detail_id}>
+                  <option
+                    key={item.vehicle_detail_id}
+                    value={item.vehicle_detail_id}
+                  >
                     {item.Description}
                   </option>
                 );
