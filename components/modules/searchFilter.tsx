@@ -60,13 +60,14 @@ export default function SearchFilter({}: Props) {
 
   useEffect(() => {
     getVehicle();
-  }, [page, listDetailId]);
+  }, [page,listDetailId]);
 
+  
   useEffect(() => {
     const ids = dataDetailSelect.map((detail:any) => detail.vehicle_detail_id);
-   setListDetailId(ids)
-  }, [dataDetailSelect]);
-
+    setListDetailId(ids)
+  },[dataDetailSelect])
+    
   const getVehicle = () => {
     setIsLoading(true);
     setDataVehicle([]);
@@ -98,7 +99,6 @@ export default function SearchFilter({}: Props) {
       .then((response) => {
         setDataBrandsSelect(response.data.brands);
         setFilterData(response.data);
-        setDataDetailSelect(response.data.detail);
       })
       .catch((error) => {
         console.log(error);
