@@ -55,7 +55,6 @@ export default function EmailLogin({}: Props) {
   }, [password, confirmPassword]);
 
   const renderOnSubmit = () => {
-    setIsMatch(false);
     axios
       .post(register, {
         name: name,
@@ -70,6 +69,7 @@ export default function EmailLogin({}: Props) {
       .catch((error) => {
         console.log(error);
         router.push(`/registerFail`);
+      }).finally(() => {
       });
   };
 
@@ -109,7 +109,6 @@ export default function EmailLogin({}: Props) {
       </Box>
 
       <Box marginTop={4}>
-        <span className="tc-red fw-200 fs-10px"></span>
         <ButtonPleumDesign
           title={"Submit"}
           backgroundBtnColor={ColorSet.btnWhite}
