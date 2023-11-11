@@ -21,6 +21,7 @@ import {
   filteredModel,
   filteredYear,
 } from "@/utils/filter";
+import { ButtonPleumDesign } from "../common/button";
 
 type Props = {};
 
@@ -33,12 +34,17 @@ export default function SearchFilter({}: Props) {
   const searchDetailId = searchParams.get("detail_id");
   const searchMinPrice = searchParams.get("min_price");
   const searchMaxPrice = searchParams.get("max_price");
+  const searchFilterData = searchParams.get("filter_data");
 
   const getAll =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + `/showrooms/vehicles`;
 
   const getFilter =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/vehicles/get/vehicle_detail";
+
+  const getAllV2 = process.env.NEXT_PUBLIC_SHOWROOM_API_URL_V2 + '/showrooms/vehicles';
+
+  const urlString = '{"brand":["bmw","audi","nissan"],"model":["a3","a5","318i"],"year":{"start":2005,"end":2023}}';
 
   const [dataVehicle, setDataVehicle] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,6 +55,8 @@ export default function SearchFilter({}: Props) {
   const [dataYears, setDataYears] = useState([]);
   const [dataDetailSelect, setDataDetailSelect] = useState([]);
   const [listDetailId, setListDetailId] = useState<any[]>([]);
+
+  const [test, setTest] = useState([]);
 
   const [filterData, setFilterData] = useState([]);
 
@@ -62,7 +70,6 @@ export default function SearchFilter({}: Props) {
     getVehicle();
   }, [page,listDetailId]);
 
-  
   useEffect(() => {
     const ids = dataDetailSelect.map((detail:any) => detail.vehicle_detail_id);
     setListDetailId(ids)
@@ -148,9 +155,42 @@ export default function SearchFilter({}: Props) {
     setPage(pageValue);
   };
 
+  const renderEncode = () => {
+    const encodedObject = encodeURIComponent(urlString);
+
+    router.push(`?filter_data=${encodedObject}`)
+  };
+
+  const renderDecode = () => {
+    console.log("test",searchFilterData);
+
+    axios.post(getAllV2, {
+      page: "1",
+      per_page: "10",
+      search: "",
+      orderby: "vehicle_id",
+      sort: "desc",
+      filter_data: searchFilterData,
+    }).then((response) => {
+      setTest(response.data.data);
+      console.log(response.data.data);
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+
   return (
     <Box display={"flex"} flexDirection={"column"} width={"100%"}>
       <Box padding={2}>
+        <button onClick={renderEncode}>Encode</button>
+        <button onClick={renderDecode}>Decode</button>
+        {test.map((item: any, index: any) => {
+          return (
+            <span key={index}>
+              {item.description}
+            </span>
+          )
+        })}
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <select

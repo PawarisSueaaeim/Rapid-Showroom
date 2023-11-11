@@ -37,6 +37,22 @@ export function filteredModelMulti(
   }
 }
 
+export function filteredYearArray(
+  unfilteredCategoryDatas: any,
+  selectedBrands: any,
+  selectedModels: any
+) {
+  const yearsForDropdown = unfilteredCategoryDatas.years
+    .filter((unfilteredCategoryData: { brand: any; model: any }) => {
+      const brandMatch = selectedBrands.includes(unfilteredCategoryData.brand);
+      const modelMatch = selectedModels.includes(unfilteredCategoryData.model);
+      return brandMatch && modelMatch;
+    })
+    .map((filteredCategoryData: { year: any }) => filteredCategoryData.year);
+
+  return yearsForDropdown;
+}
+
 export function filteredYear(
   unfilteredCategoryDatas: any,
   selectedBrand: any,
