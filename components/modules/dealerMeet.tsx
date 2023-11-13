@@ -119,7 +119,6 @@ export default function DealerMeet({
   };
   const handlerEmailOnChange = (event: any) => {
     const textInput = event.target.value;
-    console.log(textInput)
     setEmail(textInput);
   };
 
@@ -203,7 +202,7 @@ export default function DealerMeet({
           id="tel-to-dealer"
           type="email"
           placeholder="อีเมล"
-          // value={email}
+          value={email}
           onChange={handlerEmailOnChange}
         />
         {/* <Box className={classes.recaptcha}>

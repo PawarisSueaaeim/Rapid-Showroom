@@ -68,6 +68,28 @@ export default function Search({}: Props) {
       .catch((error) => {
         console.log(error);
       });
+    setIsLoading(true);
+    axios
+      .post(getVehicleV2 + "/showrooms/vehicles", {
+        page: page,
+        per_page: "10",
+        search: "",
+        orderby: "vehicle_id",
+        sort: "desc",
+        min_price: minPriceParams,
+        max_price: maxPriceParams,
+        filter_data: filterData,
+      })
+      .then((response) => {
+        setDataVehicle(response.data.data);
+        setPagetotal(response.data.total_pages);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -241,7 +263,7 @@ export default function Search({}: Props) {
           />
         </Box>
       </Box>
-      <hr/>
+      <br />
       {isLoading ? (
         <Box
           display={"flex"}
@@ -252,10 +274,10 @@ export default function Search({}: Props) {
           <CircularProgress />
         </Box>
       ) : (
-        <Box marginTop={isMobileMode ? 0 : 2}>
+        <Box margin={isMobileMode ? 0 : "2rem"}>
           <Grid container spacing={2}>
             {dataVehicle &&
-              dataVehicle.map((car: ICar, index: number) => {
+              dataVehicle.map((car: any, index: number) => {
                 return (
                   <Grid
                     item

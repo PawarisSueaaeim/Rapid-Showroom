@@ -258,7 +258,7 @@ export default function Deposit({}: Props) {
               height={200}
             />
             <Box display={"flex"} flexDirection={"column"} marginTop={2}>
-              <span className="fs-12px">ราคามัดจำ: {dataPamentStatus.amount_label} บาท (ค่าธรรมเนียม 20 บาท)</span>
+              <span className="fs-12px">ราคามัดจำ: {dataPamentStatus.amount_label} บาท (ค่าธรรมเนียม {dataPamentStatus.payer_fee} บาท)</span>
               <CountDowntime displayCountdown={open} setDisplayCountdown={(newBoolean: any) => setOpen(newBoolean)} dateAndTime={dataPamentStatus.qr_expired_at}/>
             </Box>
           </Box>

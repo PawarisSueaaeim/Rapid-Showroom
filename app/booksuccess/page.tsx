@@ -58,13 +58,6 @@ export default function Booksuccess({}: Props) {
         width={300}
         marginTop={4}
       >
-        {/* <span className="fs-20px fw-400">{bookingData.brand} {bookingData.model}</span>
-        <span className="fs-16px">ทะเบียน: {bookingData.plate_id}</span>
-        <span className="fs-16px">ราคา: {bookingData.price} บาท</span>
-        <span>เวลานัดหมาย</span>
-        <span>วันที่ {daymontyearFormat(bookingData.date)}</span>
-        <span>เวลา {bookingData.time} น.</span> */}
-
         <span className="fs-20px fw-400">{brand} {model}</span>
         <span className="fs-16px">ทะเบียน: {plateId}</span>
         <span className="fs-16px">ราคา: {price} บาท</span>
