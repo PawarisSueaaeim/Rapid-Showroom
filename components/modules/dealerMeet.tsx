@@ -72,12 +72,14 @@ export default function DealerMeet({
     if (
       // checkedBot &&
       date &&
-      email &&
+      isEmail(email) &&
       time &&
       verifyName &&
       verifyTelephone
     ) {
       setIsVerified(true);
+    }else{
+      setIsVerified(false);
     }
   }, [
     // checkedBot,
@@ -117,6 +119,7 @@ export default function DealerMeet({
   };
   const handlerEmailOnChange = (event: any) => {
     const textInput = event.target.value;
+    console.log(textInput)
     setEmail(textInput);
   };
 
@@ -200,7 +203,7 @@ export default function DealerMeet({
           id="tel-to-dealer"
           type="email"
           placeholder="อีเมล"
-          value={email}
+          // value={email}
           onChange={handlerEmailOnChange}
         />
         {/* <Box className={classes.recaptcha}>

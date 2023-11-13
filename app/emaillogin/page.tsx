@@ -89,7 +89,7 @@ export default function EmailLogin({}: Props) {
         placeholder={"Example@1234"}
       />
       {!passwordIsValid && (
-        <Box display={"flex"} flexDirection={"column"} width={"100%"}>
+        <Box display={"flex"} flexDirection={"column"}>
           <ul className="tc-red fs-10px">
             <li>* มี 6 ตัวอักษรขึ้นไป</li>
             <li>* มีอักขระพิเศษอย่างน้อย 1 ตัวอักษร</li>

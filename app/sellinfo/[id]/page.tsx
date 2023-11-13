@@ -156,7 +156,7 @@ export default function CardAcceptById({ params }: Props) {
             width={300}
             height={200}
           />
-          <Box display={"flex"} flexDirection={"column"} width={"100%"}>
+          <Box display={"flex"} flexDirection={"column"}>
             <span className="fw-400 fs-20px">
               {dataVehicle.brand} {dataVehicle.model}
             </span>
