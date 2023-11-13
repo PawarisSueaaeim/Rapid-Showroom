@@ -1,6 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { Autocomplete, Box, Grid, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  CircularProgress,
+  Grid,
+  Pagination,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -13,6 +21,9 @@ import {
 import { ButtonPleumDesign } from "../common/button";
 import { ColorSet } from "@/constants";
 import { currency } from "@/utils/currency";
+import Link from "next/link";
+import { CardItemPleumDesign } from "../common/card";
+import { ICar } from "../types/car";
 
 type Props = {};
 
@@ -28,6 +39,7 @@ export default function Search({}: Props) {
   const maxPriceParams = searchParams.get("max_price");
 
   const [allData, setAllData] = useState([]);
+  const [dataVehicle, setDataVehicle] = useState([]);
 
   const [brandsData, setBrandsData] = useState([]);
   const [modelData, setModelData] = useState([]);
@@ -40,6 +52,11 @@ export default function Search({}: Props) {
   const [endYearsSelected, setEndYearSelected] = useState(0);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [page, setPage] = useState(1);
+  const [pagetotal, setPagetotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const isMobileMode = useMediaQuery("(max-width:600px)");
 
   const init = () => {
     axios
@@ -55,27 +72,32 @@ export default function Search({}: Props) {
 
   useEffect(() => {
     if (filterData) {
+      setIsLoading(true);
       axios
         .post(getVehicleV2 + "/showrooms/vehicles", {
-          page: "1",
+          page: page,
           per_page: "10",
           search: "",
-          order_by: "vehicle_id",
+          orderby: "vehicle_id",
           sort: "desc",
           min_price: minPriceParams,
           max_price: maxPriceParams,
           filter_data: filterData,
         })
         .then((response) => {
-          console.log(response.data);
+          setDataVehicle(response.data.data);
+          setPagetotal(response.data.total_pages);
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     } else {
       init();
     }
-  }, [filterData,minPriceParams,maxPriceParams]);
+  }, [filterData, minPriceParams, maxPriceParams, page]);
 
   const handlerBrandsOnChange = (brand: any) => {
     setBrandSelected(brand);
@@ -115,8 +137,14 @@ export default function Search({}: Props) {
       },
     ];
     router.push(
-      `?filter_data=${encodeURIComponent(JSON.stringify(submitData))}&min_price=${minPrice}&max_price=${maxPrice}`
+      `?filter_data=${encodeURIComponent(
+        JSON.stringify(submitData)
+      )}&min_price=${minPrice}&max_price=${maxPrice}`
     );
+  };
+
+  const renderPage = (event: any, pageValue: number) => {
+    setPage(pageValue);
   };
 
   return (
@@ -212,6 +240,60 @@ export default function Search({}: Props) {
             onClick={handlerSubmit}
           />
         </Box>
+      </Box>
+      <hr/>
+      {isLoading ? (
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          height={"40vh"}
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Box marginTop={isMobileMode ? 0 : 2}>
+          <Grid container spacing={2}>
+            {dataVehicle &&
+              dataVehicle.map((car: ICar, index: number) => {
+                return (
+                  <Grid
+                    item
+                    xs={6}
+                    md={3}
+                    lg={2}
+                    key={`${car.vehicle_id}-${index}`}
+                  >
+                    <Link href={`/vehicles/${car.vehicle_id}`}>
+                      <CardItemPleumDesign
+                        vehicle_id={car.vehicle_id}
+                        brand={car.brand}
+                        model={car.model}
+                        year={car.year}
+                        submodel={car.submodel}
+                        price={car.listing_price}
+                        mileage={car.mileage}
+                        image={car.image}
+                      />
+                    </Link>
+                  </Grid>
+                );
+              })}
+          </Grid>
+        </Box>
+      )}
+      <Box
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        margin={2}
+      >
+        <Pagination
+          count={pagetotal}
+          page={page}
+          shape="rounded"
+          onChange={(event, pageValue) => renderPage(event, pageValue)}
+        />
       </Box>
     </Box>
   );

@@ -22,9 +22,9 @@ export default function InputEmail({ onChange }: Props) {
         onChange={onChange}
         endAdornment={
           <InputAdornment position="end">
-            <IconButton>
+            {/* <IconButton>
               <EmailIcon />
-            </IconButton>
+            </IconButton> */}
           </InputAdornment>
         }
         label="Email"
