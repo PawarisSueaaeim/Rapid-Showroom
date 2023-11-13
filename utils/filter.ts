@@ -37,7 +37,7 @@ export function filteredModelMulti(
   }
 }
 
-export function filteredYearArray(
+export function filteredStartYears(
   unfilteredCategoryDatas: any,
   selectedBrands: any,
   selectedModels: any
@@ -48,9 +48,35 @@ export function filteredYearArray(
       const modelMatch = selectedModels.includes(unfilteredCategoryData.model);
       return brandMatch && modelMatch;
     })
-    .map((filteredCategoryData: { year: any }) => filteredCategoryData.year);
+    .map((filteredCategoryData: { year: any }) =>
+      filteredCategoryData.year.substring(0, 4)
+    );
 
-  return yearsForDropdown;
+  return yearsForDropdown.filter(
+    (item: any, index: number) => yearsForDropdown.indexOf(item) === index
+  );
+}
+
+export function filteredEndYears(
+  unfilteredCategoryDatas: any,
+  selectedBrands: any,
+  selectedModels: any,
+  startYear: string
+) {
+  const yearsForDropdown = unfilteredCategoryDatas.years
+    .filter((unfilteredCategoryData: { brand: any; model: any }) => {
+      const brandMatch = selectedBrands.includes(unfilteredCategoryData.brand);
+      const modelMatch = selectedModels.includes(unfilteredCategoryData.model);
+      return brandMatch && modelMatch;
+    })
+    .map((filteredCategoryData: { year: any }) =>
+      filteredCategoryData.year.substring(0, 4)
+    )
+    .filter((year: string) => year >= startYear);
+
+  return yearsForDropdown.filter(
+    (item: any, index: number) => yearsForDropdown.indexOf(item) === index
+  );
 }
 
 export function filteredYear(

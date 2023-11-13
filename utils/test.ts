@@ -106,3 +106,12 @@ const data = {
             },
         ],
 }
+
+const filter_data = {
+    "brand": "BMW",
+    "model": ['118i', '218Ci'],
+    "year": [
+        {'start': 2016},
+        {'end': 2017}
+    ]
+}

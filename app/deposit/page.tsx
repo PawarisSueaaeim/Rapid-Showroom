@@ -108,14 +108,6 @@ export default function Deposit({}: Props) {
     }else if (inputValue === 0 || inputValue === "") {
       setValues("5000");
     }
-
-    // if (inputValue <= 5000 && inputValue > 0) {
-    //   setValues(5000);
-    // } else if (inputValue == 0) {
-    //   setValues(0);
-    // } else if (inputValue == ""){
-    //   setValues(inputValue);
-    // }
   };
 
   const handleGetPaymentStatus = (vdeposit_id: number) => {

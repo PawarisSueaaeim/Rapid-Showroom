@@ -1,30 +1,45 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Autocomplete, Box, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
+  filteredEndYears,
   filteredModel,
   filteredModelMulti,
-  filteredYearArray,
+  filteredStartYears,
 } from "@/utils/filter";
+import { ButtonPleumDesign } from "../common/button";
+import { ColorSet } from "@/constants";
+import { currency } from "@/utils/currency";
 
 type Props = {};
 
 const baseURL = process.env.NEXT_PUBLIC_SHOWROOM_API_URL;
 
 export default function Search({}: Props) {
-  process.env.NEXT_PUBLIC_SHOWROOM_API_URL_V2 + "/vehicles/get/vehicle_detail";
+  const getVehicleV2 = process.env.NEXT_PUBLIC_SHOWROOM_API_URL_V2;
+
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const filterData = searchParams.get("filter_data");
+  const minPriceParams = searchParams.get("min_price");
+  const maxPriceParams = searchParams.get("max_price");
 
   const [allData, setAllData] = useState([]);
 
   const [brandsData, setBrandsData] = useState([]);
   const [modelData, setModelData] = useState([]);
   const [startYearsData, setStartYearsData] = useState([]);
+  const [endYearsData, setEndYearsData] = useState([]);
 
   const [brandSelected, setBrandSelected] = useState("");
   const [modelSelected, setModelSelected] = useState([]);
+  const [startYearSelected, setStartYearSelected] = useState(0);
+  const [endYearsSelected, setEndYearSelected] = useState(0);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   const init = () => {
     axios
@@ -39,8 +54,28 @@ export default function Search({}: Props) {
   };
 
   useEffect(() => {
-    init();
-  }, []);
+    if (filterData) {
+      axios
+        .post(getVehicleV2 + "/showrooms/vehicles", {
+          page: "1",
+          per_page: "10",
+          search: "",
+          order_by: "vehicle_id",
+          sort: "desc",
+          min_price: minPriceParams,
+          max_price: maxPriceParams,
+          filter_data: filterData,
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      init();
+    }
+  }, [filterData,minPriceParams,maxPriceParams]);
 
   const handlerBrandsOnChange = (brand: any) => {
     setBrandSelected(brand);
@@ -49,7 +84,39 @@ export default function Search({}: Props) {
 
   const handlerModelOnChange = (model: any) => {
     setModelSelected(model);
-    console.log(filteredYearArray(allData, brandSelected, model));
+    setStartYearsData(filteredStartYears(allData, brandSelected, model));
+  };
+
+  const handlerStartYearOnChange = (startYear: any) => {
+    setStartYearSelected(startYear);
+    setEndYearsData(
+      filteredEndYears(allData, brandSelected, modelSelected, startYear)
+    );
+  };
+
+  const handlerEndYearOnChange = (endYear: any) => {
+    setEndYearSelected(endYear);
+  };
+
+  const handlerMinPriceOnChange = (event: any) => {
+    setMinPrice(event.target.value);
+  };
+
+  const handlerMaxPriceOnChange = (event: any) => {
+    setMaxPrice(event.target.value);
+  };
+
+  const handlerSubmit = () => {
+    const submitData = [
+      {
+        brand: brandSelected,
+        model: modelSelected,
+        year: { start: startYearSelected, end: endYearsSelected },
+      },
+    ];
+    router.push(
+      `?filter_data=${encodeURIComponent(JSON.stringify(submitData))}&min_price=${minPrice}&max_price=${maxPrice}`
+    );
   };
 
   return (
@@ -72,7 +139,7 @@ export default function Search({}: Props) {
             <Autocomplete
               multiple
               size="small"
-              id="brand-selector"
+              id="model-selector"
               options={modelData}
               filterSelectedOptions
               onChange={(_, newValues) => handlerModelOnChange(newValues)}
@@ -84,10 +151,10 @@ export default function Search({}: Props) {
           <Grid item xs={6}>
             <Autocomplete
               size="small"
-              id="brand-selector"
-              options={modelData}
+              id="start-year-selector"
+              options={startYearsData}
               filterSelectedOptions
-              onChange={(_, newValues) => handlerModelOnChange(newValues)}
+              onChange={(_, newValues) => handlerStartYearOnChange(newValues)}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -100,10 +167,10 @@ export default function Search({}: Props) {
           <Grid item xs={6}>
             <Autocomplete
               size="small"
-              id="brand-selector"
-              options={modelData}
+              id="end-year-selector"
+              options={endYearsData}
               filterSelectedOptions
-              onChange={(_, newValues) => handlerModelOnChange(newValues)}
+              onChange={(_, newValues) => handlerEndYearOnChange(newValues)}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -113,7 +180,38 @@ export default function Search({}: Props) {
               )}
             />
           </Grid>
+          <Grid item xs={6}>
+            <TextField
+              id="outlined-password-input"
+              fullWidth
+              label="ราคาต่ำสุด"
+              onChange={handlerMinPriceOnChange}
+              size="small"
+              type="number"
+              autoComplete="current-password"
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              id="outlined-password-input"
+              fullWidth
+              label="ราคาสูงสุด"
+              onChange={handlerMaxPriceOnChange}
+              size="small"
+              type="number"
+              autoComplete="current-password"
+            />
+          </Grid>
         </Grid>
+        <Box marginTop={2}>
+          <ButtonPleumDesign
+            title={"ค้นหารถ"}
+            backgroundBtnColor={ColorSet.btnWhite}
+            backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+            textBtnColor={ColorSet.textBlack}
+            onClick={handlerSubmit}
+          />
+        </Box>
       </Box>
     </Box>
   );
