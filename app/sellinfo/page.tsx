@@ -31,7 +31,7 @@ export default function Accept({}: Props) {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem('userId')}`,
           },
         }
       )

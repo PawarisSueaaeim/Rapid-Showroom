@@ -52,7 +52,8 @@ export default function Login({}: Props) {
       })
       .then((response) => {
         if (response.data.status == "OK") {
-          router.push(`/sellinfo?userId=${response.data.access_token}`);
+          router.push('/sellinfo');
+          localStorage.setItem("userId", response.data.access_token);
         } else {
           setAlertPassword(true);
         }
