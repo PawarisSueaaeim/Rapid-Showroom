@@ -3,6 +3,7 @@
 "use client";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
+import { daymontyearFormat, timeHourFormat } from "@/utils/dateHelper";
 import { Alert, Box } from "@mui/material";
 import axios from "axios";
 import Image from "next/image";
@@ -109,8 +110,8 @@ export default function CardAcceptById({ params }: Props) {
           <ButtonPleumDesign
             title={"ไม่ยอมรับราคา"}
             onClick={() => notAcceptPriceHandler()}
-            backgroundBtnColor={ColorSet.btnGray}
-            backgroundBtnHoverColor={ColorSet.btnGrayHover}
+            backgroundBtnColor={ColorSet.btnWhite}
+            backgroundBtnHoverColor={ColorSet.btnWhiteHover}
             textBtnColor={ColorSet.textBlack}
             disabled={
               dataVehicle.min_buy_price_label === "0" ? true : disableAccept
@@ -124,14 +125,30 @@ export default function CardAcceptById({ params }: Props) {
     ) {
       return (
         <Fragment>
-          <ButtonPleumDesign
+          <Box display={"flex"} flexDirection={"column"}>
+            <span className="fw-400 fs-20px">รายละเอียดการนัดหมาย</span>
+            <span>
+              <strong>สถานที่:</strong> {dataVehicle.name}
+            </span>
+            <span>
+              <strong>วัน:</strong> {daymontyearFormat(dataVehicle.book_date)}
+            </span>
+            <span>
+              <strong>เวลา:</strong> {dataVehicle.book_time}
+            </span>
+            <span>
+              <strong>แผนที่:</strong>{" "}
+              <a className="tc-darkblue" href={dataVehicle.map_location}>Google Maps</a>
+            </span>
+          </Box>
+          {/* <ButtonPleumDesign
             title={"ยกเลิก"}
             onClick={() => cancelSellCarHandler()}
             backgroundBtnColor={ColorSet.btnGray}
             backgroundBtnHoverColor={ColorSet.btnGrayHover}
             textBtnColor={ColorSet.textBlack}
             disabled={cancel}
-          />
+          /> */}
         </Fragment>
       );
     }
@@ -148,13 +165,14 @@ export default function CardAcceptById({ params }: Props) {
         padding: "0 2rem 0rem 2rem",
       }}
     >
-      {isSoldOut ? clientMessage : (
+      {isSoldOut ? (
+        clientMessage
+      ) : (
         <>
-          <Image
+          <img
             src={dataVehicle.image}
             alt={`${dataVehicle.brand}`}
-            width={300}
-            height={200}
+            width={"100%"}
           />
           <Box display={"flex"} flexDirection={"column"}>
             <span className="fw-400 fs-20px">

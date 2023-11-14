@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { Box } from "@mui/material";
 import classes from "@/style/components/common/card/cardAccept.module.css";
@@ -19,11 +20,10 @@ export default function CardAccept({brand, model, subModel, licensePlate, provin
   return (
     <Box className={classes.container}>
       <Box className={classes.image_container}>
-        <Image
+        <img
           src={image}
           alt="image-mockup"
-          width={300}
-          height={200}
+          width={"100%"}
         />
       </Box>
       <Box className={classes.data_model}>

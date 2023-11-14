@@ -96,6 +96,7 @@ export default function Success({}: Props) {
                   <Link href={`/emaillogin?email=${email}&name=${name}`}>
                     <ButtonCapsule
                       title={"Sign Up"}
+                      fontWeight={400}
                       bgColor={"#1A417B"}
                       color={"#fff"}
                     />
@@ -105,6 +106,7 @@ export default function Success({}: Props) {
                   <Link href="/login">
                     <ButtonCapsule
                       title={"Sign In"}
+                      fontWeight={400}
                       bgColor={"#1A417B"}
                       color={"#fff"}
                     />
@@ -114,6 +116,7 @@ export default function Success({}: Props) {
                   <Link href="/">
                     <ButtonCapsule
                       title={"Skip"}
+                      fontWeight={400}
                       bgColor={"#1A417B"}
                       color={"#fff"}
                     />

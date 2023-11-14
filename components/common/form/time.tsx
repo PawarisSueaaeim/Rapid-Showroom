@@ -10,9 +10,10 @@ import { DesktopTimePicker } from "@mui/x-date-pickers";
 type Props = {
   date?: string;
   onTimeChange: (date: Dayjs | null) => void;
+  label: string;
 };
 
-export default function TimeValidationTimePicker({onTimeChange, date }: Props) {
+export default function TimeValidationTimePicker({onTimeChange, date, label }: Props) {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs());
 
   //@ts-ignore
@@ -33,7 +34,7 @@ export default function TimeValidationTimePicker({onTimeChange, date }: Props) {
           renderInput={(params) => <TextField {...params} />}
           disableMaskedInput={false}
           value={value}
-          label="เลือกเวลานัดดีลเลอร์"
+          label={label}
           onChange={(newValue) => {
            handleTimeChange(newValue);
           }}

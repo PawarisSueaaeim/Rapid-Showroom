@@ -1,17 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import {
-  Box,
-  Grid,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Grid, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Date, InputCustom, Time } from "@/components/common/form";
 import { Calendar } from "@/components/common/calendar";
 import { ButtonCapsule } from "@/components/common/button";
 import {
+  isEmail,
   isMileage,
   isPhoneNumber,
   isPlateId01,
@@ -23,7 +20,11 @@ import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { filteredDescription, filteredModel, filteredYear } from "@/utils/filter";
+import {
+  filteredDescription,
+  filteredModel,
+  filteredYear,
+} from "@/utils/filter";
 import { Dayjs } from "dayjs";
 import moment from "moment";
 
@@ -92,19 +93,25 @@ export default function Salecar({}: Props) {
   }, []);
 
   const renderGetBrands = () => {
-    axios.post(baseURL + "/vehicles/get/vehicle_detail").then((response) => {
-      setDataBrand(response.data.brands);
-    }).catch((error) => {
-      console.log(error)
-    });
+    axios
+      .post(baseURL + "/vehicles/get/vehicle_detail")
+      .then((response) => {
+        setDataBrand(response.data.brands);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const renderGetDataFilter = () => {
-    axios.post(baseURL + "/vehicles/get/vehicle_detail").then((response) => {
-      setDataFilter(response.data);
-    }).catch((error) => {
-      console.log(error)
-    });
+    axios
+      .post(baseURL + "/vehicles/get/vehicle_detail")
+      .then((response) => {
+        setDataFilter(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const renderGetModels = (brand: string) => {
@@ -147,7 +154,7 @@ export default function Salecar({}: Props) {
       provinceId === 0 ||
       nickname === "" ||
       telephone === "" ||
-      email === "" ||
+      !isEmail(email) ||
       uploadedImageData.length <= 0
     ) {
       setIsCanSubmit(false);
@@ -261,7 +268,7 @@ export default function Salecar({}: Props) {
       })
       .then((response) => {
         router.push(
-          `?status=${response.data.status}&email=${email}&name=${nickname}`
+          `/success?status=${response.data.status}&email=${email}&name=${nickname}`
         );
       })
       .catch((error) => {
@@ -299,7 +306,7 @@ export default function Salecar({}: Props) {
       </Box>
       <UpLoadImages onUpload={handleImageUpload} maxSize={handleWithinLimit} />
       <span className="fs-18px">ข้อมูลรถ</span>
-      <Grid container spacing={1} >
+      <Grid container spacing={1}>
         <Grid item xs={12}>
           <select
             onChange={handlerBrandOnChange}
@@ -308,7 +315,7 @@ export default function Salecar({}: Props) {
             <option value={0}>ยี่ห้อ</option>
             {dataBrand.map((item: any, index: number) => {
               return (
-                <option key={index+item} value={item}>
+                <option key={index + item} value={item}>
                   {item}
                 </option>
               );
@@ -326,7 +333,7 @@ export default function Salecar({}: Props) {
             <option value={0}>รุ่น</option>
             {dataModel.map((item: any, index: number) => {
               return (
-                <option key={index+item} value={item}>
+                <option key={index + item} value={item}>
                   {item}
                 </option>
               );
@@ -337,7 +344,7 @@ export default function Salecar({}: Props) {
           </span>
         </Grid>
         <Grid item xs={6}>
-        <select
+          <select
             onChange={handlerYearOnChange}
             className={classes.selection_custom}
           >
@@ -355,7 +362,7 @@ export default function Salecar({}: Props) {
           </span>
         </Grid>
         <Grid item xs={12}>
-        <select
+          <select
             onChange={handlerSubmodelOnChange}
             className={classes.selection_custom}
           >
@@ -371,7 +378,6 @@ export default function Salecar({}: Props) {
           <span className="tc-red fs-8px">
             {vehicleDetailId !== 0 ? "" : "**กรุณาเลือกรุ่นย่อย"}
           </span>
-          
         </Grid>
         <Grid item xs={6}>
           <select
@@ -407,7 +413,7 @@ export default function Salecar({}: Props) {
               <InputCustom
                 id="plateId"
                 type="text"
-                value={plateId01}
+                value={!checkboxPlateId ? plateId01: "-"}
                 disabled={checkboxPlateId}
                 placeholder={!checkboxPlateId ? "1-9" : "-"}
                 onChange={handlerPlateIdOnChange01}
@@ -438,9 +444,7 @@ export default function Salecar({}: Props) {
                 value="Bike"
                 onClick={() => setCheckBoxlateId(!checkboxPlateId)}
               />
-              <span className="fs-8px">
-                ไม่มีเลขหน้า
-              </span>
+              <span className="fs-8px">ไม่มีเลขหน้า</span>
             </Box>
           </Box>
         </Grid>
@@ -463,13 +467,13 @@ export default function Salecar({}: Props) {
           </span>
         </Grid>
         <Grid item xs={6} marginTop={2}>
-          <Date onDateChange={handlerDateSellCar}/>
+          <Date label={"เลือกวันที่ขายรถ"} onDateChange={handlerDateSellCar} />
           <span className="tc-red fs-8px">
             {dateSellCar !== "" ? "" : "**กรุณาเลือกวันที่ต้องการขายรถ"}
           </span>
         </Grid>
         <Grid item xs={6} marginTop={2}>
-          <Time onTimeChange={handlerTimeSellCar} date={dateSellCar}/>
+          <Time label={"เลือกเวลาขายรถ"} onTimeChange={handlerTimeSellCar} date={dateSellCar} />
           <span className="tc-red fs-8px">
             {timeSellCar !== "" ? "" : "**กรุณาเลือกเวลาที่ต้องการขายรถ"}
           </span>
@@ -504,16 +508,16 @@ export default function Salecar({}: Props) {
         </Grid>
       </Grid>
       <Box width={"100%"} margin={4}>
-        <Link href="/success">
-          <ButtonCapsule
-            title="ขายรถ"
-            color="#fff"
-            bgColor="#4679C7"
-            height={42}
-            disabled={!isCanSubmit}
-            onClick={renderSubmit}
-          />
-        </Link>
+        <ButtonCapsule
+          title={!isCanSubmit ? "กรุณากรอกข้อมูลให้ครบถ้วน" : "ขายรถ"}
+          color="#000"
+          fontWeight={400}
+          boxShadow={true}
+          bgColor="#FFFFFF"
+          height={42}
+          disabled={!isCanSubmit}
+          onClick={renderSubmit}
+        />
       </Box>
     </Box>
   );

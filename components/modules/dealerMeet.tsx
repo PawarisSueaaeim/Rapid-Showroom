@@ -171,8 +171,8 @@ export default function DealerMeet({
     <Box className={classes.container}>
       <span className="fs-18px tc-blue">นัดดูรถ</span>
       <Box className={classes.calendar}>
-        <Date onDateChange={handleDateChange} />
-        <Time onTimeChange={handleTimeChange} date={date} />
+        <Date label="เลือกวันที่นัดดีลเลอร์" onDateChange={handleDateChange} />
+        <Time label="เลือกเวลานัดดีลเลอร์" onTimeChange={handleTimeChange} date={date} />
       </Box>
       <Box className={classes.form_label}>
         <Image

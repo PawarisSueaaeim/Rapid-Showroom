@@ -50,7 +50,7 @@ export default function InputMui({placeholder,error,onChange}: Props) {
             </IconButton>
           </InputAdornment>
         }
-        label={placeholder}
+        label="password"
       />
     </FormControl>
   );

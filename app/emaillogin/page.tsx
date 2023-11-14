@@ -86,7 +86,7 @@ export default function EmailLogin({}: Props) {
       <InputPassword
         error={!passwordIsValid}
         onChange={passwordHandler}
-        placeholder={"Example@1234"}
+        placeholder={"Example1234#"}
       />
       {!passwordIsValid && (
         <Box display={"flex"} flexDirection={"column"}>
