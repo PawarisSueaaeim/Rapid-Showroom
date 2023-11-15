@@ -183,6 +183,7 @@ export default function Salecar({}: Props) {
   };
 
   const handlerBrandOnChange = (event: any) => {
+    setModel("");
     renderGetModels(event.target.value);
   };
 
@@ -429,7 +430,7 @@ export default function Salecar({}: Props) {
               />
               <InputCustom
                 id="plateId"
-                type="text"
+                type="number"
                 value={plateId03}
                 placeholder="9999"
                 onChange={handlerPlateIdOnChange03}

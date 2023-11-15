@@ -101,13 +101,7 @@ export default function Deposit({}: Props) {
 
   const handleChange = (event: any) => {
     const inputValue = event.target.value;
-    console.log(values)
-
-    if(isMileage(inputValue)){
-      setValues(event.target.value);
-    }else if (inputValue === 0 || inputValue === "") {
-      setValues("5000");
-    }
+    setValues(inputValue);
   };
 
   const handleGetPaymentStatus = (vdeposit_id: number) => {
@@ -149,6 +143,30 @@ export default function Deposit({}: Props) {
     }
   };
 
+  const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
+    function NumericFormatCustom(props, ref) {
+      const { onChange, ...other } = props;
+  
+      return (
+        <NumericFormat
+          {...other}
+          getInputRef={ref}
+          onValueChange={(values) => {
+            onChange({
+              target: {
+                name: props.name,
+                value: values.value,
+              },
+            });
+          }}
+          thousandSeparator
+          valueIsNumericString
+          suffix=" บาท"
+        />
+      );
+    },
+  );
+
   return (
     <Box
       display={"flex"}
@@ -187,13 +205,13 @@ export default function Deposit({}: Props) {
           <TextField
             label="Deposit (ขั้นต่ำ 5,000 บาท)"
             value={values}
-            onChange={handleChange}
+            // onChange={handleChange}
             disabled={!isCheck}
             name="numberformat"
             id="formatted-numberformat-input"
-            // InputProps={{
-            //   inputComponent: NumericFormatCustom as any,
-            // }}
+            InputProps={{
+              inputComponent: NumericFormatCustom as any,
+            }}
             variant="standard"
           />
         </Stack>

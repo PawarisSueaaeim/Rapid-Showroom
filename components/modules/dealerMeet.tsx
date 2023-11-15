@@ -211,10 +211,12 @@ export default function DealerMeet({
         <Box className={classes.btn_submit}>
           <ButtonCapsule
             disabled={!isVerified}
+            boxShadow={true}
             title={"ยืนยันนัดดูรถ"}
-            bgColor={"#4679C7"}
-            color={"#fff"}
+            bgColor={"#FFF"}
+            color={"#000"}
             fontSize={16}
+            fontWeight={400}
             height={40}
             onClick={handleSubmit}
           />

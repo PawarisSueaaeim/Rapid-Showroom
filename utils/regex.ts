@@ -14,7 +14,7 @@ export const isPlateId02 = (inputText: string): boolean => {
     return regexPattern.test(inputText);
 }
 export const isPlateId03 = (inputText: string): boolean => {
-    const regexPattern = /^\d{1,4}$/;
+    const regexPattern = /^[1-9]\d{0,3}$/;
     return regexPattern.test(inputText);
 }
 

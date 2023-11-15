@@ -87,6 +87,7 @@ export default function EmailLogin({}: Props) {
         error={!passwordIsValid}
         onChange={passwordHandler}
         placeholder={"Example1234#"}
+        label="Example1234#"
       />
       {!passwordIsValid && (
         <Box display={"flex"} flexDirection={"column"}>
@@ -102,6 +103,7 @@ export default function EmailLogin({}: Props) {
         <InputPassword
           onChange={confirmPasswordHandler}
           placeholder={"Confirm password"}
+          label={"Confirm password"}
         />
         {!isMatch && (
           <span className="fs-10px tc-red">**รหัสผ่านไม่ตรงกัน</span>

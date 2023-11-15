@@ -4,9 +4,10 @@
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
 import { daymontyearFormat, timeHourFormat } from "@/utils/dateHelper";
-import { Alert, Box } from "@mui/material";
+import { Alert, Box, useMediaQuery } from "@mui/material";
 import axios from "axios";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { Fragment, useEffect, useState } from "react";
 
 type Props = {
@@ -19,13 +20,16 @@ export default function CardAcceptById({ params }: Props) {
   const cancelSellCar =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/accept-price/cancel";
 
-  const [dataVehicle, setDataVehicle] = useState<any>({});
+  const router = useRouter();
 
+  const [dataVehicle, setDataVehicle] = useState<any>({});
   const [disableAccept, setDisableAccept] = useState<boolean>(false);
   const [cancel, setCancel] = useState<boolean>(false);
   const [cancelMessage, setCancelMessage] = useState<string>("");
   const [clientMessage, setClientMessage] = useState<string>("");
   const [isSoldOut, setIsSoldOut] = useState<boolean>(false);
+
+  const isMobileMode = useMediaQuery("(max-width:600px)");
 
   useEffect(() => {
     getDataAcceptPriceResponse();
@@ -57,6 +61,9 @@ export default function CardAcceptById({ params }: Props) {
       })
       .then(() => {
         getDataAcceptPriceResponse();
+        router.push(
+          `/acceptance?map=${dataVehicle.map_location}&img=${dataVehicle.image}&brand=${dataVehicle.brand}&model=${dataVehicle.model}&submodel=${dataVehicle.sub_model}&plateId=${dataVehicle.license_plate}&province=${dataVehicle.province}&date=${dataVehicle.book_date}&time=${dataVehicle.book_time}&minPrice=${dataVehicle.min_buy_price_label}&maxPrice=${dataVehicle.max_buy_price_label}&location=${dataVehicle.name}`
+        );
       })
       .catch((error) => {
         console.log(error);
@@ -125,7 +132,7 @@ export default function CardAcceptById({ params }: Props) {
     ) {
       return (
         <Fragment>
-          <Box display={"flex"} flexDirection={"column"}>
+          {/* <Box display={"flex"} flexDirection={"column"}>
             <span className="fw-400 fs-20px">รายละเอียดการนัดหมาย</span>
             <span>
               <strong>สถานที่:</strong> {dataVehicle.name}
@@ -138,17 +145,19 @@ export default function CardAcceptById({ params }: Props) {
             </span>
             <span>
               <strong>แผนที่:</strong>{" "}
-              <a className="tc-darkblue" href={dataVehicle.map_location}>Google Maps</a>
+              <a className="tc-darkblue" href={dataVehicle.map_location}>
+                Google Maps
+              </a>
             </span>
-          </Box>
-          {/* <ButtonPleumDesign
+          </Box> */}
+          <ButtonPleumDesign
             title={"ยกเลิก"}
             onClick={() => cancelSellCarHandler()}
             backgroundBtnColor={ColorSet.btnGray}
             backgroundBtnHoverColor={ColorSet.btnGrayHover}
             textBtnColor={ColorSet.textBlack}
             disabled={cancel}
-          /> */}
+          />
         </Fragment>
       );
     }
@@ -162,18 +171,20 @@ export default function CardAcceptById({ params }: Props) {
       flexDirection={"column"}
       style={{
         height: "100vh",
-        padding: "0 2rem 0rem 2rem",
       }}
     >
       {isSoldOut ? (
         clientMessage
       ) : (
         <>
-          <img
-            src={dataVehicle.image}
-            alt={`${dataVehicle.brand}`}
-            width={"100%"}
-          />
+          <Box width={isMobileMode ? "100%" : "400px"}>
+            <img
+              src={dataVehicle.image}
+              alt={`${dataVehicle.brand}`}
+              width={"100%"}
+            />
+          </Box>
+
           <Box display={"flex"} flexDirection={"column"}>
             <span className="fw-400 fs-20px">
               {dataVehicle.brand} {dataVehicle.model}
@@ -193,9 +204,6 @@ export default function CardAcceptById({ params }: Props) {
           <Box display={"flex"} gap={1} marginTop={2}>
             {renderSectionButton()}
           </Box>
-          {/* <Box marginTop={4}>
-            <Alert severity="warning">{cancelMessage}</Alert>
-          </Box> */}
         </>
       )}
     </Box>

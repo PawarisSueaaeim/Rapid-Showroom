@@ -48,8 +48,8 @@ export default function Search({}: Props) {
 
   const [brandSelected, setBrandSelected] = useState("");
   const [modelSelected, setModelSelected] = useState([]);
-  const [startYearSelected, setStartYearSelected] = useState(0);
-  const [endYearsSelected, setEndYearSelected] = useState(0);
+  const [startYearSelected, setStartYearSelected] = useState(null);
+  const [endYearsSelected, setEndYearSelected] = useState(null);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [page, setPage] = useState(1);
@@ -78,7 +78,16 @@ export default function Search({}: Props) {
         sort: "desc",
         min_price: minPriceParams,
         max_price: maxPriceParams,
-        filter_data: filterData,
+        filter_data: [
+          {
+            brand: brandSelected,
+            model: modelSelected,
+            year: {
+              start: startYearSelected,
+              end: endYearsSelected
+            },
+          }
+        ],
       })
       .then((response) => {
         setDataVehicle(response.data.data);
@@ -104,7 +113,16 @@ export default function Search({}: Props) {
           sort: "desc",
           min_price: minPriceParams,
           max_price: maxPriceParams,
-          filter_data: filterData,
+          filter_data: [
+            {
+              brand: brandSelected,
+              model: modelSelected,
+              years: {
+                start: startYearSelected,
+                end: endYearsSelected
+              },
+            }
+          ]
         })
         .then((response) => {
           setDataVehicle(response.data.data);
@@ -121,7 +139,15 @@ export default function Search({}: Props) {
     }
   }, [filterData, minPriceParams, maxPriceParams, page]);
 
+  useEffect(() => {
+    setStartYearSelected(null);
+    setEndYearSelected(null);
+  },[brandSelected])
+
   const handlerBrandsOnChange = (brand: any) => {
+    setModelSelected([]);
+    setStartYearSelected(null);
+    setEndYearSelected(null);
     setBrandSelected(brand);
     setModelData(filteredModel(allData, brand));
   };
@@ -178,6 +204,7 @@ export default function Search({}: Props) {
               size="small"
               id="brand-selector"
               options={brandsData}
+              value={brandSelected}
               filterSelectedOptions
               onChange={(_, newValues) => handlerBrandsOnChange(newValues)}
               renderInput={(params) => (
@@ -191,6 +218,7 @@ export default function Search({}: Props) {
               size="small"
               id="model-selector"
               options={modelData}
+              value={modelSelected}
               filterSelectedOptions
               onChange={(_, newValues) => handlerModelOnChange(newValues)}
               renderInput={(params) => (
@@ -203,6 +231,7 @@ export default function Search({}: Props) {
               size="small"
               id="start-year-selector"
               options={startYearsData}
+              value={startYearSelected}
               filterSelectedOptions
               onChange={(_, newValues) => handlerStartYearOnChange(newValues)}
               renderInput={(params) => (
@@ -219,6 +248,7 @@ export default function Search({}: Props) {
               size="small"
               id="end-year-selector"
               options={endYearsData}
+              value={endYearsSelected}
               filterSelectedOptions
               onChange={(_, newValues) => handlerEndYearOnChange(newValues)}
               renderInput={(params) => (

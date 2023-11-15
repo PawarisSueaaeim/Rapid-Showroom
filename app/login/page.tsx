@@ -73,7 +73,7 @@ export default function Login({}: Props) {
       </Box>
       <Box className={classes.login_form}>
         <InputEmail onChange={emailHandler} />
-        <InputPassword onChange={passwordHandler} />
+        <InputPassword onChange={passwordHandler} label="password"/>
       </Box>
       <ButtonPleumDesign
         title="เข้าสู่ระบบ"
