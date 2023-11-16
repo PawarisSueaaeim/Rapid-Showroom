@@ -21,6 +21,8 @@ const Navbar = ({}: Props) => {
       localStorage.getItem("userId") !== undefined
     ) {
       setUserId(localStorage.getItem("userId") || "");
+    }else{
+      setUserId("");
     }
   }, []);
 

@@ -5,7 +5,6 @@ import { Box, Grid, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Date, InputCustom, Time } from "@/components/common/form";
-import { Calendar } from "@/components/common/calendar";
 import { ButtonCapsule } from "@/components/common/button";
 import {
   isEmail,
@@ -18,7 +17,6 @@ import {
 import { UpLoadImages } from "@/components/common/uploadFile";
 import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   filteredDescription,
