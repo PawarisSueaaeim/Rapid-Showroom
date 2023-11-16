@@ -20,10 +20,8 @@ import {
 } from "@/utils/filter";
 import { ButtonPleumDesign } from "../common/button";
 import { ColorSet } from "@/constants";
-import { currency } from "@/utils/currency";
 import Link from "next/link";
 import { CardItemPleumDesign } from "../common/card";
-import { ICar } from "../types/car";
 
 type Props = {};
 
@@ -58,8 +56,9 @@ export default function Search({}: Props) {
 
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
-  const init = () => {
-    axios
+  useEffect(() => {
+      setIsLoading(true);
+      axios
       .post(baseURL + "/vehicles/get/vehicle_detail")
       .then((response) => {
         setAllData(response.data);
@@ -68,42 +67,6 @@ export default function Search({}: Props) {
       .catch((error) => {
         console.log(error);
       });
-    setIsLoading(true);
-    axios
-      .post(getVehicleV2 + "/showrooms/vehicles", {
-        page: page,
-        per_page: "10",
-        search: "",
-        orderby: "vehicle_id",
-        sort: "desc",
-        min_price: minPriceParams,
-        max_price: maxPriceParams,
-        filter_data: [
-          {
-            brand: brandSelected,
-            model: modelSelected,
-            year: {
-              start: startYearSelected,
-              end: endYearsSelected
-            },
-          }
-        ],
-      })
-      .then((response) => {
-        setDataVehicle(response.data.data);
-        setPagetotal(response.data.total_pages);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
-
-  useEffect(() => {
-    if (filterData) {
-      setIsLoading(true);
       axios
         .post(getVehicleV2 + "/showrooms/vehicles", {
           page: page,
@@ -113,16 +76,7 @@ export default function Search({}: Props) {
           sort: "desc",
           min_price: minPriceParams,
           max_price: maxPriceParams,
-          filter_data: [
-            {
-              brand: brandSelected,
-              model: modelSelected,
-              years: {
-                start: startYearSelected,
-                end: endYearsSelected
-              },
-            }
-          ]
+          filter_data: filterData && JSON.parse(filterData)
         })
         .then((response) => {
           setDataVehicle(response.data.data);
@@ -134,15 +88,12 @@ export default function Search({}: Props) {
         .finally(() => {
           setIsLoading(false);
         });
-    } else {
-      init();
-    }
   }, [filterData, minPriceParams, maxPriceParams, page]);
 
   useEffect(() => {
     setStartYearSelected(null);
     setEndYearSelected(null);
-  },[brandSelected])
+  }, [brandSelected]);
 
   const handlerBrandsOnChange = (brand: any) => {
     setModelSelected([]);
@@ -181,7 +132,7 @@ export default function Search({}: Props) {
       {
         brand: brandSelected,
         model: modelSelected,
-        year: { start: startYearSelected, end: endYearsSelected },
+        years: { start: startYearSelected, end: endYearsSelected },
       },
     ];
     router.push(

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { Search, SearchFilter } from "@/components/modules";
+import { Search } from "@/components/modules";
 import classes from "@/style/page/buycar/buycar.module.css";
 
 type Props = {};
