@@ -3,7 +3,7 @@ import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
 import { Avatar, Box } from "@mui/material";
 import Link from "next/link";
-import React, { Fragment, useEffect, useState } from "react";
+import React from "react";
 
 type Props = {};
 
@@ -71,9 +71,7 @@ export default function Info({}: Props) {
               />
             </Link>
             </Box>
-            
           </Box>
-          
         )}
       </Box>
     </Box>
