@@ -1,8 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "@/style/components/navbar.module.css";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
@@ -12,10 +11,18 @@ type Props = {};
 
 const Navbar = ({}: Props) => {
   const [showMenu, setShowMenu] = useState(false);
+  const [userId, setUserId] = useState("");
 
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
-  const userId = localStorage.getItem("userId") || null;
+  useEffect(() => {
+    if (
+      localStorage.getItem("userId") !== null ||
+      localStorage.getItem("userId") !== undefined
+    ) {
+      setUserId(localStorage.getItem("userId") || "");
+    }
+  }, []);
 
   return (
     <Box className={classes.container}>
@@ -69,14 +76,14 @@ const Navbar = ({}: Props) => {
                 <li>
                   <Link href="/about">เกี่ยวกับเรา</Link>
                 </li>
-                {userId === null ? null : (
+                {userId === "" ? null : (
                   <li>
                     <Link href="/info">บัญชีของฉัน</Link>
                   </li>
                 )}
                 <li>
                   <Link href="/login">
-                    {userId === null ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
+                    {userId === "" ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
                   </Link>
                 </li>
               </ul>
@@ -120,7 +127,7 @@ const Navbar = ({}: Props) => {
           <Link href="/about" onClick={() => setShowMenu(!showMenu)}>
             <span className="tc-black fs-20px fw-100 action">เกี่ยวกับเรา</span>
           </Link>
-          {userId === null ? null : (
+          {userId === "" ? null : (
             <Link href="/info" onClick={() => setShowMenu(!showMenu)}>
               <span className="tc-black fs-20px fw-100 action">
                 บัญชีของฉัน
@@ -129,7 +136,7 @@ const Navbar = ({}: Props) => {
           )}
           <Link href="/login" onClick={() => setShowMenu(!showMenu)}>
             <span className="tc-black fs-20px fw-100 action">
-              {userId === null ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
+              {userId === "" ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
             </span>
           </Link>
         </Box>

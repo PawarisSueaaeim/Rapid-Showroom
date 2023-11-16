@@ -42,6 +42,7 @@ export default function Salecar({}: Props) {
   const [dataYears, setDataYears] = useState<string[]>([]);
 
   const [isCanSubmit, setIsCanSubmit] = useState(false);
+  const [isfullyData, setIsfullyData] = useState(false);
   const [uploadedImageData, setUploadedImageData] = useState<string[]>([]);
   const [isImageLimit, setIsImageLimit] = useState(false);
   const [brand, setBrand] = useState("");
@@ -158,7 +159,9 @@ export default function Salecar({}: Props) {
       uploadedImageData.length <= 0
     ) {
       setIsCanSubmit(false);
+      setIsfullyData(false);
     } else {
+      setIsfullyData(true);
       setIsCanSubmit(true);
     }
   };
@@ -510,7 +513,7 @@ export default function Salecar({}: Props) {
       </Grid>
       <Box width={"100%"} margin={4}>
         <ButtonCapsule
-          title={!isCanSubmit ? "กรุณากรอกข้อมูลให้ครบถ้วน" : "ขายรถ"}
+          title={!isfullyData ? "กรุณากรอกข้อมูลให้ครบถ้วน" : "ขายรถ"}
           color="#000"
           fontWeight={400}
           boxShadow={true}
