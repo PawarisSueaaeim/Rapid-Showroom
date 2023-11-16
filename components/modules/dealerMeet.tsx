@@ -34,8 +34,8 @@ type Props = {
   model: string;
   submodel: string;
   price: string;
-  image: string;
-  plateId: string;
+  image?: string;
+  plateId?: string;
 };
 
 export default function DealerMeet({
@@ -69,6 +69,13 @@ export default function DealerMeet({
     process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || "";
 
   useEffect(() => {
+    if (refferal !== null && soldType !== null) {
+      localStorage.setItem("ref", refferal);
+      localStorage.setItem("soldType", soldType);
+    }
+  }, [refferal, soldType]);
+
+  useEffect(() => {
     if (
       // checkedBot &&
       date &&
@@ -78,7 +85,7 @@ export default function DealerMeet({
       verifyTelephone
     ) {
       setIsVerified(true);
-    }else{
+    } else {
       setIsVerified(false);
     }
   }, [
@@ -142,8 +149,8 @@ export default function DealerMeet({
         email: email,
         phone_no: telephone,
         branch_id: 1,
-        referral: refferal,
-        soldType: soldType,
+        referral: localStorage.getItem("ref"),
+        soldType: localStorage.getItem("soldType"),
       })
       .then((response) => {
         router.push(
@@ -163,8 +170,7 @@ export default function DealerMeet({
       .catch((error) => {
         console.log(error);
       })
-      .finally(() => {
-      });
+      .finally(() => {});
   };
 
   return (
@@ -172,7 +178,11 @@ export default function DealerMeet({
       <span className="fs-18px tc-blue">นัดดูรถ</span>
       <Box className={classes.calendar}>
         <Date label="เลือกวันที่นัดดีลเลอร์" onDateChange={handleDateChange} />
-        <Time label="เลือกเวลานัดดีลเลอร์" onTimeChange={handleTimeChange} date={date} />
+        <Time
+          label="เลือกเวลานัดดีลเลอร์"
+          onTimeChange={handleTimeChange}
+          date={date}
+        />
       </Box>
       <Box className={classes.form_label}>
         <Image
