@@ -3,6 +3,7 @@
 "use client";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
+import { currency } from "@/utils/currency";
 import { daymontyearFormat, timeHourFormat } from "@/utils/dateHelper";
 import { Alert, Box, useMediaQuery } from "@mui/material";
 import axios from "axios";
@@ -177,6 +178,10 @@ export default function CardAcceptById({ params }: Props) {
         clientMessage
       ) : (
         <>
+          <span className="fs-20px">
+            <strong>รหัสอ้างอิง: </strong>
+            {dataVehicle.bid_appointment_reference_key}
+          </span>
           <Box width={isMobileMode ? "100%" : "400px"}>
             <img
               src={dataVehicle.image}
@@ -185,13 +190,43 @@ export default function CardAcceptById({ params }: Props) {
             />
           </Box>
 
-          <Box display={"flex"} flexDirection={"column"}>
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            width={isMobileMode ? "90%" : "70%"}
+          >
             <span className="fw-400 fs-20px">
-              {dataVehicle.brand} {dataVehicle.model}
+              {dataVehicle.brand} {dataVehicle.model} {dataVehicle.series}
             </span>
-            <span className="fs-18px">{dataVehicle.sub_model}</span>
             <span className="fs-18px">
+              <strong>ปี: </strong>
+              {dataVehicle.model_to_year}
+            </span>
+            <span className="fs-18px">
+              <strong>สี: </strong>
+              {dataVehicle.color}
+              <strong> ขนาดเครื่องยนต์: </strong>
+              {dataVehicle.engine_size} cc.
+            </span>
+            <span className="fs-18px">
+              <strong>เลขไมล์: </strong>
+              {currency(dataVehicle.mileage, 0)} กิโลเมตร
+            </span>
+            <span className="fs-18px">
+              <strong>ทะเบียน: </strong>
               {dataVehicle.license_plate} {dataVehicle.province}
+            </span>
+            <span className="fs-18px">
+              <strong>สถานที่: </strong>
+              {dataVehicle.name}
+            </span>
+            <span className="fs-18px">
+              <strong>วันที่ขาย: </strong>
+              {daymontyearFormat(dataVehicle.book_date)}
+            </span>
+            <span className="fs-18px">
+              <strong>เวลาขาย: </strong>
+              {timeHourFormat(dataVehicle.book_time)}
             </span>
             <span className="fs-18px">ราคาที่ได้รับ</span>
             <span className="fs-20px fw-400">

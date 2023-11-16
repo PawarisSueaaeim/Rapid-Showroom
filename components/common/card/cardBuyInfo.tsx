@@ -15,6 +15,7 @@ type Props = {
   location: string;
   depositAmount: string;
   status: string;
+  soldPrice: string;
 };
 
 export default function CardBuyInfo({
@@ -27,6 +28,7 @@ export default function CardBuyInfo({
   location,
   depositAmount,
   status,
+  soldPrice,
 }: Props) {
   const [date_part, time_part] = bookDate.split(" ");
   const formatted_time = time_part.substring(0, 5);
@@ -41,6 +43,7 @@ export default function CardBuyInfo({
         </span>
         <span className="fs-16px"><strong>ปี:</strong> {year}</span>
         <span className="fs-16px"><strong>สี:</strong> {color}</span>
+        <span className="fs-16px"><strong>ราคา:</strong> {soldPrice}</span>
         <span className="fs-16px"><strong>สถานที่:</strong> {location}</span>
         <span className="fs-16px"><strong>วันที่นัดหมาย:</strong> {daymontyearFormat(date_part)}</span>
         <span className="fs-16px"><strong>เวลานัดหมาย:</strong> {formatted_time} น.</span>

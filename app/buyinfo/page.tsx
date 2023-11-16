@@ -1,10 +1,7 @@
 "use client";
-import { ButtonPleumDesign } from "@/components/common/button";
 import { CardBuyInfo } from "@/components/common/card";
-import { ColorSet } from "@/constants";
 import { Box, Checkbox, FormControlLabel, Grid } from "@mui/material";
 import axios from "axios";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 type Props = {};
@@ -107,6 +104,7 @@ export default function BuyInfo({}: Props) {
                 location={list.branch_name}
                 depositAmount={list.deposit_payin_amount}
                 status={list.showroom_appointment_status}
+                soldPrice={list.sold_price}
               />
             </Grid>
           );

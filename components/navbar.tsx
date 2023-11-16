@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classes from "@/style/components/navbar.module.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,20 +11,13 @@ type Props = {};
 
 const Navbar = ({}: Props) => {
   const [showMenu, setShowMenu] = useState(false);
-  const [userId, setUserId] = useState("");
+  let userId = null;
 
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
-  useEffect(() => {
-    if (
-      localStorage.getItem("userId") !== null ||
-      localStorage.getItem("userId") !== undefined
-    ) {
-      setUserId(localStorage.getItem("userId") || "");
-    }else{
-      setUserId("");
-    }
-  }, []);
+  if (typeof window !== 'undefined') {
+    userId = sessionStorage.getItem("userId");
+  }
 
   return (
     <Box className={classes.container}>
@@ -78,14 +71,14 @@ const Navbar = ({}: Props) => {
                 <li>
                   <Link href="/about">เกี่ยวกับเรา</Link>
                 </li>
-                {userId === "" ? null : (
+                {userId === null ? null : (
                   <li>
                     <Link href="/info">บัญชีของฉัน</Link>
                   </li>
                 )}
                 <li>
                   <Link href="/login">
-                    {userId === "" ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
+                    {userId === null ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
                   </Link>
                 </li>
               </ul>
@@ -129,7 +122,7 @@ const Navbar = ({}: Props) => {
           <Link href="/about" onClick={() => setShowMenu(!showMenu)}>
             <span className="tc-black fs-20px fw-100 action">เกี่ยวกับเรา</span>
           </Link>
-          {userId === "" ? null : (
+          {userId === null ? null : (
             <Link href="/info" onClick={() => setShowMenu(!showMenu)}>
               <span className="tc-black fs-20px fw-100 action">
                 บัญชีของฉัน
@@ -138,7 +131,7 @@ const Navbar = ({}: Props) => {
           )}
           <Link href="/login" onClick={() => setShowMenu(!showMenu)}>
             <span className="tc-black fs-20px fw-100 action">
-              {userId === "" ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
+              {userId === null ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
             </span>
           </Link>
         </Box>

@@ -69,7 +69,7 @@ export default function Search({}: Props) {
       axios
         .post(getVehicleV2 + "/showrooms/vehicles", {
           page: page,
-          per_page: "10",
+          per_page: "12",
           search: "",
           orderby: "vehicle_id",
           sort: "desc",

@@ -70,8 +70,8 @@ export default function DealerMeet({
 
   useEffect(() => {
     if (refferal !== null && soldType !== null) {
-      localStorage.setItem("ref", refferal);
-      localStorage.setItem("soldType", soldType);
+      sessionStorage.setItem("ref", refferal);
+      sessionStorage.setItem("soldType", soldType);
     }
   }, [refferal, soldType]);
 
@@ -149,8 +149,8 @@ export default function DealerMeet({
         email: email,
         phone_no: telephone,
         branch_id: 1,
-        referral: localStorage.getItem("ref"),
-        soldType: localStorage.getItem("soldType"),
+        referral: sessionStorage.getItem("ref"),
+        soldType: sessionStorage.getItem("soldType"),
       })
       .then((response) => {
         router.push(

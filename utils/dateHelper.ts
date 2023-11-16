@@ -5,9 +5,9 @@ export const daymontyearFormat = (value: any) => {
     return formattedDate;
 };
 
-export const timeHourFormat = (value: any) => {
-    const formatTime = moment(value).format("HH:mm");
-    return formatTime;
+export const timeHourFormat = (time: any) => {
+    const formattedTime = time ? time.substring(0, 5) : "";
+    return formattedTime;
 }
 
 export const countDownTime = (expir: any) => {

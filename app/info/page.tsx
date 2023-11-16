@@ -9,11 +9,11 @@ type Props = {};
 
 export default function Info({}: Props) {
   let dataInfo;
-  if (typeof window !== "undefined" && window.localStorage) {
-    const json = localStorage.getItem("info") || "";
+  if (typeof window !== "undefined" && window.sessionStorage) {
+    const json = sessionStorage.getItem("info") || "";
     dataInfo = JSON.parse(json);
   } else {
-    console.error("localStorage is not available");
+    console.error("sessionStorage is not available");
   }
 
   return (

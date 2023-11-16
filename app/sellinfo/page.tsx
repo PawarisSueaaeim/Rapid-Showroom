@@ -28,7 +28,7 @@ export default function Accept({}: Props) {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('userId')}`,
+            Authorization: `Bearer ${sessionStorage.getItem('userId')}`,
           },
         }
       )
@@ -39,6 +39,8 @@ export default function Accept({}: Props) {
         console.log(error);
       });
   }, []);
+
+  console.log(data);
 
   return (
     <Box className={classes.container}>
@@ -52,12 +54,15 @@ export default function Accept({}: Props) {
                 <CardAccept
                   brand={list.brand}
                   model={list.model}
-                  subModel={list.sub_model}
+                  subModel={list.series}
                   licensePlate={list.license_plate}
                   minPrice={list.min_buy_price}
                   maxPrice={list.max_buy_price}
                   province={list.province}
                   image={list.image}
+                  color={list.color}
+                  year={list.year}
+                  mileage={list.mileage}
                 />
               </Link>
             </Grid>
