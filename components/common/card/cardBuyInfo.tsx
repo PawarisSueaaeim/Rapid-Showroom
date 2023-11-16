@@ -15,7 +15,6 @@ type Props = {
   location: string;
   depositAmount: string;
   status: string;
-  onClick?: (event: Event) => void;
 };
 
 export default function CardBuyInfo({
@@ -28,14 +27,13 @@ export default function CardBuyInfo({
   location,
   depositAmount,
   status,
-  onClick,
 }: Props) {
   const [date_part, time_part] = bookDate.split(" ");
   const formatted_time = time_part.substring(0, 5);
   return (
     <Box className={classes.container}>
       <Box className={classes.image_container}>
-        <img src={image} alt="image-mockup" width={"100%"} />
+        <img src={image} alt="image-vehicle" width={"100%"} />
       </Box>
       <Box className={classes.data_model}>
         <span className="fs-20px fw-400">

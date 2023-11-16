@@ -4,6 +4,7 @@ import { CardBuyInfo } from "@/components/common/card";
 import { ColorSet } from "@/constants";
 import { Box, Checkbox, FormControlLabel, Grid } from "@mui/material";
 import axios from "axios";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 type Props = {};
@@ -70,18 +71,26 @@ export default function BuyInfo({}: Props) {
 
   useEffect(() => {
     setDataBuyInfoList([]);
-    if (isChecked){
+    if (isChecked) {
       getActiveHistoryBuyVehicle();
-    }else{
+    } else {
       getAllHistoryBuyVehicle();
     }
   }, [isChecked]);
+
+  const renderOnClickCard = () => {
+    console.log("clicked");
+  };
 
   return (
     <Box display={"flex"} flexDirection={"column"} padding={2} height={"100vh"}>
       <Box display={"flex"} justifyContent={"space-between"} marginTop={10}>
         <span className="fs-20px fw-400 m-6">รายการซื้อ</span>
-        <FormControlLabel control={<Checkbox />} onChange={() => setIsChecked(!isChecked)} label="ซ่อนรายการที่สำเร็จ" />
+        <FormControlLabel
+          control={<Checkbox />}
+          onChange={() => setIsChecked(!isChecked)}
+          label="ซ่อนรายการที่สำเร็จ"
+        />
       </Box>
       <br />
       <Grid container spacing={2}>
@@ -89,7 +98,7 @@ export default function BuyInfo({}: Props) {
           return (
             <Grid item key={`${list.vsale_id}-${index}`} xs={12} sm={6} md={4}>
               <CardBuyInfo
-                image={list.showroom_images_url[0]}
+                image={list.showroom_images_url[0].path}
                 brand={list.brand}
                 model={list.model}
                 year={list.year}
