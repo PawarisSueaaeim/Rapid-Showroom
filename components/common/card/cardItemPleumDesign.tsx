@@ -33,12 +33,14 @@ export default function CardItem({
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}
+      justifyContent={"space-between"}
       bgcolor={"#fff"}
       style={{
         borderRadius: isMobileMode ? 0 : "15px",
         position: "relative",
         padding: isMobileMode ? "10px 2px" : "10px 8px",
         boxShadow: isMobileMode ? "none" : "0px 1px 5px 0.25px #777",
+        height: "271px",
       }}
     >
         <Box

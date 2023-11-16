@@ -15,7 +15,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import {
   filteredEndYears,
   filteredModel,
-  filteredModelMulti,
   filteredStartYears,
 } from "@/utils/filter";
 import { ButtonPleumDesign } from "../common/button";
@@ -234,7 +233,7 @@ export default function Search({}: Props) {
             />
           </Grid>
         </Grid>
-        <Box marginTop={2}>
+        <Box display={"flex"} justifyContent={"flex-end"} marginTop={2}>
           <ButtonPleumDesign
             title={"ค้นหารถ"}
             backgroundBtnColor={ColorSet.btnWhite}
