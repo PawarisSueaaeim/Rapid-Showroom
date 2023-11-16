@@ -11,9 +11,6 @@ import { useSearchParams } from "next/navigation";
 type Props = {};
 
 export default function Accept({}: Props) {
-  const searchParams = useSearchParams();
-  const token = searchParams.get("userId");
-
   const [data, setData] = useState([]);
 
   const getSellCarList =

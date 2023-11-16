@@ -14,6 +14,10 @@ const colors = {
 }
 
 export const ColorSet = {
+    // background color
+    bgGray: colors.gray,
+    bgWhite: colors.white,
+
     // text color
     textBlack: colors.black,
     textWhite: colors.white,

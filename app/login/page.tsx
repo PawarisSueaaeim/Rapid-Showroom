@@ -33,6 +33,7 @@ export default function Login({}: Props) {
   };
 
   useEffect(() => {
+    localStorage.clear();
     axios
       .post(logout)
       .then((response) => {
@@ -52,7 +53,8 @@ export default function Login({}: Props) {
       })
       .then((response) => {
         if (response.data.status == "OK") {
-          router.push('/sellinfo');
+          router.push('/info');
+          localStorage.setItem("info", JSON.stringify(response.data.user))
           localStorage.setItem("userId", response.data.access_token);
         } else {
           setAlertPassword(true);

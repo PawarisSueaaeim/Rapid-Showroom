@@ -35,6 +35,8 @@ export default function Booksuccess({}: Props) {
     a.click();
   };
 
+  const formatted_time = time ? time.substring(0, 5) : "";
+
   return (
     <Box
       display={"flex"}
@@ -64,7 +66,7 @@ export default function Booksuccess({}: Props) {
         <span className="fs-16px">มัดจำ: {deposit ? deposit : "0"} บาท</span>
         <span className="fw-400">เวลานัดหมาย</span>
         <span>วันที่ {daymontyearFormat(date)}</span>
-        <span>เวลา {time} น.</span>
+        <span>เวลา {formatted_time} น.</span>
       </Box>
       <Box marginTop={2}>
       <ButtonPleumDesign

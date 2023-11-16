@@ -152,12 +152,13 @@ export default function Deposit({}: Props) {
           {...other}
           getInputRef={ref}
           onValueChange={(values) => {
-            onChange({
-              target: {
-                name: props.name,
-                value: values.value,
-              },
-            });
+            // onChange({
+            //   target: {
+            //     name: props.name,
+            //     value: values.value,
+            //   },
+            // });
+            // handleChange(values)
           }}
           thousandSeparator
           valueIsNumericString
@@ -205,13 +206,13 @@ export default function Deposit({}: Props) {
           <TextField
             label="Deposit (ขั้นต่ำ 5,000 บาท)"
             value={values}
-            // onChange={handleChange}
+            onChange={handleChange}
             disabled={!isCheck}
             name="numberformat"
             id="formatted-numberformat-input"
-            InputProps={{
-              inputComponent: NumericFormatCustom as any,
-            }}
+            // InputProps={{
+            //   inputComponent: NumericFormatCustom as any,
+            // }}
             variant="standard"
           />
         </Stack>

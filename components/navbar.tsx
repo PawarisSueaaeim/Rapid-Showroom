@@ -14,12 +14,11 @@ const Navbar = ({}: Props) => {
   const [showMenu, setShowMenu] = useState(false);
 
   const isMobileMode = useMediaQuery("(max-width:600px)");
-  const currentURL = usePathname();
+
+  const userId = localStorage.getItem("userId") || null;
 
   return (
-    <Box
-      className={classes.container}
-    >
+    <Box className={classes.container}>
       <Box
         display={"flex"}
         justifyContent={"space-between"}
@@ -35,7 +34,12 @@ const Navbar = ({}: Props) => {
               sx={{ fontStyle: "oblique", fontWeight: 500 }}
               gap={1}
             >
-              <Image src="/icons/icon-rapid-auto.png" alt="icon-rapid-auto" width={190} height={65}/>
+              <Image
+                src="/icons/icon-rapid-auto.png"
+                alt="icon-rapid-auto"
+                width={190}
+                height={65}
+              />
             </Box>
           </Link>
         </Box>
@@ -65,8 +69,15 @@ const Navbar = ({}: Props) => {
                 <li>
                   <Link href="/about">เกี่ยวกับเรา</Link>
                 </li>
+                {userId === null ? null : (
+                  <li>
+                    <Link href="/info">บัญชีของฉัน</Link>
+                  </li>
+                )}
                 <li>
-                  <Link href="/login">เข้าสู่ระบบ</Link>
+                  <Link href="/login">
+                    {userId === null ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
+                  </Link>
                 </li>
               </ul>
             </Box>
@@ -109,8 +120,17 @@ const Navbar = ({}: Props) => {
           <Link href="/about" onClick={() => setShowMenu(!showMenu)}>
             <span className="tc-black fs-20px fw-100 action">เกี่ยวกับเรา</span>
           </Link>
+          {userId === null ? null : (
+            <Link href="/info" onClick={() => setShowMenu(!showMenu)}>
+              <span className="tc-black fs-20px fw-100 action">
+                บัญชีของฉัน
+              </span>
+            </Link>
+          )}
           <Link href="/login" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px fw-100 action">{currentURL === '/sellinfo' ? "ออกจากระบบ" : "เข้าสู่ระบบ"}</span>
+            <span className="tc-black fs-20px fw-100 action">
+              {userId === null ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
+            </span>
           </Link>
         </Box>
       </Box>

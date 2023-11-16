@@ -11,8 +11,6 @@ interface ImageUploadButtonProps {
   maxSize?: (value: boolean) => void;
 }
 
-const MAX_SIZE_BYTES = 10 * 1024**2;
-
 const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload , maxSize}) => {
   const [selectedImages, setSelectedImages] = React.useState<ImageData[]>([]);
 
