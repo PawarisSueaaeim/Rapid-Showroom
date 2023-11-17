@@ -27,8 +27,7 @@ export default function BuyInfo({}: Props) {
         },
         {
           headers: {
-            // Authorization: `Bearer ${localStorage.getItem("userId")}`,
-            Authorization: `Bearer ${mockToken}`,
+            Authorization: `Bearer ${sessionStorage.getItem("userId")}`,
           },
         }
       )
@@ -53,8 +52,7 @@ export default function BuyInfo({}: Props) {
         },
         {
           headers: {
-            // Authorization: `Bearer ${localStorage.getItem("userId")}`,
-            Authorization: `Bearer ${mockToken}`,
+            Authorization: `Bearer ${sessionStorage.getItem("userId")}`,
           },
         }
       )
@@ -74,10 +72,6 @@ export default function BuyInfo({}: Props) {
       getAllHistoryBuyVehicle();
     }
   }, [isChecked]);
-
-  const renderOnClickCard = () => {
-    console.log("clicked");
-  };
 
   return (
     <Box display={"flex"} flexDirection={"column"} padding={2} height={"100vh"}>
