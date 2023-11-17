@@ -37,7 +37,7 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
     const files = Array.from(event.target.files || []);
 
     if (selectedImages.length + files.length <= 5) {
-      if (files.length > 0 && files.length < 5) {
+      if (files.length > 0 && files.length <= 5) {
         const imagePromises = files.map((file) => {
           return new Promise<ImageData>((resolve) => {
             const reader = new FileReader();
@@ -52,7 +52,7 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
         });
 
         Promise.all(imagePromises).then((imageDataArray) => {
-          if (selectedImages.length < 5) {
+          if (selectedImages.length <= 5) {
             setSelectedImages([...selectedImages, ...imageDataArray]);
             //@ts-ignore
             onUpload([...selectedImages, ...imageDataArray]);
