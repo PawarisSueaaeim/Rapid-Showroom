@@ -14,7 +14,7 @@ import {
   isPlateId02,
   isPlateId03,
 } from "@/utils/regex";
-import { UpLoadImages } from "@/components/common/uploadFile";
+import { DropZone, UpLoadImages } from "@/components/common/uploadFile";
 import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
 import { useRouter } from "next/navigation";
@@ -154,7 +154,7 @@ export default function Salecar({}: Props) {
       nickname === "" ||
       telephone === "" ||
       !isEmail(email) ||
-      uploadedImageData.length <= 0
+      uploadedImageData.length != 5
     ) {
       setIsCanSubmit(false);
       setIsfullyData(false);
@@ -166,10 +166,6 @@ export default function Salecar({}: Props) {
 
   const handleImageUpload = (imageDataArray: string[]) => {
     setUploadedImageData([...imageDataArray]);
-  };
-
-  const handleWithinLimit = (value: boolean) => {
-    setIsImageLimit(value);
   };
 
   const handlerDateSellCar = (date: Dayjs | null) => {
@@ -290,23 +286,7 @@ export default function Salecar({}: Props) {
       paddingX={isMobileMode ? 2 : "20%"}
     >
       <span className="fs-24px">Sell Car</span>
-      <Box
-        display={uploadedImageData.length > 0 ? "none" : "flex"}
-        flexDirection={"column"}
-      >
-        <Image
-          src="/icons/icon-formcar.png"
-          alt="icon-formcar"
-          width={250}
-          height={117}
-        />
-        <span className="tc-red fs-8px">
-          {uploadedImageData.length > 0
-            ? ""
-            : "**กรุณาอัพโหลดรูปรถที่ต้องการขาย"}
-        </span>
-      </Box>
-      <UpLoadImages onUpload={handleImageUpload} maxSize={handleWithinLimit} />
+      <UpLoadImages onUpload={handleImageUpload}/>
       <span className="fs-18px">ข้อมูลรถ</span>
       <Grid container spacing={1}>
         <Grid item xs={12}>
