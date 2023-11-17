@@ -9,16 +9,25 @@ import classes from "@/style/components/module/showcarSectionHome.module.css";
 import Link from "next/link";
 import { ButtonPleumDesign } from "../common/button";
 import { ColorSet } from "@/constants";
+import { useSearchParams } from "next/navigation";
 
 type Props = {};
 
 export default function ShowcarSectionHome({}: Props) {
+  const searchParams = useSearchParams();
+  const refferal = searchParams.get("ref") || null;
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
   const getCar =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/showrooms/vehicles";
 
   const [vehiclesData, setVehiclesData] = useState([]);
+
+  useEffect(() => {
+    if (refferal !== null) {
+      sessionStorage.setItem("ref", refferal);
+    }
+  }, [refferal]);
 
   useEffect(() => {
     axios

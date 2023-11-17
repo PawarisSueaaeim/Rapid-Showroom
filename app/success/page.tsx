@@ -13,6 +13,7 @@ export default function Success({}: Props) {
   const status = searchParams.get("status");
   const email = searchParams.get("email");
   const name = searchParams.get("name");
+  const is_member = searchParams.get("is_member");
   const [showPageNotFound, setShowPageNotFound] = useState(false);
 
   const isMobileMode = useMediaQuery("(max-width:600px)");
@@ -92,16 +93,22 @@ export default function Success({}: Props) {
           >
             {email && status != "FAIL" && (
               <Box marginTop={2}>
-                <Box marginTop={2} width={200}>
-                  <Link href={`/createpassword?email=${email}&name=${name}`}>
-                    <ButtonCapsule
-                      title={"Sign Up"}
-                      fontWeight={400}
-                      bgColor={"#1A417B"}
-                      color={"#fff"}
-                    />
-                  </Link>
-                </Box>
+                {is_member !== "true" ? (
+                  <>
+                    <Box marginTop={2} width={200}>
+                      <Link
+                        href={`/createpassword?email=${email}&name=${name}`}
+                      >
+                        <ButtonCapsule
+                          title={"Sign Up"}
+                          fontWeight={400}
+                          bgColor={"#1A417B"}
+                          color={"#fff"}
+                        />
+                      </Link>
+                    </Box>
+                  </>
+                ) : null}
                 <Box marginTop={2} width={200}>
                   <Link href="/login">
                     <ButtonCapsule
@@ -124,12 +131,12 @@ export default function Success({}: Props) {
                 </Box>
                 {isMobileMode ? (
                   <Box marginTop={2} width={200}>
-                      <ButtonCapsule
-                        title={"LINE"}
-                        fontWeight={500}
-                        bgColor={"#00B900"}
-                        color={"#fff"}
-                      />
+                    <ButtonCapsule
+                      title={"LINE"}
+                      fontWeight={500}
+                      bgColor={"#00B900"}
+                      color={"#fff"}
+                    />
                   </Box>
                 ) : null}
               </Box>

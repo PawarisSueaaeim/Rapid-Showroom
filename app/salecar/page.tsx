@@ -17,7 +17,7 @@ import {
 import { DropZone, UpLoadImages } from "@/components/common/uploadFile";
 import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   filteredDescription,
   filteredModel,
@@ -32,6 +32,8 @@ const baseURL = process.env.NEXT_PUBLIC_SHOWROOM_API_URL;
 
 export default function Salecar({}: Props) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const refferal = searchParams.get("ref") || null;
   const [dataBrand, setDataBrand] = useState([]);
   const [dataModel, setDataModel] = useState([]);
   const [dataSubmodel, setDataSubmodel] = useState([]);
@@ -63,6 +65,12 @@ export default function Salecar({}: Props) {
   const [dataFilter, setDataFilter] = useState([]);
 
   const isMobileMode = useMediaQuery("(max-width:600px)");
+
+  useEffect(() => {
+    if (refferal !== null) {
+      sessionStorage.setItem("ref", refferal);
+    }
+  }, [refferal]);
 
   useEffect(() => {
     handlerValidate();
@@ -263,17 +271,18 @@ export default function Salecar({}: Props) {
         province_id: provinceId,
         branch_id: 1,
         images: uploadedImageData,
+        referral: sessionStorage.getItem('ref')
       })
       .then((response) => {
         router.push(
-          `/success?status=${response.data.status}&email=${email}&name=${nickname}`
+          `/success?status=${response.data.status}&email=${email}&name=${nickname}&is_member=${response.data.data.is_member}`
         );
       })
       .catch((error) => {
         console.log(error);
+        setIsCanSubmit(true);
       })
       .finally(() => {
-        setIsCanSubmit(true);
       });
   };
 

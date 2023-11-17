@@ -41,6 +41,7 @@ export default function DropZone({ }: Props) {
 
   const [files, setFiles] = useState<Array<{ name: string, preview: string, base64: string }>>([]);
   const { getRootProps, getInputProps } = useDropzone({
+    // @ts-ignore
     accept: 'image/*',
     onDrop: acceptedFiles => {
       const updatedFiles = acceptedFiles.map(file => {
@@ -57,6 +58,7 @@ export default function DropZone({ }: Props) {
           preview: URL.createObjectURL(file)
         });
       });
+      //@ts-ignore
       setFiles(updatedFiles);
     }
   });
