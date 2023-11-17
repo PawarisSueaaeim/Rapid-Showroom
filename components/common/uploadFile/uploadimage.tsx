@@ -98,14 +98,16 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
               );
             })}
           </Box>
-          {selectedImages.length !== 5 ? (
-            <span className="fs-8px tc-red">
-              **กรุณาอัพโหลดรูปให้ครบ 5 รูป
-              (หน้าซ้าย,หน้าขวา,หลังซ้าย,หลังขวา,ภายใน)
-            </span>
-          ) : (
-            ""
-          )}
+          <Box width={"100%"}>
+            {selectedImages.length !== 5 ? (
+              <span className="fs-8px tc-red">
+                **กรุณาอัพโหลดรูปให้ครบ 5 รูป
+                (หน้าซ้าย,หน้าขวา,หลังซ้าย,หลังขวา,ภายใน)
+              </span>
+            ) : (
+              ""
+            )}
+          </Box>
           <input
             type="file"
             accept="image/*"
@@ -114,20 +116,28 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
           />
         </Box>
       ) : (
-        <Box display={"flex"} flexWrap={"wrap"} margin={1} gap={1} width={"100%"}>
-           {initImages().map((image: any, index: any) => (
+        <Box
+          display={"flex"}
+          flexWrap={"wrap"}
+          margin={1}
+          gap={1}
+          width={"100%"}
+        >
+          {initImages().map((image: any, index: any) => (
             <Box key={index} width={"30%"} display={"flex"}>
               <img src={image.url_path} width={"90%"} alt="car-image" />
             </Box>
           ))}
-          {selectedImages.length !== 5 ? (
-            <span className="fs-8px tc-red">
-              **กรุณาอัพโหลดรูปให้ครบ 5 รูป
-              (หน้าซ้าย,หน้าขวา,หลังซ้าย,หลังขวา,ภายใน)
-            </span>
-          ) : (
-            ""
-          )}
+          <Box width={"100%"}>
+            {selectedImages.length !== 5 ? (
+              <span className="fs-8px tc-red">
+                **กรุณาอัพโหลดรูปให้ครบ 5 รูป
+                (หน้าซ้าย,หน้าขวา,หลังซ้าย,หลังขวา,ภายใน)
+              </span>
+            ) : (
+              ""
+            )}
+          </Box>
           <input
             type="file"
             accept="image/*"
