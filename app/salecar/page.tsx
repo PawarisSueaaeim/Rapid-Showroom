@@ -4,7 +4,7 @@
 import { Box, Grid, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Date, InputCustom, Time } from "@/components/common/form";
+import { DateSelection, InputCustom, TimeSelection } from "@/components/common/form";
 import { ButtonCapsule } from "@/components/common/button";
 import {
   isEmail,
@@ -458,13 +458,13 @@ export default function Salecar({}: Props) {
           </span>
         </Grid>
         <Grid item xs={6} marginTop={2}>
-          <Date label={"เลือกวันที่ขายรถ"} onDateChange={handlerDateSellCar} />
+          <DateSelection label={"เลือกวันที่ขายรถ"} onDateChange={handlerDateSellCar} />
           <span className="tc-red fs-8px">
             {dateSellCar !== "" ? "" : "**กรุณาเลือกวันที่ต้องการขายรถ"}
           </span>
         </Grid>
         <Grid item xs={6} marginTop={2}>
-          <Time label={"เลือกเวลาขายรถ"} onTimeChange={handlerTimeSellCar} date={dateSellCar} />
+          <TimeSelection label={"เลือกเวลาขายรถ"} onTimeChange={handlerTimeSellCar} date={dateSellCar} />
           <span className="tc-red fs-8px">
             {timeSellCar !== "" ? "" : "**กรุณาเลือกเวลาที่ต้องการขายรถ"}
           </span>

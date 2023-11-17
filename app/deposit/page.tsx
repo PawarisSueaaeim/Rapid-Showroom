@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -14,9 +13,16 @@ import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useRouter, useSearchParams } from "next/navigation";
-import { countDownTime, daymontyearFormat } from "@/utils/dateHelper";
+import {
+  daymontyearFormat,
+  formattedDateTime,
+  isDiff24Hour,
+} from "@/utils/dateHelper";
 import { isMileage } from "@/utils/regex";
 import { CountDowntime } from "@/components/common/countDown";
+import Link from "next/link";
+import { DateSelection, TimeSelection } from "@/components/common/form";
+import { Dayjs } from "dayjs";
 
 type Props = {};
 
@@ -47,10 +53,13 @@ export default function Deposit({}: Props) {
   const showroom_appointment_id = searchParams.get("showroom_appointment_id");
   const email = searchParams.get("email");
   const name = searchParams.get("name");
+  const [date, setDate] = useState<string>("");
+  const [time, setTime] = useState<string>("");
 
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [values, setValues] = React.useState("");
-  const [open, setOpen] = React.useState(false);
+  const [openQRcode, setOpenQRcode] = React.useState(false);
+  const [openChangDate, setOpenChangeDate] = React.useState(false);
   const [dataPamentStatus, setDataPamentStatus] = React.useState<any>({});
   const [vdepositId, setVdepositId] = React.useState("");
 
@@ -59,7 +68,7 @@ export default function Deposit({}: Props) {
   useEffect(() => {
     let intervalId: any;
 
-    if (open) {
+    if (openQRcode) {
       intervalId = setInterval(() => {
         axios
           .post(getPaymentStatus, {
@@ -69,7 +78,7 @@ export default function Deposit({}: Props) {
             console.log(response.data.data.deposit_payin_status);
 
             if (response.data.data.deposit_payin_status === "paid") {
-              setOpen(false);
+              setOpenQRcode(false);
               router.push(
                 `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&deposit=${values}&member=${member}&email=${email}&name=${name}`
               );
@@ -86,7 +95,8 @@ export default function Deposit({}: Props) {
         clearInterval(intervalId);
       }
     };
-  }, [open]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openQRcode]);
 
   useEffect(() => {
     if (!isCheck) {
@@ -102,12 +112,25 @@ export default function Deposit({}: Props) {
     }
   }, [values, isCheck]);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpenQRcode = () => setOpenQRcode(true);
+  const handleCloseQRcode = () => setOpenQRcode(false);
+  const handleOpenChangeDate = () => setOpenChangeDate(true);
+  const handleCloseChangeDate = () => setOpenChangeDate(false);
 
   const handleChange = (event: any) => {
     const inputValue = event.target.value;
     setValues(inputValue);
+  };
+
+  const handleDateChange = (date: Dayjs | null) => {
+    //@ts-ignore
+    const formatDate = moment(date.$d).format("YYYY-MM-DD");
+    setDate(formatDate);
+  };
+  const handleTimeChange = (time: Dayjs | null) => {
+    //@ts-ignore
+    const formatTime = moment(time.$d).format("HH:mm:ss");
+    setTime(formatTime);
   };
 
   const handleGetPaymentStatus = (vdeposit_id: number) => {
@@ -118,7 +141,7 @@ export default function Deposit({}: Props) {
       .then((response) => {
         setDataPamentStatus(response.data.data);
         setVdepositId(vdeposit_id.toString());
-        handleOpen();
+        handleOpenQRcode();
       })
       .catch((error) => {
         console.log(error);
@@ -128,22 +151,29 @@ export default function Deposit({}: Props) {
   const handleOnClickNext = () => {
     setDisableNext(true);
     if (isCheck) {
-      axios
-        .put(isDeposit, {
-          amount: values,
-          listing_vpark_id: vparkId,
-          guest_id: guestId,
-          showroom_appointment_id: showroom_appointment_id,
-        })
-        .then((response) => {
-          handleGetPaymentStatus(response.data.data.vdeposit_id);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          setDisableNext(false);
-        });
+      if (
+        isDiff24Hour(
+          formattedDateTime(new Date()),
+          formattedDateTime(depositDate + " " + depositTime)
+        )
+      ) {
+        axios
+          .put(isDeposit, {
+            amount: values,
+            listing_vpark_id: vparkId,
+            guest_id: guestId,
+            showroom_appointment_id: showroom_appointment_id,
+          })
+          .then((response) => {
+            handleGetPaymentStatus(response.data.data.vdeposit_id);
+          })
+          .catch((error) => {
+            console.log(error);
+            setDisableNext(false);
+          });
+      } else {
+        handleOpenChangeDate();
+      }
     } else {
       router.push(
         `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&member=${member}&email=${email}&name=${name}`
@@ -184,29 +214,20 @@ export default function Deposit({}: Props) {
       justifyContent={"center"}
       height={"100vh"}
     >
-      <img
-        src={imageUrl ? imageUrl : ""}
-        alt="vehicle-image"
-        width={"300px"}
-      />
+      <img src={imageUrl ? imageUrl : ""} alt="vehicle-image" width={"300px"} />
       <Box display={"flex"} flexDirection={"column"}>
         <span className="fs-20px fw-400">
-          {/* {depositData.brand} {depositData.model} {depositData.submodel} */}
           {brand !== "undefind" ? brand : ""}{" "}
           {model !== "undefind" ? model : ""}
         </span>
         <span>
-          {/* ทะเบียน: <strong>{depositData.plate_id}</strong> */}
           ทะเบียน: {plate_id}
         </span>
         <span>
-          {/* ราคา: <strong>{depositData.price}</strong> บาท */}
           ราคา: <strong>{price}</strong> บาท
         </span>
         <span>เวลานัดหมาย</span>
-        {/* <span>วันที่ {daymontyearFormat(depositData.date)}</span> */}
         <span>วันที่ {daymontyearFormat(depositDate)}</span>
-        {/* <span>เวลา {depositData.time}</span> */}
         <span>เวลา {depositTime}</span>
       </Box>
       <Box marginTop={2}>
@@ -248,8 +269,28 @@ export default function Deposit({}: Props) {
       </Box>
 
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={openChangDate}
+        onClose={handleCloseChangeDate}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box style={{}}>
+          <h2 id="parent-modal-title">แจ้งเตือน</h2>
+          <p id="parent-modal-description">
+            การมัดจำต้องนัดดูรถภายในเวลา 24 ชั่วโมงเท่านั้น
+          </p>
+          <DateSelection label="เลือกวันที่นัดดีลเลอร์" onDateChange={handleDateChange} />
+        <TimeSelection
+          label="เลือกเวลานัดดีลเลอร์"
+          onTimeChange={handleTimeChange}
+          date={date}
+        />
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openQRcode}
+        onClose={handleCloseQRcode}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -290,8 +331,8 @@ export default function Deposit({}: Props) {
                 {dataPamentStatus.payer_fee} บาท)
               </span>
               <CountDowntime
-                displayCountdown={open}
-                setDisplayCountdown={(newBoolean: any) => setOpen(newBoolean)}
+                displayCountdown={openQRcode}
+                setDisplayCountdown={(newBoolean: any) => setOpenQRcode(newBoolean)}
                 dateAndTime={dataPamentStatus.qr_expired_at}
               />
             </Box>

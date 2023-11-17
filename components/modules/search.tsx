@@ -27,7 +27,8 @@ type Props = {};
 const baseURL = process.env.NEXT_PUBLIC_SHOWROOM_API_URL;
 
 export default function Search({}: Props) {
-  const getVehicleV2 = process.env.NEXT_PUBLIC_SHOWROOM_API_URL_V2;
+  const getVehicleV2 = process.env.NEXT_PUBLIC_SHOWROOM_API_URL;
+
 
   const router = useRouter();
   const searchParams = useSearchParams();

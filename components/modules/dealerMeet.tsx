@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { ButtonCapsule } from "../common/button";
-import { Date, InputCustom, Time } from "../common/form";
+import { DateSelection, InputCustom, TimeSelection } from "../common/form";
 import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
 import ReCAPTCHA from "react-google-recaptcha";
 import classes from "@/style/components/module/dealerMeet.module.css";
@@ -25,6 +25,7 @@ import {
   setTimeDeposit,
   setVparkId,
 } from "@/app/globalRedux/feature/dealerMeet/depositSlice";
+import { BasicModal } from "../common/modal";
 
 type Props = {
   modelId: number;
@@ -64,6 +65,8 @@ export default function DealerMeet({
   const [telephone, setTelephone] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [checkedBot, setCheckedBot] = useState<boolean>(false);
+  const [openModalRejectMsg, setOpenModalRejectMsg] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
 
   const siteKey: string | undefined =
     process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || "";
@@ -153,19 +156,14 @@ export default function DealerMeet({
         soldType: sessionStorage.getItem("soldType"),
       })
       .then((response) => {
-        router.push(
-          `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&member=${response.data.data.is_member}&email=${email}&name=${name}&showroom_appointment_id=${response.data.data.showroom_appointment_id}&vpark_id=${listingVparkId}&img=${image}&brand=${brand}&model=${model}&dateDeposit=${date}&timeDeposit=${time}&plateId=${plateId}&price=${price}`
-        );
-        // dispatch(setBrand(brand));
-        // dispatch(setModel(model));
-        // dispatch(setSubmodel(submodel));
-        // dispatch(setDateDeposit(date));
-        // dispatch(setTimeDeposit(time));
-        // dispatch(setImage(image));
-        // dispatch(setGuestId(response.data.data.guest_id));
-        // dispatch(setVparkId(listingVparkId));
-        // dispatch(setPrice(price));
-        // dispatch(setPlateId(plateId));
+        if (response.data.status == "OK") {
+          router.push(
+            `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&member=${response.data.data.is_member}&email=${email}&name=${name}&showroom_appointment_id=${response.data.data.showroom_appointment_id}&vpark_id=${listingVparkId}&img=${image}&brand=${brand}&model=${model}&dateDeposit=${date}&timeDeposit=${time}&plateId=${plateId}&price=${price}`
+          );
+        } else {
+          setMessage(response.data.client_message);
+          setOpenModalRejectMsg(true);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -177,8 +175,11 @@ export default function DealerMeet({
     <Box className={classes.container}>
       <span className="fs-18px tc-blue">นัดดูรถ</span>
       <Box className={classes.calendar}>
-        <Date label="เลือกวันที่นัดดีลเลอร์" onDateChange={handleDateChange} />
-        <Time
+        <DateSelection
+          label="เลือกวันที่นัดดีลเลอร์"
+          onDateChange={handleDateChange}
+        />
+        <TimeSelection
           label="เลือกเวลานัดดีลเลอร์"
           onTimeChange={handleTimeChange}
           date={date}
@@ -232,6 +233,7 @@ export default function DealerMeet({
           />
         </Box>
       </Box>
+      {openModalRejectMsg && <BasicModal title="เกิดข้อผิดพลาด" message={message} onOpen={openModalRejectMsg} onClose={() => setOpenModalRejectMsg(false)}/>}
     </Box>
   );
 }
