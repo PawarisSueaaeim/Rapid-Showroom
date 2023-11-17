@@ -56,9 +56,10 @@ export default function Acceptance({}: Props) {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          marginTop: "3rem",
         }}
       >
-        <img src={image ? image : ""} alt={"image-sell-car"} width={"100%"} />
+        <img src={image ? image : ""} alt={"image-sell-car"} width={"auto"} height={"200px"} />
         <Box
           display="flex"
           flexDirection={"column"}
@@ -85,9 +86,9 @@ export default function Acceptance({}: Props) {
           <span>
             <strong>เวลา:</strong> {time}
           </span>
-          <span>
+          <span style={{ display: "flex", alignItems: "center" }}>
             <strong>แผนที่:</strong>{" "}
-            <a className="tc-darkblue" href={map ? map : ""}>
+            <a className="tc-darkblue" href={map ? map : ""} target="_blank">
               Google Maps
               <IoIosArrowDropright/>
             </a>

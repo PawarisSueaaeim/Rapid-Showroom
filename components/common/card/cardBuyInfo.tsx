@@ -35,7 +35,7 @@ export default function CardBuyInfo({
   return (
     <Box className={classes.container}>
       <Box className={classes.image_container}>
-        <img src={image} alt="image-vehicle" width={"100%"} />
+        <img src={image} alt="image-vehicle" width={"auto"} height={"200px"} />
       </Box>
       <Box className={classes.data_model}>
         <span className="fs-20px fw-400">

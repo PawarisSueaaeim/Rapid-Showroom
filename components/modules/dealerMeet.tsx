@@ -154,7 +154,7 @@ export default function DealerMeet({
       })
       .then((response) => {
         router.push(
-          `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&showroom_appointment_id=${response.data.data.showroom_appointment_id}&vpark_id=${listingVparkId}&img=${image}&brand=${brand}&model=${model}&dateDeposit=${date}&timeDeposit=${time}&plateId=${plateId}&price=${price}`
+          `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&member=${response.data.data.is_member}&email=${email}&name=${name}&showroom_appointment_id=${response.data.data.showroom_appointment_id}&vpark_id=${listingVparkId}&img=${image}&brand=${brand}&model=${model}&dateDeposit=${date}&timeDeposit=${time}&plateId=${plateId}&price=${price}`
         );
         // dispatch(setBrand(brand));
         // dispatch(setModel(model));

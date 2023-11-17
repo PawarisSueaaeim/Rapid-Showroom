@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Box } from "@mui/material";
@@ -35,6 +36,7 @@ export default function Deposit({}: Props) {
   const searchParams = useSearchParams();
   const vparkId = searchParams.get("vpark_id");
   const guestId = searchParams.get("guest_id");
+  const member = searchParams.get("member");
   const imageUrl = searchParams.get("img");
   const brand = searchParams.get("brand");
   const model = searchParams.get("model");
@@ -43,6 +45,8 @@ export default function Deposit({}: Props) {
   const depositDate = searchParams.get("dateDeposit");
   const depositTime = searchParams.get("timeDeposit");
   const showroom_appointment_id = searchParams.get("showroom_appointment_id");
+  const email = searchParams.get("email");
+  const name = searchParams.get("name");
 
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [values, setValues] = React.useState("");
@@ -66,7 +70,9 @@ export default function Deposit({}: Props) {
 
             if (response.data.data.deposit_payin_status === "paid") {
               setOpen(false);
-              router.push(`/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&deposit=${values}`);
+              router.push(
+                `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&deposit=${values}&member=${member}&email=${email}&name=${name}`
+              );
             }
           })
           .catch((error) => {
@@ -83,18 +89,18 @@ export default function Deposit({}: Props) {
   }, [open]);
 
   useEffect(() => {
-    if(!isCheck){
+    if (!isCheck) {
       setValues("0");
     }
-  },[isCheck])
+  }, [isCheck]);
 
   useEffect(() => {
-    if (isCheck == true && parseInt(values) < 5000){
+    if (isCheck == true && parseInt(values) < 5000) {
       setDisableNext(true);
     } else {
       setDisableNext(false);
     }
-  },[values, isCheck]);
+  }, [values, isCheck]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -139,14 +145,16 @@ export default function Deposit({}: Props) {
           setDisableNext(false);
         });
     } else {
-      router.push(`/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}`);
+      router.push(
+        `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&member=${member}&email=${email}&name=${name}`
+      );
     }
   };
 
   const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
     function NumericFormatCustom(props, ref) {
       const { onChange, ...other } = props;
-  
+
       return (
         <NumericFormat
           {...other}
@@ -165,7 +173,7 @@ export default function Deposit({}: Props) {
           suffix=" บาท"
         />
       );
-    },
+    }
   );
 
   return (
@@ -176,16 +184,16 @@ export default function Deposit({}: Props) {
       justifyContent={"center"}
       height={"100vh"}
     >
-      <Image
+      <img
         src={imageUrl ? imageUrl : ""}
         alt="vehicle-image"
-        width={310}
-        height={200}
+        width={"300px"}
       />
       <Box display={"flex"} flexDirection={"column"}>
         <span className="fs-20px fw-400">
           {/* {depositData.brand} {depositData.model} {depositData.submodel} */}
-          {brand !== "undefind" ? brand : ""} {model !== "undefind" ? model : ""}
+          {brand !== "undefind" ? brand : ""}{" "}
+          {model !== "undefind" ? model : ""}
         </span>
         <span>
           {/* ทะเบียน: <strong>{depositData.plate_id}</strong> */}
@@ -277,8 +285,15 @@ export default function Deposit({}: Props) {
               height={200}
             />
             <Box display={"flex"} flexDirection={"column"} marginTop={2}>
-              <span className="fs-12px">ราคามัดจำ: {dataPamentStatus.amount_label} บาท (ค่าธรรมเนียม {dataPamentStatus.payer_fee} บาท)</span>
-              <CountDowntime displayCountdown={open} setDisplayCountdown={(newBoolean: any) => setOpen(newBoolean)} dateAndTime={dataPamentStatus.qr_expired_at}/>
+              <span className="fs-12px">
+                ราคามัดจำ: {dataPamentStatus.amount_label} บาท (ค่าธรรมเนียม{" "}
+                {dataPamentStatus.payer_fee} บาท)
+              </span>
+              <CountDowntime
+                displayCountdown={open}
+                setDisplayCountdown={(newBoolean: any) => setOpen(newBoolean)}
+                dateAndTime={dataPamentStatus.qr_expired_at}
+              />
             </Box>
           </Box>
         </Box>

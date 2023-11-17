@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function TimeValidationTimePicker({onTimeChange, date, label }: Props) {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs());
+  const [value, setValue] = React.useState<Dayjs | null>(dayjs(""));
 
   //@ts-ignore
   const currentDate = moment(dayjs().$d).format("YYYY-MM-DD");

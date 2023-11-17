@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 
 type Props = {};
 
-export default function EmailLogin({}: Props) {
+export default function CreatePassword({}: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email");

@@ -93,7 +93,7 @@ export default function Success({}: Props) {
             {email && status != "FAIL" && (
               <Box marginTop={2}>
                 <Box marginTop={2} width={200}>
-                  <Link href={`/emaillogin?email=${email}&name=${name}`}>
+                  <Link href={`/createpassword?email=${email}&name=${name}`}>
                     <ButtonCapsule
                       title={"Sign Up"}
                       fontWeight={400}
