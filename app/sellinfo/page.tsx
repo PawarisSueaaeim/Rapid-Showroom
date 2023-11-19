@@ -1,22 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { Box, Grid } from "@mui/material";
+import { Box, CircularProgress, Grid } from "@mui/material";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import classes from "@/style/page/accept/accept.module.css";
 import { CardAccept } from "@/components/common/card";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import { ColorSet } from "@/constants";
 
 type Props = {};
 
 export default function Accept({}: Props) {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getSellCarList =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/members/vehicles";
 
   useEffect(() => {
+    setIsLoading(true);
     axios
       .post(
         getSellCarList,
@@ -37,6 +40,8 @@ export default function Accept({}: Props) {
       })
       .catch((error) => {
         console.log(error);
+      }).finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
@@ -69,6 +74,29 @@ export default function Accept({}: Props) {
           );
         })}
       </Grid>
+      {isLoading ? (
+        <>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            bgcolor={ColorSet.bgWhite}
+            style={{
+              position: "fixed",
+              opacity: 0.9,
+              zIndex: 10,
+              height: "100vh",
+              width: "100vw",
+              top: "0",
+              left: "0",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        </>
+      ) : (
+        ""
+      )}
     </Box>
   );
 }

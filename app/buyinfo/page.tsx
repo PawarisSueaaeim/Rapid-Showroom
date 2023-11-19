@@ -1,6 +1,13 @@
 "use client";
 import { CardBuyInfo } from "@/components/common/card";
-import { Box, Checkbox, FormControlLabel, Grid } from "@mui/material";
+import { ColorSet } from "@/constants";
+import {
+  Box,
+  Checkbox,
+  CircularProgress,
+  FormControlLabel,
+  Grid,
+} from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -13,8 +20,10 @@ const mockToken = "558|DG59x54c321843URBdmlnuT2B8SFGrY22rZfZvP68bfa80ed";
 export default function BuyInfo({}: Props) {
   const [isChecked, setIsChecked] = useState(false);
   const [dataBuyInfoList, setDataBuyInfoList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getAllHistoryBuyVehicle = () => {
+    setIsLoading(true);
     axios
       .post(
         baseURL + "/member/buy_info",
@@ -36,10 +45,14 @@ export default function BuyInfo({}: Props) {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   const getActiveHistoryBuyVehicle = () => {
+    setIsLoading(true);
     axios
       .post(
         baseURL + "/member/buy_info/active",
@@ -61,6 +74,9 @@ export default function BuyInfo({}: Props) {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -104,6 +120,29 @@ export default function BuyInfo({}: Props) {
           );
         })}
       </Grid>
+      {isLoading ? (
+        <>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            style={{
+              position: "fixed",
+              backgroundColor: ColorSet.bgWhite,
+              opacity: 0.9,
+              zIndex: 10,
+              height: "100vh",
+              width: "100vw",
+              top: "0",
+              left: "0",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        </>
+      ) : (
+        ""
+      )}
     </Box>
   );
 }

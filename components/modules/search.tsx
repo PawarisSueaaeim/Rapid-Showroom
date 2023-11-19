@@ -25,11 +25,9 @@ import { CardItemPleumDesign } from "../common/card";
 type Props = {};
 
 const baseURL = process.env.NEXT_PUBLIC_SHOWROOM_API_URL;
+const getVehicleV2 = process.env.NEXT_PUBLIC_SHOWROOM_API_URL;
 
 export default function Search({}: Props) {
-  const getVehicleV2 = process.env.NEXT_PUBLIC_SHOWROOM_API_URL;
-
-
   const router = useRouter();
   const searchParams = useSearchParams();
   const filterData = searchParams.get("filter_data");

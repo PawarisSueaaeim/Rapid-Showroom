@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { NumericFormat, NumericFormatProps } from "react-number-format";
 import Stack from "@mui/material/Stack";
@@ -57,13 +57,16 @@ export default function Deposit({}: Props) {
   const [time, setTime] = useState<string>("");
 
   const [isCheck, setIsCheck] = useState<boolean>(false);
-  const [values, setValues] = React.useState("");
-  const [openQRcode, setOpenQRcode] = React.useState(false);
-  const [openChangDate, setOpenChangeDate] = React.useState(false);
-  const [dataPamentStatus, setDataPamentStatus] = React.useState<any>({});
-  const [vdepositId, setVdepositId] = React.useState("");
+  const [values, setValues] = useState<string>("");
+  const [openQRcode, setOpenQRcode] = useState<boolean>(false);
+  const [openSuccess, setOpenSuccess] = useState<boolean>(false);
+  const [openChangDate, setOpenChangeDate] = useState<boolean>(false);
+  const [dataPamentStatus, setDataPamentStatus] = useState<any>({});
+  const [vdepositId, setVdepositId] = useState<string>("");
 
-  const [disableNext, setDisableNext] = useState(false);
+  const [disableNext, setDisableNext] = useState<boolean>(false);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     let intervalId: any;
@@ -79,6 +82,7 @@ export default function Deposit({}: Props) {
 
             if (response.data.data.deposit_payin_status === "paid") {
               setOpenQRcode(false);
+              setOpenSuccess(true);
               router.push(
                 `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&deposit=${values}&member=${member}&email=${email}&name=${name}`
               );
@@ -95,7 +99,7 @@ export default function Deposit({}: Props) {
         clearInterval(intervalId);
       }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openQRcode]);
 
   useEffect(() => {
@@ -116,6 +120,7 @@ export default function Deposit({}: Props) {
   const handleCloseQRcode = () => setOpenQRcode(false);
   const handleOpenChangeDate = () => setOpenChangeDate(true);
   const handleCloseChangeDate = () => setOpenChangeDate(false);
+  const handleCloseSuccess = () => setOpenSuccess(false);
 
   const handleChange = (event: any) => {
     const inputValue = event.target.value;
@@ -149,6 +154,7 @@ export default function Deposit({}: Props) {
   };
 
   const handleOnClickNext = () => {
+    setIsLoading(true);
     setDisableNext(true);
     if (isCheck) {
       if (
@@ -170,6 +176,8 @@ export default function Deposit({}: Props) {
           .catch((error) => {
             console.log(error);
             setDisableNext(false);
+          }).finally(() => {
+            setIsLoading(false);
           });
       } else {
         handleOpenChangeDate();
@@ -220,9 +228,7 @@ export default function Deposit({}: Props) {
           {brand !== "undefind" ? brand : ""}{" "}
           {model !== "undefind" ? model : ""}
         </span>
-        <span>
-          ทะเบียน: {plate_id}
-        </span>
+        <span>ทะเบียน: {plate_id}</span>
         <span>
           ราคา: <strong>{price}</strong> บาท
         </span>
@@ -279,12 +285,38 @@ export default function Deposit({}: Props) {
           <p id="parent-modal-description">
             การมัดจำต้องนัดดูรถภายในเวลา 24 ชั่วโมงเท่านั้น
           </p>
-          <DateSelection label="เลือกวันที่นัดดีลเลอร์" onDateChange={handleDateChange} />
-        <TimeSelection
-          label="เลือกเวลานัดดีลเลอร์"
-          onTimeChange={handleTimeChange}
-          date={date}
-        />
+          <DateSelection
+            label="เลือกวันที่นัดดีลเลอร์"
+            onDateChange={handleDateChange}
+          />
+          <TimeSelection
+            label="เลือกเวลานัดดีลเลอร์"
+            onTimeChange={handleTimeChange}
+            date={date}
+          />
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openSuccess}
+        onClose={handleCloseSuccess}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box style={{}}>
+          <h2 id="parent-modal-title">แจ้งเตือน</h2>
+          <p id="parent-modal-description">
+            การมัดจำต้องนัดดูรถภายในเวลา 24 ชั่วโมงเท่านั้น
+          </p>
+          <DateSelection
+            label="เลือกวันที่นัดดีลเลอร์"
+            onDateChange={handleDateChange}
+          />
+          <TimeSelection
+            label="เลือกเวลานัดดีลเลอร์"
+            onTimeChange={handleTimeChange}
+            date={date}
+          />
         </Box>
       </Modal>
 
@@ -332,13 +364,37 @@ export default function Deposit({}: Props) {
               </span>
               <CountDowntime
                 displayCountdown={openQRcode}
-                setDisplayCountdown={(newBoolean: any) => setOpenQRcode(newBoolean)}
+                setDisplayCountdown={(newBoolean: any) =>
+                  setOpenQRcode(newBoolean)
+                }
                 dateAndTime={dataPamentStatus.qr_expired_at}
               />
             </Box>
           </Box>
         </Box>
       </Modal>
+      {isLoading ? (
+        <>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            bgcolor={ColorSet.bgGray}
+            style={{
+              position: "fixed",
+              opacity: 0.9,
+              zIndex: 10,
+              height: "100vh",
+              width: "100vw",
+              top: "0",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        </>
+      ) : (
+        ""
+      )}
     </Box>
   );
 }

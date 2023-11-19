@@ -41,6 +41,7 @@ export default function Login({}: Props) {
       })
       .catch((error) => {
         console.log(error);
+      }).finally(() => {
       });
   }, []);
 
@@ -63,7 +64,7 @@ export default function Login({}: Props) {
       .catch((error) => {
         console.log("Error login api", error);
       }).finally(() => {
-        setDisableLoginBtn(false)
+        setDisableLoginBtn(false);
       });
   };
 

@@ -1,10 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { Box, Grid, useMediaQuery } from "@mui/material";
+import { Box, CircularProgress, Grid, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { DateSelection, InputCustom, TimeSelection } from "@/components/common/form";
+import {
+  DateSelection,
+  InputCustom,
+  TimeSelection,
+} from "@/components/common/form";
 import { ButtonCapsule } from "@/components/common/button";
 import {
   isEmail,
@@ -14,7 +18,7 @@ import {
   isPlateId02,
   isPlateId03,
 } from "@/utils/regex";
-import { DropZone, UpLoadImages } from "@/components/common/uploadFile";
+import { UpLoadImages } from "@/components/common/uploadFile";
 import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -25,6 +29,7 @@ import {
 } from "@/utils/filter";
 import { Dayjs } from "dayjs";
 import moment from "moment";
+import { ColorSet } from "@/constants";
 
 type Props = {};
 
@@ -44,7 +49,7 @@ export default function Salecar({}: Props) {
   const [isCanSubmit, setIsCanSubmit] = useState(false);
   const [isfullyData, setIsfullyData] = useState(false);
   const [uploadedImageData, setUploadedImageData] = useState<string[]>([]);
-  const [isImageLimit, setIsImageLimit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const [vehicleDetailId, setVehicleDetailId] = useState(0);
@@ -255,6 +260,7 @@ export default function Salecar({}: Props) {
   };
 
   const renderSubmit = () => {
+    setIsLoading(true);
     setIsCanSubmit(false);
     axios
       .put(baseURL + "/guests/seller", {
@@ -271,7 +277,7 @@ export default function Salecar({}: Props) {
         province_id: provinceId,
         branch_id: 1,
         images: uploadedImageData,
-        referral: sessionStorage.getItem('ref')
+        referral: sessionStorage.getItem("ref"),
       })
       .then((response) => {
         router.push(
@@ -283,6 +289,7 @@ export default function Salecar({}: Props) {
         setIsCanSubmit(true);
       })
       .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -295,7 +302,7 @@ export default function Salecar({}: Props) {
       paddingX={isMobileMode ? 2 : "20%"}
     >
       <span className="fs-24px">Sell Car</span>
-      <UpLoadImages onUpload={handleImageUpload}/>
+      <UpLoadImages onUpload={handleImageUpload} />
       <span className="fs-18px">ข้อมูลรถ</span>
       <Grid container spacing={1}>
         <Grid item xs={12}>
@@ -404,7 +411,7 @@ export default function Salecar({}: Props) {
               <InputCustom
                 id="plateId"
                 type="text"
-                value={!checkboxPlateId ? plateId01: "-"}
+                value={!checkboxPlateId ? plateId01 : "-"}
                 disabled={checkboxPlateId}
                 placeholder={!checkboxPlateId ? "1-9" : "-"}
                 onChange={handlerPlateIdOnChange01}
@@ -458,13 +465,20 @@ export default function Salecar({}: Props) {
           </span>
         </Grid>
         <Grid item xs={6} marginTop={2}>
-          <DateSelection label={"เลือกวันที่ขายรถ"} onDateChange={handlerDateSellCar} />
+          <DateSelection
+            label={"เลือกวันที่ขายรถ"}
+            onDateChange={handlerDateSellCar}
+          />
           <span className="tc-red fs-8px">
             {dateSellCar !== "" ? "" : "**กรุณาเลือกวันที่ต้องการขายรถ"}
           </span>
         </Grid>
         <Grid item xs={6} marginTop={2}>
-          <TimeSelection label={"เลือกเวลาขายรถ"} onTimeChange={handlerTimeSellCar} date={dateSellCar} />
+          <TimeSelection
+            label={"เลือกเวลาขายรถ"}
+            onTimeChange={handlerTimeSellCar}
+            date={dateSellCar}
+          />
           <span className="tc-red fs-8px">
             {timeSellCar !== "" ? "" : "**กรุณาเลือกเวลาที่ต้องการขายรถ"}
           </span>
@@ -510,6 +524,28 @@ export default function Salecar({}: Props) {
           onClick={renderSubmit}
         />
       </Box>
+      {isLoading ? (
+        <>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            bgcolor={ColorSet.bgWhite}
+            style={{
+              position: "fixed",
+              opacity: 0.9,
+              zIndex: 10,
+              height: "100vh",
+              width: "100vw",
+              top: "0",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        </>
+      ) : (
+        ""
+      )}
     </Box>
   );
 }

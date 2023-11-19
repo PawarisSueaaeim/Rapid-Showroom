@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "@/style/components/navbar.module.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -17,7 +17,7 @@ const Navbar = ({}: Props) => {
 
   if (typeof window !== 'undefined') {
     userId = sessionStorage.getItem("userId");
-  }
+  } 
 
   return (
     <Box className={classes.container}>

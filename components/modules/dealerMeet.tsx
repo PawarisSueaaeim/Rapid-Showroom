@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { ButtonCapsule } from "../common/button";
 import { DateSelection, InputCustom, TimeSelection } from "../common/form";
 import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
@@ -26,6 +26,7 @@ import {
   setVparkId,
 } from "@/app/globalRedux/feature/dealerMeet/depositSlice";
 import { BasicModal } from "../common/modal";
+import { ColorSet } from "@/constants";
 
 type Props = {
   modelId: number;
@@ -67,6 +68,7 @@ export default function DealerMeet({
   const [checkedBot, setCheckedBot] = useState<boolean>(false);
   const [openModalRejectMsg, setOpenModalRejectMsg] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const siteKey: string | undefined =
     process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || "";
@@ -141,6 +143,7 @@ export default function DealerMeet({
   };
 
   const handleSubmit = () => {
+    setIsLoading(true);
     setIsVerified(false);
     axios
       .put(booking, {
@@ -168,7 +171,9 @@ export default function DealerMeet({
       .catch((error) => {
         console.log(error);
       })
-      .finally(() => {});
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -233,6 +238,29 @@ export default function DealerMeet({
           />
         </Box>
       </Box>
+      {isLoading ? (
+        <>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            bgcolor={ColorSet.bgGray}
+            style={{
+              position: "fixed",
+              opacity: 0.9,
+              zIndex: 10,
+              height: "100vh",
+              width: "100vw",
+              top: "0",
+              left: "0",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        </>
+      ) : (
+        ""
+      )}
       {openModalRejectMsg && <BasicModal title="เกิดข้อผิดพลาด" message={message} onOpen={openModalRejectMsg} onClose={() => setOpenModalRejectMsg(false)}/>}
     </Box>
   );
