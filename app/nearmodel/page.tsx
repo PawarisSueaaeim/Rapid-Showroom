@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { CarRelation } from "@/components/modules";
 import { Box, CircularProgress } from "@mui/material";

@@ -44,7 +44,7 @@ export default function Info({}: Props) {
           <Box display={"flex"} flexDirection={"column"}>
             <Avatar
               alt={dataInfo.name}
-              src={dataInfo.avatar ? dataInfo.avatar : "/broken-image.jpg"}
+              src={dataInfo.avatar ? dataInfo.avatar : ""}
               sx={{ width: 100, height: 100 }}
             />
             <br/>

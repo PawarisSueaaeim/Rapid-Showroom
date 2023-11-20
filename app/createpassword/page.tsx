@@ -2,11 +2,11 @@
 "use client";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { InputPassword } from "@/components/common/form";
+import { IsLoading } from "@/components/common/loading";
 import { ColorSet } from "@/constants";
 import { passwordValidation } from "@/utils/regex";
-import { Alert, AlertTitle, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import axios from "axios";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -25,6 +25,7 @@ export default function CreatePassword({}: Props) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordIsValid, setPasswordIsvalid] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const validation = () => {
     if (passwordValidation(password)) {
@@ -55,6 +56,7 @@ export default function CreatePassword({}: Props) {
   }, [password, confirmPassword]);
 
   const renderOnSubmit = () => {
+    setIsLoading(true);
     axios
       .post(register, {
         name: name,
@@ -62,15 +64,14 @@ export default function CreatePassword({}: Props) {
         password: password,
       })
       .then((response) => {
-        if (response.data.status == 'success') {
+        if (response.data.status == "success") {
           router.push(`/login?status=${response.data.status}`);
         }
       })
       .catch((error) => {
         console.log(error);
         router.push(`/registerFail`);
-      }).finally(() => {
-      });
+      })
   };
 
   return (
@@ -81,45 +82,53 @@ export default function CreatePassword({}: Props) {
       justifyContent={"center"}
       height={"100vh"}
     >
-      <span className="fs-32px fw-400">Create Password</span>
-      <hr />
-      <InputPassword
-        error={!passwordIsValid}
-        onChange={passwordHandler}
-        placeholder={"Example1234#"}
-        label="Example1234#"
-      />
-      {!passwordIsValid && (
-        <Box display={"flex"} flexDirection={"column"}>
-          <ul className="tc-red fs-10px">
-            <li>* มี 6 ตัวอักษรขึ้นไป</li>
-            <li>* มีอักขระพิเศษอย่างน้อย 1 ตัวอักษร</li>
-            <li>* มีตัวเลขอย่างน้อย 1 ตัว</li>
-          </ul>
-        </Box>
+      {isLoading ? (
+        <>
+          <IsLoading />
+        </>
+      ) : (
+        <>
+          <span className="fs-32px fw-400">Create Password</span>
+          <hr />
+          <InputPassword
+            error={!passwordIsValid}
+            onChange={passwordHandler}
+            placeholder={"Example1234#"}
+            label="Example1234#"
+          />
+          {!passwordIsValid && (
+            <Box display={"flex"} flexDirection={"column"}>
+              <ul className="tc-red fs-10px">
+                <li>* มี 6 ตัวอักษรขึ้นไป</li>
+                <li>* มีอักขระพิเศษอย่างน้อย 1 ตัวอักษร</li>
+                <li>* มีตัวเลขอย่างน้อย 1 ตัว</li>
+              </ul>
+            </Box>
+          )}
+
+          <Box display={"flex"} flexDirection={"column"} marginTop={2}>
+            <InputPassword
+              onChange={confirmPasswordHandler}
+              placeholder={"Confirm password"}
+              label={"Confirm password"}
+            />
+            {!isMatch && (
+              <span className="fs-10px tc-red">**รหัสผ่านไม่ตรงกัน</span>
+            )}
+          </Box>
+
+          <Box marginTop={4}>
+            <ButtonPleumDesign
+              title={"Submit"}
+              backgroundBtnColor={ColorSet.btnWhite}
+              backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+              textBtnColor={ColorSet.textBlack}
+              disabled={!isMatch}
+              onClick={renderOnSubmit}
+            />
+          </Box>
+        </>
       )}
-
-      <Box display={"flex"} flexDirection={"column"} marginTop={2}>
-        <InputPassword
-          onChange={confirmPasswordHandler}
-          placeholder={"Confirm password"}
-          label={"Confirm password"}
-        />
-        {!isMatch && (
-          <span className="fs-10px tc-red">**รหัสผ่านไม่ตรงกัน</span>
-        )}
-      </Box>
-
-      <Box marginTop={4}>
-        <ButtonPleumDesign
-          title={"Submit"}
-          backgroundBtnColor={ColorSet.btnWhite}
-          backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-          textBtnColor={ColorSet.textBlack}
-          disabled={!isMatch}
-          onClick={renderOnSubmit}
-        />
-      </Box>
     </Box>
   );
 }

@@ -215,7 +215,6 @@ export default function Deposit({}: Props) {
 
       <Modal
         open={openSuccess}
-        onClose={handleCloseSuccess}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
