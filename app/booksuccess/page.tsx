@@ -25,6 +25,7 @@ export default function Booksuccess({}: Props) {
   const member = searchParams.get("member");
   const email = searchParams.get("email");
   const name = searchParams.get("name");
+  const deposit_status = searchParams.get("deposit_status");
 
   const captureScreenshot = async () => {
     const targetElement = document.getElementById("data-car-booking");
@@ -69,12 +70,30 @@ export default function Booksuccess({}: Props) {
         <span className="fs-20px fw-400">
           {brand} {model}
         </span>
-        <span className="fs-16px">ทะเบียน: {plateId}</span>
-        <span className="fs-16px">ราคา: {price} บาท</span>
-        <span className="fs-16px">มัดจำ: {deposit ? deposit : "0"} บาท</span>
-        <span className="fw-400">เวลานัดหมาย</span>
-        <span>วันที่ {daymontyearFormat(date)}</span>
-        <span>เวลา {formatted_time} น.</span>
+        <span className="fs-16px">
+          <strong>ทะเบียน: </strong>
+          {plateId}
+        </span>
+        <span className="fs-16px">
+          <strong>ราคา: </strong>
+          {price} บาท
+        </span>
+        <span className="fs-16px">
+          <strong>มัดจำ: </strong>
+          {deposit ? deposit : "0"} บาท{" "}
+          <strong>{deposit_status === "paid" ? "จ่ายแล้ว" : ""}</strong>
+        </span>
+        <span className="fw-400">
+          <strong>เวลานัดหมาย</strong>
+        </span>
+        <span>
+          <strong>วันที่: </strong>
+          {daymontyearFormat(date)}
+        </span>
+        <span>
+          <strong>เวลา: </strong>
+          {formatted_time} น.
+        </span>
       </Box>
       <Box marginTop={2}>
         <ButtonPleumDesign

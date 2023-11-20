@@ -34,8 +34,6 @@ export default function Detail({ params }: Props) {
       });
   }, []);
 
-  console.log(data);
-
   return (
     <>
       {isLoading ? (

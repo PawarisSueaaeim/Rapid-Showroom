@@ -63,6 +63,7 @@ export default function Deposit({}: Props) {
   const [openChangDate, setOpenChangeDate] = useState<boolean>(false);
   const [dataPamentStatus, setDataPamentStatus] = useState<any>({});
   const [vdepositId, setVdepositId] = useState<string>("");
+  const [depositStatus, setDepositStatus] = useState<string>("");
 
   const [disableNext, setDisableNext] = useState<boolean>(false);
 
@@ -71,27 +72,27 @@ export default function Deposit({}: Props) {
   useEffect(() => {
     let intervalId: any;
 
-    if (openQRcode) {
+    if (openQRcode && depositStatus != "paid") {
       intervalId = setInterval(() => {
         axios
           .post(getPaymentStatus, {
             vdeposit_id: vdepositId,
           })
           .then((response) => {
-            console.log(response.data.data.deposit_payin_status);
-
             if (response.data.data.deposit_payin_status === "paid") {
+              setDepositStatus(response.data.data.deposit_payin_status);
               setOpenQRcode(false);
               setOpenSuccess(true);
-              router.push(
-                `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&deposit=${values}&member=${member}&email=${email}&name=${name}`
-              );
             }
           })
           .catch((error) => {
             console.log(error);
           });
       }, 2000);
+    }else{
+      router.push(
+        `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&deposit_status=${depositStatus}&deposit=${values}&member=${member}&email=${email}&name=${name}`
+      );
     }
 
     return () => {
@@ -176,7 +177,8 @@ export default function Deposit({}: Props) {
           .catch((error) => {
             console.log(error);
             setDisableNext(false);
-          }).finally(() => {
+          })
+          .finally(() => {
             setIsLoading(false);
           });
       } else {
@@ -228,13 +230,23 @@ export default function Deposit({}: Props) {
           {brand !== "undefind" ? brand : ""}{" "}
           {model !== "undefind" ? model : ""}
         </span>
-        <span>ทะเบียน: {plate_id}</span>
         <span>
-          ราคา: <strong>{price}</strong> บาท
+          <strong>ทะเบียน:</strong> {plate_id}
         </span>
-        <span>เวลานัดหมาย</span>
-        <span>วันที่ {daymontyearFormat(depositDate)}</span>
-        <span>เวลา {depositTime}</span>
+        <span>
+          <strong>ราคา:</strong> {price} บาท
+        </span>
+        <span>
+          <strong>เวลานัดหมาย</strong>
+        </span>
+        <span>
+          <strong>วันที่: </strong>
+          {daymontyearFormat(depositDate)}
+        </span>
+        <span>
+          <strong>เวลา: </strong>
+          {depositTime}
+        </span>
       </Box>
       <Box marginTop={2}>
         <Stack direction="row" spacing={2}>
@@ -280,20 +292,22 @@ export default function Deposit({}: Props) {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box style={{}}>
+        <Box display={"flex"} flexDirection={"column"}>
           <h2 id="parent-modal-title">แจ้งเตือน</h2>
           <p id="parent-modal-description">
             การมัดจำต้องนัดดูรถภายในเวลา 24 ชั่วโมงเท่านั้น
           </p>
-          <DateSelection
-            label="เลือกวันที่นัดดีลเลอร์"
-            onDateChange={handleDateChange}
-          />
-          <TimeSelection
-            label="เลือกเวลานัดดีลเลอร์"
-            onTimeChange={handleTimeChange}
-            date={date}
-          />
+          <Box display={"flex"} alignItems={"center"}>
+            <DateSelection
+              label="เลือกวันที่นัดดีลเลอร์"
+              onDateChange={handleDateChange}
+            />
+            <TimeSelection
+              label="เลือกเวลานัดดีลเลอร์"
+              onTimeChange={handleTimeChange}
+              date={date}
+            />
+          </Box>
         </Box>
       </Modal>
 
@@ -303,19 +317,24 @@ export default function Deposit({}: Props) {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box style={{}}>
-          <h2 id="parent-modal-title">แจ้งเตือน</h2>
-          <p id="parent-modal-description">
-            การมัดจำต้องนัดดูรถภายในเวลา 24 ชั่วโมงเท่านั้น
-          </p>
-          <DateSelection
-            label="เลือกวันที่นัดดีลเลอร์"
-            onDateChange={handleDateChange}
-          />
-          <TimeSelection
-            label="เลือกเวลานัดดีลเลอร์"
-            onTimeChange={handleTimeChange}
-            date={date}
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          flexDirection={"column"}
+        >
+          <h2 id="parent-modal-title">สำเร็จ</h2>
+          <p id="parent-modal-description">จ่ายเงินสำเร็จ</p>
+          <ButtonPleumDesign
+            title={"Next"}
+            backgroundBtnColor={ColorSet.btnWhite}
+            backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+            textBtnColor={ColorSet.textBlack}
+            onClick={() => {
+              router.push(
+                `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&deposit_status=${depositStatus}&deposit=${values}&member=${member}&email=${email}&name=${name}`
+              );
+            }}
           />
         </Box>
       </Modal>
