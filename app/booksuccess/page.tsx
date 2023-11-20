@@ -81,7 +81,7 @@ export default function Booksuccess({}: Props) {
         <span className="fs-16px">
           <strong>มัดจำ: </strong>
           {deposit ? deposit : "0"} บาท{" "}
-          <strong>{deposit_status === "paid" ? "จ่ายแล้ว" : ""}</strong>
+          <strong className="tc-green">{deposit_status === "paid" ? "จ่ายแล้ว" : ""}</strong>
         </span>
         <span className="fw-400">
           <strong>เวลานัดหมาย</strong>

@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { CardItemPleumDesign } from "../common/card";
 
 type Props = {
-  data: Array<ICar>;
+  data: Array<any>;
 };
 
 export default function CarRelation({ data }: Props) {
@@ -30,10 +30,12 @@ export default function CarRelation({ data }: Props) {
         </span>
       </Box>
       {data === undefined ? (
+        <Box height={"80vh"}>
         <span className="tc-red fs-32px fw-500">Sold out</span>
+        </Box>
       ) : (
         <Grid container spacing={isMobileMode ? 0 : 2}>
-          {data.map((car: ICar) => {
+          {data.map((car: any) => {
             return (
               <Grid item xs={6} md={3} lg={2} key={car.vehicle_id}>
                 <CardItemPleumDesign
@@ -44,7 +46,7 @@ export default function CarRelation({ data }: Props) {
                   submodel={car.submodel}
                   price={car.listing_price}
                   mileage={car.mileage}
-                  image={car.image}
+                  image={car.main_image}
                 />
               </Grid>
             );

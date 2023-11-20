@@ -60,15 +60,17 @@ export default function Detail({ params }: Props) {
                   <ButtonCapsule
                     title={"ดูรถเพิ่ม"}
                     color={"#fff"}
+                    fontWeight={400}
                     bgColor={"#4679C7"}
                     fontSize={12}
                     height={30}
                   />
                 </Link>
-                <Link href={`/nearmodel/${data.model_id}?model=${data.model}`}>
+                <Link href={`/nearmodel?brand=${data.brand}&model=${data.model}`}>
                   <ButtonCapsule
                     title={"ดูรถใกล้เคียง"}
                     color={"#fff"}
+                    fontWeight={400}
                     bgColor={"#4679C7"}
                     fontSize={12}
                     height={30}

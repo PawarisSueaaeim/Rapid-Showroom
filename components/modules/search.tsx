@@ -232,9 +232,10 @@ export default function Search({}: Props) {
             />
           </Grid>
         </Grid>
-        <Box display={"flex"} justifyContent={"flex-end"} marginTop={2}>
+        <Box display={"flex"} justifyContent={"flex-end"} marginTop={2} width={"100%"}>
           <ButtonPleumDesign
             title={"ค้นหารถ"}
+            width={"100%"}
             backgroundBtnColor={ColorSet.btnWhite}
             backgroundBtnHoverColor={ColorSet.btnWhiteHover}
             textBtnColor={ColorSet.textBlack}
@@ -253,8 +254,8 @@ export default function Search({}: Props) {
           <CircularProgress />
         </Box>
       ) : (
-        <Box margin={isMobileMode ? 0 : "2rem"}>
-          <Grid container spacing={2}>
+        <Box margin={isMobileMode ? "0rem" : "2rem"}>
+          <Grid container spacing={isMobileMode ? 0 : 2}>
             {dataVehicle &&
               dataVehicle.map((car: any, index: number) => {
                 return (
@@ -274,7 +275,7 @@ export default function Search({}: Props) {
                         submodel={car.submodel}
                         price={car.listing_price}
                         mileage={car.mileage}
-                        image={car.image}
+                        image={car.main_image}
                       />
                     </Link>
                   </Grid>

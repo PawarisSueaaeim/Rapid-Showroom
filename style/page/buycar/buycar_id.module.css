@@ -1,43 +1,49 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 15rem;
 }
 
 .carousel {
-    padding: 2rem;
+  width: 60%;
+  padding: 2rem;
 }
 
 .btn_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
-    gap: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+  gap: 1rem;
 }
 
 .dealer_meet {
-    width: 100%;
+  width: 100%;
 }
 
 .page_not_found {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-
 @media screen and (max-width: 920px) {
-    .container {
-      padding: 2rem;
-    }
+  .carousel {
+    width: 80%;
   }
-  
-  @media screen and (max-width: 600px) {
-    .container {
-      padding: 3rem 0rem;
-    }
+  .container {
+    padding: 2rem;
   }
+}
+
+@media screen and (max-width: 600px) {
+  .carousel {
+    width: 100%;
+  }
+  .container {
+    padding: 3rem 0rem;
+  }
+}

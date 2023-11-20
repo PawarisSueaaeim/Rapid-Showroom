@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import * as React from "react";
 import Image from "next/image";
@@ -38,24 +39,26 @@ export default function CardItem({
       style={{
         borderRadius: isMobileMode ? 0 : "15px",
         position: "relative",
-        padding: isMobileMode ? "10px 2px" : "10px 8px",
+        padding: isMobileMode ? "10px 8px" : "10px 8px",
         boxShadow: isMobileMode ? "none" : "0px 1px 5px 0.25px #777",
-        height: "271px",
+        border: isMobileMode ? "0.2px solid #777": "none",
+        height: "300px",
       }}
     >
         <Box
           position={"relative"}
           style={{
             width: "100%",
-            height: 100,
+            // height: 100,
           }}
         >
-          <Image
-            src={image ? image : "/images/image-mockup-car.png"}
+          {/* <Image
+            src={image}
             layout="fill"
             objectFit="cover"
-            alt={`${brand}-${model}-${submodel}-${vehicle_id}`}
-          />
+            alt={``}
+          /> */}
+          <img src={image} width={"100%"} alt={`${brand}-${model}-${submodel}-${vehicle_id}`}/>
         </Box>
 
         <Box

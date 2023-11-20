@@ -6,7 +6,7 @@ const nextConfig = {
         NEXT_PUBLIC_GOOGLE_RECAPTCHA: '6LfRI1UoAAAAAOKL7AWcsLDmioNDKeUuzdCFjtcX',
     },
     images: {
-        domains: ['https://api.rapidauto.tech'],
+        domains: ['api.rapidauto.tech'],
     },
 }
 

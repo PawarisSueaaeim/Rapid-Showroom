@@ -8,6 +8,7 @@ import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
+import { IsLoading } from "@/components/common/loading";
 
 type Props = {};
 
@@ -24,6 +25,7 @@ export default function Login({}: Props) {
 
   const [alertPassword, setAlertPassword] = useState<boolean>(false);
   const [disableLoginBtn, setDisableLoginBtn] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const emailHandler = (event: any) => {
     setEmail(event.target.value);
@@ -41,11 +43,12 @@ export default function Login({}: Props) {
       })
       .catch((error) => {
         console.log(error);
-      }).finally(() => {
-      });
+      })
+      .finally(() => {});
   }, []);
 
   const renderSubmit = () => {
+    setIsLoading(true);
     setDisableLoginBtn(true);
     axios
       .post(login, {
@@ -54,8 +57,8 @@ export default function Login({}: Props) {
       })
       .then((response) => {
         if (response.data.status == "OK") {
-          router.push('/info');
-          sessionStorage.setItem("info", JSON.stringify(response.data.user))
+          router.push("/info");
+          sessionStorage.setItem("info", JSON.stringify(response.data.user));
           sessionStorage.setItem("userId", response.data.access_token);
         } else {
           setAlertPassword(true);
@@ -63,29 +66,37 @@ export default function Login({}: Props) {
       })
       .catch((error) => {
         console.log("Error login api", error);
-      }).finally(() => {
+      })
+      .finally(() => {
         setDisableLoginBtn(false);
+        setIsLoading(false);
       });
   };
 
   return (
     <Box className={classes.container}>
-      <Box className={classes.content}>
-        <span className="fs-24px fw-400 tc-black">Sign in</span>
-        <span className="fs-20px">เพื่อดูผลการประเมินราคา</span>
-      </Box>
-      <Box className={classes.login_form}>
-        <InputEmail onChange={emailHandler} />
-        <InputPassword onChange={passwordHandler} label="password"/>
-      </Box>
-      <ButtonPleumDesign
-        title="เข้าสู่ระบบ"
-        onClick={renderSubmit}
-        textBtnColor={ColorSet.textBlack}
-        backgroundBtnColor={ColorSet.btnGray}
-        backgroundBtnHoverColor={ColorSet.btnGrayHover}
-        disabled={disableLoginBtn}
-      />
+      {isLoading ? (
+        <IsLoading />
+      ) : (
+        <>
+          <Box className={classes.content}>
+            <span className="fs-24px fw-400 tc-black">Sign in</span>
+            <span className="fs-20px">เพื่อดูผลการประเมินราคา</span>
+          </Box>
+          <Box className={classes.login_form}>
+            <InputEmail onChange={emailHandler} />
+            <InputPassword onChange={passwordHandler} label="password" />
+          </Box>
+          <ButtonPleumDesign
+            title="เข้าสู่ระบบ"
+            onClick={renderSubmit}
+            textBtnColor={ColorSet.textBlack}
+            backgroundBtnColor={ColorSet.btnGray}
+            backgroundBtnHoverColor={ColorSet.btnGrayHover}
+            disabled={disableLoginBtn}
+          />
+        </>
+      )}
       {alertPassword ? (
         <Alert severity="warning">
           รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง

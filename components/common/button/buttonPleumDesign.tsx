@@ -8,7 +8,7 @@ type Props = {
   textBtnColor: string;
   backgroundBtnColor: string;
   backgroundBtnHoverColor: string;
-  width?: number;
+  width?: number | string;
   onClick?: (event: MouseEvent) => void;
   disabled?: boolean;
 };
