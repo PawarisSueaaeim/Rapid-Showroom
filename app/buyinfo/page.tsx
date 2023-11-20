@@ -101,7 +101,7 @@ export default function BuyInfo({}: Props) {
       </Box>
       <br />
       <Grid container spacing={2}>
-        {dataBuyInfoList.map((list: any, index: number) => {
+        {dataBuyInfoList && dataBuyInfoList.map((list: any, index: number) => {
           return (
             <Grid item key={`${list.vsale_id}-${index}`} xs={12} sm={6} md={4}>
               <CardBuyInfo

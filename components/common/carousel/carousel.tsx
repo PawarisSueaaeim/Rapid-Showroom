@@ -77,7 +77,7 @@ export default function Carousel({
         <Box
           style={{
             position: "absolute",
-            zIndex: "1000",
+            zIndex: "10",
             top: 15,
             right: 15,
           }}

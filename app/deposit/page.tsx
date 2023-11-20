@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { NumericFormat, NumericFormatProps } from "react-number-format";
 import Stack from "@mui/material/Stack";
@@ -17,12 +17,15 @@ import {
   daymontyearFormat,
   formattedDateTime,
   isDiff24Hour,
+  timeHourFormat,
 } from "@/utils/dateHelper";
 import { isMileage } from "@/utils/regex";
 import { CountDowntime } from "@/components/common/countDown";
 import Link from "next/link";
 import { DateSelection, TimeSelection } from "@/components/common/form";
 import { Dayjs } from "dayjs";
+import moment from "moment";
+import { currency } from "@/utils/currency";
 
 type Props = {};
 
@@ -50,17 +53,15 @@ export default function Deposit({}: Props) {
   const price = searchParams.get("price");
   const depositDate = searchParams.get("dateDeposit");
   const depositTime = searchParams.get("timeDeposit");
+  const valuesDeposit = searchParams.get("valuesDeposit");
   const showroom_appointment_id = searchParams.get("showroom_appointment_id");
   const email = searchParams.get("email");
   const name = searchParams.get("name");
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
 
-  const [isCheck, setIsCheck] = useState<boolean>(false);
-  const [values, setValues] = useState<string>("");
   const [openQRcode, setOpenQRcode] = useState<boolean>(false);
   const [openSuccess, setOpenSuccess] = useState<boolean>(false);
-  const [openChangDate, setOpenChangeDate] = useState<boolean>(false);
   const [dataPamentStatus, setDataPamentStatus] = useState<any>({});
   const [vdepositId, setVdepositId] = useState<string>("");
   const [depositStatus, setDepositStatus] = useState<string>("");
@@ -69,17 +70,19 @@ export default function Deposit({}: Props) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const isMobileMode = useMediaQuery("(max-width:600px)");
+
   useEffect(() => {
     let intervalId: any;
 
-    if (openQRcode && depositStatus != "paid") {
+    if (openQRcode) {
       intervalId = setInterval(() => {
         axios
           .post(getPaymentStatus, {
             vdeposit_id: vdepositId,
           })
           .then((response) => {
-            if (response.data.data.deposit_payin_status === "paid") {
+            if (response.data.data.deposit_payin_status == "paid") {
               setDepositStatus(response.data.data.deposit_payin_status);
               setOpenQRcode(false);
               setOpenSuccess(true);
@@ -89,10 +92,6 @@ export default function Deposit({}: Props) {
             console.log(error);
           });
       }, 2000);
-    }else{
-      router.push(
-        `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&deposit_status=${depositStatus}&deposit=${values}&member=${member}&email=${email}&name=${name}`
-      );
     }
 
     return () => {
@@ -103,36 +102,20 @@ export default function Deposit({}: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openQRcode]);
 
-  useEffect(() => {
-    if (!isCheck) {
-      setValues("0");
-    }
-  }, [isCheck]);
-
-  useEffect(() => {
-    if (isCheck == true && parseInt(values) < 5000) {
-      setDisableNext(true);
-    } else {
-      setDisableNext(false);
-    }
-  }, [values, isCheck]);
-
   const handleOpenQRcode = () => setOpenQRcode(true);
-  const handleCloseQRcode = () => setOpenQRcode(false);
-  const handleOpenChangeDate = () => setOpenChangeDate(true);
-  const handleCloseChangeDate = () => setOpenChangeDate(false);
-  const handleCloseSuccess = () => setOpenSuccess(false);
-
-  const handleChange = (event: any) => {
-    const inputValue = event.target.value;
-    setValues(inputValue);
+  const handleCloseQRcode = () => {
+    setOpenQRcode(false);
+    setDisableNext(false);
   };
+
+  const handleCloseSuccess = () => setOpenSuccess(false);
 
   const handleDateChange = (date: Dayjs | null) => {
     //@ts-ignore
     const formatDate = moment(date.$d).format("YYYY-MM-DD");
     setDate(formatDate);
   };
+
   const handleTimeChange = (time: Dayjs | null) => {
     //@ts-ignore
     const formatTime = moment(time.$d).format("HH:mm:ss");
@@ -157,16 +140,11 @@ export default function Deposit({}: Props) {
   const handleOnClickNext = () => {
     setIsLoading(true);
     setDisableNext(true);
-    if (isCheck) {
-      if (
-        isDiff24Hour(
-          formattedDateTime(new Date()),
-          formattedDateTime(depositDate + " " + depositTime)
-        )
-      ) {
+    if (valuesDeposit){
+      if(parseInt(valuesDeposit) >= 5000) {
         axios
           .put(isDeposit, {
-            amount: values,
+            amount: valuesDeposit,
             listing_vpark_id: vparkId,
             guest_id: guestId,
             showroom_appointment_id: showroom_appointment_id,
@@ -181,40 +159,13 @@ export default function Deposit({}: Props) {
           .finally(() => {
             setIsLoading(false);
           });
-      } else {
-        handleOpenChangeDate();
       }
-    } else {
+    }else{
       router.push(
         `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&member=${member}&email=${email}&name=${name}`
       );
     }
   };
-
-  const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
-    function NumericFormatCustom(props, ref) {
-      const { onChange, ...other } = props;
-
-      return (
-        <NumericFormat
-          {...other}
-          getInputRef={ref}
-          onValueChange={(values) => {
-            // onChange({
-            //   target: {
-            //     name: props.name,
-            //     value: values.value,
-            //   },
-            // });
-            // handleChange(values)
-          }}
-          thousandSeparator
-          valueIsNumericString
-          suffix=" บาท"
-        />
-      );
-    }
-  );
 
   return (
     <Box
@@ -237,6 +188,9 @@ export default function Deposit({}: Props) {
           <strong>ราคา:</strong> {price} บาท
         </span>
         <span>
+          <strong>ราคามัดจำ: </strong> {currency(valuesDeposit)} บาท
+        </span>
+        <span>
           <strong>เวลานัดหมาย</strong>
         </span>
         <span>
@@ -245,39 +199,12 @@ export default function Deposit({}: Props) {
         </span>
         <span>
           <strong>เวลา: </strong>
-          {depositTime}
+          {timeHourFormat(depositTime)}
         </span>
-      </Box>
-      <Box marginTop={2}>
-        <Stack direction="row" spacing={2}>
-          <TextField
-            label="Deposit (ขั้นต่ำ 5,000 บาท)"
-            value={values}
-            onChange={handleChange}
-            disabled={!isCheck}
-            name="numberformat"
-            id="formatted-numberformat-input"
-            // InputProps={{
-            //   inputComponent: NumericFormatCustom as any,
-            // }}
-            variant="standard"
-          />
-        </Stack>
-        <Box display={"flex"} alignItems={"center"}>
-          <input
-            type="checkbox"
-            id="checkbox-plateId-first-number"
-            value="Bike"
-            onClick={() => {
-              setIsCheck(!isCheck);
-            }}
-          />
-          <span className="fs-8px">ต้องการมัดจำรถ</span>
-        </Box>
       </Box>
       <Box marginTop={4}>
         <ButtonPleumDesign
-          title={"Next"}
+          title={"จ่ายมัดจำ"}
           backgroundBtnColor={ColorSet.btnWhite}
           backgroundBtnHoverColor={ColorSet.btnWhiteHover}
           textBtnColor={ColorSet.textBlack}
@@ -285,31 +212,6 @@ export default function Deposit({}: Props) {
           disabled={disableNext}
         />
       </Box>
-
-      <Modal
-        open={openChangDate}
-        onClose={handleCloseChangeDate}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-        <Box display={"flex"} flexDirection={"column"}>
-          <h2 id="parent-modal-title">แจ้งเตือน</h2>
-          <p id="parent-modal-description">
-            การมัดจำต้องนัดดูรถภายในเวลา 24 ชั่วโมงเท่านั้น
-          </p>
-          <Box display={"flex"} alignItems={"center"}>
-            <DateSelection
-              label="เลือกวันที่นัดดีลเลอร์"
-              onDateChange={handleDateChange}
-            />
-            <TimeSelection
-              label="เลือกเวลานัดดีลเลอร์"
-              onTimeChange={handleTimeChange}
-              date={date}
-            />
-          </Box>
-        </Box>
-      </Modal>
 
       <Modal
         open={openSuccess}
@@ -322,9 +224,20 @@ export default function Deposit({}: Props) {
           justifyContent={"center"}
           alignItems={"center"}
           flexDirection={"column"}
+          bgcolor={"#fff"}
+          margin={isMobileMode ? 0 : 4}
+          padding={2}
+          sx={{
+            borderRadius: "10px",
+          }}
         >
-          <h2 id="parent-modal-title">สำเร็จ</h2>
-          <p id="parent-modal-description">จ่ายเงินสำเร็จ</p>
+          <Image
+            src={"/icons/icon-success.png"}
+            alt="icon-success"
+            width={50}
+            height={50}
+          />
+          <h2 id="parent-modal-title">จ่ายเงินสำเร็จ</h2>
           <ButtonPleumDesign
             title={"Next"}
             backgroundBtnColor={ColorSet.btnWhite}
@@ -332,7 +245,7 @@ export default function Deposit({}: Props) {
             textBtnColor={ColorSet.textBlack}
             onClick={() => {
               router.push(
-                `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&deposit_status=${depositStatus}&deposit=${values}&member=${member}&email=${email}&name=${name}`
+                `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&deposit_status=${depositStatus}&deposit=${valuesDeposit}&member=${member}&email=${email}&name=${name}`
               );
             }}
           />

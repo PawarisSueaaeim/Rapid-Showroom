@@ -31,7 +31,6 @@ export default function NearModel({}: Props) {
         model: model,
       })
       .then((response) => {
-        console.log(response.data);
         setData(response.data.data);
       })
       .catch((error) => {

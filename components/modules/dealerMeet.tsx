@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Stack, TextField } from "@mui/material";
 import { ButtonCapsule } from "../common/button";
 import { DateSelection, InputCustom, TimeSelection } from "../common/form";
 import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
@@ -9,22 +9,9 @@ import classes from "@/style/components/module/dealerMeet.module.css";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import {
-  setBrand,
-  setDateDeposit,
-  setDeposit,
-  setGuestId,
-  setImage,
-  setModel,
-  setPlateId,
-  setPrice,
-  setSubmodel,
-  setTimeDeposit,
-  setVparkId,
-} from "@/app/globalRedux/feature/dealerMeet/depositSlice";
 import { BasicModal } from "../common/modal";
 import { ColorSet } from "@/constants";
 
@@ -63,12 +50,16 @@ export default function DealerMeet({
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const [valuesDeposit, setValuesDeppsit] = useState<string>("");
   const [telephone, setTelephone] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [checkedBot, setCheckedBot] = useState<boolean>(false);
   const [openModalRejectMsg, setOpenModalRejectMsg] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isCheckDeposit, setIsCheckDeposit] = useState<boolean>(false);
+  const [dateError, setDateError] = useState<boolean>(false);
+  const [timeError, setTimeError] = useState<boolean>(false);
 
   const siteKey: string | undefined =
     process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || "";
@@ -87,7 +78,10 @@ export default function DealerMeet({
       isEmail(email) &&
       time &&
       verifyName &&
-      verifyTelephone
+      verifyTelephone &&
+      ((isCheckDeposit == true && parseInt(valuesDeposit) >= 5000) || isCheckDeposit == false) &&
+      dateError == null &&
+      timeError == null
     ) {
       setIsVerified(true);
     } else {
@@ -102,7 +96,14 @@ export default function DealerMeet({
     time,
     verifyName,
     verifyTelephone,
+    isCheckDeposit,
+    valuesDeposit,
+    dateError,
+    timeError
   ]);
+
+  console.log("dateError",dateError)
+  console.log("timeError",timeError)
 
   const handleDateChange = (date: Dayjs | null) => {
     //@ts-ignore
@@ -122,6 +123,12 @@ export default function DealerMeet({
       setVerifyName(true);
     }
   };
+
+  const handleChange = (event: any) => {
+    const inputValue = event.target.value;
+    setValuesDeppsit(inputValue);
+  };
+
   const handleTelephoneChange = (event: any) => {
     const textInput = event.target.value;
     if (isPhoneNumber(textInput)) {
@@ -161,7 +168,7 @@ export default function DealerMeet({
       .then((response) => {
         if (response.data.status == "OK") {
           router.push(
-            `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&member=${response.data.data.is_member}&email=${email}&name=${name}&showroom_appointment_id=${response.data.data.showroom_appointment_id}&vpark_id=${listingVparkId}&img=${image}&brand=${brand}&model=${model}&dateDeposit=${date}&timeDeposit=${time}&plateId=${plateId}&price=${price}`
+            `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&member=${response.data.data.is_member}&email=${email}&name=${name}&showroom_appointment_id=${response.data.data.showroom_appointment_id}&vpark_id=${listingVparkId}&img=${image}&brand=${brand}&model=${model}&dateDeposit=${date}&timeDeposit=${time}&plateId=${plateId}&price=${price}&valuesDeposit=${valuesDeposit}`
           );
         } else {
           setMessage(response.data.client_message);
@@ -179,14 +186,39 @@ export default function DealerMeet({
   return (
     <Box className={classes.container}>
       <span className="fs-18px tc-blue">นัดดูรถ</span>
+      <Stack direction="row" spacing={2}>
+          <TextField
+            label="Deposit (ขั้นต่ำ 5,000 บาท)"
+            value={valuesDeposit}
+            onChange={handleChange}
+            disabled={!isCheckDeposit}
+            name="numberformat"
+            id="formatted-numberformat-input"
+            variant="standard"
+          />
+        </Stack>
+      <Box display={"flex"} alignItems={"center"}>
+        <input
+          type="checkbox"
+          id="checkbox-plateId-first-number"
+          value="Bike"
+          onClick={() => {
+            setIsCheckDeposit(!isCheckDeposit);
+          }}
+        />
+        <span className="fs-8px">ต้องการมัดจำรถ</span>
+      </Box>
       <Box className={classes.calendar}>
         <DateSelection
           label="เลือกวันที่นัดดีลเลอร์"
+          onError={(value) => setDateError(value)}
           onDateChange={handleDateChange}
+          maxDate={(isCheckDeposit == true && parseInt(valuesDeposit) >= 5000) ? dayjs().add(24, 'hour') : null}
         />
         <TimeSelection
           label="เลือกเวลานัดดีลเลอร์"
           onTimeChange={handleTimeChange}
+          onError={(value) => setTimeError(value)}
           date={date}
         />
       </Box>
@@ -261,7 +293,14 @@ export default function DealerMeet({
       ) : (
         ""
       )}
-      {openModalRejectMsg && <BasicModal title="เกิดข้อผิดพลาด" message={message} onOpen={openModalRejectMsg} onClose={() => setOpenModalRejectMsg(false)}/>}
+      {openModalRejectMsg && (
+        <BasicModal
+          title="เกิดข้อผิดพลาด"
+          message={message}
+          onOpen={openModalRejectMsg}
+          onClose={() => setOpenModalRejectMsg(false)}
+        />
+      )}
     </Box>
   );
 }

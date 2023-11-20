@@ -39,7 +39,6 @@ export default function Login({}: Props) {
     axios
       .post(logout)
       .then((response) => {
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -66,10 +65,6 @@ export default function Login({}: Props) {
       })
       .catch((error) => {
         console.log("Error login api", error);
-      })
-      .finally(() => {
-        setDisableLoginBtn(false);
-        setIsLoading(false);
       });
   };
 

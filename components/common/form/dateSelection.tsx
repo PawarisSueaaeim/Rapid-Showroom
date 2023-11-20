@@ -9,9 +9,16 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 type Props = {
   onDateChange: (date: Dayjs | null) => void;
   label: string;
+  maxDate?: any;
+  onError?: (error: any) => void;
 };
 
-export default function ResponsiveDatePickers({ onDateChange, label }: Props) {
+export default function ResponsiveDatePickers({
+  onDateChange,
+  label,
+  maxDate,
+  onError,
+}: Props) {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs(""));
 
   const handleDateChange = (newValue: Dayjs | null) => {
@@ -26,17 +33,15 @@ export default function ResponsiveDatePickers({ onDateChange, label }: Props) {
           label={label}
           views={["year", "month", "day"]}
           value={value}
+          onError={onError}
           disablePast={true}
+          maxDate={maxDate}
           format="DD/MM/YYYY"
           onChange={(newValue) => {
             handleDateChange(newValue);
           }}
           //@ts-ignore
-          renderInput={(params) => (
-            <TextField
-              {...params}
-            />
-          )}
+          renderInput={(params) => <TextField {...params} />}
         />
       </Stack>
     </LocalizationProvider>

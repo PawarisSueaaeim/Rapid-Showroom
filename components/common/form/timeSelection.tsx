@@ -11,9 +11,10 @@ type Props = {
   date?: string;
   onTimeChange: (date: Dayjs | null) => void;
   label: string;
+  onError?: (error: any) => void;
 };
 
-export default function TimeValidationTimePicker({onTimeChange, date, label }: Props) {
+export default function TimeValidationTimePicker({onTimeChange, date, label, onError }: Props) {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs(""));
 
   //@ts-ignore
@@ -34,6 +35,7 @@ export default function TimeValidationTimePicker({onTimeChange, date, label }: P
           renderInput={(params) => <TextField {...params} />}
           disableMaskedInput={false}
           value={value}
+          onError={onError}
           label={label}
           onChange={(newValue) => {
            handleTimeChange(newValue);
