@@ -49,7 +49,7 @@ export default function ShowcarSectionHome({}: Props) {
   return (
     <Box className={classes.container}>
       <Grid container spacing={isMobileMode ? 0 : 2}>
-        {vehiclesData.map((vehicle: ICar, index: number) => {
+        {vehiclesData.map((vehicle: any, index: number) => {
           return (
             <Grid
               item
@@ -66,7 +66,7 @@ export default function ShowcarSectionHome({}: Props) {
                 submodel={vehicle.submodel}
                 price={vehicle.listing_price}
                 mileage={vehicle.mileage}
-                image={vehicle.image}
+                image={vehicle.main_image}
               />
             </Grid>
           );
