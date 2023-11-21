@@ -4,7 +4,6 @@ import { Box, Grid, useMediaQuery } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CardItemPleumDesign } from "../common/card";
-import { ICar } from "../types/car";
 import classes from "@/style/components/module/showcarSectionHome.module.css";
 import Link from "next/link";
 import { ButtonPleumDesign } from "../common/button";
