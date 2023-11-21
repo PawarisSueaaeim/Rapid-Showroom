@@ -12,7 +12,7 @@ export interface ICar {
     year: string;
     brand_id: string;
     province: string;
-    image: string;
+    main_image: string;
 }
 
 export type IVehicleDetail = {

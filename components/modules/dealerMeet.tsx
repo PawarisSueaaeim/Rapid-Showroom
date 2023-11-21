@@ -11,7 +11,6 @@ import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import dayjs, { Dayjs } from "dayjs";
 import moment from "moment";
-import { useDispatch } from "react-redux";
 import { BasicModal } from "../common/modal";
 import { ColorSet } from "@/constants";
 
@@ -36,8 +35,6 @@ export default function DealerMeet({
   plateId,
 }: Props) {
   const booking = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/booking";
-
-  const dispatch = useDispatch();
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -186,28 +183,6 @@ export default function DealerMeet({
   return (
     <Box className={classes.container}>
       <span className="fs-18px tc-blue">นัดดูรถ</span>
-      <Stack direction="row" spacing={2}>
-          <TextField
-            label="Deposit (ขั้นต่ำ 5,000 บาท)"
-            value={valuesDeposit}
-            onChange={handleChange}
-            disabled={!isCheckDeposit}
-            name="numberformat"
-            id="formatted-numberformat-input"
-            variant="standard"
-          />
-        </Stack>
-      <Box display={"flex"} alignItems={"center"}>
-        <input
-          type="checkbox"
-          id="checkbox-plateId-first-number"
-          value="Bike"
-          onClick={() => {
-            setIsCheckDeposit(!isCheckDeposit);
-          }}
-        />
-        <span className="fs-8px">ต้องการมัดจำรถ</span>
-      </Box>
       <Box className={classes.calendar}>
         <DateSelection
           label="เลือกวันที่นัดดีลเลอร์"
@@ -253,6 +228,28 @@ export default function DealerMeet({
           value={email}
           onChange={handlerEmailOnChange}
         />
+         <Stack direction="row" spacing={2}>
+          <TextField
+            label="Deposit (ขั้นต่ำ 5,000 บาท)"
+            value={valuesDeposit}
+            onChange={handleChange}
+            disabled={!isCheckDeposit}
+            name="numberformat"
+            id="formatted-numberformat-input"
+            variant="standard"
+          />
+        </Stack>
+      <Box display={"flex"} alignItems={"center"}>
+        <input
+          type="checkbox"
+          id="checkbox-plateId-first-number"
+          value="Bike"
+          onClick={() => {
+            setIsCheckDeposit(!isCheckDeposit);
+          }}
+        />
+        <span className="fs-8px">ต้องการมัดจำรถ</span>
+      </Box>
         <Box className={classes.recaptcha}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box>

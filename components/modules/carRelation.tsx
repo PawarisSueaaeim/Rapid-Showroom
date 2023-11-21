@@ -1,7 +1,6 @@
 "use client";
 import { Box, Grid, useMediaQuery } from "@mui/material";
 import React from "react";
-import { ICar } from "../types/car";
 import { useSearchParams } from "next/navigation";
 import { CardItemPleumDesign } from "../common/card";
 

@@ -39,8 +39,8 @@ export default function CardItem({
         borderRadius: isMobileMode ? 0 : "15px",
         position: "relative",
         padding: isMobileMode ? "10px 8px" : "10px 8px",
-        boxShadow: isMobileMode ? "none" : "0px 1px 5px 0.25px #777",
-        border: isMobileMode ? "0.2px solid #777": "none",
+        boxShadow: isMobileMode ? "none" : "0px 1px 5px 0.25px #D9D9D9",
+        border: isMobileMode ? "0.1px solid #D9D9D9": "none",
         height: "273px",
       }}
     >
