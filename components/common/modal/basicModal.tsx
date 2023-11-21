@@ -7,7 +7,8 @@ type Props = {
   title: string,
   message?: string,
   onOpen: boolean,
-  onClose: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void,
+  width?: number,
+  onClose?: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void,
 };
 
 const style = {

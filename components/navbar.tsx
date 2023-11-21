@@ -1,12 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import classes from "@/style/components/navbar.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { usePathname } from "next/navigation";
 
 type Props = {};
 
@@ -14,7 +13,7 @@ const Navbar = ({}: Props) => {
   const [showMenu, setShowMenu] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
 
-  const isMobileMode = useMediaQuery("(max-width:600px)");
+  const isMobileMode = useMediaQuery("(max-width:800px)");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -22,6 +21,7 @@ const Navbar = ({}: Props) => {
       setUserId(storedUserId);
     }
   }, []);
+
 
   return (
     <Box className={classes.container}>

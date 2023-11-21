@@ -47,29 +47,29 @@ export default function Info({}: Props) {
               src={dataInfo.avatar ? dataInfo.avatar : ""}
               sx={{ width: 100, height: 100 }}
             />
-            <br/>
+            <br />
             <span>ชื่อ: {dataInfo.name}</span>
             <span>เบอร์โทร: {dataInfo.phone_no}</span>
             <span>อีเมล: {dataInfo.email}</span>
             <span>เลขบัญชี: {dataInfo.bank_account_number}</span>
             <span>ที่อยู่: {dataInfo.address}</span>
             <Box display={"flex"} gap={1} marginTop={20}>
-            <Link href={"/sellinfo"}>
-              <ButtonPleumDesign
-                title={"จัดการขายรถ"}
-                backgroundBtnColor={ColorSet.btnWhite}
-                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                textBtnColor={ColorSet.textBlack}
-              />
-            </Link>
-            <Link href={"/buyinfo"}>
-              <ButtonPleumDesign
-                title={"จัดการซื้อรถ"}
-                backgroundBtnColor={ColorSet.btnWhite}
-                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                textBtnColor={ColorSet.textBlack}
-              />
-            </Link>
+              <Link href={"/sellinfo"}>
+                <ButtonPleumDesign
+                  title={"จัดการขายรถ"}
+                  backgroundBtnColor={ColorSet.btnWhite}
+                  backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                  textBtnColor={ColorSet.textBlack}
+                />
+              </Link>
+              <Link href={"/buyinfo"}>
+                <ButtonPleumDesign
+                  title={"จัดการซื้อรถ"}
+                  backgroundBtnColor={ColorSet.btnWhite}
+                  backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                  textBtnColor={ColorSet.textBlack}
+                />
+              </Link>
             </Box>
           </Box>
         )}

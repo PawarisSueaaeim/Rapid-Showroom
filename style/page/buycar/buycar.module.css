@@ -6,6 +6,22 @@
   padding-top: 5rem;
 }
 
+.featureflag {
+  height: 710px;
+  padding-top: 200px;
+}
+
+.announcement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+  margin: 10%;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
 .title_page {
   display: flex;
   justify-content: center;
@@ -14,4 +30,10 @@
 
 .soldout {
   height: 36vh;
+}
+
+@media screen and (max-width: 600px) {
+  .announcement {
+    margin: 30% 0;
+  }
 }
