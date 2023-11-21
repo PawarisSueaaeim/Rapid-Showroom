@@ -15,8 +15,6 @@ type Props = {};
 
 const baseURL = process.env.NEXT_PUBLIC_SHOWROOM_API_URL;
 
-const mockToken = "558|DG59x54c321843URBdmlnuT2B8SFGrY22rZfZvP68bfa80ed";
-
 export default function BuyInfo({}: Props) {
   const [isChecked, setIsChecked] = useState(false);
   const [dataBuyInfoList, setDataBuyInfoList] = useState([]);

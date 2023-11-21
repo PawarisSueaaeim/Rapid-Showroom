@@ -5,9 +5,8 @@ import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
 import { currency } from "@/utils/currency";
 import { daymontyearFormat, timeHourFormat } from "@/utils/dateHelper";
-import { Alert, Box, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import axios from "axios";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { Fragment, useEffect, useState } from "react";
 
@@ -133,24 +132,6 @@ export default function CardAcceptById({ params }: Props) {
     ) {
       return (
         <Fragment>
-          {/* <Box display={"flex"} flexDirection={"column"}>
-            <span className="fw-400 fs-20px">รายละเอียดการนัดหมาย</span>
-            <span>
-              <strong>สถานที่:</strong> {dataVehicle.name}
-            </span>
-            <span>
-              <strong>วัน:</strong> {daymontyearFormat(dataVehicle.book_date)}
-            </span>
-            <span>
-              <strong>เวลา:</strong> {dataVehicle.book_time}
-            </span>
-            <span>
-              <strong>แผนที่:</strong>{" "}
-              <a className="tc-darkblue" href={dataVehicle.map_location}>
-                Google Maps
-              </a>
-            </span>
-          </Box> */}
           <ButtonPleumDesign
             title={"ยกเลิก"}
             onClick={() => cancelSellCarHandler()}

@@ -2,40 +2,23 @@
 "use client";
 import { Box, CircularProgress, useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { NumericFormat, NumericFormatProps } from "react-number-format";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 import Image from "next/image";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   daymontyearFormat,
-  formattedDateTime,
-  isDiff24Hour,
   timeHourFormat,
 } from "@/utils/dateHelper";
-import { isMileage } from "@/utils/regex";
 import { CountDowntime } from "@/components/common/countDown";
-import Link from "next/link";
-import { DateSelection, TimeSelection } from "@/components/common/form";
-import { Dayjs } from "dayjs";
-import moment from "moment";
 import { currency } from "@/utils/currency";
 
 type Props = {};
 
-interface CustomProps {
-  onChange: (event: { target: { name: string; value: string } }) => void;
-  name: string;
-}
-
 export default function Deposit({}: Props) {
-  const depositData = useSelector((state: any) => state.deposit);
   const isDeposit =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/deposit";
   const getPaymentStatus =
@@ -57,8 +40,6 @@ export default function Deposit({}: Props) {
   const showroom_appointment_id = searchParams.get("showroom_appointment_id");
   const email = searchParams.get("email");
   const name = searchParams.get("name");
-  const [date, setDate] = useState<string>("");
-  const [time, setTime] = useState<string>("");
 
   const [openQRcode, setOpenQRcode] = useState<boolean>(false);
   const [openSuccess, setOpenSuccess] = useState<boolean>(false);
@@ -106,20 +87,6 @@ export default function Deposit({}: Props) {
   const handleCloseQRcode = () => {
     setOpenQRcode(false);
     setDisableNext(false);
-  };
-
-  const handleCloseSuccess = () => setOpenSuccess(false);
-
-  const handleDateChange = (date: Dayjs | null) => {
-    //@ts-ignore
-    const formatDate = moment(date.$d).format("YYYY-MM-DD");
-    setDate(formatDate);
-  };
-
-  const handleTimeChange = (time: Dayjs | null) => {
-    //@ts-ignore
-    const formatTime = moment(time.$d).format("HH:mm:ss");
-    setTime(formatTime);
   };
 
   const handleGetPaymentStatus = (vdeposit_id: number) => {

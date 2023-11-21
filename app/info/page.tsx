@@ -3,7 +3,7 @@ import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
 import { Avatar, Box } from "@mui/material";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 
 type Props = {};
 

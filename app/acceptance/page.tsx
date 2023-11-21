@@ -86,7 +86,7 @@ export default function Acceptance({}: Props) {
           <span>
             <strong>เวลา:</strong> {time}
           </span>
-          <span style={{ display: "flex", alignItems: "center" }}>
+          <span style={{ display: "flex", alignItems: "center" ,justifyContent: "center"}}>
             <strong>แผนที่:</strong>{" "}
             <a className="tc-darkblue" href={map ? map : ""} target="_blank">
               Google Maps
