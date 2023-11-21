@@ -48,11 +48,9 @@ export default function Contact({}: Props) {
               <Box display={"flex"} justifyContent={"center"} alignItems={"center"} style={{
                 position: "absolute",
                 boxShadow: "0px 2px 5px rgba(0,0,0,0.25)",
-                borderRadius: "15px",
+                borderRadius: "5px",
                 right: "5%",
                 bottom: "5%",
-                width: "100px",
-                height: "100px",
               }}>
                 <Image src="/icons/map.png" alt="map" width={50} height={50} />
               </Box>

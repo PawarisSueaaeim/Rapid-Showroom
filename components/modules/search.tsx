@@ -278,7 +278,7 @@ export default function Search({}: Props) {
                           brand={car.brand}
                           model={car.model}
                           year={car.year}
-                          submodel={car.submodel}
+                          submodel={car.series}
                           price={car.listing_price}
                           mileage={car.mileage}
                           image={car.main_image}

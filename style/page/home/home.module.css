@@ -9,8 +9,8 @@
   background-position-x: 0px;
   background-position: center;
   scroll-snap-align: start;
+  padding-bottom: 5rem;
   width: 100%;
-  height: 100vh;
 }
 
 .bgImage02 {
@@ -21,7 +21,6 @@
   background-position: center;
   scroll-snap-align: start;
   width: 100%;
-  height: 100vh;
 }
 
 .bgImage03 {
@@ -32,19 +31,18 @@
   background-position: center;
   scroll-snap-align: start;
   width: 100%;
-  height: 100vh;
 }
 
 .backdropGray {
   width: 100%;
-  height: 100vh;
+  padding-bottom: 2rem;
   opacity: 0.95;
   background-color: #d9d9d9;
 }
 
 .backdropWhite {
   width: 100%;
-  height: 100vh;
+  padding-bottom: 2rem;
   opacity: 0.95;
   background-color: #ffffff;
 }
@@ -117,15 +115,13 @@
 
 @media screen and (max-width: 920px) {
   .bgImage01 {
-    background-position-x: -450px;
+    height: auto;
   }
-
   .bgImage02 {
-    background-position-x: -250px;
+    height: auto;
   }
-
   .bgImage03 {
-    background-position-x: -250px;
+    height: auto;
   }
 
   .title_2_page {
@@ -152,22 +148,6 @@
 }
 
 @media screen and (max-width: 600px) {
-  .bgImage01 {
-    background-position-x: -500px;
-  }
-
-  .bgImage02 {
-    background-position-x: -450px;
-  }
-
-  .bgImage03 {
-    background-position-x: -450px;
-    height: 110vh;
-  }
-  .backdropGray {
-    height: 110vh;
-  }
-
   .title_1_page {
     display: flex;
     flex-direction: column;
@@ -177,19 +157,4 @@
 }
 
 @media screen and (max-width: 400px) {
-  .bgImage01 {
-    background-position-x: -600px;
-  }
-
-  .bgImage02 {
-    background-position-x: -450px;
-  }
-
-  .bgImage03 {
-    background-position-x: -450px;
-    height: 120vh;
-  }
-  .backdropGray {
-    height: 120vh;
-  }
 }

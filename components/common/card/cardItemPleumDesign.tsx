@@ -41,7 +41,6 @@ export default function CardItem({
         padding: isMobileMode ? "10px 8px" : "10px 8px",
         boxShadow: isMobileMode ? "none" : "0px 1px 5px 0.25px #D9D9D9",
         border: isMobileMode ? "0.1px solid #D9D9D9": "none",
-        height: "273px",
       }}
     >
         <Box

@@ -50,7 +50,8 @@ export default function Login({}: Props) {
       .catch((error) => {
         console.log(error);
       })
-      .finally(() => {});
+      .finally(() => {
+      });
   }, []);
 
   const renderSubmit = () => {
@@ -73,7 +74,7 @@ export default function Login({}: Props) {
       })
       .catch((error) => {
         console.log("Error login api", error);
-      });
+      })
   };
 
   return (

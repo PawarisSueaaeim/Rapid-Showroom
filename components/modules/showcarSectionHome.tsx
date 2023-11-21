@@ -62,7 +62,7 @@ export default function ShowcarSectionHome({}: Props) {
                 brand={vehicle.brand}
                 model={vehicle.model}
                 year={vehicle.year}
-                submodel={vehicle.submodel}
+                submodel={vehicle.series}
                 price={vehicle.listing_price}
                 mileage={vehicle.mileage}
                 image={vehicle.main_image}

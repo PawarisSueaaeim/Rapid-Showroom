@@ -6,18 +6,22 @@ import Image from "next/image";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { usePathname } from "next/navigation";
 
 type Props = {};
 
 const Navbar = ({}: Props) => {
   const [showMenu, setShowMenu] = useState(false);
-  let userId = null;
+  const [userId, setUserId] = useState<string | null>(null);
 
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
-  if (typeof window !== 'undefined') {
-    userId = sessionStorage.getItem("userId");
-  } 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUserId = sessionStorage.getItem("userId");
+      setUserId(storedUserId);
+    }
+  }, []);
 
   return (
     <Box className={classes.container}>
@@ -129,7 +133,12 @@ const Navbar = ({}: Props) => {
               </span>
             </Link>
           )}
-          <Link href="/login" onClick={() => setShowMenu(!showMenu)}>
+          <Link
+            href="/login"
+            onClick={() => {
+              setShowMenu(!showMenu);
+            }}
+          >
             <span className="tc-black fs-20px fw-100 action">
               {userId === null ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
             </span>

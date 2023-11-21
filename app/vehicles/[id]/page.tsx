@@ -50,11 +50,14 @@ export default function Detail({ params }: Props) {
                 <Carousel images={data && data.gallery} />
               </Box>
               <span className="text-upper fs-24px tc-blue">
-                <strong>{data.brand} {data.model}</strong>
+                <strong>
+                  {data.brand} {data.model}
+                </strong>
               </span>
               <span className="text-upper fs-12px tc-blue tw-100">
-                {data.submodel}
+                {data.series} {data.year}
               </span>
+              <span className="ts-12px fw-100">{data.vehicle_description} สี{data.color} {data.engine_size} cc.</span>
               <Box className={classes.btn_container}>
                 <Link href="/vehicles">
                   <ButtonCapsule
@@ -66,7 +69,9 @@ export default function Detail({ params }: Props) {
                     height={30}
                   />
                 </Link>
-                <Link href={`/nearmodel?brand=${data.brand}&model=${data.model}`}>
+                <Link
+                  href={`/nearmodel?brand=${data.brand}&model=${data.model}`}
+                >
                   <ButtonCapsule
                     title={"ดูรถใกล้เคียง"}
                     color={"#fff"}
@@ -84,8 +89,12 @@ export default function Detail({ params }: Props) {
                 บาท
               </span>
               <span className="fs-14px">
-                เลขไมล์: {currency(data.mileage, 0)} Km
+                <strong>เลขไมล์: </strong>{currency(data.mileage, 0)} Km
               </span>
+              <span className="fs-14px">
+                <strong>ทะเบียน: </strong>{data.license_plate} {data.province}
+              </span>
+              <span className="fs-14px fw-100">{data.description}</span>
               <Box className={classes.dealer_meet}>
                 <DealerMeet
                   modelId={data.model_id}
