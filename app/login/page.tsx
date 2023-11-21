@@ -35,11 +35,18 @@ export default function Login({}: Props) {
   };
 
   useEffect(() => {
+    if (email != "" && password != "") {
+      setDisableLoginBtn(false);
+    } else {
+      setDisableLoginBtn(true);
+    }
+  }, [email, password]);
+
+  useEffect(() => {
     sessionStorage.clear();
     axios
       .post(logout)
-      .then((response) => {
-      })
+      .then((response) => {})
       .catch((error) => {
         console.log(error);
       })
@@ -61,6 +68,7 @@ export default function Login({}: Props) {
           sessionStorage.setItem("userId", response.data.access_token);
         } else {
           setAlertPassword(true);
+          setIsLoading(false);
         }
       })
       .catch((error) => {

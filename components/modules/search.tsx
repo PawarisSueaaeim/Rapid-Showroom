@@ -55,8 +55,8 @@ export default function Search({}: Props) {
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
   useEffect(() => {
-      setIsLoading(true);
-      axios
+    setIsLoading(true);
+    axios
       .post(baseURL + "/vehicles/get/vehicle_detail")
       .then((response) => {
         setAllData(response.data);
@@ -65,27 +65,27 @@ export default function Search({}: Props) {
       .catch((error) => {
         console.log(error);
       });
-      axios
-        .post(getVehicleV2 + "/showrooms/vehicles", {
-          page: page,
-          per_page: "12",
-          search: "",
-          orderby: "vehicle_id",
-          sort: "desc",
-          min_price: minPriceParams,
-          max_price: maxPriceParams,
-          filter_data: filterData && JSON.parse(filterData)
-        })
-        .then((response) => {
-          setDataVehicle(response.data.data);
-          setPagetotal(response.data.total_pages);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+    axios
+      .post(getVehicleV2 + "/showrooms/vehicles", {
+        page: page,
+        per_page: "12",
+        search: "",
+        orderby: "vehicle_id",
+        sort: "desc",
+        min_price: minPriceParams,
+        max_price: maxPriceParams,
+        filter_data: filterData && JSON.parse(filterData),
+      })
+      .then((response) => {
+        setDataVehicle(response.data.data);
+        setPagetotal(response.data.total_pages);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [filterData, minPriceParams, maxPriceParams, page]);
 
   useEffect(() => {
@@ -145,7 +145,7 @@ export default function Search({}: Props) {
   };
 
   return (
-    <Box width={"100vw"}>
+    <Box width={"100vw"} margin={4}>
       <Box display={"flex"} flexDirection={"column"} marginX={4}>
         <Grid container spacing={1}>
           <Grid item xs={12} md={6}>
@@ -232,7 +232,12 @@ export default function Search({}: Props) {
             />
           </Grid>
         </Grid>
-        <Box display={"flex"} justifyContent={"flex-end"} marginTop={2} width={"100%"}>
+        <Box
+          display={"flex"}
+          justifyContent={"flex-end"}
+          marginTop={2}
+          width={"100%"}
+        >
           <ButtonPleumDesign
             title={"ค้นหารถ"}
             width={"100%"}
@@ -253,50 +258,63 @@ export default function Search({}: Props) {
         >
           <CircularProgress />
         </Box>
+      ) : dataVehicle.length > 0 ? (
+        <>
+          <Box margin={isMobileMode ? "0rem" : "2rem"}>
+            <Grid container spacing={isMobileMode ? 0 : 2}>
+              {dataVehicle &&
+                dataVehicle.map((car: any, index: number) => {
+                  return (
+                    <Grid
+                      item
+                      xs={6}
+                      md={3}
+                      lg={2}
+                      key={`${car.vehicle_id}-${index}`}
+                    >
+                      <Link href={`/vehicles/${car.vehicle_id}`}>
+                        <CardItemPleumDesign
+                          vehicle_id={car.vehicle_id}
+                          brand={car.brand}
+                          model={car.model}
+                          year={car.year}
+                          submodel={car.submodel}
+                          price={car.listing_price}
+                          mileage={car.mileage}
+                          image={car.main_image}
+                        />
+                      </Link>
+                    </Grid>
+                  );
+                })}
+            </Grid>
+          </Box>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            margin={2}
+          >
+            <Pagination
+              count={pagetotal}
+              page={page}
+              shape="rounded"
+              onChange={(event, pageValue) => renderPage(event, pageValue)}
+            />
+          </Box>
+        </>
       ) : (
-        <Box margin={isMobileMode ? "0rem" : "2rem"}>
-          <Grid container spacing={isMobileMode ? 0 : 2}>
-            {dataVehicle &&
-              dataVehicle.map((car: any, index: number) => {
-                return (
-                  <Grid
-                    item
-                    xs={6}
-                    md={3}
-                    lg={2}
-                    key={`${car.vehicle_id}-${index}`}
-                  >
-                    <Link href={`/vehicles/${car.vehicle_id}`}>
-                      <CardItemPleumDesign
-                        vehicle_id={car.vehicle_id}
-                        brand={car.brand}
-                        model={car.model}
-                        year={car.year}
-                        submodel={car.submodel}
-                        price={car.listing_price}
-                        mileage={car.mileage}
-                        image={car.main_image}
-                      />
-                    </Link>
-                  </Grid>
-                );
-              })}
-          </Grid>
-        </Box>
+        <>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            height={"42vh"}
+          >
+            <span className="tc-30px fw-400">ไม่พบรายการขายรถ</span>
+          </Box>
+        </>
       )}
-      <Box
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        margin={2}
-      >
-        <Pagination
-          count={pagetotal}
-          page={page}
-          shape="rounded"
-          onChange={(event, pageValue) => renderPage(event, pageValue)}
-        />
-      </Box>
     </Box>
   );
 }
