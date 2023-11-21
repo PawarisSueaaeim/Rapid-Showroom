@@ -50,7 +50,7 @@ export default function Detail({ params }: Props) {
                 <Carousel images={data && data.gallery} />
               </Box>
               <span className="text-upper fs-24px tc-blue">
-                <strong>{data.model}</strong>
+                <strong>{data.brand} {data.model}</strong>
               </span>
               <span className="text-upper fs-12px tc-blue tw-100">
                 {data.submodel}
