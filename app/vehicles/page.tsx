@@ -6,6 +6,8 @@ import Link from "next/link";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
 import { featureFlag } from "@/utils/dateHelper";
+import CampaignIcon from '@mui/icons-material/Campaign';
+import Image from "next/image";
 
 type Props = {};
 
@@ -20,7 +22,10 @@ export default function Vehicles({}: Props) {
             aria-describedby="parent-modal-description"
           >
             <Box className={classes.announcement}>
-              <h2 id="parent-modal-title">ประกาศ</h2>
+              <Box display={"flex"} gap={2}>
+                <Image src={"/icons/announcement.png"} alt="announcement" width={50} height={50}></Image>
+                <h2 id="parent-modal-title">ประกาศ</h2>
+              </Box>
               <span id="message">
                 เปิดให้บริการหลังวันที่ 10 ธันวาคม พ.ศ. 2566
                 สำหรับผู้ที่สนใจขายรถ คลิกปุ่มด้านล่าง

@@ -59,7 +59,7 @@ export default function CardAccept({
         <span className="fs-16px">
           {" "}
           <strong>Min: </strong>
-          {minPrice ? <>{currency(maxPrice, 0)} บาท</> : "กำลังประเมินราคา"}
+          {minPrice ? <>{currency(minPrice, 0)} บาท</> : "กำลังประเมินราคา"}
         </span>
         <span className="fs-16px">
           {" "}

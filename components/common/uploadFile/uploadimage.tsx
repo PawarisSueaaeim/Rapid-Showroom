@@ -110,7 +110,7 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
           </Box>
           <input
             type="file"
-            accept="image/*"
+            accept="image/png, image/jpeg, image/jpg"
             multiple
             onChange={handleImageChange}
           />
@@ -140,7 +140,7 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
           </Box>
           <input
             type="file"
-            accept="image/*"
+            accept="image/png, image/jpeg, image/jpg"
             multiple
             onChange={handleImageChange}
           />

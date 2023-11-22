@@ -153,6 +153,7 @@ export default function CardAcceptById({ params }: Props) {
       flexDirection={"column"}
       style={{
         height: "100vh",
+        marginTop: "5rem",
       }}
     >
       {isSoldOut ? (
@@ -174,48 +175,52 @@ export default function CardAcceptById({ params }: Props) {
           <Box
             display={"flex"}
             flexDirection={"column"}
-            width={isMobileMode ? "90%" : "70%"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            // width={isMobileMode ? "90vw" : "70vw"}
           >
-            <span className="fw-400 fs-20px">
-              {dataVehicle.brand} {dataVehicle.model} {dataVehicle.series}
-            </span>
-            <span className="fs-18px">
-              <strong>ปี: </strong>
-              {dataVehicle.model_to_year}
-            </span>
-            <span className="fs-18px">
-              <strong>สี: </strong>
-              {dataVehicle.color}
-              <strong> ขนาดเครื่องยนต์: </strong>
-              {dataVehicle.engine_size} cc.
-            </span>
-            <span className="fs-18px">
-              <strong>เลขไมล์: </strong>
-              {currency(dataVehicle.mileage, 0)} กิโลเมตร
-            </span>
-            <span className="fs-18px">
-              <strong>ทะเบียน: </strong>
-              {dataVehicle.license_plate} {dataVehicle.province}
-            </span>
-            <span className="fs-18px">
-              <strong>สถานที่: </strong>
-              {dataVehicle.name}
-            </span>
-            <span className="fs-18px">
-              <strong>วันที่ขาย: </strong>
-              {daymontyearFormat(dataVehicle.book_date)}
-            </span>
-            <span className="fs-18px">
-              <strong>เวลาขาย: </strong>
-              {timeHourFormat(dataVehicle.book_time)}
-            </span>
-            <span className="fs-18px">ราคาที่ได้รับ</span>
-            <span className="fs-20px fw-400">
-              Min: {dataVehicle.min_buy_price_label} บาท
-            </span>
-            <span className="fs-20px fw-400">
-              Max: {dataVehicle.max_buy_price_label} บาท
-            </span>
+            <Box display={"flex"} flexDirection={"column"}>
+              <span className="fw-400 fs-20px">
+                {dataVehicle.brand} {dataVehicle.model} {dataVehicle.series}
+              </span>
+              <span className="fs-18px">
+                <strong>ปี: </strong>
+                {dataVehicle.model_to_year}
+              </span>
+              <span className="fs-18px">
+                <strong>สี: </strong>
+                {dataVehicle.color}
+                <strong> ขนาดเครื่องยนต์: </strong>
+                {dataVehicle.engine_size} cc.
+              </span>
+              <span className="fs-18px">
+                <strong>เลขไมล์: </strong>
+                {currency(dataVehicle.mileage, 0)} กิโลเมตร
+              </span>
+              <span className="fs-18px">
+                <strong>ทะเบียน: </strong>
+                {dataVehicle.license_plate} {dataVehicle.province}
+              </span>
+              <span className="fs-18px">
+                <strong>สถานที่: </strong>
+                {dataVehicle.name}
+              </span>
+              <span className="fs-18px">
+                <strong>วันที่ขาย: </strong>
+                {daymontyearFormat(dataVehicle.book_date)}
+              </span>
+              <span className="fs-18px">
+                <strong>เวลาขาย: </strong>
+                {timeHourFormat(dataVehicle.book_time)}
+              </span>
+              <span className="fs-18px">ราคาที่ได้รับ</span>
+              <span className="fs-20px fw-400">
+                Min: {dataVehicle.min_buy_price_label} บาท
+              </span>
+              <span className="fs-20px fw-400">
+                Max: {dataVehicle.max_buy_price_label} บาท
+              </span>
+            </Box>
           </Box>
           <Box display={"flex"} gap={1} marginTop={2}>
             {renderSectionButton()}

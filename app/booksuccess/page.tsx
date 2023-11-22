@@ -1,14 +1,15 @@
 "use client";
 import { ButtonCapsule, ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
-import { Box, Divider, useMediaQuery } from "@mui/material";
+import { Box, Divider, Modal, useMediaQuery } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import html2canvas from "html2canvas";
 import { useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import { daymontyearFormat } from "@/utils/dateHelper";
 import Link from "next/link";
+import classes from "@/style/page/booksuccess/booksuccess.module.css";
 
 type Props = {};
 
@@ -26,6 +27,8 @@ export default function Booksuccess({}: Props) {
   const email = searchParams.get("email");
   const name = searchParams.get("name");
   const deposit_status = searchParams.get("deposit_status");
+
+  const [openQRcodeLine, setOpenQRcodeLine] = useState(false);
 
   const captureScreenshot = async () => {
     const targetElement = document.getElementById("data-car-booking");
@@ -81,7 +84,9 @@ export default function Booksuccess({}: Props) {
         <span className="fs-16px">
           <strong>มัดจำ: </strong>
           {deposit ? deposit : "0"} บาท{" "}
-          <strong className="tc-green">{deposit_status === "paid" ? "จ่ายแล้ว" : ""}</strong>
+          <strong className="tc-green">
+            {deposit_status === "paid" ? "จ่ายแล้ว" : ""}
+          </strong>
         </span>
         <span className="fw-400">
           <strong>เวลานัดหมาย</strong>
@@ -140,19 +145,42 @@ export default function Booksuccess({}: Props) {
                 />
               </Link>
             </Box>
-            {isMobileMode ? (
-              <Box marginTop={2} width={200}>
-                <ButtonCapsule
-                  title={"LINE"}
-                  fontWeight={500}
-                  bgColor={"#00B900"}
-                  color={"#fff"}
-                />
-              </Box>
-            ) : null}
+            <Box marginTop={2} width={200}>
+              <ButtonCapsule
+                title={"LINE"}
+                fontWeight={500}
+                bgColor={"#00B900"}
+                color={"#fff"}
+                onClick={() => {
+                  setOpenQRcodeLine(true);
+                }}
+              />
+            </Box>
           </Box>
         </>
       )}
+      <Modal
+        open={openQRcodeLine}
+        onClose={() => {
+          setOpenQRcodeLine(false);
+        }}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box className={classes.announcement}>
+          <Box display={"flex"} gap={2}>
+            <h2 id="parent-modal-title">LINE Rapid Auto</h2>
+          </Box>
+          <Box marginTop={4}>
+            <Image
+              src={"/images/qrcode-rapid.png"}
+              alt="line-qrcode"
+              width={100}
+              height={100}
+            />
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 }

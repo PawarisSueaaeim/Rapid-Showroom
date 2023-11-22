@@ -1,10 +1,11 @@
 "use client";
 import { ButtonCapsule } from "@/components/common/button";
-import { Box, CircularProgress, useMediaQuery } from "@mui/material";
+import { Box, CircularProgress, Modal, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import classes from "@/style/page/sucess/sucess.module.css";
 
 type Props = {};
 
@@ -15,6 +16,7 @@ export default function Success({}: Props) {
   const name = searchParams.get("name");
   const is_member = searchParams.get("is_member");
   const [showPageNotFound, setShowPageNotFound] = useState(false);
+  const [openQRcodeLine, setOpenQRcodeLine] = useState(false);
 
   const isMobileMode = useMediaQuery("(max-width:600px)");
 
@@ -129,16 +131,17 @@ export default function Success({}: Props) {
                     />
                   </Link>
                 </Box>
-                {isMobileMode ? (
-                  <Box marginTop={2} width={200}>
-                    <ButtonCapsule
-                      title={"LINE"}
-                      fontWeight={500}
-                      bgColor={"#00B900"}
-                      color={"#fff"}
-                    />
-                  </Box>
-                ) : null}
+                <Box marginTop={2} width={200}>
+                  <ButtonCapsule
+                    title={"LINE"}
+                    fontWeight={500}
+                    bgColor={"#00B900"}
+                    color={"#fff"}
+                    onClick={() => {
+                      setOpenQRcodeLine(true);
+                    }}
+                  />
+                </Box>
               </Box>
             )}
           </Box>
@@ -148,6 +151,28 @@ export default function Success({}: Props) {
       ) : (
         <CircularProgress />
       )}
+      <Modal
+        open={openQRcodeLine}
+        onClose={() => {
+          setOpenQRcodeLine(false);
+        }}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box className={classes.announcement}>
+          <Box display={"flex"} gap={2}>
+            <h2 id="parent-modal-title">LINE Rapid Auto</h2>
+          </Box>
+          <Box marginTop={4}>
+            <Image
+              src={"/images/qrcode-rapid.png"}
+              alt="line-qrcode"
+              width={100}
+              height={100}
+            />
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 }
