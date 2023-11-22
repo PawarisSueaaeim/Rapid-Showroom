@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useEffect, useReducer, useState } from "react";
 import classes from "@/style/components/navbar.module.css";
@@ -6,10 +7,12 @@ import Image from "next/image";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { usePathname } from "next/navigation";
 
 type Props = {};
 
 const Navbar = ({}: Props) => {
+  const currentURL = usePathname();
   const [showMenu, setShowMenu] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -20,8 +23,14 @@ const Navbar = ({}: Props) => {
       const storedUserId = sessionStorage.getItem("userId");
       setUserId(storedUserId);
     }
-  }, []);
-
+    if (currentURL == "/info") {
+      const storedUserId = sessionStorage.getItem("userId");
+      return setUserId(storedUserId);
+    }
+    if (currentURL == "/login") {
+      setUserId(null);
+    }
+  }, [currentURL]);
 
   return (
     <Box className={classes.container}>

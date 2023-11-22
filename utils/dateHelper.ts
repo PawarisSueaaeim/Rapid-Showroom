@@ -31,3 +31,10 @@ export const isDiff24Hour = (
 
   return hoursDifference >= 24;
 };
+
+export const featureFlag = (targetDate: string) => {
+  const currentDate = new Date();
+  const targetDateFormat = new Date(targetDate);
+
+  return currentDate < targetDateFormat;
+};

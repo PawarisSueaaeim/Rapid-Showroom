@@ -38,13 +38,13 @@ export default function CardItem({
       style={{
         borderRadius: isMobileMode ? 0 : "15px",
         position: "relative",
-        padding: isMobileMode ? "10px 8px" : "10px 8px",
+        padding: "10px 8px",
         boxShadow: isMobileMode ? "none" : "0px 1px 5px 0.25px #D9D9D9",
-        border: isMobileMode ? "0.1px solid #D9D9D9": "none",
+        border: isMobileMode ? "0.1px solid #D9D9D9": "",
+        height: "100%",
       }}
     >
         <Box
-          position={"relative"}
           style={{
             width: "100%",
           }}
