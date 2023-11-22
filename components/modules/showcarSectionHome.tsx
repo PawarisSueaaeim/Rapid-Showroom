@@ -47,7 +47,7 @@ export default function ShowcarSectionHome({}: Props) {
 
   return (
     <Box className={classes.container}>
-      <Grid container spacing={isMobileMode ? 0 : 2}>
+      <Grid container columnSpacing={isMobileMode ? 0 : 2} rowSpacing={isMobileMode ? 2.5 : 4}>
         {vehiclesData.map((vehicle: any, index: number) => {
           return (
             <Grid
