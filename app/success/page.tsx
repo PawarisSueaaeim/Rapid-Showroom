@@ -167,8 +167,8 @@ export default function Success({}: Props) {
             <Image
               src={"/images/qrcode-rapid.png"}
               alt="line-qrcode"
-              width={100}
-              height={100}
+              width={250}
+              height={250}
             />
           </Box>
         </Box>

@@ -1,7 +1,7 @@
 "use client";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
-import { Avatar, Box, TextField } from "@mui/material";
+import { Avatar, Box, TextField, useMediaQuery } from "@mui/material";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
@@ -20,6 +20,8 @@ export default function Info({}: Props) {
   const [email, setEmail] = useState("");
   const [bankNumber, setBankNumber] = useState("");
   const [address, setAddress] = useState("");
+
+  const isMobileMode = useMediaQuery("(max-width:950px)");
 
   let dataInfo: any;
   if (typeof window !== "undefined" && window.sessionStorage) {
@@ -69,6 +71,7 @@ export default function Info({}: Props) {
       alignItems={"center"}
       style={{
         width: "100%",
+        height: isMobileMode ? "840px" : "100vh",
         backgroundColor: ColorSet.bgGray,
       }}
     >

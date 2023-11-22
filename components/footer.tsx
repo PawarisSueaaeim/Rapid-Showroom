@@ -11,7 +11,7 @@ type Props = {};
 
 const Footer = ({}: Props) => {
   const currentURL = usePathname();
-  const isMobileMode = useMediaQuery("(max-width:600px)");
+  const isMobileMode = useMediaQuery("(max-width:950px)");
 
   const backgroundFooterImage = {
     backgroundImage: 'url("../images/image-footer-01.png")',
@@ -22,7 +22,7 @@ const Footer = ({}: Props) => {
   };
 
   const isContactPath = () => {
-    if (currentURL === "/contact") {
+    if (currentURL === "/login" || currentURL === "/buyinfo" || currentURL === "/sellinfo" || currentURL === "/info") {
       return true;
     } else {
       return false;

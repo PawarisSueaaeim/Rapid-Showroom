@@ -15,7 +15,7 @@ export default function Contact({}: Props) {
       alignItems={"center"}
       justifyContent={"center"}
       flexDirection={"column"}
-      style={{ overflowX: "hidden", height: "100vh" }}
+      style={{ overflowX: "hidden", height: "720px" }}
     >
       <Link
         href="https://www.google.co.th/maps/place/%E0%B8%AD%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B8%9E%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%AA%E0%B8%B4%E0%B8%99/@13.7107134,100.5344402,17.46z/data=!4m6!3m5!1s0x30e29f49e5e3c065:0x803106dc55e5c7d4!8m2!3d13.7107581!4d100.5361314!16s%2Fg%2F1q5bs0lr4?hl=th&entry=ttu"
@@ -27,7 +27,7 @@ export default function Contact({}: Props) {
             backgroundColor: "#FFF",
             boxShadow: "0px 2px 5px rgba(0,0,0,0.25)",
             width: isMobileMode ? "90vw" : "70vw",
-            height: isMobileMode ? "70vh" : "70vh",
+            height: "500px",
             borderRadius: "15px",
             position: "relative",
           }}
