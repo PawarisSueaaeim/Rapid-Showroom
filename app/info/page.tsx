@@ -1,7 +1,7 @@
 "use client";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
-import { Avatar, Box, TextField, useMediaQuery } from "@mui/material";
+import { Avatar, Box, Grid, TextField, useMediaQuery } from "@mui/material";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
@@ -71,7 +71,7 @@ export default function Info({}: Props) {
       alignItems={"center"}
       style={{
         width: "100%",
-        height: isMobileMode ? "840px" : "100vh",
+        height: isMobileMode ? "900px" : "100vh",
         backgroundColor: ColorSet.bgGray,
       }}
     >
@@ -82,10 +82,9 @@ export default function Info({}: Props) {
           boxShadow: "1px 2px 3px 1.5px rgba(0,0,0,0.5)",
           borderRadius: "10px",
           backgroundColor: ColorSet.bgWhite,
-          width: "100%",
-          height: "510px",
-          padding: "3rem",
-          margin: "7rem 1rem",
+          width: "80%",
+          height: "550px",
+          padding: "2rem",
         }}
       >
         {dataInfo && (
@@ -276,11 +275,12 @@ export default function Info({}: Props) {
                 </Box>
               )}
             </Box>
-
+            <br />
             <Box display={"flex"} gap={2}>
               <Link href={"/sellinfo"}>
                 <ButtonPleumDesign
                   title={"จัดการขายรถ"}
+                  width={150}
                   backgroundBtnColor={ColorSet.btnWhite}
                   backgroundBtnHoverColor={ColorSet.btnWhiteHover}
                   textBtnColor={ColorSet.textBlack}
@@ -289,6 +289,7 @@ export default function Info({}: Props) {
               <Link href={"/buyinfo"}>
                 <ButtonPleumDesign
                   title={"จัดการซื้อรถ"}
+                  width={150}
                   backgroundBtnColor={ColorSet.btnWhite}
                   backgroundBtnHoverColor={ColorSet.btnWhiteHover}
                   textBtnColor={ColorSet.textBlack}
