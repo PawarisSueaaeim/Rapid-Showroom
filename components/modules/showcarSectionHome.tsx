@@ -9,6 +9,7 @@ import Link from "next/link";
 import { ButtonPleumDesign } from "../common/button";
 import { ColorSet } from "@/constants";
 import { useSearchParams } from "next/navigation";
+import { featureFlag } from "@/utils/dateHelper";
 
 type Props = {};
 
@@ -47,30 +48,37 @@ export default function ShowcarSectionHome({}: Props) {
 
   return (
     <Box className={classes.container}>
-      <Grid container columnSpacing={isMobileMode ? 0 : 2} rowSpacing={isMobileMode ? 2.5 : 4}>
-        {vehiclesData.map((vehicle: any, index: number) => {
-          return (
-            <Grid
-              item
-              xs={6}
-              md={3}
-              lg={2}
-              key={`${vehicle.vehicle_id}-${index}`}
-            >
-              <CardItemPleumDesign
-                vehicle_id={vehicle.vehicle_id}
-                brand={vehicle.brand}
-                model={vehicle.model}
-                year={vehicle.year}
-                submodel={vehicle.series}
-                price={vehicle.listing_price}
-                mileage={vehicle.mileage}
-                image={vehicle.main_image}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
+      {!featureFlag("2023-11-11") && (
+        <Grid
+          container
+          columnSpacing={isMobileMode ? 0 : 2}
+          rowSpacing={isMobileMode ? 2.5 : 4}
+        >
+          {vehiclesData.map((vehicle: any, index: number) => {
+            return (
+              <Grid
+                item
+                xs={6}
+                md={3}
+                lg={2}
+                key={`${vehicle.vehicle_id}-${index}`}
+              >
+                <CardItemPleumDesign
+                  vehicle_id={vehicle.vehicle_id}
+                  brand={vehicle.brand}
+                  model={vehicle.model}
+                  year={vehicle.year}
+                  submodel={vehicle.series}
+                  price={vehicle.listing_price}
+                  mileage={vehicle.mileage}
+                  image={vehicle.main_image}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+      )}
+
       <Box className={classes.btn_3_page}>
         <Link href={"./vehicles"}>
           <ButtonPleumDesign
