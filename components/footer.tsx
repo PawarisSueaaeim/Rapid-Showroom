@@ -1,17 +1,13 @@
 "use client";
 import React from "react";
 import classes from "@/style/components/footer.module.css";
-import Image from "next/image";
-import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
-import PhoneIcon from "@mui/icons-material/Phone";
-import EmailIcon from "@mui/icons-material/Email";
+import { Box, Grid, useMediaQuery } from "@mui/material";
 import { usePathname } from "next/navigation";
 
 type Props = {};
 
 const Footer = ({}: Props) => {
   const currentURL = usePathname();
-  const isMobileMode = useMediaQuery("(max-width:950px)");
 
   const backgroundFooterImage = {
     backgroundImage: 'url("../images/image-footer-01.png")',
@@ -60,12 +56,11 @@ const Footer = ({}: Props) => {
       >
         <Box>
           <span className={classes.footer_copyright}>
-            © 2022 RAPID GROUP CO., LTD
+            © 2022 RAPID GROUP CO., LTD | v1.0.0
           </span>
         </Box>
       </Box>
       </Box>
-      
     </Box>
   );
 };

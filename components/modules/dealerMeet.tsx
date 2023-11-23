@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Box, CircularProgress, Stack, TextField } from "@mui/material";
-import { ButtonCapsule } from "../common/button";
+import { Box, CircularProgress, Modal, Stack, TextField } from "@mui/material";
+import { ButtonCapsule, ButtonPleumDesign } from "../common/button";
 import { DateSelection, InputCustom, TimeSelection } from "../common/form";
 import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -13,6 +13,9 @@ import dayjs, { Dayjs } from "dayjs";
 import moment from "moment";
 import { BasicModal } from "../common/modal";
 import { ColorSet } from "@/constants";
+import Link from "next/link";
+import { daymontyearFormat, timeHourFormat } from "@/utils/dateHelper";
+import { currency } from "@/utils/currency";
 
 type Props = {
   modelId: number;
@@ -57,6 +60,7 @@ export default function DealerMeet({
   const [isCheckDeposit, setIsCheckDeposit] = useState<boolean>(false);
   const [dateError, setDateError] = useState<boolean>(false);
   const [timeError, setTimeError] = useState<boolean>(false);
+  const [openConfirm, setOpenConfirm] = useState<boolean>(false);
 
   const siteKey: string | undefined =
     process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || "";
@@ -76,7 +80,8 @@ export default function DealerMeet({
       time &&
       verifyName &&
       verifyTelephone &&
-      ((isCheckDeposit == true && parseInt(valuesDeposit) >= 5000) || isCheckDeposit == false) &&
+      ((isCheckDeposit == true && parseInt(valuesDeposit) >= 5000) ||
+        isCheckDeposit == false) &&
       dateError == null &&
       timeError == null
     ) {
@@ -96,11 +101,8 @@ export default function DealerMeet({
     isCheckDeposit,
     valuesDeposit,
     dateError,
-    timeError
+    timeError,
   ]);
-
-  console.log("dateError",dateError)
-  console.log("timeError",timeError)
 
   const handleDateChange = (date: Dayjs | null) => {
     //@ts-ignore
@@ -188,7 +190,11 @@ export default function DealerMeet({
           label="เลือกวันที่นัดดีลเลอร์"
           onError={(value) => setDateError(value)}
           onDateChange={handleDateChange}
-          maxDate={(isCheckDeposit == true && parseInt(valuesDeposit) >= 5000) ? dayjs().add(24, 'hour') : null}
+          maxDate={
+            isCheckDeposit == true && parseInt(valuesDeposit) >= 5000
+              ? dayjs().add(24, "hour")
+              : null
+          }
         />
         <TimeSelection
           label="เลือกเวลานัดดีลเลอร์"
@@ -228,7 +234,7 @@ export default function DealerMeet({
           value={email}
           onChange={handlerEmailOnChange}
         />
-         <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={2}>
           <TextField
             label="Deposit (ขั้นต่ำ 5,000 บาท)"
             value={valuesDeposit}
@@ -239,17 +245,17 @@ export default function DealerMeet({
             variant="standard"
           />
         </Stack>
-      <Box display={"flex"} alignItems={"center"}>
-        <input
-          type="checkbox"
-          id="checkbox-plateId-first-number"
-          value="Bike"
-          onClick={() => {
-            setIsCheckDeposit(!isCheckDeposit);
-          }}
-        />
-        <span className="fs-8px">ต้องการมัดจำรถ</span>
-      </Box>
+        <Box display={"flex"} alignItems={"center"}>
+          <input
+            type="checkbox"
+            id="checkbox-plateId-first-number"
+            value="Bike"
+            onClick={() => {
+              setIsCheckDeposit(!isCheckDeposit);
+            }}
+          />
+          <span className="fs-8px">ต้องการมัดจำรถ</span>
+        </Box>
         <Box className={classes.recaptcha}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box>
@@ -263,7 +269,7 @@ export default function DealerMeet({
             fontSize={16}
             fontWeight={400}
             height={40}
-            onClick={handleSubmit}
+            onClick={() => setOpenConfirm(true)}
           />
         </Box>
       </Box>
@@ -277,7 +283,7 @@ export default function DealerMeet({
             style={{
               position: "fixed",
               opacity: 0.9,
-              zIndex: 10,
+              zIndex: 100,
               height: "100vh",
               width: "100vw",
               top: "0",
@@ -298,6 +304,48 @@ export default function DealerMeet({
           onClose={() => setOpenModalRejectMsg(false)}
         />
       )}
+      <Modal
+        open={openConfirm}
+        onClose={() => setOpenConfirm(false)}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box className={classes.announcement}>
+          <Box display={"flex"} gap={2}>
+            <h2 id="parent-modal-title">ตรวจสอบข้อมูล</h2>
+          </Box>
+          <Box display={"flex"} flexDirection={"column"}>
+          <span className="fs-16px fw-400">
+            {brand} {model}
+          </span>
+          <span className="fs-16px">ราคา: {price} บาท</span>
+          <span className="fs-16px">ชื่อ: {name}</span>
+          <span className="fs-16px">เบอร์โทร: {telephone}</span>
+          <span className="fs-16px">อีเมล: {email}</span>
+          <span className="fs-16px">มัดจำ: {currency(valuesDeposit,0)} บาท</span>
+          <span className="fs-16px">เวลานัดหมาย</span>
+          <span className="fs-16px">วันที่: {daymontyearFormat(date)}</span>
+          <span className="fs-16px">เวลา: {timeHourFormat(time)}</span>
+          </Box>
+          
+          <Box display={"flex"} marginTop={4} gap={2}>
+            <ButtonPleumDesign
+              title={"ปิด"}
+              backgroundBtnColor={ColorSet.btnWhite}
+              backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+              textBtnColor={ColorSet.textBlack}
+              onClick={() => setOpenConfirm(false)}
+            />
+            <ButtonPleumDesign
+              title={"ยืนยัน"}
+              backgroundBtnColor={ColorSet.btnWhite}
+              backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+              textBtnColor={ColorSet.textBlack}
+              onClick={handleSubmit}
+            />
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 }

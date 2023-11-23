@@ -9,10 +9,7 @@ import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  daymontyearFormat,
-  timeHourFormat,
-} from "@/utils/dateHelper";
+import { daymontyearFormat, timeHourFormat } from "@/utils/dateHelper";
 import { CountDowntime } from "@/components/common/countDown";
 import { currency } from "@/utils/currency";
 
@@ -52,6 +49,15 @@ export default function Deposit({}: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const isMobileMode = useMediaQuery("(max-width:600px)");
+
+  useEffect(() => {
+    if (valuesDeposit == "") {
+      router.push(
+        `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&member=${member}&email=${email}&name=${name}`
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     let intervalId: any;
@@ -107,8 +113,8 @@ export default function Deposit({}: Props) {
   const handleOnClickNext = () => {
     setIsLoading(true);
     setDisableNext(true);
-    if (valuesDeposit){
-      if(parseInt(valuesDeposit) >= 5000) {
+    if (valuesDeposit) {
+      if (parseInt(valuesDeposit) >= 5000) {
         axios
           .put(isDeposit, {
             amount: valuesDeposit,

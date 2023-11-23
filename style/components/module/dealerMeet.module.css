@@ -1,33 +1,55 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 27px;
-    padding: 23px;
-    border-top: 0.5px solid #8F9DA3;
+  display: flex;
+  flex-direction: column;
+  margin-top: 27px;
+  padding: 23px;
+  border-top: 0.5px solid #8f9da3;
 }
 
 .calendar {
-    display: flex;
-    margin-top: 1rem;
-    gap: 1rem;
-    width: 100%;
+  display: flex;
+  margin-top: 1rem;
+  gap: 1rem;
+  width: 100%;
 }
 
 .form_label {
-    display: flex;
-    margin-top: 1rem;
-    color: #4679C7;
+  display: flex;
+  margin-top: 1rem;
+  color: #4679c7;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .recaptcha {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .btn_submit {
-    margin-top: 1rem;
+  margin-top: 1rem;
+}
+
+.featureflag {
+  height: 710px;
+  padding-top: 200px;
+}
+
+.announcement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+  margin: 10%;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .announcement {
+    margin: 30% 0;
+  }
 }

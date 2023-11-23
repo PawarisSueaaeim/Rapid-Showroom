@@ -49,6 +49,7 @@ export default function Detail({ params }: Props) {
               <Box className={classes.carousel}>
                 <Carousel images={data && data.gallery} />
               </Box>
+              <Box display={"flex"} flexDirection={"column"} alignItems={"center"} marginX={4}>
               <span className="text-upper fs-24px tc-blue">
                 <strong>
                   {data.brand} {data.model}
@@ -58,6 +59,8 @@ export default function Detail({ params }: Props) {
                 {data.series} {data.year}
               </span>
               <span className="ts-12px fw-100">{data.vehicle_description} สี{data.color} {data.engine_size} cc.</span>
+              </Box>
+              
               <Box className={classes.btn_container}>
                 <Link href="/vehicles">
                   <ButtonCapsule

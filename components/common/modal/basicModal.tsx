@@ -25,7 +25,6 @@ const style = {
 };
 
 export default function BasicModal({title, message , onOpen, onClose}: Props) {
-
   return (
     <div>
       <Modal
