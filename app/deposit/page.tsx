@@ -44,7 +44,7 @@ export default function Deposit({}: Props) {
   const [vdepositId, setVdepositId] = useState<string>("");
   const [depositStatus, setDepositStatus] = useState<string>("");
 
-  const [disableNext, setDisableNext] = useState<boolean>(false);
+  const [disableNext, setDisableNext] = useState<boolean>(true);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -55,6 +55,8 @@ export default function Deposit({}: Props) {
       router.push(
         `/booksuccess?brand=${brand}&model=${model}&plateId=${plate_id}&price=${price}&date=${depositDate}&time=${depositTime}&member=${member}&email=${email}&name=${name}`
       );
+    }else{
+      setDisableNext(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
