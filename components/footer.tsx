@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import classes from "@/style/components/footer.module.css";
-import { Box, Grid, useMediaQuery } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { usePathname } from "next/navigation";
+import { genversion } from "@/utils/genversion";
 
 type Props = {};
 
@@ -56,7 +57,7 @@ const Footer = ({}: Props) => {
       >
         <Box>
           <span className={classes.footer_copyright}>
-            © 2022 RAPID GROUP CO., LTD | v1.0.0
+            © 2022 RAPID GROUP CO., LTD | v1.0.0-{genversion(new Date())}
           </span>
         </Box>
       </Box>

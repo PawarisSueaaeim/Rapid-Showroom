@@ -162,7 +162,7 @@ export default function DealerMeet({
         phone_no: telephone,
         branch_id: 1,
         referral: sessionStorage.getItem("ref"),
-        sold_type: sessionStorage.getItem("soldType"),
+        sold_type: soldType ? parseInt(soldType) : null,
       })
       .then((response) => {
         if (response.data.status == "OK") {
