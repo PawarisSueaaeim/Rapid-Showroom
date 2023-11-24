@@ -1,4 +1,14 @@
 .container {
     display: flex;
-    
 }
+
+.selection_custom {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #8f9da3;
+    height: 43px;
+    color: #8f9da3;
+    font-size: 16px;
+    font-weight: 300;
+    padding-left: 15px;
+  }

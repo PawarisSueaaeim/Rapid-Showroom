@@ -44,8 +44,6 @@ export default function Accept({}: Props) {
       });
   }, []);
 
-  console.log(data);
-
   return (
     <Box className={classes.container}>
       <span className="fs-20px fw-400 m-6">รายการขาย</span>

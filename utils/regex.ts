@@ -30,6 +30,12 @@ export const isPhoneNumber = (inputText: string): boolean => {
     return regexPattern.test(inputText);
 }
 
+// ใส่ได้แค่ เลขจำนวนไม่เกิน 15 ตัว จะ return true ................................
+export const isBankNumber = (inputText: string): boolean => {
+    const regexPattern = /^[0-9]{0,15}$/;
+    return regexPattern.test(inputText);
+}
+
 // ใส่รูปแบบ email จะ return true ................................
 export const isEmail = (inputText: string): boolean => {
     const regexPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;

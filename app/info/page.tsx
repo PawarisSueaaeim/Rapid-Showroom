@@ -1,67 +1,184 @@
 "use client";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
-import { Avatar, Box, Grid, TextField, useMediaQuery } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
+import axios from "axios";
+import moment from "moment";
+import classes from '@/style/page/info/info.module.css';
+import { isBankNumber, isPhoneNumber } from "@/utils/regex";
 
 type Props = {};
 
+const getBankDataURL = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/bank";
+const getProfile =
+  process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/members/profile";
+const updateProfile =
+  process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/members/profile";
+
 export default function Info({}: Props) {
-  const [isEditName, setIsEditName] = useState(false);
-  const [isEditPhone, setIsEditPhone] = useState(false);
-  const [isEditEmail, setIsEditEmail] = useState(false);
-  const [isEditBankNumber, setIsEditBankNumber] = useState(false);
-  const [isEditAddress, setIsEditAddress] = useState(false);
+  const [bankData, setBankData] = useState<any>([]);
+  const [profile, setProfile] = useState<any>(null);
+
+  const [isEdit, setIsEdit] = useState(false);
+  const [isCanSubmit, setIsCanSubmit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [name, setName] = useState("");
+  const [gender, setGender] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [birthmonth, setBirthmonth] = useState("");
+  const [birthyear, setBirthyear] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [bank, setBank] = useState("");
+  const [bankId, setBankId] = useState("");
   const [bankNumber, setBankNumber] = useState("");
   const [address, setAddress] = useState("");
 
   const isMobileMode = useMediaQuery("(max-width:950px)");
 
-  let dataInfo: any;
-  if (typeof window !== "undefined" && window.sessionStorage) {
-    const json = sessionStorage.getItem("info") || "";
-    dataInfo = JSON.parse(json);
-  } else {
-    console.error("sessionStorage is not available");
-  }
+  useEffect(() => {
+    axios
+      .get(getBankDataURL)
+      .then((response) => {
+        setBankData(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
-    setName(dataInfo.name);
-    setPhone(dataInfo.phone_no);
-    setEmail(dataInfo.email);
-    setBankNumber(dataInfo.bank_account_number);
-    setAddress(dataInfo.address);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setIsLoading(true);
+    axios
+      .get(getProfile, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("userId")}`,
+        },
+      })
+      .then((response) => {
+        const data = response.data.data;
+        setProfile(response.data.data);
+        setName(data?.name);
+        setGender(data?.gender);
+        setBirthday(data?.birth_date);
+        setBirthmonth(data?.birth_month);
+        setBirthyear(data?.birth_year);
+        setPhone(data?.tel);
+        setEmail(data?.email);
+        setBankNumber(data?.bank_account_number);
+        setBank(data?.bank_id);
+        setAddress(data?.address);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   const handleNameChange = (event: any) => {
     setName(event.target.value);
   };
+  const handleGenderChange = (event: any) => {
+    setGender(event.target.value);
+  };
+  const handleBirthdateChange = (event: any) => {
+    const value = event.target.value;
+    setBirthday(moment(value).format("DD"));
+    setBirthmonth(moment(value).format("MM"));
+    setBirthyear(moment(value).format("YYYY"));
+  };
   const handlePhoneChange = (event: any) => {
-    setPhone(event.target.value);
+    const textInput = event.target.value;
+    if (isPhoneNumber(textInput)) {
+      setPhone(textInput);
+    }
   };
   const handleEmailChange = (event: any) => {
     setEmail(event.target.value);
   };
+  const handleBankChange = (event: any) => {
+    const value = event.target.value;
+    setBank(value);
+
+    const bankFiltered = bankData.filter(
+      (bank: any) => bank.bank_name == value
+    );
+    bankFiltered.map((item: any) => {
+      setBankId(item.bank_id);
+    });
+  };
   const handleBankNumberChange = (event: any) => {
-    setBankNumber(event.target.value);
+    const textInput = event.target.value;
+    if (isBankNumber(textInput)) {
+      setBankNumber(textInput);
+    }
   };
   const handleAddressChange = (event: any) => {
     setAddress(event.target.value);
   };
 
+  useEffect(() => {
+    if (
+      name != "" &&
+      gender != "" &&
+      birthday != "" &&
+      birthmonth != "" &&
+      birthyear != "" &&
+      email != "" &&
+      address != "" &&
+      phone != ""
+    ) {
+      setIsCanSubmit(true);
+    } else {
+      setIsCanSubmit(false);
+    }
+  }, [address, birthday, birthmonth, birthyear, email, gender, name, phone]);
+
   const onSubmit = () => {
-    console.log(name);
-    console.log(phone);
-    console.log(email);
-    console.log(bankNumber);
-    console.log(address);
+    setIsLoading(true);
+    axios
+      .patch(
+        updateProfile,
+        {
+          name: name,
+          gender: gender,
+          birth_date: birthday,
+          birth_month: birthmonth,
+          birth_year: birthyear,
+          email: email,
+          address: address,
+          tel: phone,
+          bank_id: bankId,
+          bank_account_number: bankNumber,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("userId")}`,
+          },
+        }
+      )
+      .then((response) => {
+        setProfile(response.data.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -80,201 +197,231 @@ export default function Info({}: Props) {
         flexDirection={"column"}
         style={{
           boxShadow: "1px 2px 3px 1.5px rgba(0,0,0,0.5)",
-          borderRadius: "10px",
+          borderRadius: "24px",
           backgroundColor: ColorSet.bgWhite,
           width: "80%",
-          height: "550px",
           padding: "2rem",
+          marginTop: isMobileMode ? "3.5rem" : "",
         }}
       >
-        {dataInfo && (
-          <Box display={"flex"} flexDirection={"column"} gap={2}>
-            <Avatar
-              alt={dataInfo.name}
-              src={dataInfo.avatar ? dataInfo.avatar : ""}
-              sx={{ width: 100, height: 100 }}
-            />
-            <br />
-            <Box display={"flex"} alignItems={"center"}>
-              {isEditName ? (
-                <TextField
-                  id="standard-basic"
-                  variant="standard"
-                  value={name}
-                  label="ชื่อ"
-                  onChange={handleNameChange}
+        {profile && (
+          <Box display={"flex"} flexDirection={"column"}>
+            <Grid container spacing={2}>
+              <Grid
+                item
+                xs={12}
+                md={3}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Avatar
+                  alt={profile.name}
+                  src={profile.avatar ? profile.avatar : ""}
+                  sx={{ width: 100, height: 100 }}
                 />
-              ) : (
-                <span>
-                  <strong>ชื่อ: </strong>
-                  {name}
-                </span>
-              )}
-              {isEditName ? (
-                <button
-                  onClick={() => {
-                    setIsEditName(false);
-                    onSubmit();
-                  }}
-                >
-                  บันทึก
-                </button>
-              ) : (
-                <Box
-                  display={"flex"}
-                  alignItems={"center"}
-                  marginLeft={4}
-                  onClick={() => setIsEditName(true)}
-                >
-                  <EditIcon />
-                  แก้ไข
+              </Grid>
+              <Grid item xs={12} md={9}>
+                <Box display={"flex"} flexDirection={"column"} gap={2}>
+                  <Box width={150}>
+                    {isEdit ? (
+                      <Box display={"flex"} gap={2}>
+                        <button
+                          disabled={!isCanSubmit}
+                          onClick={() => {
+                            setIsEdit(false);
+                            setIsCanSubmit(false);
+                            onSubmit();
+                          }}
+                        >
+                          บันทึก
+                        </button>
+                        <button
+                          onClick={() => {
+                            setIsEdit(false);
+                          }}
+                        >
+                          ยกเลิก
+                        </button>
+                      </Box>
+                    ) : (
+                      <Box
+                        display={"flex"}
+                        alignItems={"center"}
+                        onClick={() => setIsEdit(true)}
+                      >
+                        <EditIcon />
+                        แก้ไขข้อมูล
+                      </Box>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        required={true}
+                        error={name === "" ? true : false}
+                        id="edit-name-profile"
+                        variant="standard"
+                        label="ชื่อ"
+                        defaultValue={name}
+                        onChange={handleNameChange}
+                      />
+                    ) : (
+                      <span>
+                        <strong>ชื่อ: </strong>
+                        {name}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        defaultValue="M"
+                        name="radio-buttons-group"
+                        onChange={handleGenderChange}
+                      >
+                        <FormControlLabel
+                          value="F"
+                          control={<Radio />}
+                          label="Female"
+                        />
+                        <FormControlLabel
+                          value="M"
+                          control={<Radio />}
+                          label="Male"
+                        />
+                      </RadioGroup>
+                    ) : (
+                      <span>
+                        <strong>เพศ: </strong>
+                        {gender === "M" ? "ชาย" : "หญิง"}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        required={true}
+                        error={birthday === "" ? true : false}
+                        id="standard-basic"
+                        variant="standard"
+                        label="วันเกิด"
+                        value={`${birthday}/${birthmonth}/${birthyear}`}
+                        onChange={handleBirthdateChange}
+                        type="date"
+                      />
+                    ) : (
+                      <span>
+                        <strong>วันเกิด: </strong>
+                        {`${birthday}/${birthmonth}/${birthyear}`}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        required={true}
+                        error={phone === "" ? true : false}
+                        id="edit-name-profile"
+                        variant="standard"
+                        label="เบอร์ติดต่อ"
+                        value={phone}
+                        defaultValue={phone}
+                        onChange={handlePhoneChange}
+                      />
+                    ) : (
+                      <span>
+                        <strong>เบอร์ติดต่อ: </strong>
+                        {phone}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        required={true}
+                        error={email === "" ? true : false}
+                        id="edit-name-profile"
+                        variant="standard"
+                        label="email"
+                        defaultValue={email}
+                        onChange={handleEmailChange}
+                      />
+                    ) : (
+                      <span>
+                        <strong>อีเมล: </strong>
+                        {email}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <Box>
+                        <select
+                          onChange={handleBankChange}
+                          className={classes.selection_custom}
+                        >
+                          <option value={0}>ธนาคาร</option>
+                          {bankData.map((item: any, index: number) => {
+                            return (
+                              <option
+                                key={index + item.bank_id}
+                                value={item.bank_name}
+                              >
+                                {item.bank_name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </Box>
+                    ) : (
+                      <span>
+                        <strong>ธนาคาร: </strong>
+                        {bank}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        id="standard-basic"
+                        variant="standard"
+                        value={bankNumber}
+                        label="เลขบัญชี"
+                        onChange={handleBankNumberChange}
+                      />
+                    ) : (
+                      <span>
+                        <strong>เลขบัญชี: </strong>
+                        {bankNumber}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        required={true}
+                        error={address === "" ? true : false}
+                        multiline
+                        id="edit-name-profile"
+                        variant="standard"
+                        label="ที่อยู่"
+                        defaultValue={address}
+                        onChange={handleAddressChange}
+                      />
+                    ) : (
+                      <span>
+                        <strong>ที่อยู่: </strong>
+                        {address}
+                      </span>
+                    )}
+                  </Box>
                 </Box>
-              )}
-            </Box>
-            <Box display={"flex"} alignItems={"center"}>
-              {isEditPhone ? (
-                <TextField
-                  id="standard-basic"
-                  variant="standard"
-                  value={phone}
-                  label="เบอร์โทร"
-                  onChange={handlePhoneChange}
-                />
-              ) : (
-                <span>
-                  <strong>เบอร์โทร: </strong>
-                  {phone}
-                </span>
-              )}
-              {isEditPhone ? (
-                <button
-                  onClick={() => {
-                    setIsEditPhone(false);
-                    onSubmit();
-                  }}
-                >
-                  บันทึก
-                </button>
-              ) : (
-                <Box
-                  display={"flex"}
-                  alignItems={"center"}
-                  marginLeft={4}
-                  onClick={() => setIsEditPhone(true)}
-                >
-                  <EditIcon />
-                  แก้ไข
-                </Box>
-              )}
-            </Box>
-            <Box display={"flex"} alignItems={"center"}>
-              {isEditEmail ? (
-                <TextField
-                  id="standard-basic"
-                  variant="standard"
-                  value={email}
-                  label="อีเมล"
-                  onChange={handleEmailChange}
-                />
-              ) : (
-                <span>
-                  <strong>อีเมล: </strong>
-                  {email}
-                </span>
-              )}
-              {isEditEmail ? (
-                <button
-                  onClick={() => {
-                    setIsEditEmail(false);
-                    onSubmit();
-                  }}
-                >
-                  บันทึก
-                </button>
-              ) : (
-                <Box
-                  display={"flex"}
-                  alignItems={"center"}
-                  marginLeft={4}
-                  onClick={() => setIsEditEmail(true)}
-                >
-                  <EditIcon />
-                  แก้ไข
-                </Box>
-              )}
-            </Box>
-            <Box display={"flex"} alignItems={"center"}>
-              {isEditBankNumber ? (
-                <TextField
-                  id="standard-basic"
-                  variant="standard"
-                  value={bankNumber}
-                  label="เลขบัญชี"
-                  onChange={handleBankNumberChange}
-                />
-              ) : (
-                <span>
-                  <strong>เลขบัญชี: </strong>
-                  {bankNumber}
-                </span>
-              )}
-              {isEditBankNumber ? (
-                <button
-                  onClick={() => {
-                    setIsEditBankNumber(false);
-                    onSubmit();
-                  }}
-                >
-                  บันทึก
-                </button>
-              ) : (
-                <Box
-                  display={"flex"}
-                  alignItems={"center"}
-                  marginLeft={4}
-                  onClick={() => setIsEditBankNumber(true)}
-                >
-                  <EditIcon />
-                  แก้ไข
-                </Box>
-              )}
-            </Box>
-            <Box display={"flex"} alignItems={"center"}>
-              {isEditAddress ? (
-                <TextField
-                  id="standard-basic"
-                  variant="standard"
-                  value={address}
-                  label="ที่อยู่"
-                  onChange={handleAddressChange}
-                />
-              ) : (
-                <span>
-                  <strong>ที่อยู่: </strong>
-                  {address}{" "}
-                </span>
-              )}
-              {isEditAddress ? (
-                <button
-                  onClick={() => {
-                    setIsEditAddress(false);
-                    onSubmit();
-                  }}
-                >
-                  บันทึก
-                </button>
-              ) : (
-                <Box
-                  display={"flex"}
-                  alignItems={"center"}
-                  marginLeft={4}
-                  onClick={() => setIsEditAddress(true)}
-                >
-                  <EditIcon />
-                  แก้ไข
-                </Box>
-              )}
-            </Box>
+              </Grid>
+            </Grid>
+
             <br />
             <Box display={"flex"} gap={2}>
               <Link href={"/sellinfo"}>

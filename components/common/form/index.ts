@@ -4,3 +4,4 @@ export { default as InputPassword } from "./inputPassword";
 export { default as InputEmail } from "./inputEmail";
 export { default as TimeSelection } from "./timeSelection";
 export { default as DateSelection } from "./dateSelection";
+export { default as FormGroup } from "./formGroup";
