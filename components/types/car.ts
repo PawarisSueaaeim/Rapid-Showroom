@@ -1,4 +1,4 @@
-export interface ICar {
+export type ICar = {
     vehicle_id: string;
     listing_vpark_id: string;
     brand: string;
