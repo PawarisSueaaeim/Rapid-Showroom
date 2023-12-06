@@ -31,13 +31,16 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
     {
       url_path: "/images/side_open.png",
     },
+    {
+      url_path: "/images/car_registration.png",
+    }
   ];
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
 
-    if (selectedImages.length + files.length <= 5) {
-      if (files.length > 0 && files.length <= 5) {
+    if (selectedImages.length + files.length <= 6) {
+      if (files.length > 0 && files.length <= 6) {
         const imagePromises = files.map((file) => {
           return new Promise<ImageData>((resolve) => {
             const reader = new FileReader();
@@ -52,7 +55,7 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
         });
 
         Promise.all(imagePromises).then((imageDataArray) => {
-          if (selectedImages.length <= 5) {
+          if (selectedImages.length <= 6) {
             setSelectedImages([...selectedImages, ...imageDataArray]);
             //@ts-ignore
             onUpload([...selectedImages, ...imageDataArray]);
@@ -99,10 +102,10 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
             })}
           </Box>
           <Box width={"100%"}>
-            {selectedImages.length !== 5 ? (
+            {selectedImages.length !== 6 ? (
               <span className="fs-8px tc-red">
-                **กรุณาอัพโหลดรูปให้ครบ 5 รูป
-                (หน้าซ้าย,หน้าขวา,หลังซ้าย,หลังขวา,ภายใน)
+                **กรุณาอัพโหลดรูปให้ครบ 6 รูป
+                (หน้าซ้าย,หน้าขวา,หลังซ้าย,หลังขวา,ภายใน,รูปสมุดทะเบียน)
               </span>
             ) : (
               ""
@@ -129,10 +132,10 @@ const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({ onUpload }) => {
             </Box>
           ))}
           <Box width={"100%"}>
-            {selectedImages.length !== 5 ? (
+            {selectedImages.length !== 6 ? (
               <span className="fs-8px tc-red">
-                **กรุณาอัพโหลดรูปให้ครบ 5 รูป
-                (หน้าซ้าย,หน้าขวา,หลังซ้าย,หลังขวา,ภายใน)
+                **กรุณาอัพโหลดรูปให้ครบ 6 รูป
+                (หน้าซ้าย,หน้าขวา,หลังซ้าย,หลังขวา,ภายใน,รูปสมุดทะเบียน)
               </span>
             ) : (
               ""

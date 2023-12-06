@@ -1,7 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { Box, CircularProgress, Grid, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  CircularProgress,
+  FormControlLabel,
+  Grid,
+  useMediaQuery,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import {
   DateSelection,
@@ -45,13 +52,14 @@ export default function Salecar({}: Props) {
   const [dataProvince, setDataProvince] = useState([]);
   const [dataYears, setDataYears] = useState<string[]>([]);
 
+  const [isCheckVehicleInSystem, setIsCheckVehicleInSystem] = useState(false);
   const [isCanSubmit, setIsCanSubmit] = useState(false);
   const [isfullyData, setIsfullyData] = useState(false);
   const [uploadedImageData, setUploadedImageData] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
-  const [vehicleDetailId, setVehicleDetailId] = useState(0);
+  const [vehicleDetailId, setVehicleDetailId] = useState(null);
   const [year, setYear] = useState("");
   const [colorId, setColorId] = useState(0);
   const [dateSellCar, setDateSellCar] = useState("");
@@ -94,6 +102,7 @@ export default function Salecar({}: Props) {
     telephone,
     email,
     uploadedImageData,
+    isCheckVehicleInSystem,
   ]);
 
   useEffect(() => {
@@ -152,10 +161,7 @@ export default function Salecar({}: Props) {
 
   const handlerValidate = () => {
     if (
-      brand === "" ||
-      model === "" ||
-      vehicleDetailId === 0 ||
-      year === "" ||
+      ((isCheckVehicleInSystem === false) && (brand === "" || model === "" || vehicleDetailId === null || year === "")) ||
       colorId === 0 ||
       dateSellCar === "" ||
       timeSellCar === "" ||
@@ -166,7 +172,7 @@ export default function Salecar({}: Props) {
       nickname === "" ||
       telephone === "" ||
       !isEmail(email) ||
-      uploadedImageData.length != 5
+      uploadedImageData.length != 6
     ) {
       setIsCanSubmit(false);
       setIsfullyData(false);
@@ -305,6 +311,15 @@ export default function Salecar({}: Props) {
       <span className="fs-18px">ข้อมูลรถ</span>
       <Grid container spacing={1}>
         <Grid item xs={12}>
+          <FormControlLabel
+            control={
+              <Checkbox sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }} />
+            }
+            onChange={() => setIsCheckVehicleInSystem(!isCheckVehicleInSystem)}
+            label="รถคันนี้ไม่มีในระบบ"
+          />
+        </Grid>
+        <Grid item xs={12}>
           <select
             onChange={handlerBrandOnChange}
             className={classes.selection_custom}
@@ -319,7 +334,7 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {brand !== "" ? "" : "**กรุณาเลือกยี่ห้อ"}
+            {(isCheckVehicleInSystem === true || brand !== "") ? "" : "**กรุณาเลือกยี่ห้อ"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -337,7 +352,7 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {model !== "" ? "" : "**กรุณาเลือกรุ่น"}
+            {(isCheckVehicleInSystem === true || model !== "") ? "" : "**กรุณาเลือกรุ่น"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -355,7 +370,7 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {year !== "" ? "" : "**กรุณาเลือกปีของรุ่นรถ"}
+            {(isCheckVehicleInSystem === true || year !== "") ? "" : "**กรุณาเลือกปีของรุ่นรถ"}
           </span>
         </Grid>
         <Grid item xs={12}>
@@ -373,7 +388,7 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {vehicleDetailId !== 0 ? "" : "**กรุณาเลือกรุ่นย่อย"}
+            {(isCheckVehicleInSystem === true || vehicleDetailId !== 0) ? "" : "**กรุณาเลือกรุ่นย่อย"}
           </span>
         </Grid>
         <Grid item xs={6}>
