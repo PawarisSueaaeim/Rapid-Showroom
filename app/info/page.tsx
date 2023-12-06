@@ -283,7 +283,7 @@ export default function Info({}: Props) {
                     {isEdit ? (
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue={gender.toUpperCase()}
+                        defaultValue={gender?.toUpperCase()}
                         name="radio-buttons-group"
                         onChange={handleGenderChange}
                       >
@@ -302,9 +302,9 @@ export default function Info({}: Props) {
                       <span>
                         <strong>เพศ: </strong>
                         {profile?.gender &&
-                          (gender.toUpperCase() === "M"
+                          (gender?.toUpperCase() === "M"
                             ? "ชาย"
-                            : gender.toLocaleUpperCase() === "F"
+                            : gender?.toLocaleUpperCase() === "F"
                             ? "หญิง"
                             : gender)}
                       </span>
@@ -372,7 +372,7 @@ export default function Info({}: Props) {
                           className={classes.selection_custom}
                         >
                           <option value={0}>ธนาคาร</option>
-                          {bankData.map((item: any, index: number) => {
+                          {bankData?.map((item: any, index: number) => {
                             return (
                               <option
                                 key={index + item.bank_id}
