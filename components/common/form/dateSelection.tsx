@@ -10,6 +10,8 @@ type Props = {
   onDateChange: (date: Dayjs | null) => void;
   label: string;
   maxDate?: any;
+  disablePast?: boolean;
+  defaultValue?: string;
   onError?: (error: any) => void;
 };
 
@@ -17,6 +19,8 @@ export default function ResponsiveDatePickers({
   onDateChange,
   label,
   maxDate,
+  disablePast,
+  defaultValue,
   onError,
 }: Props) {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs(""));
@@ -33,8 +37,9 @@ export default function ResponsiveDatePickers({
           label={label}
           views={["year", "month", "day"]}
           value={value}
+          defaultValue={defaultValue}
           onError={onError}
-          disablePast={true}
+          disablePast={disablePast}
           maxDate={maxDate}
           format="DD/MM/YYYY"
           onChange={(newValue) => {

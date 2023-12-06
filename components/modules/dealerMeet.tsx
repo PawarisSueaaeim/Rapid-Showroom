@@ -190,6 +190,7 @@ export default function DealerMeet({
           label="เลือกวันที่นัดดีลเลอร์"
           onError={(value) => setDateError(value)}
           onDateChange={handleDateChange}
+          disablePast={true}
           maxDate={
             isCheckDeposit == true && parseInt(valuesDeposit) >= 5000
               ? dayjs().add(24, "hour")

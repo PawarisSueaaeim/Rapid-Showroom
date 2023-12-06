@@ -467,6 +467,7 @@ export default function Salecar({}: Props) {
           <DateSelection
             label={"เลือกวันที่ขายรถ"}
             onDateChange={handlerDateSellCar}
+            disablePast={true}
           />
           <span className="tc-red fs-8px">
             {dateSellCar !== "" ? "" : "**กรุณาเลือกวันที่ต้องการขายรถ"}

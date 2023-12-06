@@ -19,6 +19,8 @@ import moment from "moment";
 import classes from "@/style/page/info/info.module.css";
 import { isBankNumber, isPhoneNumber } from "@/utils/regex";
 import { IsLoading } from "@/components/common/loading";
+import { DateSelection } from "@/components/common/form";
+import dayjs, { Dayjs } from "dayjs";
 
 type Props = {};
 
@@ -210,245 +212,247 @@ export default function Info({}: Props) {
             marginTop: isMobileMode ? "3.5rem" : "",
           }}
         >
-            <Box display={"flex"} flexDirection={"column"}>
-              <Grid container spacing={2}>
-                <Grid
-                  item
-                  xs={12}
-                  md={3}
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Avatar
-                    alt={profile?.name}
-                    src={profile?.avatar ? profile?.avatar : ""}
-                    sx={{ width: 100, height: 100 }}
-                  />
-                </Grid>
-                <Grid item xs={12} md={9}>
-                  <Box display={"flex"} flexDirection={"column"} gap={2}>
-                    <Box width={150}>
-                      {isEdit ? (
-                        <Box display={"flex"} gap={2}>
-                          <button
-                            disabled={!isCanSubmit}
-                            onClick={() => {
-                              setIsEdit(false);
-                              setIsCanSubmit(false);
-                              onSubmit();
-                            }}
-                          >
-                            บันทึก
-                          </button>
-                          <button
-                            onClick={() => {
-                              setIsEdit(false);
-                            }}
-                          >
-                            ยกเลิก
-                          </button>
-                        </Box>
-                      ) : (
-                        <Box
-                          display={"flex"}
-                          alignItems={"center"}
-                          onClick={() => setIsEdit(true)}
-                        >
-                          <EditIcon />
-                          แก้ไขข้อมูล
-                        </Box>
-                      )}
-                    </Box>
-                    <Box display={"flex"} alignItems={"center"}>
-                      {isEdit ? (
-                        <TextField
-                          required={true}
-                          error={name === "" ? true : false}
-                          id="edit-name-profile"
-                          variant="standard"
-                          label="ชื่อ"
-                          defaultValue={name}
-                          onChange={handleNameChange}
-                        />
-                      ) : (
-                        <span>
-                          <strong>ชื่อ: </strong>
-                          {name}
-                        </span>
-                      )}
-                    </Box>
-                    <Box display={"flex"} alignItems={"center"}>
-                      {isEdit ? (
-                        <RadioGroup
-                          aria-labelledby="demo-radio-buttons-group-label"
-                          defaultValue="M"
-                          name="radio-buttons-group"
-                          onChange={handleGenderChange}
-                        >
-                          <FormControlLabel
-                            value="F"
-                            control={<Radio />}
-                            label="Female"
-                          />
-                          <FormControlLabel
-                            value="M"
-                            control={<Radio />}
-                            label="Male"
-                          />
-                        </RadioGroup>
-                      ) : (
-                        <span>
-                          <strong>เพศ: </strong>
-                          {profile?.gender && (gender === "M" ? "ชาย" : "หญิง")}
-                        </span>
-                      )}
-                    </Box>
-                    <Box display={"flex"} alignItems={"center"}>
-                      {isEdit ? (
-                        <TextField
-                          required={true}
-                          error={birthday === "" ? true : false}
-                          id="standard-basic"
-                          variant="standard"
-                          label="วันเกิด"
-                          value={`${birthday}/${birthmonth}/${birthyear}`}
-                          onChange={handleBirthdateChange}
-                          type="date"
-                        />
-                      ) : (
-                        <span>
-                          <strong>วันเกิด: </strong>
-                          {profile?.birthday && `${birthday}/${birthmonth}/${birthyear}`}
-                        </span>
-                      )}
-                    </Box>
-                    <Box display={"flex"} alignItems={"center"}>
-                      {isEdit ? (
-                        <TextField
-                          required={true}
-                          error={phone === "" ? true : false}
-                          id="edit-name-profile"
-                          variant="standard"
-                          label="เบอร์ติดต่อ"
-                          value={phone}
-                          defaultValue={phone}
-                          onChange={handlePhoneChange}
-                        />
-                      ) : (
-                        <span>
-                          <strong>เบอร์ติดต่อ: </strong>
-                          {phone}
-                        </span>
-                      )}
-                    </Box>
-                    <Box display={"flex"} alignItems={"center"}>
-                      {isEdit ? (
-                        <TextField
-                          required={true}
-                          error={email === "" ? true : false}
-                          id="edit-name-profile"
-                          variant="standard"
-                          label="email"
-                          defaultValue={email}
-                          onChange={handleEmailChange}
-                        />
-                      ) : (
-                        <span>
-                          <strong>อีเมล: </strong>
-                          {email}
-                        </span>
-                      )}
-                    </Box>
-                    <Box display={"flex"} alignItems={"center"}>
-                      {isEdit ? (
-                        <Box>
-                          <select
-                            onChange={handleBankChange}
-                            className={classes.selection_custom}
-                          >
-                            <option value={0}>ธนาคาร</option>
-                            {bankData.map((item: any, index: number) => {
-                              return (
-                                <option
-                                  key={index + item.bank_id}
-                                  value={item.bank_name}
-                                >
-                                  {item.bank_name}
-                                </option>
-                              );
-                            })}
-                          </select>
-                        </Box>
-                      ) : (
-                        <span>
-                          <strong>ธนาคาร: </strong>
-                          {bank}
-                        </span>
-                      )}
-                    </Box>
-                    <Box display={"flex"} alignItems={"center"}>
-                      {isEdit ? (
-                        <TextField
-                          id="standard-basic"
-                          variant="standard"
-                          value={bankNumber}
-                          label="เลขบัญชี"
-                          onChange={handleBankNumberChange}
-                        />
-                      ) : (
-                        <span>
-                          <strong>เลขบัญชี: </strong>
-                          {bankNumber}
-                        </span>
-                      )}
-                    </Box>
-                    <Box display={"flex"} alignItems={"center"}>
-                      {isEdit ? (
-                        <TextField
-                          required={true}
-                          error={address === "" ? true : false}
-                          multiline
-                          id="edit-name-profile"
-                          variant="standard"
-                          label="ที่อยู่"
-                          defaultValue={address}
-                          onChange={handleAddressChange}
-                        />
-                      ) : (
-                        <span>
-                          <strong>ที่อยู่: </strong>
-                          {address}
-                        </span>
-                      )}
-                    </Box>
-                  </Box>
-                </Grid>
+          <Box display={"flex"} flexDirection={"column"}>
+            <Grid container spacing={2}>
+              <Grid
+                item
+                xs={12}
+                md={3}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Avatar
+                  alt={profile?.name}
+                  src={profile?.avatar ? profile?.avatar : ""}
+                  sx={{ width: 100, height: 100 }}
+                />
               </Grid>
+              <Grid item xs={12} md={9}>
+                <Box display={"flex"} flexDirection={"column"} gap={2}>
+                  <Box width={150}>
+                    {isEdit ? (
+                      <Box display={"flex"} gap={2}>
+                        <button
+                          disabled={!isCanSubmit}
+                          onClick={() => {
+                            setIsEdit(false);
+                            setIsCanSubmit(false);
+                            onSubmit();
+                          }}
+                        >
+                          บันทึก
+                        </button>
+                        <button
+                          onClick={() => {
+                            setIsEdit(false);
+                          }}
+                        >
+                          ยกเลิก
+                        </button>
+                      </Box>
+                    ) : (
+                      <Box
+                        display={"flex"}
+                        alignItems={"center"}
+                        onClick={() => setIsEdit(true)}
+                      >
+                        <EditIcon />
+                        แก้ไขข้อมูล
+                      </Box>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        required={true}
+                        error={name === "" ? true : false}
+                        id="edit-name-profile"
+                        variant="standard"
+                        label="ชื่อ"
+                        defaultValue={name}
+                        onChange={handleNameChange}
+                      />
+                    ) : (
+                      <span>
+                        <strong>ชื่อ: </strong>
+                        {name}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        defaultValue={gender.toUpperCase()}
+                        name="radio-buttons-group"
+                        onChange={handleGenderChange}
+                      >
+                        <FormControlLabel
+                          value="F"
+                          control={<Radio />}
+                          label="Female"
+                        />
+                        <FormControlLabel
+                          value="M"
+                          control={<Radio />}
+                          label="Male"
+                        />
+                      </RadioGroup>
+                    ) : (
+                      <span>
+                        <strong>เพศ: </strong>
+                        {profile?.gender &&
+                          (gender.toUpperCase() === "M"
+                            ? "ชาย"
+                            : gender.toLocaleUpperCase() === "F"
+                            ? "หญิง"
+                            : gender)}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        required={true}
+                        error={birthday === "" ? true : false}
+                        onChange={handleBirthdateChange}
+                        type="date"
+                      />
+                    ) : (
+                      <span>
+                        <strong>วันเกิด: </strong>
+                        {(birthday || birthmonth || birthyear) &&
+                          `${birthday}/${birthmonth}/${birthyear}`}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        required={true}
+                        error={phone === "" ? true : false}
+                        id="edit-name-profile"
+                        variant="standard"
+                        label="เบอร์ติดต่อ"
+                        value={phone}
+                        defaultValue={phone}
+                        onChange={handlePhoneChange}
+                      />
+                    ) : (
+                      <span>
+                        <strong>เบอร์ติดต่อ: </strong>
+                        {phone}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        required={true}
+                        error={email === "" ? true : false}
+                        id="edit-name-profile"
+                        variant="standard"
+                        label="email"
+                        defaultValue={email}
+                        onChange={handleEmailChange}
+                      />
+                    ) : (
+                      <span>
+                        <strong>อีเมล: </strong>
+                        {email}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <Box>
+                        <select
+                          onChange={handleBankChange}
+                          className={classes.selection_custom}
+                        >
+                          <option value={0}>ธนาคาร</option>
+                          {bankData.map((item: any, index: number) => {
+                            return (
+                              <option
+                                key={index + item.bank_id}
+                                value={item.bank_name}
+                              >
+                                {item.bank_name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </Box>
+                    ) : (
+                      <span>
+                        <strong>ธนาคาร: </strong>
+                        {bank}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        id="standard-basic"
+                        variant="standard"
+                        value={bankNumber}
+                        label="เลขบัญชี"
+                        onChange={handleBankNumberChange}
+                      />
+                    ) : (
+                      <span>
+                        <strong>เลขบัญชี: </strong>
+                        {bankNumber}
+                      </span>
+                    )}
+                  </Box>
+                  <Box display={"flex"} alignItems={"center"}>
+                    {isEdit ? (
+                      <TextField
+                        required={true}
+                        error={address === "" ? true : false}
+                        multiline
+                        id="edit-name-profile"
+                        variant="standard"
+                        label="ที่อยู่"
+                        defaultValue={address}
+                        onChange={handleAddressChange}
+                      />
+                    ) : (
+                      <span>
+                        <strong>ที่อยู่: </strong>
+                        {address}
+                      </span>
+                    )}
+                  </Box>
+                </Box>
+              </Grid>
+            </Grid>
 
-              <br />
-              <Box display={"flex"} gap={2}>
-                <Link href={"/sellinfo"}>
-                  <ButtonPleumDesign
-                    title={"จัดการขายรถ"}
-                    width={150}
-                    backgroundBtnColor={ColorSet.btnWhite}
-                    backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                    textBtnColor={ColorSet.textBlack}
-                  />
-                </Link>
-                <Link href={"/buyinfo"}>
-                  <ButtonPleumDesign
-                    title={"จัดการซื้อรถ"}
-                    width={150}
-                    backgroundBtnColor={ColorSet.btnWhite}
-                    backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                    textBtnColor={ColorSet.textBlack}
-                  />
-                </Link>
-              </Box>
+            <br />
+            <Box display={"flex"} gap={2}>
+              <Link href={"/sellinfo"}>
+                <ButtonPleumDesign
+                  title={"จัดการขายรถ"}
+                  width={150}
+                  backgroundBtnColor={ColorSet.btnWhite}
+                  backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                  textBtnColor={ColorSet.textBlack}
+                />
+              </Link>
+              <Link href={"/buyinfo"}>
+                <ButtonPleumDesign
+                  title={"จัดการซื้อรถ"}
+                  width={150}
+                  backgroundBtnColor={ColorSet.btnWhite}
+                  backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                  textBtnColor={ColorSet.textBlack}
+                />
+              </Link>
             </Box>
+          </Box>
         </Box>
       )}
     </Box>
