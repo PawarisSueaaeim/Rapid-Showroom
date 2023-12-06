@@ -57,7 +57,7 @@ const Footer = ({}: Props) => {
       >
         <Box>
           <span className={classes.footer_copyright}>
-            © 2022 RAPID GROUP CO., LTD | v1.0.0-{genversion(new Date())}
+            © 2022 RAPID GROUP CO., LTD | v1.0.0
           </span>
         </Box>
       </Box>

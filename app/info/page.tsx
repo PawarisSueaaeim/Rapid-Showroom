@@ -19,8 +19,6 @@ import moment from "moment";
 import classes from "@/style/page/info/info.module.css";
 import { isBankNumber, isPhoneNumber } from "@/utils/regex";
 import { IsLoading } from "@/components/common/loading";
-import { DateSelection } from "@/components/common/form";
-import dayjs, { Dayjs } from "dayjs";
 
 type Props = {};
 
@@ -355,6 +353,7 @@ export default function Info({}: Props) {
                         id="edit-name-profile"
                         variant="standard"
                         label="email"
+                        disabled={true}
                         defaultValue={email}
                         onChange={handleEmailChange}
                       />
