@@ -210,7 +210,6 @@ export default function Info({}: Props) {
             marginTop: isMobileMode ? "3.5rem" : "",
           }}
         >
-          {profile && (
             <Box display={"flex"} flexDirection={"column"}>
               <Grid container spacing={2}>
                 <Grid
@@ -223,8 +222,8 @@ export default function Info({}: Props) {
                   }}
                 >
                   <Avatar
-                    alt={profile.name}
-                    src={profile.avatar ? profile.avatar : ""}
+                    alt={profile?.name}
+                    src={profile?.avatar ? profile?.avatar : ""}
                     sx={{ width: 100, height: 100 }}
                   />
                 </Grid>
@@ -302,7 +301,7 @@ export default function Info({}: Props) {
                       ) : (
                         <span>
                           <strong>เพศ: </strong>
-                          {gender === "M" ? "ชาย" : "หญิง"}
+                          {profile?.gender && (gender === "M" ? "ชาย" : "หญิง")}
                         </span>
                       )}
                     </Box>
@@ -321,7 +320,7 @@ export default function Info({}: Props) {
                       ) : (
                         <span>
                           <strong>วันเกิด: </strong>
-                          {`${birthday}/${birthmonth}/${birthyear}`}
+                          {profile?.birthday && `${birthday}/${birthmonth}/${birthyear}`}
                         </span>
                       )}
                     </Box>
@@ -450,7 +449,6 @@ export default function Info({}: Props) {
                 </Link>
               </Box>
             </Box>
-          )}
         </Box>
       )}
     </Box>
