@@ -48,7 +48,7 @@ export default function ShowcarSectionHome({}: Props) {
 
   return (
     <Box className={classes.container}>
-      {!featureFlag("2023-11-11") && (
+      {!featureFlag("2023-12-11") && (
         <Grid
           container
           columnSpacing={isMobileMode ? 0 : 2}
