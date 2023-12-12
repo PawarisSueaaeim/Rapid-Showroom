@@ -2,13 +2,15 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import Image from "next/image";
 
 type Props = {
-  title: string,
-  message?: string,
-  onOpen: boolean,
-  width?: number,
-  onClose?: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void,
+  title: string;
+  message?: string;
+  onOpen: boolean;
+  width?: number;
+  icon?: "warning" | "error";
+  onClose?: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void;
 };
 
 const style = {
@@ -24,7 +26,13 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({title, message , onOpen, onClose}: Props) {
+export default function BasicModal({
+  title,
+  message,
+  onOpen,
+  icon,
+  onClose,
+}: Props) {
   return (
     <div>
       <Modal
@@ -34,9 +42,24 @@ export default function BasicModal({title, message , onOpen, onClose}: Props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"center"} gap={2}>
+            {icon === "warning" ? (
+              <Image
+                src={"/icons/icon-about.png"}
+                alt="icon"
+                width={50}
+                height={50}
+              />
+            ) : icon === "error" ? (
+              <Image
+                src={"/icons/icon-fail.png"}
+                alt="icon"
+                width={50}
+                height={50}
+              />
+            ) : null}
             {title}
-          </Typography>
+          </Box>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {message}
           </Typography>

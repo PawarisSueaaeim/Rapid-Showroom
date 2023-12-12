@@ -36,6 +36,7 @@ import {
 import { Dayjs } from "dayjs";
 import moment from "moment";
 import { ColorSet } from "@/constants";
+import { BasicModal } from "@/components/common/modal";
 
 type Props = {};
 
@@ -54,6 +55,7 @@ export default function Salecar({}: Props) {
 
   const [isCheckVehicleInSystem, setIsCheckVehicleInSystem] = useState(false);
   const [isCanSubmit, setIsCanSubmit] = useState(false);
+  const [isError, setIsError] = useState({status: false, error: ""});
   const [isfullyData, setIsfullyData] = useState(false);
   const [uploadedImageData, setUploadedImageData] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -291,6 +293,7 @@ export default function Salecar({}: Props) {
       })
       .catch((error) => {
         console.log(error);
+        setIsError({status: true, error: error});
         setIsCanSubmit(true);
       })
       .finally(() => {
@@ -561,6 +564,19 @@ export default function Salecar({}: Props) {
       ) : (
         ""
       )}
+      {
+        isError.status && (
+          <>
+            <BasicModal
+              title="เกิดข้อผิดพลาด"
+              message={`กรุณาติดต่อผู้ดูแลระบบ: ${isError.error}`}
+              onOpen={true}
+              icon="error"
+              onClose={() => setIsError({status: false, error: ''})}
+            />
+          </>
+        )
+      }
     </Box>
   );
 }
