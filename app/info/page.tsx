@@ -19,6 +19,7 @@ import moment from "moment";
 import classes from "@/style/page/info/info.module.css";
 import { isBankNumber, isPhoneNumber } from "@/utils/regex";
 import { IsLoading } from "@/components/common/loading";
+import { BasicModal } from "@/components/common/modal";
 
 type Props = {};
 
@@ -35,6 +36,7 @@ export default function Info({}: Props) {
   const [isEdit, setIsEdit] = useState(false);
   const [isCanSubmit, setIsCanSubmit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState({status: false, message: ''});
 
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
@@ -175,10 +177,14 @@ export default function Info({}: Props) {
       )
       .then((response) => {
         setProfile(response.data.data);
+        if (response.data.status == "FAIL"){
+          setIsError({status: true, message: response.data.client_message + " " + response.data.error});
+        }
         setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        
       });
   };
 
@@ -193,6 +199,19 @@ export default function Info({}: Props) {
         backgroundColor: ColorSet.bgGray,
       }}
     >
+      {
+        isError.status && (
+          <>
+            <BasicModal
+              title="เกิดข้อผิดพลาด"
+              message={`กรุณาติดต่อผู้ดูแลระบบ: ${isError.message}`}
+              onOpen={true}
+              icon="error"
+              onClose={() => setIsError({status: false, message: ''})}
+            />
+          </>
+        )
+      }
       {isLoading ? (
         <>
           <IsLoading />

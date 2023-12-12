@@ -78,8 +78,8 @@ export default function DealerMeet({
       date &&
       isEmail(email) &&
       time &&
-      verifyName &&
-      verifyTelephone &&
+      verifyName && name != '' &&
+      verifyTelephone && telephone != '' &&
       ((isCheckDeposit == true && parseInt(valuesDeposit) >= 5000) ||
         isCheckDeposit == false) &&
       dateError == null &&
@@ -149,6 +149,7 @@ export default function DealerMeet({
   };
 
   const handleSubmit = () => {
+    setOpenConfirm(false);
     setIsLoading(true);
     setIsVerified(false);
     axios
@@ -179,6 +180,7 @@ export default function DealerMeet({
       })
       .finally(() => {
         setIsLoading(false);
+        setIsVerified(true);
       });
   };
 
@@ -300,8 +302,9 @@ export default function DealerMeet({
       {openModalRejectMsg && (
         <BasicModal
           title="เกิดข้อผิดพลาด"
-          message={message}
+          message={`${message}: ขออภัยในความไม่สะดวกค่ะ`}
           onOpen={openModalRejectMsg}
+          icon="error"
           onClose={() => setOpenModalRejectMsg(false)}
         />
       )}
