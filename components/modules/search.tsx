@@ -258,12 +258,12 @@ export default function Search({}: Props) {
         >
           <CircularProgress />
         </Box>
-      ) : dataVehicle.length > 0 ? (
+      ) : dataVehicle?.length > 0 ? (
         <>
           <Box margin={isMobileMode ? "0rem 0rem 3rem 0rem" : "0rem 2rem 4rem 2rem"}>
             <Grid container columnSpacing={isMobileMode ? 0 : 2} rowSpacing={isMobileMode ? 2.5 : 4}>
               {dataVehicle &&
-                dataVehicle.map((car: any, index: number) => {
+                dataVehicle?.map((car: any, index: number) => {
                   return (
                     <Grid
                       item

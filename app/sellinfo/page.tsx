@@ -48,10 +48,10 @@ export default function Accept({}: Props) {
     <Box className={classes.container}>
       <span className="fs-20px fw-400 m-6">รายการขาย</span>
       <hr />
-      <Grid container spacing={2}>
+      <Grid container spacing={2} rowSpacing={8}>
         {data.map((list: any, index: any) => {
           return (
-            <Grid item key={index} xs={12} sm={6} md={4}>
+            <Grid item key={index} xs={12} sm={6} md={3}>
               <Link href={`/sellinfo/${list.uuid}`}>
                 <CardAccept
                   brand={list.brand}

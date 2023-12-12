@@ -34,7 +34,7 @@ export default function CardAccept({
   return (
     <Box className={classes.container}>
       <Box className={classes.image_container}>
-        <img src={image} alt="image-mockup" width={"auto"} height={"200px"} />
+        <img src={image} alt="image-mockup" width={"100%"} height={"auto"} />
       </Box>
       <Box className={classes.data_model}>
         <span className="fs-20px tc-black fw-400">

@@ -55,7 +55,7 @@ export default function Salecar({}: Props) {
 
   const [isCheckVehicleInSystem, setIsCheckVehicleInSystem] = useState(false);
   const [isCanSubmit, setIsCanSubmit] = useState(false);
-  const [isError, setIsError] = useState({status: false, error: ""});
+  const [isError, setIsError] = useState({ status: false, error: "" });
   const [isfullyData, setIsfullyData] = useState(false);
   const [uploadedImageData, setUploadedImageData] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -163,7 +163,11 @@ export default function Salecar({}: Props) {
 
   const handlerValidate = () => {
     if (
-      ((isCheckVehicleInSystem === false) && (brand === "" || model === "" || vehicleDetailId === null || year === "")) ||
+      (isCheckVehicleInSystem === false &&
+        (brand === "" ||
+          model === "" ||
+          vehicleDetailId === null ||
+          year === "")) ||
       colorId === 0 ||
       dateSellCar === "" ||
       timeSellCar === "" ||
@@ -293,13 +297,22 @@ export default function Salecar({}: Props) {
       })
       .catch((error) => {
         console.log(error);
-        setIsError({status: true, error: error});
+        setIsError({ status: true, error: error });
         setIsCanSubmit(true);
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
+
+  useEffect(() => {
+    if (isCheckVehicleInSystem) {
+      setBrand("");
+      setModel("");
+      setYear("");
+      setVehicleDetailId(null);
+    }
+  }, [isCheckVehicleInSystem]);
 
   return (
     <Box
@@ -326,6 +339,8 @@ export default function Salecar({}: Props) {
           <select
             onChange={handlerBrandOnChange}
             className={classes.selection_custom}
+            value={brand}
+            disabled={isCheckVehicleInSystem}
           >
             <option value={0}>ยี่ห้อ</option>
             {dataBrand.map((item: any, index: number) => {
@@ -337,13 +352,17 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {(isCheckVehicleInSystem === true || brand !== "") ? "" : "**กรุณาเลือกยี่ห้อ"}
+            {isCheckVehicleInSystem === true || brand !== ""
+              ? ""
+              : "**กรุณาเลือกยี่ห้อ"}
           </span>
         </Grid>
         <Grid item xs={6}>
           <select
             onChange={handlerModelOnChange}
             className={classes.selection_custom}
+            value={model}
+            disabled={isCheckVehicleInSystem}
           >
             <option value={0}>รุ่น</option>
             {dataModel.map((item: any, index: number) => {
@@ -355,13 +374,17 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {(isCheckVehicleInSystem === true || model !== "") ? "" : "**กรุณาเลือกรุ่น"}
+            {isCheckVehicleInSystem === true || model !== ""
+              ? ""
+              : "**กรุณาเลือกรุ่น"}
           </span>
         </Grid>
         <Grid item xs={6}>
           <select
             onChange={handlerYearOnChange}
             className={classes.selection_custom}
+            value={year}
+            disabled={isCheckVehicleInSystem}
           >
             <option value={0}>ปี</option>
             {dataYears.map((item: string, index: number) => {
@@ -373,13 +396,17 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {(isCheckVehicleInSystem === true || year !== "") ? "" : "**กรุณาเลือกปีของรุ่นรถ"}
+            {isCheckVehicleInSystem === true || year !== ""
+              ? ""
+              : "**กรุณาเลือกปีของรุ่นรถ"}
           </span>
         </Grid>
         <Grid item xs={12}>
           <select
             onChange={handlerSubmodelOnChange}
             className={classes.selection_custom}
+            value={vehicleDetailId || 0}
+            disabled={isCheckVehicleInSystem}
           >
             <option value={0}>รายละเอียด</option>
             {dataSubmodel.map((item: any, index: number) => {
@@ -391,7 +418,9 @@ export default function Salecar({}: Props) {
             })}
           </select>
           <span className="tc-red fs-8px">
-            {(isCheckVehicleInSystem === true || vehicleDetailId !== 0) ? "" : "**กรุณาเลือกรุ่นย่อย"}
+            {isCheckVehicleInSystem === true || vehicleDetailId !== 0
+              ? ""
+              : "**กรุณาเลือกรุ่นย่อย"}
           </span>
         </Grid>
         <Grid item xs={6}>
@@ -564,19 +593,17 @@ export default function Salecar({}: Props) {
       ) : (
         ""
       )}
-      {
-        isError.status && (
-          <>
-            <BasicModal
-              title="เกิดข้อผิดพลาด"
-              message={`กรุณาติดต่อผู้ดูแลระบบ: ${isError.error}`}
-              onOpen={true}
-              icon="error"
-              onClose={() => setIsError({status: false, error: ''})}
-            />
-          </>
-        )
-      }
+      {isError.status && (
+        <>
+          <BasicModal
+            title="เกิดข้อผิดพลาด"
+            message={`กรุณาติดต่อผู้ดูแลระบบ: ${isError.error}`}
+            onOpen={true}
+            icon="error"
+            onClose={() => setIsError({ status: false, error: "" })}
+          />
+        </>
+      )}
     </Box>
   );
 }
