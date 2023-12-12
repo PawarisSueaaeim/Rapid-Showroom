@@ -66,6 +66,8 @@ export default function CreatePassword({}: Props) {
       .then((response) => {
         if (response.data.status == "success") {
           router.push(`/login?status=${response.data.status}`);
+        }else{
+          router.push(`/registerFail`);
         }
       })
       .catch((error) => {
