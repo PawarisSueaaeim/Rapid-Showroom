@@ -71,7 +71,7 @@ const Navbar = ({}: Props) => {
             </Box>
           ) : (
             <Box>
-              <ul className="fs-18px">
+              <ul className="fw-200 fs-18px">
                 <li>
                   <Link href="/vehicles">ซื้อรถ</Link>
                 </li>
