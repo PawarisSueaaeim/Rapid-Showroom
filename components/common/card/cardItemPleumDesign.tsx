@@ -49,7 +49,7 @@ export default function CardItem({
             width: "100%",
           }}
         >
-          <img src={image} width={"100%"} alt={`${brand}-${model}-${submodel}-${vehicle_id}`}/>
+          <img src={image ? image : "/images/no_image.jpg"} width={"100%"} alt={`${brand}-${model}-${submodel}-${vehicle_id}`}/>
         </Box>
 
         <Box

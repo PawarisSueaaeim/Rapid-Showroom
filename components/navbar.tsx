@@ -71,7 +71,7 @@ const Navbar = ({}: Props) => {
             </Box>
           ) : (
             <Box>
-              <ul className="fw-100 fs-18px">
+              <ul className="fs-18px">
                 <li>
                   <Link href="/vehicles">ซื้อรถ</Link>
                 </li>
@@ -124,20 +124,20 @@ const Navbar = ({}: Props) => {
           gap={3}
         >
           <Link href="/vehicles" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px fw-100 action">ซื้อรถ</span>
+            <span className="tc-black fs-20px action">ซื้อรถ</span>
           </Link>
           <Link href="/salecar" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px fw-100 action">ขายรถ</span>
+            <span className="tc-black fs-20px action">ขายรถ</span>
           </Link>
           <Link href="/contact" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px fw-100 action">ติดต่อเรา</span>
+            <span className="tc-black fs-20px action">ติดต่อเรา</span>
           </Link>
           <Link href="/about" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px fw-100 action">เกี่ยวกับเรา</span>
+            <span className="tc-black fs-20px action">เกี่ยวกับเรา</span>
           </Link>
           {userId === null ? null : (
             <Link href="/info" onClick={() => setShowMenu(!showMenu)}>
-              <span className="tc-black fs-20px fw-100 action">
+              <span className="tc-black fs-20px action">
                 บัญชีของฉัน
               </span>
             </Link>
@@ -148,7 +148,7 @@ const Navbar = ({}: Props) => {
               setShowMenu(!showMenu);
             }}
           >
-            <span className="tc-black fs-20px fw-100 action">
+            <span className="tc-black fs-20px action">
               {userId === null ? "เข้าสู่ระบบ" : "ออกจากระบบ"}
             </span>
           </Link>

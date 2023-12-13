@@ -252,7 +252,6 @@ export default function DealerMeet({
           <input
             type="checkbox"
             id="checkbox-plateId-first-number"
-            value="Bike"
             onClick={() => {
               setIsCheckDeposit(!isCheckDeposit);
             }}
