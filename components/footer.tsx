@@ -40,10 +40,10 @@ const Footer = ({}: Props) => {
           <Box marginX={2}>
           <strong className="fw-400">บริษัท แรพพิด มอเตอร์ จำกัด</strong>
           <span className={classes.footer_location}>
-             6/10 อาคารพิพัฒนสิน ชั้น 9
+            358 ถนน นราธิวาสราชนครินทร์
           </span>
           <span className={classes.footer_location}>
-            ซอยพัฒนสิน แขวงทุ่งมหาเมฆ เขตสาทร กรุงเทพฯ 10120
+            ช่องนนทรี เขตยานนาวา กรุงเทพมหานคร 10120
           </span>
           </Box>
           

@@ -18,7 +18,7 @@ export default function Contact({}: Props) {
       style={{ overflowX: "hidden", height: "720px" }}
     >
       <Link
-        href="https://www.google.co.th/maps/place/%E0%B8%AD%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%A3%E0%B8%9E%E0%B8%B4%E0%B8%9E%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%AA%E0%B8%B4%E0%B8%99/@13.7107134,100.5344402,17.46z/data=!4m6!3m5!1s0x30e29f49e5e3c065:0x803106dc55e5c7d4!8m2!3d13.7107581!4d100.5361314!16s%2Fg%2F1q5bs0lr4?hl=th&entry=ttu"
+        href="https://maps.app.goo.gl/4LrbtrPuUX9ZaJUw6"
         target="_blank"
       >
         <Box
@@ -35,7 +35,7 @@ export default function Contact({}: Props) {
           <Grid container>
             <Grid item xs={12} md={7} style={{ position: "relative" }}>
               <Image
-                src="/images/map.jpg"
+                src="/images/map.png"
                 layout="fill"
                 objectFit="cover"
                 alt="map"
@@ -67,10 +67,10 @@ export default function Contact({}: Props) {
                   บริษัท แรพพิด มอเตอร์ จำกัด
                 </span>
                 <span className="tc-black fs-16px">
-                  อาคารพิพัฒนสิน ชั้น 9 ซอยพัฒนสิน
+                  358 ถนน นราธิวาสราชนครินทร์ ช่องนนทรี
                 </span>
                 <span className="tc-black fs-16px">
-                  แขวงทุ่งมหาเมฆ เขตสาทร กรุงเทพฯ 10120
+                  เขตยานนาวา กรุงเทพมหานคร 10120
                 </span>
               </Box>
             </Grid>
