@@ -19,6 +19,7 @@ export default function Detail({ params }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const getCar =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/showrooms/vehicles";
+  const putUrl = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/partners/booking";
 
   useEffect(() => {
     axios
@@ -33,6 +34,12 @@ export default function Detail({ params }: Props) {
         setIsLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    axios.put(putUrl, {
+      client_request_url: `${window.location.href}`
+    })
+  },[])
 
   return (
     <>

@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Providers from "./globalRedux/provider";
+import GoogleAnalytics from './GoogleAnalytics';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <GoogleAnalytics/>
       <Providers>
         <body className={inter.className}>
           <Navbar />
