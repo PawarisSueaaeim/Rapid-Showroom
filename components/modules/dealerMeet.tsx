@@ -164,6 +164,7 @@ export default function DealerMeet({
         branch_id: 1,
         referral: sessionStorage.getItem("ref"),
         sold_type: soldType ? parseInt(soldType) : null,
+        client_request_url: window.location.href,
       })
       .then((response) => {
         if (response.data.status == "OK") {
