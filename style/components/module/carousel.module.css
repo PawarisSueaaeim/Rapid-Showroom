@@ -19,8 +19,8 @@
 .indicator {
     background-color: #8F9DA3;
     height: 0.9rem;
-    width: 0.8rem;
-    border-radius: 100%;
+    width: 0.9rem;
+    border-radius: 50%;
     border: 1px solid #8F9DA3;
     margin: 0 0.2rem;
     cursor: pointer;
@@ -28,11 +28,11 @@
 }
 
 .indicator_active {
-    background-color: #6FB6F8;
+    background-color: #1A417B;
     height: 0.9rem;
-    width: 0.8rem;
-    border-radius: 100%;
-    border: 1px solid #8F9DA3;
+    width: 0.9rem;
+    border-radius: 50%;
+    border: 1px solid #1A417B;
     margin: 0 0.2rem;
     cursor: pointer;
     transition: all 0.3s ease;
