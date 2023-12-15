@@ -19,7 +19,7 @@ const Footer = ({}: Props) => {
   };
 
   const isContactPath = () => {
-    if (currentURL === "/login" || currentURL === "/buyinfo" || currentURL === "/sellinfo" || currentURL === "/info") {
+    if (currentURL === "/login" || currentURL === "/buyinfo" || currentURL === "/sellinfo" || currentURL === "/info" || currentURL === "/nearmodel") {
       return true;
     } else {
       return false;
@@ -57,7 +57,7 @@ const Footer = ({}: Props) => {
       >
         <Box>
           <span className={classes.footer_copyright}>
-            © 2022 RAPID GROUP CO., LTD | v1.0.0
+            © 2022 RAPID GROUP CO., LTD | v1.0.1
           </span>
         </Box>
       </Box>

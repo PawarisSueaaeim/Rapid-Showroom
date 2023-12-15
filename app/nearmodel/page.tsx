@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { CarRelation } from "@/components/modules";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Pagination } from "@mui/material";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -18,13 +18,15 @@ export default function NearModel({}: Props) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [data, setData] = useState<any>();
+  const [page, setPage] = useState<number>(1);
+  const [pageTotal, setPageTotal] = useState<number>(1);
 
   useEffect(() => {
     setIsLoading(true);
     axios
       .post(getVehicleRelations, {
-        page: 1,
-        per_page: 10,
+        page: page,
+        per_page: 12,
         orderby: "vehicle_id",
         search: "",
         sort: "desc",
@@ -33,6 +35,7 @@ export default function NearModel({}: Props) {
       })
       .then((response) => {
         setData(response.data.data);
+        setPageTotal(response.data.total_pages)
       })
       .catch((error) => {
         console.log(error);
@@ -40,7 +43,11 @@ export default function NearModel({}: Props) {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [page]);
+
+  const renderPage = (event: any, pageValue: number) => {
+    setPage(pageValue);
+  };
 
   return (
     <Box>
@@ -60,6 +67,19 @@ export default function NearModel({}: Props) {
           <CarRelation data={data} />
         </>
       )}
+      <Box
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        margin={2}
+      >
+        <Pagination
+          count={pageTotal}
+          page={page}
+          shape="rounded"
+          onChange={(event, pageValue) => renderPage(event, pageValue)}
+        />
+      </Box>
     </Box>
   );
 }

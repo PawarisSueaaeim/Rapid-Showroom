@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Box, CircularProgress, Modal, Stack, TextField } from "@mui/material";
+import { Box, CircularProgress, Modal } from "@mui/material";
 import { ButtonCapsule, ButtonPleumDesign } from "../common/button";
 import { DateSelection, InputCustom, TimeSelection } from "../common/form";
 import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
@@ -13,7 +13,6 @@ import dayjs, { Dayjs } from "dayjs";
 import moment from "moment";
 import { BasicModal } from "../common/modal";
 import { ColorSet } from "@/constants";
-import Link from "next/link";
 import { daymontyearFormat, timeHourFormat } from "@/utils/dateHelper";
 import { currency } from "@/utils/currency";
 
@@ -78,10 +77,10 @@ export default function DealerMeet({
       date &&
       isEmail(email) &&
       time &&
-      verifyName && name != '' &&
+      name != '' &&
       verifyTelephone && telephone != '' &&
-      ((isCheckDeposit == true && parseInt(valuesDeposit) >= 5000) ||
-        isCheckDeposit == false) &&
+      // ((isCheckDeposit == true && parseInt(valuesDeposit) >= 5000) ||
+      //   isCheckDeposit == false) &&
       dateError == null &&
       timeError == null
     ) {
@@ -118,9 +117,6 @@ export default function DealerMeet({
   const handleNameChange = (event: any) => {
     const textInput = event.target.value;
     setName(textInput);
-    if (isThaiText(textInput)) {
-      setVerifyName(true);
-    }
   };
 
   const handleChange = (event: any) => {
