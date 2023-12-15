@@ -237,7 +237,7 @@ export default function DealerMeet({
           value={email}
           onChange={handlerEmailOnChange}
         />
-        <Stack direction="row" spacing={2}>
+        {/* <Stack direction="row" spacing={2}>
           <TextField
             label="Deposit (ขั้นต่ำ 5,000 บาท)"
             value={valuesDeposit}
@@ -247,8 +247,8 @@ export default function DealerMeet({
             id="formatted-numberformat-input"
             variant="standard"
           />
-        </Stack>
-        <Box display={"flex"} alignItems={"center"}>
+        </Stack> */}
+        {/* <Box display={"flex"} alignItems={"center"}>
           <input
             type="checkbox"
             id="checkbox-plateId-first-number"
@@ -257,7 +257,7 @@ export default function DealerMeet({
             }}
           />
           <span className="fs-8px">ต้องการมัดจำรถ</span>
-        </Box>
+        </Box> */}
         <Box className={classes.recaptcha}>
           <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaVerify} />
         </Box>
