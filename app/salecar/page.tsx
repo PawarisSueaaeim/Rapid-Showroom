@@ -33,7 +33,7 @@ import {
   filteredModel,
   filteredYear,
 } from "@/utils/filter";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import moment from "moment";
 import { ColorSet } from "@/constants";
 import { BasicModal } from "@/components/common/modal";
@@ -55,7 +55,7 @@ export default function Salecar({}: Props) {
 
   const [isCheckVehicleInSystem, setIsCheckVehicleInSystem] = useState(false);
   const [isCanSubmit, setIsCanSubmit] = useState(false);
-  const [isError, setIsError] = useState({ status: false, error: "" });
+  const [isError, setIsError] = useState({ status: false, error: "", code: 0 });
   const [isfullyData, setIsfullyData] = useState(false);
   const [uploadedImageData, setUploadedImageData] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -297,7 +297,7 @@ export default function Salecar({}: Props) {
       })
       .catch((error) => {
         console.log(error);
-        setIsError({ status: true, error: error });
+        setIsError({ status: true, error: error, code: error.response.status });
         setIsCanSubmit(true);
       })
       .finally(() => {
@@ -515,6 +515,7 @@ export default function Salecar({}: Props) {
             label={"เลือกวันที่ขายรถ"}
             onDateChange={handlerDateSellCar}
             disablePast={true}
+            maxDate={dayjs().add(8, "days")}
           />
           <span className="tc-red fs-8px">
             {dateSellCar !== "" ? "" : "**กรุณาเลือกวันที่ต้องการขายรถ"}
@@ -596,11 +597,11 @@ export default function Salecar({}: Props) {
       {isError.status && (
         <>
           <BasicModal
-            title="เกิดข้อผิดพลาด"
-            message={`กรุณาติดต่อผู้ดูแลระบบ: ${isError.error}`}
+            title={`เกิดข้อผิดพลาด ${isError.code}`}
+            message={`กรุณาติดต่อผู้ดูแลระบบ: ${isError.code === 413 ? "รูปของท่านมีขนาดใหญ่เกินไป" : isError.error}`}
             onOpen={true}
             icon="error"
-            onClose={() => setIsError({ status: false, error: "" })}
+            onClose={() => setIsError({ status: false, error: "", code: 0 })}
           />
         </>
       )}

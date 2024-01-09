@@ -24,6 +24,7 @@ export default function ResponsiveDatePickers({
   onError,
 }: Props) {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs(""));
+  // const maxDateTranform = maxDate ? dayjs().add(maxDate, 'day').format('YYYY-MM-DD') : undefined;
 
   const handleDateChange = (newValue: Dayjs | null) => {
     setValue(newValue);
