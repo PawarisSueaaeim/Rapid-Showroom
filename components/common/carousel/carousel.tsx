@@ -47,6 +47,7 @@ export default function Carousel({
           height: "100%",
           display: "flex",
           overflow: "hidden",
+          justifyContent: "center",
         }}
       >
 

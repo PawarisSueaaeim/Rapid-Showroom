@@ -79,6 +79,9 @@ const Navbar = ({}: Props) => {
                   <Link href="/salecar">ขายรถ</Link>
                 </li>
                 <li>
+                  <Link href="/rent">เช่ารถ</Link>
+                </li>
+                <li>
                   <Link href="/contact">ติดต่อเรา</Link>
                 </li>
                 <li>

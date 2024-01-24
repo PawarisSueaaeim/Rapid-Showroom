@@ -6,7 +6,6 @@ import Link from "next/link";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
 import { featureFlag } from "@/utils/dateHelper";
-import CampaignIcon from '@mui/icons-material/Campaign';
 import Image from "next/image";
 
 type Props = {};

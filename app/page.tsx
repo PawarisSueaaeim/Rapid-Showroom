@@ -37,8 +37,16 @@ export default function Home({}: Props) {
             <Link href={"/salecar"}>
               <ButtonPleumDesign
                 title={"ขายรถ"}
-                backgroundBtnColor={ColorSet.btnGray}
-                backgroundBtnHoverColor={ColorSet.btnGrayHover}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                textBtnColor={ColorSet.textBlack}
+              />
+            </Link>
+            <Link href={"/rent"}>
+              <ButtonPleumDesign
+                title={"เช่ารถ"}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
                 textBtnColor={ColorSet.textBlack}
               />
             </Link>
@@ -140,8 +148,16 @@ export default function Home({}: Props) {
             <Link href={"/salecar"}>
               <ButtonPleumDesign
                 title={"ขายรถ"}
-                backgroundBtnColor={ColorSet.btnGray}
-                backgroundBtnHoverColor={ColorSet.btnGrayHover}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                textBtnColor={ColorSet.textBlack}
+              />
+            </Link>
+            <Link href={"/rent"}>
+              <ButtonPleumDesign
+                title={"เช่ารถ"}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
                 textBtnColor={ColorSet.textBlack}
               />
             </Link>
