@@ -232,21 +232,59 @@ export default function Search({}: Props) {
             />
           </Grid>
         </Grid>
-        <Box
-          display={"flex"}
-          justifyContent={"flex-end"}
-          marginTop={2}
-          width={"100%"}
-        >
-          <ButtonPleumDesign
-            title={"ค้นหารถ"}
-            width={"100%"}
-            backgroundBtnColor={ColorSet.btnWhite}
-            backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-            textBtnColor={ColorSet.textBlack}
-            onClick={handlerSubmit}
-          />
-        </Box>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={4}>
+            <Box
+              display={"flex"}
+              justifyContent={"flex-end"}
+              marginTop={2}
+              width={"100%"}
+            >
+              <ButtonPleumDesign
+                title={"ค้นหารถ"}
+                width={"100%"}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                textBtnColor={ColorSet.textBlack}
+                onClick={handlerSubmit}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Box
+              display={"flex"}
+              justifyContent={"flex-end"}
+              marginTop={2}
+              width={"100%"}
+            >
+              <ButtonPleumDesign
+                title={"เลื่อนวันเช่ารถ"}
+                width={"100%"}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                textBtnColor={ColorSet.textBlack}
+                onClick={handlerSubmit}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Box
+              display={"flex"}
+              justifyContent={"flex-end"}
+              marginTop={2}
+              width={"100%"}
+            >
+              <ButtonPleumDesign
+                title={"ยกเลิกวันเช่ารถ"}
+                width={"100%"}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                textBtnColor={ColorSet.textBlack}
+                onClick={handlerSubmit}
+              />
+            </Box>
+          </Grid>
+        </Grid>
       </Box>
       <br />
       {isLoading ? (
@@ -260,8 +298,16 @@ export default function Search({}: Props) {
         </Box>
       ) : dataVehicle?.length > 0 ? (
         <>
-          <Box margin={isMobileMode ? "0rem 0rem 3rem 0rem" : "0rem 2rem 4rem 2rem"}>
-            <Grid container columnSpacing={isMobileMode ? 0 : 2} rowSpacing={isMobileMode ? 2.5 : 4}>
+          <Box
+            margin={
+              isMobileMode ? "0rem 0rem 3rem 0rem" : "0rem 2rem 4rem 2rem"
+            }
+          >
+            <Grid
+              container
+              columnSpacing={isMobileMode ? 0 : 2}
+              rowSpacing={isMobileMode ? 2.5 : 4}
+            >
               {dataVehicle &&
                 dataVehicle?.map((car: any, index: number) => {
                   return (
