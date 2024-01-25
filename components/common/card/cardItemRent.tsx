@@ -73,7 +73,7 @@ export default function CardItemRent({
             mileage: <span className="fw-400">{currency(mileage, 0)} km</span>
           </span>
           <span className="fs-16px tc-blue">
-            <strong>Price: {currency(price, 0)} Baht</strong>
+            <strong>Price: {currency(price, 0)} Baht/Month</strong>
           </span>
         </Box>
         <Box
