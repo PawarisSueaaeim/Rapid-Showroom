@@ -79,8 +79,6 @@ export default function DropZone({ }: Props) {
     return () => files.forEach(file => URL.revokeObjectURL(file.preview));
   }, [files]);
 
-  console.log(files);
-
   return (
     <section className="container">
       <div {...getRootProps({ className: 'dropzone' } as DropzoneRootProps)}>

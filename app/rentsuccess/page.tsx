@@ -8,14 +8,11 @@ import html2canvas from "html2canvas";
 import { useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import { daymontyearFormat } from "@/utils/dateHelper";
-import Link from "next/link";
-import classes from "@/style/page/booksuccess/booksuccess.module.css";
 import { currency } from "@/utils/currency";
 
 type Props = {};
 
-export default function rentsuccess({}: Props) {
-  const bookingData = useSelector((state: any) => state.deposit);
+export default function Rentsuccess({}: Props) {
   const searchParams = useSearchParams();
   const brand = searchParams.get("brand");
   const model = searchParams.get("model");

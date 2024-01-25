@@ -23,6 +23,7 @@ import { ColorSet } from "@/constants";
 import { daymontyearFormat, timeHourFormat } from "@/utils/dateHelper";
 import { currency } from "@/utils/currency";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
+import { promiseHooks } from "v8";
 
 type Props = {
   modelId: number;
@@ -116,9 +117,15 @@ export default function RentMeet({
     dateError,
     timeError,
     longTime,
+    locationPickCar,
+    locationReturnCar,
   ]);
 
-  console.log(longTime);
+  console.log(name, verifyTelephone, telephone)
+  console.log(longTime)
+  console.log('1',locationPickCar);
+  console.log('2',locationReturnCar);
+  console.log(!isVerified)
 
   const handleDateChange = (date: Dayjs | null) => {
     //@ts-ignore
@@ -292,7 +299,7 @@ export default function RentMeet({
           <ButtonCapsule
             disabled={!isVerified}
             boxShadow={true}
-            title={"ยืนยันนัดดูรถ"}
+            title={"ยืนยันเช่ารถ"}
             bgColor={"#FFF"}
             color={"#000"}
             fontSize={16}
