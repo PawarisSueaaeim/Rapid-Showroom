@@ -9,6 +9,7 @@ import ButtonCapsule from "@/components/common/button/buttonCapsule";
 import DealerMeet from "@/components/modules/dealerMeet";
 import { currency } from "@/utils/currency";
 import { Carousel } from "@/components/common/carousel";
+import { RentMeet } from "@/components/modules/meetSection.tsx";
 
 type Props = {
   params: { id: string };
@@ -135,7 +136,7 @@ export default function DetailRent({ params }: Props) {
               </span>
               <span className="fs-14px fw-100">{data.description}</span>
               <Box className={classes.dealer_meet}>
-                <DealerMeet
+                <RentMeet
                   modelId={data.model_id}
                   vehicleId={data.vehicle_id}
                   listingVparkId={data.listing_vpark_id}

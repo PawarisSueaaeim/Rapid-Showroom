@@ -51,7 +51,6 @@ export default function CardItemRent({
         >
           <img src={image ? image : "/images/no_image.jpg"} width={"100%"} alt={`${brand}-${model}-${submodel}-${vehicle_id}`}/>
         </Box>
-
         <Box
           display={"flex"}
           flexDirection={"column"}
