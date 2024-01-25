@@ -45,7 +45,7 @@ export default function Vehicles({}: Props) {
       ) : (
         <>
           <Box className={classes.title_page}>
-            <span className="fs-22px">Showroom</span>
+            <span className="fs-24px"><strong>Showroom</strong></span>
           </Box>
           <Search />
         </>

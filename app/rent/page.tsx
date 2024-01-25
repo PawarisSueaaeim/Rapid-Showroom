@@ -9,7 +9,7 @@ export default function Rent({}: Props) {
   return (
     <Box className={classes.container}>
         <Box className={classes.title_page}>
-            <span className='text-22px'>For Rent</span>
+            <span className='fs-24px'><strong>For Rent</strong></span>
         </Box>
         <SearchForrent/>
     </Box>

@@ -191,10 +191,10 @@ const initialMockUpDataVehicle: any[] = [
     reference_id: "12alphard02",
     gallery: [
       {
-        url_path: "/images/mockUp/ToyotaAlphard.png",
+        url_path: "/images/mockUp/ToyotaAlphardWhite.png",
       },
       {
-        url_path: "/images/mockUp/ToyotaAlphardInsideBlack.jpg",
+        url_path: "/images/mockUp/ToyotaAlphardInsideBase.jpg",
       }
     ]
   },

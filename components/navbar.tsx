@@ -132,6 +132,9 @@ const Navbar = ({}: Props) => {
           <Link href="/salecar" onClick={() => setShowMenu(!showMenu)}>
             <span className="tc-black fs-20px action">ขายรถ</span>
           </Link>
+          <Link href="/rent" onClick={() => setShowMenu(!showMenu)}>
+            <span className="tc-black fs-20px action">เช่ารถ</span>
+          </Link>
           <Link href="/contact" onClick={() => setShowMenu(!showMenu)}>
             <span className="tc-black fs-20px action">ติดต่อเรา</span>
           </Link>
