@@ -24,7 +24,7 @@ export type IVehicleDetail = {
     license_plate: string,
     color: string,
     gear_type: string,
-    listing_price: string,
+    listing_price: string | number,
     mileages: number,
     year: string,
     brand_id: number,
@@ -38,3 +38,14 @@ export type IVehicleDetail = {
         }
     ]
 }
+
+export type DataVehicle = {
+    vehicle_id: string;
+    brand?: string;
+    model: string;
+    submodel: string;
+    listing_price: number;
+    mileage: number;
+    year?: string;
+    main_image: string;
+};

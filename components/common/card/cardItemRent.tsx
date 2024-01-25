@@ -40,18 +40,19 @@ export default function CardItemRent({
         position: "relative",
         padding: "10px 8px",
         boxShadow: isMobileMode ? "none" : "0px 1px 5px 0.25px #D9D9D9",
-        border: isMobileMode ? "0.1px solid #D9D9D9": "",
+        border: isMobileMode ? "0.1px solid #D9D9D9" : "",
         height: "100%",
       }}
     >
-        <Box
-          style={{
-            width: "100%",
-          }}
-        >
-          <img src={image ? image : "/images/no_image.jpg"} width={"100%"} alt={`${brand}-${model}-${submodel}-${vehicle_id}`}/>
-        </Box>
+      <Box
+        style={{
+          width: "100%",
+        }}
+      >
+        <img src={image ? image : "/images/no_image.jpg"} width={"100%"} alt={`${brand}-${model}-${submodel}-${vehicle_id}`} />
+      </Box>
 
+      <Box width={"100%"}>
         <Box
           display={"flex"}
           flexDirection={"column"}
@@ -90,6 +91,7 @@ export default function CardItemRent({
             <span>เช่ารถ</span>
           </Link>
         </Box>
+      </Box>
     </Box>
   );
 }

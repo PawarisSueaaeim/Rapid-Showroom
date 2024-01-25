@@ -21,13 +21,67 @@ import { ButtonPleumDesign } from "../common/button";
 import { ColorSet } from "@/constants";
 import Link from "next/link";
 import { CardItemPleumDesign, CardItemRent } from "../common/card";
+import { DataVehicle } from "../types/car";
 
 type Props = {};
 
 const baseURL = process.env.NEXT_PUBLIC_SHOWROOM_API_URL;
 const getVehicleV2 = process.env.NEXT_PUBLIC_SHOWROOM_API_URL;
 
-export default function Search({}: Props) {
+const initialMockUpDataVehicle: DataVehicle[] = [
+  {
+    vehicle_id: "1",
+    brand: "Toyota",
+    model: "Camry",
+    submodel: "",
+    listing_price: 10000,
+    mileage: 5535,
+    year: "2017",
+    main_image: "/images/mockUp/ToyotaCamryBlack.png",
+  },
+  {
+    vehicle_id: "2",
+    brand: "Toyota",
+    model: "Camry",
+    submodel: "",
+    listing_price: 10000,
+    mileage: 12000,
+    year: "2017",
+    main_image: "/images/mockUp/ToyotaCamryRed.png",
+  },
+  {
+    vehicle_id: "3",
+    brand: "Honda",
+    model: "Accord",
+    submodel: "",
+    listing_price: 15000,
+    mileage: 100000,
+    year: "2019",
+    main_image: "/images/mockUp/HondaAccord.jpeg",
+  },
+  {
+    vehicle_id: "4",
+    brand: "Honda",
+    model: "Accord",
+    submodel: "",
+    listing_price: 15000,
+    mileage: 8000,
+    year: "2019",
+    main_image: "/images/mockUp/HondaAccordBlack.jpeg",
+  },
+  {
+    vehicle_id: "5",
+    brand: "Honda",
+    model: "Accord",
+    submodel: "",
+    listing_price: 15000,
+    mileage: 9500,
+    year: "2017",
+    main_image: "/images/mockUp/HondaAccordGrey.jpeg",
+  },
+];
+
+export default function Search({ }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const filterData = searchParams.get("filter_data");
@@ -35,7 +89,7 @@ export default function Search({}: Props) {
   const maxPriceParams = searchParams.get("max_price");
 
   const [allData, setAllData] = useState([]);
-  const [dataVehicle, setDataVehicle] = useState([]);
+  const [dataVehicle, setDataVehicle] = useState(initialMockUpDataVehicle);
 
   const [brandsData, setBrandsData] = useState([]);
   const [modelData, setModelData] = useState([]);
@@ -77,7 +131,7 @@ export default function Search({}: Props) {
         filter_data: filterData && JSON.parse(filterData),
       })
       .then((response) => {
-        setDataVehicle(response.data.data);
+        // setDataVehicle(response.data.data);
         setPagetotal(response.data.total_pages);
       })
       .catch((error) => {

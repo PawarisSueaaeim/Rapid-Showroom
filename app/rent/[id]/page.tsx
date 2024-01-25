@@ -9,13 +9,116 @@ import ButtonCapsule from "@/components/common/button/buttonCapsule";
 import DealerMeet from "@/components/modules/dealerMeet";
 import { currency } from "@/utils/currency";
 import { Carousel } from "@/components/common/carousel";
+import { DataVehicle, IVehicleDetail } from "@/components/types/car";
 
 type Props = {
   params: { id: string };
 };
 
+const initialMockUpData: any = {
+  brand: "",
+  model: "",
+  model_id: 0,
+  submodel: "",
+  sub_model_id: 0,
+  series: "",
+  license_plate: "",
+  color: "",
+  gear_type: "",
+  listing_price: 0,
+  mileages: 0,
+  year: "",
+  brand_id: 0,
+  province: "",
+  listing_price_label: "",
+  mileages_label: "",
+  main_image: "",
+  vehicle_description: "",
+  engine_size: 0,
+  description: "",
+  gallery: [
+    {
+      url_path: "",
+    }
+  ]
+};
+
+const initialMockUpDataVehicle: any[] = [
+  {
+    vehicle_id: "1",
+    brand: "Toyota",
+    model: "Camry",
+    submodel: "",
+    color: "ดำ",
+    listing_price: 10000,
+    mileage: 5535,
+    year: "2017",
+    gallery: [
+      {
+        url_path: "/images/mockUp/ToyotaCamryBlack.png",
+      }
+    ]
+  },
+  {
+    vehicle_id: "2",
+    brand: "Toyota",
+    model: "Camry",
+    submodel: "",
+    listing_price: 10000,
+    mileage: 12000,
+    year: "2017",
+    gallery: [
+      {
+        url_path: "/images/mockUp/ToyotaCamryRed.png",
+      }
+    ]
+  },
+  {
+    vehicle_id: "3",
+    brand: "Honda",
+    model: "Accord",
+    submodel: "",
+    listing_price: 15000,
+    mileage: 100000,
+    year: "2019",
+    gallery: [
+      {
+        url_path: "/images/mockUp/HondaAccord.jpeg",
+      }
+    ]
+  },
+  {
+    vehicle_id: "4",
+    brand: "Honda",
+    model: "Accord",
+    submodel: "",
+    listing_price: 15000,
+    mileage: 8000,
+    year: "2019",
+    gallery: [
+      {
+        url_path: "/images/mockUp/HondaAccordBlack.jpeg",
+      }
+    ]
+  },
+  {
+    vehicle_id: "5",
+    brand: "Honda",
+    model: "Accord",
+    submodel: "",
+    listing_price: 15000,
+    mileage: 9500,
+    year: "2017",
+    gallery: [
+      {
+        url_path: "/images/mockUp/HondaAccordGrey.jpeg",
+      }
+    ]
+  },
+];
+
 export default function DetailRent({ params }: Props) {
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<any>(initialMockUpData);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const getCar =
     process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/showrooms/vehicles";
@@ -24,7 +127,7 @@ export default function DetailRent({ params }: Props) {
     axios
       .get(`${getCar}/${params.id}`)
       .then((response) => {
-        setData(response.data.data);
+        // setData(response.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -33,6 +136,12 @@ export default function DetailRent({ params }: Props) {
         setIsLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    const selectedData: any = initialMockUpDataVehicle.filter(data => data.vehicle_id == params.id);
+
+    setData(selectedData[0])
+  }, [params.id])
 
   return (
     <>
