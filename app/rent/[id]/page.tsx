@@ -51,9 +51,14 @@ const initialMockUpDataVehicle: any[] = [
     model: "Camry",
     submodel: "",
     color: "ดำ",
+    license_plate: "กก9999",
     listing_price: 10000,
     mileage: 5535,
+    vehicle_description: "Sedan 4dr G SA 6sp Front Wheel Drive 2.0i",
+    description: "สภาพเหมือนใหม่",
+    engine_size: "2,000",
     year: "2017",
+    reference_id: "123456789",
     gallery: [
       {
         url_path: "/images/mockUp/ToyotaCamryBlack.png",
@@ -65,9 +70,15 @@ const initialMockUpDataVehicle: any[] = [
     brand: "Toyota",
     model: "Camry",
     submodel: "",
+    color: "แดง",
+    license_plate: "สส7777",
     listing_price: 10000,
     mileage: 12000,
+    vehicle_description: "Sedan 4dr G SA 6sp Front Wheel Drive 2.0i",
+    description: "สภาพเหมือนใหม่",
+    engine_size: "2,000",
     year: "2017",
+    reference_id: "abcdefg",
     gallery: [
       {
         url_path: "/images/mockUp/ToyotaCamryRed.png",
@@ -79,9 +90,15 @@ const initialMockUpDataVehicle: any[] = [
     brand: "Honda",
     model: "Accord",
     submodel: "",
+    color: "ขาว",
+    license_plate: "ทท5555",
     listing_price: 15000,
     mileage: 100000,
+    vehicle_description: "MY2016 Sedan 4dr E i-VTEC SA 5sp Front Wheel Drive 2.0i",
+    description: "สภาพเหมือนใหม่",
+    engine_size: "2,000",
     year: "2019",
+    reference_id: "12345abc",
     gallery: [
       {
         url_path: "/images/mockUp/HondaAccord.jpeg",
@@ -93,9 +110,15 @@ const initialMockUpDataVehicle: any[] = [
     brand: "Honda",
     model: "Accord",
     submodel: "",
+    color: "ดำ",
+    license_plate: "ดด3333",
     listing_price: 15000,
     mileage: 8000,
+    vehicle_description: "MY2016 Sedan 4dr E i-VTEC SA 5sp Front Wheel Drive 2.0i",
+    description: "สภาพเหมือนใหม่",
+    engine_size: "2,000",
     year: "2019",
+    reference_id: "abc12345",
     gallery: [
       {
         url_path: "/images/mockUp/HondaAccordBlack.jpeg",
@@ -107,9 +130,15 @@ const initialMockUpDataVehicle: any[] = [
     brand: "Honda",
     model: "Accord",
     submodel: "",
+    color: "เทา",
+    license_plate: "รร1111",
     listing_price: 15000,
     mileage: 9500,
+    vehicle_description: "MY2016 Sedan 4dr E i-VTEC SA 5sp Front Wheel Drive 2.0i",
+    description: "สภาพเหมือนใหม่",
+    engine_size: "2,000",
     year: "2017",
+    reference_id: "12ab34cd",
     gallery: [
       {
         url_path: "/images/mockUp/HondaAccordGrey.jpeg",
@@ -162,7 +191,7 @@ export default function DetailRent({ params }: Props) {
               >
                 <span className="text-upper fs-24px tc-red">
                   <strong>
-                    Sold Out
+                    Not Available (being rented)
                   </strong>
                 </span>
               </Box>

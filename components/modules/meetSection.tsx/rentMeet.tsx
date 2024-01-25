@@ -179,7 +179,7 @@ export default function RentMeet({
   };
 
   const mockData = ['1', '2', '3', '4', '5', '6']
-  
+
 
   return (
     <Box className={classes.container}>
@@ -190,7 +190,7 @@ export default function RentMeet({
           onError={(value) => setDateError(value)}
           onDateChange={handleDateChange}
           disablePast={true}
-          //   maxDate={dayjs().add(24, "hour")}
+        //   maxDate={dayjs().add(24, "hour")}
         />
         <TimeSelection
           label="เลือกเวลารับรถ"
@@ -204,11 +204,11 @@ export default function RentMeet({
       </Box>
       <Box className={classes.calendar}>
         <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={mockData}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="เดือน" />}
+          disablePortal
+          id="combo-box-demo"
+          options={mockData}
+          sx={{ width: 300 }}
+          renderInput={(params) => <TextField {...params} label="เดือน" />}
         />
       </Box>
       <Box className={classes.form_label}>
@@ -222,7 +222,7 @@ export default function RentMeet({
       </Box>
       <Box className={classes.form}>
         <Grid container spacing={2}>
-          <Grid item lg={6}>
+          <Grid item xs={12} md={6}>
             <InputCustom
               id="name-to-dealer"
               type="text"
@@ -245,12 +245,12 @@ export default function RentMeet({
               onChange={handlerEmailOnChange}
             />
           </Grid>
-          <Grid item lg={6}>
+          <Grid item xs={12} md={6}>
             <Box display={"flex"} flexDirection={'column'} gap={1}>
-                <span className="fs-16px tc-blue">สถานที่รับรถ</span>
-                <TextareaAutosize/>
-                <span className="fs-16px tc-blue">สถานที่คืนรถ</span>
-                <TextareaAutosize/>
+              <span className="fs-16px tc-blue">สถานที่รับรถ</span>
+              <TextareaAutosize style={{ resize: "none", width: "100%" }} />
+              <span className="fs-16px tc-blue">สถานที่คืนรถ</span>
+              <TextareaAutosize style={{ resize: "none", width: "100%" }} />
             </Box>
           </Grid>
         </Grid>
