@@ -26,30 +26,44 @@ export default function Home({}: Props) {
             <span className="tc-white fs-20px">ผ่าน Platform Rapid Auto</span>
           </Box>
           <Box className={classes.btn_1_page}>
-            <Link href={"/vehicles"}>
-              <ButtonPleumDesign
-                title={"ซื้อรถ"}
-                backgroundBtnColor={ColorSet.btnWhite}
-                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                textBtnColor={ColorSet.textBlack}
-              />
-            </Link>
-            <Link href={"/salecar"}>
-              <ButtonPleumDesign
-                title={"ขายรถ"}
-                backgroundBtnColor={ColorSet.btnWhite}
-                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                textBtnColor={ColorSet.textBlack}
-              />
-            </Link>
-            <Link href={"/rent"}>
-              <ButtonPleumDesign
-                title={"เช่ารถ"}
-                backgroundBtnColor={ColorSet.btnWhite}
-                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                textBtnColor={ColorSet.textBlack}
-              />
-            </Link>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={5}>
+                <Box className={classes.btn_1_1_page}>
+                  <Link href={"/vehicles"}>
+                    <ButtonPleumDesign
+                      title={"ซื้อรถ"}
+                      backgroundBtnColor={ColorSet.btnWhite}
+                      backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                      textBtnColor={ColorSet.textBlack}
+                    />
+                  </Link>
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <Box className={classes.btn_1_2_page}>
+                  <Link href={"/salecar"}>
+                    <ButtonPleumDesign
+                      title={"ขายรถ"}
+                      backgroundBtnColor={ColorSet.btnWhite}
+                      backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                      textBtnColor={ColorSet.textBlack}
+                    />
+                  </Link>
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={5}>
+                <Box className={classes.btn_1_3_page}>
+                  <Link href={"/rent"}>
+                    <ButtonPleumDesign
+                      title={"เช่ารถ"}
+                      backgroundBtnColor={ColorSet.btnWhite}
+                      backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                      textBtnColor={ColorSet.textBlack}
+                    />
+                  </Link>
+                </Box>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Box>
@@ -137,30 +151,44 @@ export default function Home({}: Props) {
             </Grid>
           </Box>
           <Box className={classes.btn_2_page}>
-            <Link href={"/vehicles"}>
-              <ButtonPleumDesign
-                title={"ซื้อรถ"}
-                backgroundBtnColor={ColorSet.btnWhite}
-                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                textBtnColor={ColorSet.textBlack}
-              />
-            </Link>
-            <Link href={"/salecar"}>
-              <ButtonPleumDesign
-                title={"ขายรถ"}
-                backgroundBtnColor={ColorSet.btnWhite}
-                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                textBtnColor={ColorSet.textBlack}
-              />
-            </Link>
-            <Link href={"/rent"}>
-              <ButtonPleumDesign
-                title={"เช่ารถ"}
-                backgroundBtnColor={ColorSet.btnWhite}
-                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                textBtnColor={ColorSet.textBlack}
-              />
-            </Link>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={5}>
+                <Box className={classes.btn_2_1_page}>
+                  <Link href={"/vehicles"}>
+                    <ButtonPleumDesign
+                      title={"ซื้อรถ"}
+                      backgroundBtnColor={ColorSet.btnGray}
+                      backgroundBtnHoverColor={ColorSet.btnGrayHover}
+                      textBtnColor={ColorSet.textBlack}
+                    />
+                  </Link>
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <Box className={classes.btn_2_2_page}>
+                  <Link href={"/salecar"}>
+                    <ButtonPleumDesign
+                      title={"ขายรถ"}
+                      backgroundBtnColor={ColorSet.btnGray}
+                      backgroundBtnHoverColor={ColorSet.btnGrayHover}
+                      textBtnColor={ColorSet.textBlack}
+                    />
+                  </Link>
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={5}>
+                <Box className={classes.btn_2_3_page}>
+                  <Link href={"/rent"}>
+                    <ButtonPleumDesign
+                      title={"เช่ารถ"}
+                      backgroundBtnColor={ColorSet.btnGray}
+                      backgroundBtnHoverColor={ColorSet.btnGrayHover}
+                      textBtnColor={ColorSet.textBlack}
+                    />
+                  </Link>
+                </Box>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Box>

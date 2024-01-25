@@ -42,23 +42,24 @@ export default function CardItem({
         position: "relative",
         padding: "10px 8px",
         boxShadow: isMobileMode ? "none" : "0px 1px 5px 0.25px #D9D9D9",
-        border: isMobileMode ? "0.1px solid #D9D9D9": "",
+        border: isMobileMode ? "0.1px solid #D9D9D9" : "",
         height: "100%",
       }}
     >
-        <Box
-          style={{
-            width: "100%",
-          }}
-        >
-          <img src={image ? image : "/images/no_image.jpg"} width={"100%"} alt={`${brand}-${model}-${submodel}-${vehicle_id}`}/>
-        </Box>
-
-        <Box
-          display={"flex"}
-          flexDirection={"column"}
+      <Box
+        style={{
+          width: "100%",
+        }}
+      >
+        <img
+          src={image ? image : "/images/no_image.jpg"}
           width={"100%"}
-        >
+          alt={`${brand}-${model}-${submodel}-${vehicle_id}`}
+        />
+      </Box>
+
+      <Box width={"100%"}>
+        <Box display={"flex"} flexDirection={"column"} width={"100%"}>
           <span className="fs-18px text-upper">
             <strong>
               {brand} {model}
@@ -90,14 +91,15 @@ export default function CardItem({
           }}
         >
           <Link href={`/vehicles/${vehicle_id}`}>
-              <ButtonPleumDesign
-                title={"ดูเพิ่มเติม"}
-                backgroundBtnColor={ColorSet.btnWhite}
-                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-                textBtnColor={ColorSet.textBlack}
-              />
+            <ButtonPleumDesign
+              title={"ดูเพิ่มเติม"}
+              backgroundBtnColor={ColorSet.btnWhite}
+              backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+              textBtnColor={ColorSet.textBlack}
+            />
           </Link>
         </Box>
+      </Box>
     </Box>
   );
 }
