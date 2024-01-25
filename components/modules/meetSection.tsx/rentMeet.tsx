@@ -209,7 +209,7 @@ export default function RentMeet({
     router.push(`/rentsuccess?brand=${brand}&model=${model}&year=${year}&plateId=${plateId}&price=${price}&date=${date}&time=${time}&longTime=${longTime}&locationPick=${locationPickCar}&locationReturn=${locationReturnCar}&ref=${reference_id}`)
   };
 
-  const mockData = ["1", "2", "3", "4", "5", "6"];
+  const mockData = ["6", "12", "24", "36", "48"];
 
   return (
     <Box className={classes.container}>

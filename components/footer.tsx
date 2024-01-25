@@ -3,7 +3,6 @@ import React from "react";
 import classes from "@/style/components/footer.module.css";
 import { Box, Grid } from "@mui/material";
 import { usePathname } from "next/navigation";
-import { genversion } from "@/utils/genversion";
 
 type Props = {};
 
@@ -57,7 +56,7 @@ const Footer = ({}: Props) => {
       >
         <Box>
           <span className={classes.footer_copyright}>
-            © 2022 RAPID GROUP CO., LTD | v1.0.2
+            © 2022 RAPID GROUP CO., LTD | v1.1.0
           </span>
         </Box>
       </Box>
