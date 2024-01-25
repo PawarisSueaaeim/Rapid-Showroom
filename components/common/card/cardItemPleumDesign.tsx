@@ -4,6 +4,8 @@ import * as React from "react";
 import Link from "next/link";
 import { Box, useMediaQuery } from "@mui/material";
 import { currency } from "@/utils/currency";
+import { ButtonPleumDesign } from "../button";
+import { ColorSet } from "@/constants";
 
 type Props = {
   vehicle_id: string;
@@ -77,17 +79,23 @@ export default function CardItem({
         </Box>
         <Box
           display={"flex"}
-          justifyContent={"flex-end"}
+          justifyContent={"center"}
           alignItems={"center"}
           width={"100%"}
           marginRight={3}
           style={{
             color: "#000",
             fontSize: "12px",
+            marginTop: "10px",
           }}
         >
           <Link href={`/vehicles/${vehicle_id}`}>
-            <span>ดูเพิ่มเติม</span>
+              <ButtonPleumDesign
+                title={"ดูเพิ่มเติม"}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                textBtnColor={ColorSet.textBlack}
+              />
           </Link>
         </Box>
     </Box>

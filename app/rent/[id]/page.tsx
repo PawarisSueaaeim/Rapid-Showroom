@@ -315,7 +315,7 @@ export default function DetailRent({ params }: Props) {
                 <strong className="fs-32px tc-blue">
                   {currency(data.listing_price, 0)}
                 </strong>{" "}
-                บาท
+                บาท/เดือน
               </span>
               <span className="fs-14px">
                 <strong>เลขไมล์: </strong>

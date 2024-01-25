@@ -80,9 +80,17 @@ export default function ShowcarSectionHome({}: Props) {
       )}
 
       <Box className={classes.btn_3_page}>
-        <Link href={"./vehicles"}>
+        <Link href={"/vehicles"}>
           <ButtonPleumDesign
             title={"ดูรถยอดนิยมเพิ่มเติม"}
+            backgroundBtnColor={ColorSet.btnWhite}
+            backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+            textBtnColor={ColorSet.textBlack}
+          />
+        </Link>
+        <Link href={"/rent"}>
+          <ButtonPleumDesign
+            title={"ดูรถเช่า"}
             backgroundBtnColor={ColorSet.btnWhite}
             backgroundBtnHoverColor={ColorSet.btnWhiteHover}
             textBtnColor={ColorSet.textBlack}

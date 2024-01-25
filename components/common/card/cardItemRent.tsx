@@ -4,6 +4,8 @@ import * as React from "react";
 import Link from "next/link";
 import { Box, useMediaQuery } from "@mui/material";
 import { currency } from "@/utils/currency";
+import { ButtonPleumDesign } from "../button";
+import { ColorSet } from "@/constants";
 
 type Props = {
   vehicle_id: string;
@@ -72,23 +74,29 @@ export default function CardItemRent({
           <span className="fs-12px">
             mileage: <span className="fw-400">{currency(mileage, 0)} km</span>
           </span>
-          <span className="fs-16px tc-blue">
+          <span className="fs-14px tc-blue">
             <strong>Price: {currency(price, 0)} Baht/Month</strong>
           </span>
         </Box>
         <Box
           display={"flex"}
-          justifyContent={"flex-end"}
+          justifyContent={"center"}
           alignItems={"center"}
           width={"100%"}
           marginRight={3}
           style={{
             color: "#000",
             fontSize: "12px",
+            marginTop: "10px",
           }}
         >
           <Link href={`/rent/${vehicle_id}`}>
-            <span>เช่ารถ</span>
+              <ButtonPleumDesign
+                title={"เช่ารถ"}
+                backgroundBtnColor={ColorSet.btnWhite}
+                backgroundBtnHoverColor={ColorSet.btnWhiteHover}
+                textBtnColor={ColorSet.textBlack}
+              />
           </Link>
         </Box>
       </Box>
