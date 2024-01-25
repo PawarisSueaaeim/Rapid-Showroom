@@ -1,6 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Autocomplete, Box, CircularProgress, Grid, Modal, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  CircularProgress,
+  Grid,
+  Modal,
+  TextField,
+} from "@mui/material";
 import { ButtonCapsule, ButtonPleumDesign } from "../../common/button";
 import { DateSelection, InputCustom, TimeSelection } from "../../common/form";
 import { isPhoneNumber, isEmail } from "@/utils/regex";
@@ -15,7 +22,7 @@ import { BasicModal } from "../../common/modal";
 import { ColorSet } from "@/constants";
 import { daymontyearFormat, timeHourFormat } from "@/utils/dateHelper";
 import { currency } from "@/utils/currency";
-import { TextareaAutosize } from '@mui/base/TextareaAutosize';
+import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 
 type Props = {
   modelId: number;
@@ -23,19 +30,23 @@ type Props = {
   listingVparkId: number;
   brand: string;
   model: string;
+  year?: string;
   submodel: string;
   price: string;
   image?: string;
   plateId?: string;
+  reference_id: string;
 };
 
 export default function RentMeet({
   listingVparkId,
   brand,
   model,
+  year,
   price,
   image,
   plateId,
+  reference_id,
 }: Props) {
   const booking = process.env.NEXT_PUBLIC_SHOWROOM_API_URL + "/guests/booking";
 
@@ -49,10 +60,13 @@ export default function RentMeet({
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
+  const [longTime, setLongTime] = useState<string>("");
   const [dateReturn, setDateReturn] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [telephone, setTelephone] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [locationPickCar, setLocationPickCar] = useState<string>("");
+  const [locationReturnCar, setLocationReturnCar] = useState<string>("");
   const [checkedBot, setCheckedBot] = useState<boolean>(false);
   const [openModalRejectMsg, setOpenModalRejectMsg] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
@@ -81,7 +95,10 @@ export default function RentMeet({
       verifyTelephone &&
       telephone != "" &&
       dateError == null &&
-      timeError == null
+      timeError == null &&
+      longTime != "" &&
+      locationPickCar != "" &&
+      locationReturnCar != ""
     ) {
       setIsVerified(true);
     } else {
@@ -98,7 +115,10 @@ export default function RentMeet({
     verifyTelephone,
     dateError,
     timeError,
+    longTime,
   ]);
+
+  console.log(longTime);
 
   const handleDateChange = (date: Dayjs | null) => {
     //@ts-ignore
@@ -141,45 +161,48 @@ export default function RentMeet({
     }
   };
 
+//   const handleSubmit = () => {
+//     setOpenConfirm(false);
+//     setIsLoading(true);
+//     setIsVerified(false);
+//     axios
+//       .put(booking, {
+//         listing_vpark_id: listingVparkId,
+//         brand: brand,
+//         model: model,
+//         booking_date: date + " " + time,
+//         name: name,
+//         email: email,
+//         phone_no: telephone,
+//         branch_id: 1,
+//         referral: sessionStorage.getItem("ref"),
+//         sold_type: soldType ? parseInt(soldType) : null,
+//         client_request_url: window.location.href,
+//       })
+//       .then((response) => {
+//         if (response.data.status == "OK") {
+//           router.push(
+//             `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&member=${response.data.data.is_member}&email=${email}&name=${name}&showroom_appointment_id=${response.data.data.showroom_appointment_id}&vpark_id=${listingVparkId}&img=${image}&brand=${brand}&model=${model}&dateDeposit=${date}&timeDeposit=${time}&plateId=${plateId}&price=${price}&longTime=${longTime}&locationPick=${locationPickCar}&locationReturn=${locationReturnCar}`
+//           );
+//         } else {
+//           setMessage(response.data.client_message);
+//           setOpenModalRejectMsg(true);
+//         }
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       })
+//       .finally(() => {
+//         setIsLoading(false);
+//         setIsVerified(true);
+//       });
+//   };
+
   const handleSubmit = () => {
-    setOpenConfirm(false);
-    setIsLoading(true);
-    setIsVerified(false);
-    axios
-      .put(booking, {
-        listing_vpark_id: listingVparkId,
-        brand: brand,
-        model: model,
-        booking_date: date + " " + time,
-        name: name,
-        email: email,
-        phone_no: telephone,
-        branch_id: 1,
-        referral: sessionStorage.getItem("ref"),
-        sold_type: soldType ? parseInt(soldType) : null,
-        client_request_url: window.location.href,
-      })
-      .then((response) => {
-        if (response.data.status == "OK") {
-          router.push(
-            `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&member=${response.data.data.is_member}&email=${email}&name=${name}&showroom_appointment_id=${response.data.data.showroom_appointment_id}&vpark_id=${listingVparkId}&img=${image}&brand=${brand}&model=${model}&dateDeposit=${date}&timeDeposit=${time}&plateId=${plateId}&price=${price}`
-          );
-        } else {
-          setMessage(response.data.client_message);
-          setOpenModalRejectMsg(true);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-        setIsVerified(true);
-      });
+    router.push(`/rentsuccess?brand=${brand}&model=${model}&year=${year}&plateId=${plateId}&price=${price}&date=${date}&time=${time}&longTime=${longTime}&locationPick=${locationPickCar}&locationReturn=${locationReturnCar}&ref=${reference_id}`)
   };
 
-  const mockData = ['1', '2', '3', '4', '5', '6']
-
+  const mockData = ["1", "2", "3", "4", "5", "6"];
 
   return (
     <Box className={classes.container}>
@@ -190,7 +213,7 @@ export default function RentMeet({
           onError={(value) => setDateError(value)}
           onDateChange={handleDateChange}
           disablePast={true}
-        //   maxDate={dayjs().add(24, "hour")}
+          //   maxDate={dayjs().add(24, "hour")}
         />
         <TimeSelection
           label="เลือกเวลารับรถ"
@@ -208,6 +231,7 @@ export default function RentMeet({
           id="combo-box-demo"
           options={mockData}
           sx={{ width: 300 }}
+          onChange={(time: any) => setLongTime(time.target.outerText)}
           renderInput={(params) => <TextField {...params} label="เดือน" />}
         />
       </Box>
@@ -246,11 +270,17 @@ export default function RentMeet({
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Box display={"flex"} flexDirection={'column'} gap={1}>
+            <Box display={"flex"} flexDirection={"column"} gap={1}>
               <span className="fs-16px tc-blue">สถานที่รับรถ</span>
-              <TextareaAutosize style={{ resize: "none", width: "100%" }} />
+              <TextareaAutosize
+                style={{ resize: "none", width: "100%" }}
+                onChange={(e: any) => setLocationPickCar(e.target.value)}
+              />
               <span className="fs-16px tc-blue">สถานที่คืนรถ</span>
-              <TextareaAutosize style={{ resize: "none", width: "100%" }} />
+              <TextareaAutosize
+                style={{ resize: "none", width: "100%" }}
+                onChange={(e: any) => setLocationReturnCar(e.target.value)}
+              />
             </Box>
           </Grid>
         </Grid>
@@ -318,13 +348,36 @@ export default function RentMeet({
             <span className="fs-16px fw-400">
               {brand} {model}
             </span>
-            <span className="fs-16px">ราคา: {price} บาท</span>
-            <span className="fs-16px">ชื่อ: {name}</span>
-            <span className="fs-16px">เบอร์โทร: {telephone}</span>
-            <span className="fs-16px">อีเมล: {email}</span>
-            <span className="fs-16px">เวลานัดหมาย</span>
-            <span className="fs-16px">วันที่: {daymontyearFormat(date)}</span>
-            <span className="fs-16px">เวลา: {timeHourFormat(time)}</span>
+            <span className="fs-16px">
+              <strong>ราคา:</strong> {price} บาท
+            </span>
+            <span className="fs-16px">
+              <strong>ชื่อ:</strong> {name}
+            </span>
+            <span className="fs-16px">
+              <strong>เบอร์โทร:</strong> {telephone}
+            </span>
+            <span className="fs-16px">
+              <strong>อีเมล:</strong> {email}
+            </span>
+            <span className="fs-16px">
+              <strong>สถานที่รับรถ:</strong> {locationPickCar}
+            </span>
+            <span className="fs-16px">
+              <strong>เวลานัดหมาย</strong>
+            </span>
+            <span className="fs-16px">
+              <strong>วันที่:</strong> {daymontyearFormat(date)}
+            </span>
+            <span className="fs-16px">
+              <strong>เวลา:</strong> {timeHourFormat(time)}
+            </span>
+            <span className="fs-16px">
+              <strong>ระยะเวลาที่ต้องการเช่า:</strong> {longTime} เดือน
+            </span>
+            <span className="fs-16px">
+              <strong>สถานที่คืนรถ:</strong> {locationReturnCar}
+            </span>
           </Box>
 
           <Box display={"flex"} marginTop={4} gap={2}>

@@ -79,6 +79,26 @@ const initialMockUpDataVehicle: DataVehicle[] = [
     year: "2017",
     main_image: "/images/mockUp/HondaAccordGrey.jpeg",
   },
+  {
+    vehicle_id: "6",
+    brand: "Toyota",
+    model: "Alphard",
+    submodel: "",
+    listing_price: 30000,
+    mileage: 2000,
+    year: "2023",
+    main_image: "/images/mockUp/ToyotaAlphardGray.png",
+  },
+  {
+    vehicle_id: "7",
+    brand: "Toyota",
+    model: "Alphard",
+    submodel: "",
+    listing_price: 30000,
+    mileage: 1000,
+    year: "2023",
+    main_image: "/images/mockUp/ToyotaAlphardWhite.png",
+  },
 ];
 
 export default function Search({ }: Props) {

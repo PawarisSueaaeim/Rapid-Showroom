@@ -5,6 +5,14 @@
   padding: 2rem 15rem;
 }
 
+.container_sold_out {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 .carousel {
   width: 60%;
   padding: 2rem;

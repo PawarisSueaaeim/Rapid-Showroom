@@ -52,6 +52,7 @@ const initialMockUpDataVehicle: any[] = [
     submodel: "",
     color: "ดำ",
     license_plate: "กก9999",
+    province: "สุโขทัย",
     listing_price: 10000,
     mileage: 5535,
     vehicle_description: "Sedan 4dr G SA 6sp Front Wheel Drive 2.0i",
@@ -72,6 +73,7 @@ const initialMockUpDataVehicle: any[] = [
     submodel: "",
     color: "แดง",
     license_plate: "สส7777",
+    province: "สุโขทัย",
     listing_price: 10000,
     mileage: 12000,
     vehicle_description: "Sedan 4dr G SA 6sp Front Wheel Drive 2.0i",
@@ -92,6 +94,7 @@ const initialMockUpDataVehicle: any[] = [
     submodel: "",
     color: "ขาว",
     license_plate: "ทท5555",
+    province: "สุโขทัย",
     listing_price: 15000,
     mileage: 100000,
     vehicle_description: "MY2016 Sedan 4dr E i-VTEC SA 5sp Front Wheel Drive 2.0i",
@@ -112,6 +115,7 @@ const initialMockUpDataVehicle: any[] = [
     submodel: "",
     color: "ดำ",
     license_plate: "ดด3333",
+    province: "สุโขทัย",
     listing_price: 15000,
     mileage: 8000,
     vehicle_description: "MY2016 Sedan 4dr E i-VTEC SA 5sp Front Wheel Drive 2.0i",
@@ -132,6 +136,7 @@ const initialMockUpDataVehicle: any[] = [
     submodel: "",
     color: "เทา",
     license_plate: "รร1111",
+    province: "สุโขทัย",
     listing_price: 15000,
     mileage: 9500,
     vehicle_description: "MY2016 Sedan 4dr E i-VTEC SA 5sp Front Wheel Drive 2.0i",
@@ -142,6 +147,54 @@ const initialMockUpDataVehicle: any[] = [
     gallery: [
       {
         url_path: "/images/mockUp/HondaAccordGrey.jpeg",
+      }
+    ]
+  },
+  {
+    vehicle_id: "6",
+    brand: "Toyota",
+    model: "Alphard",
+    submodel: "Hybrid",
+    color: "บรอนซ์ทอง",
+    license_plate: "อพ1111",
+    province: "สุโขทัย",
+    listing_price: 30000,
+    mileage: 2000,
+    vehicle_description: "Van 4dr HV 7st E-CVT 4 Wheel Drive 2.5i (CBU, Hybrid)",
+    description: "สภาพเหมือนใหม่",
+    engine_size: "2,500",
+    year: "2017",
+    reference_id: "12alphard01",
+    gallery: [
+      {
+        url_path: "/images/mockUp/ToyotaAlphardGray.png",
+      },
+      {
+        url_path: "/images/mockUp/ToyotaAlphardInsideBlack.jpg",
+      }
+    ]
+  },
+  {
+    vehicle_id: "7",
+    brand: "Toyota",
+    model: "Alphard",
+    submodel: "Hybrid",
+    color: "ขาว",
+    license_plate: "อพ2222",
+    province: "สุโขทัย",
+    listing_price: 30000,
+    mileage: 1000,
+    vehicle_description: "Van 4dr HV 7st E-CVT 4 Wheel Drive 2.5i (CBU, Hybrid)",
+    description: "สภาพเหมือนใหม่",
+    engine_size: "2,500",
+    year: "2023",
+    reference_id: "12alphard02",
+    gallery: [
+      {
+        url_path: "/images/mockUp/ToyotaAlphard.png",
+      },
+      {
+        url_path: "/images/mockUp/ToyotaAlphardInsideBlack.jpg",
       }
     ]
   },
@@ -182,7 +235,7 @@ export default function DetailRent({ params }: Props) {
       ) : (
         <>
           {data === undefined ? (
-            <Box className={classes.container}>
+            <Box className={classes.container_sold_out}>
               <Box
                 display={"flex"}
                 flexDirection={"column"}
@@ -280,10 +333,12 @@ export default function DetailRent({ params }: Props) {
                   listingVparkId={data.listing_vpark_id}
                   brand={data.brand}
                   model={data.model}
+                  year={data.year}
                   submodel={data.submodel}
-                  price={data.listing_price_label}
+                  price={data.listing_price}
                   image={data.gallery[0].url_path}
                   plateId={data.license_plate + " " + data.province}
+                  reference_id={data.reference_id}
                 />
               </Box>
             </Box>
