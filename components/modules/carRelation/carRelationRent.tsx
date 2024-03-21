@@ -2,7 +2,7 @@
 import { Box, Grid, useMediaQuery } from "@mui/material";
 import React from "react";
 import { useSearchParams } from "next/navigation";
-import { CardItemPleumDesign, CardItemRent } from "../common/card";
+import { CardItemPleumDesign, CardItemRent } from "../../common/card";
 
 type Props = {
   data: Array<any>;

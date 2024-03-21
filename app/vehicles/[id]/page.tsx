@@ -6,7 +6,7 @@ import axios from "axios";
 import { Box, CircularProgress } from "@mui/material";
 import classes from "@/style/page/buycar/buycar_id.module.css";
 import ButtonCapsule from "@/components/common/button/buttonCapsule";
-import DealerMeet from "@/components/modules/dealerMeet";
+import { DealerMeet }from "@/components/modules/meetSection/index";
 import { currency } from "@/utils/currency";
 import { Carousel } from "@/components/common/carousel";
 

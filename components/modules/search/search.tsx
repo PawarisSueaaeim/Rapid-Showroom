@@ -17,10 +17,10 @@ import {
   filteredModel,
   filteredStartYears,
 } from "@/utils/filter";
-import { ButtonPleumDesign } from "../common/button";
+import { ButtonPleumDesign } from "../../common/button";
 import { ColorSet } from "@/constants";
 import Link from "next/link";
-import { CardItemPleumDesign } from "../common/card";
+import { CardItemPleumDesign } from "../../common/card";
 
 type Props = {};
 

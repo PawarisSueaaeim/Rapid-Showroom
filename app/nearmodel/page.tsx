@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { CarRelation } from "@/components/modules";
+import { CarRelation } from "@/components/modules/carRelation";
 import { Box, CircularProgress, Pagination } from "@mui/material";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";

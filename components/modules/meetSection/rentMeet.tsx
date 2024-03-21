@@ -121,12 +121,6 @@ export default function RentMeet({
     locationReturnCar,
   ]);
 
-  console.log(name, verifyTelephone, telephone)
-  console.log(longTime)
-  console.log('1',locationPickCar);
-  console.log('2',locationReturnCar);
-  console.log(!isVerified)
-
   const handleDateChange = (date: Dayjs | null) => {
     //@ts-ignore
     const formatDate = moment(date.$d).format("YYYY-MM-DD");
@@ -136,11 +130,6 @@ export default function RentMeet({
     //@ts-ignore
     const formatTime = moment(time.$d).format("HH:mm:ss");
     setTime(formatTime);
-  };
-  const handleDateReturn = (date: Dayjs | null) => {
-    //@ts-ignore
-    const formatDate = moment(date.$d).format("YYYY-MM-DD");
-    setDateReturn(formatDate);
   };
 
   const handleNameChange = (event: any) => {

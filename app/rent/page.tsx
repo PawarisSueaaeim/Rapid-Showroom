@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import React from 'react'
 import classes from './rent.module.css'
-import { Search, SearchForrent } from '@/components/modules'
+import { SearchForrent } from '@/components/modules'
 
 type Props = {}
 

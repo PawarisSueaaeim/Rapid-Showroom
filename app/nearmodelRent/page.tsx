@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { CarRelation } from "@/components/modules";
-import CarRelationRent from "@/components/modules/carRelationRent";
+import { CarRelationRent } from "@/components/modules/carRelation";
 import { Box, CircularProgress, Pagination } from "@mui/material";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
@@ -36,7 +35,7 @@ export default function NearModelRent({}: Props) {
       })
       .then((response) => {
         setData(response.data.data);
-        setPageTotal(response.data.total_pages)
+        setPageTotal(response.data.total_pages);
       })
       .catch((error) => {
         console.log(error);
