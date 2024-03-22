@@ -14,16 +14,13 @@ import { isPhoneNumber, isEmail } from "@/utils/regex";
 import ReCAPTCHA from "react-google-recaptcha";
 import classes from "@/style/components/module/dealerMeet.module.css";
 import Image from "next/image";
-import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import moment from "moment";
 import { BasicModal } from "../../common/modal";
 import { ColorSet } from "@/constants";
 import { daymontyearFormat, timeHourFormat } from "@/utils/dateHelper";
-import { currency } from "@/utils/currency";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
-import { promiseHooks } from "v8";
 
 type Props = {
   modelId: number;
@@ -156,43 +153,6 @@ export default function RentMeet({
       setCheckedBot(false);
     }
   };
-
-//   const handleSubmit = () => {
-//     setOpenConfirm(false);
-//     setIsLoading(true);
-//     setIsVerified(false);
-//     axios
-//       .put(booking, {
-//         listing_vpark_id: listingVparkId,
-//         brand: brand,
-//         model: model,
-//         booking_date: date + " " + time,
-//         name: name,
-//         email: email,
-//         phone_no: telephone,
-//         branch_id: 1,
-//         referral: sessionStorage.getItem("ref"),
-//         sold_type: soldType ? parseInt(soldType) : null,
-//         client_request_url: window.location.href,
-//       })
-//       .then((response) => {
-//         if (response.data.status == "OK") {
-//           router.push(
-//             `/deposit?status=${response.data.status}&guest_id=${response.data.data.guest_id}&member=${response.data.data.is_member}&email=${email}&name=${name}&showroom_appointment_id=${response.data.data.showroom_appointment_id}&vpark_id=${listingVparkId}&img=${image}&brand=${brand}&model=${model}&dateDeposit=${date}&timeDeposit=${time}&plateId=${plateId}&price=${price}&longTime=${longTime}&locationPick=${locationPickCar}&locationReturn=${locationReturnCar}`
-//           );
-//         } else {
-//           setMessage(response.data.client_message);
-//           setOpenModalRejectMsg(true);
-//         }
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       })
-//       .finally(() => {
-//         setIsLoading(false);
-//         setIsVerified(true);
-//       });
-//   };
 
   const handleSubmit = () => {
     router.push(`/rentsuccess?brand=${brand}&model=${model}&year=${year}&plateId=${plateId}&price=${price}&date=${date}&time=${time}&longTime=${longTime}&locationPick=${locationPickCar}&locationReturn=${locationReturnCar}&ref=${reference_id}`)

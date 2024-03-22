@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { usePathname } from "next/navigation";
+import { featureFlag } from "@/utils/dateHelper";
 
 type Props = {};
 
@@ -79,9 +80,6 @@ const Navbar = ({}: Props) => {
                   <Link href="/salecar">ขายรถ</Link>
                 </li>
                 <li>
-                  <Link href="/rent">เช่ารถ</Link>
-                </li>
-                <li>
                   <Link href="/contact">ติดต่อเรา</Link>
                 </li>
                 <li>
@@ -131,9 +129,6 @@ const Navbar = ({}: Props) => {
           </Link>
           <Link href="/salecar" onClick={() => setShowMenu(!showMenu)}>
             <span className="tc-black fs-20px action">ขายรถ</span>
-          </Link>
-          <Link href="/rent" onClick={() => setShowMenu(!showMenu)}>
-            <span className="tc-black fs-20px action">เช่ารถ</span>
           </Link>
           <Link href="/contact" onClick={() => setShowMenu(!showMenu)}>
             <span className="tc-black fs-20px action">ติดต่อเรา</span>

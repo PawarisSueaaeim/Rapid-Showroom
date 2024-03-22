@@ -88,14 +88,6 @@ export default function ShowcarSectionHome({}: Props) {
             textBtnColor={ColorSet.textBlack}
           />
         </Link>
-        <Link href={"/rent"}>
-          <ButtonPleumDesign
-            title={"ดูรถเช่า"}
-            backgroundBtnColor={ColorSet.btnWhite}
-            backgroundBtnHoverColor={ColorSet.btnWhiteHover}
-            textBtnColor={ColorSet.textBlack}
-          />
-        </Link>
       </Box>
     </Box>
   );
