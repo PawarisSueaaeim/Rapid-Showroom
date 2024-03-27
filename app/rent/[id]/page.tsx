@@ -299,7 +299,7 @@ export default function DetailRent({ params }: Props) {
                   />
                 </Link>
                 <Link
-                  href={`/nearmodelRent?brand=${data.brand}&model=${data.model}`}
+                  href={`/nearmodelrent?brand=${data.brand}&model=${data.model}`}
                 >
                   <ButtonCapsule
                     title={"ดูรถใกล้เคียง"}

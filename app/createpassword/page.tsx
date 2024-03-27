@@ -67,12 +67,12 @@ export default function CreatePassword({}: Props) {
         if (response.data.status == "success") {
           router.push(`/login?status=${response.data.status}`);
         }else{
-          router.push(`/registerFail`);
+          router.push(`/registerfail`);
         }
       })
       .catch((error) => {
         console.log(error);
-        router.push(`/registerFail`);
+        router.push(`/registerfail`);
       })
   };
 
