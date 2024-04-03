@@ -3,10 +3,7 @@ import React from "react";
 import { Box, Grid } from "@mui/material";
 import classes from "./home.module.css";
 import { ShowcarSectionHome } from "@/components/modules";
-import { ButtonPleumDesign } from "@/components/common/button";
-import { ColorSet } from "@/constants";
 import Image from "next/image";
-import Link from "next/link";
 import ButtonGroup from "@/components/modules/homePage/buttonGroup";
 
 type Props = {};

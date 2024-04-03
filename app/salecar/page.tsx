@@ -24,7 +24,7 @@ import {
   isPlateId02,
   isPlateId03,
 } from "@/utils/regex";
-import { UpLoadImages } from "@/components/common/uploadFile";
+import { DropZone, UpLoadImages } from "@/components/common/uploadFile";
 import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
