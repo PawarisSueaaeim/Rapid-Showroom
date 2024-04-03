@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, CircularProgress, Modal } from "@mui/material";
 import { ButtonCapsule, ButtonPleumDesign } from "../../common/button";
-import { DateSelection, InputCustom, TimeSelection } from "../../common/form";
+import { DateSelection, InputCustom, TimeSelection } from "../../common/Input";
 import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
 import ReCAPTCHA from "react-google-recaptcha";
 import classes from "@/style/components/module/dealerMeet.module.css";

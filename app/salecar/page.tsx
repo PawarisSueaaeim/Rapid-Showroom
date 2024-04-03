@@ -11,10 +11,9 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import {
-  DateSelection,
   InputCustom,
-  TimeSelection,
-} from "@/components/common/form";
+} from "@/components/common/Input";
+import { TimeSelection, DateSelection } from "@/components/common/selection";
 import { ButtonCapsule } from "@/components/common/button";
 import {
   isEmail,
@@ -24,7 +23,7 @@ import {
   isPlateId02,
   isPlateId03,
 } from "@/utils/regex";
-import { DropZone, UpLoadImages } from "@/components/common/uploadFile";
+import { UpLoadImages } from "@/components/common/uploadFile";
 import axios from "axios";
 import classes from "@/style/page/salecar.module.css";
 import { useRouter, useSearchParams } from "next/navigation";

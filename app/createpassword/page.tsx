@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { ButtonPleumDesign } from "@/components/common/button";
-import { InputPassword } from "@/components/common/form";
+import { InputPassword } from "@/components/common/Input";
 import { IsLoading } from "@/components/common/loading";
 import { ColorSet } from "@/constants";
 import { passwordValidation } from "@/utils/regex";
