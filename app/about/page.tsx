@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import React from "react";
-import classes from "@/style/page/aboutus.module.css";
+import classes from "./aboutus.module.css";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 
 type Props = {};

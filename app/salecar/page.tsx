@@ -25,7 +25,7 @@ import {
 } from "@/utils/regex";
 import { UpLoadImages } from "@/components/common/uploadFile";
 import axios from "axios";
-import classes from "@/style/page/salecar.module.css";
+import classes from "./salecar.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   filteredDescription,
