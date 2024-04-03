@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useEffect, useReducer, useState } from "react";
-import classes from "@/style/components/navbar.module.css";
+import React, { useEffect, useState } from "react";
+import classes from "./navbar.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Box from "@mui/material/Box";

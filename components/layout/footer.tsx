@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import classes from "@/style/components/footer.module.css";
+import classes from "./footer.module.css";
 import { Box, Grid } from "@mui/material";
 import { usePathname } from "next/navigation";
 
