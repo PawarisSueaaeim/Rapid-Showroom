@@ -1,12 +1,12 @@
 import React from "react";
 import { Box, Modal } from "@mui/material";
-import { Search } from "@/components/modules";
-import classes from "@/style/page/buycar/buycar.module.css";
+import classes from "./buycar.module.css";
 import Link from "next/link";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";
 import { featureFlag } from "@/utils/dateHelper";
 import Image from "next/image";
+import { Search } from "@/components/modules/search";
 
 type Props = {};
 

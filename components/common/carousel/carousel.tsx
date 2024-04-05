@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState } from "react";
-import classes from "@/style/components/module/carousel.module.css";
+import classes from "./carousel.module.css";
 import SwipeableViews from "react-swipeable-views";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Box } from "@mui/material";

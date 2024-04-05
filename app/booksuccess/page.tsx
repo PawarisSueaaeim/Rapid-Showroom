@@ -9,7 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import { daymontyearFormat } from "@/utils/dateHelper";
 import Link from "next/link";
-import classes from "@/style/page/booksuccess/booksuccess.module.css";
+import classes from "./booksuccess.module.css";
 
 type Props = {};
 

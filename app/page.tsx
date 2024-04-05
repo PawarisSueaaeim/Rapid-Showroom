@@ -2,7 +2,7 @@
 import React from "react";
 import { Box, Grid } from "@mui/material";
 import classes from "./home.module.css";
-import { ShowcarSectionHome } from "@/components/modules";
+import { ShowcarSectionHome } from "@/components/modules/homePage";
 import Image from "next/image";
 import ButtonGroup from "@/components/modules/homePage/buttonGroup";
 

@@ -3,7 +3,7 @@
 import { Box, CircularProgress, Grid } from "@mui/material";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import classes from "@/style/page/accept/accept.module.css";
+import classes from "./accept.module.css";
 import { CardAccept } from "@/components/common/card";
 import axios from "axios";
 import { ColorSet } from "@/constants";

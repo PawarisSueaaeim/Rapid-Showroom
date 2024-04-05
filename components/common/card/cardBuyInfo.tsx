@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Box } from "@mui/material";
 import React from "react";
-import classes from "@/style/components/common/card/cardAccept.module.css";
+import classes from "./cardAccept.module.css";
 import { currency } from "@/utils/currency";
 import { daymontyearFormat } from "@/utils/dateHelper";
 

@@ -4,13 +4,11 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { Box, CircularProgress } from "@mui/material";
-import classes from "@/style/page/buycar/buycar_id.module.css";
+import classes from "./buycar_id.module.css";
 import ButtonCapsule from "@/components/common/button/buttonCapsule";
-import DealerMeet from "@/components/modules/meetSection/dealerMeet";
 import { currency } from "@/utils/currency";
 import { Carousel } from "@/components/common/carousel";
 import { RentMeet } from "@/components/modules/meetSection";
-import { DataVehicle, IVehicleDetail } from "@/components/types/car";
 
 type Props = {
   params: { id: string };

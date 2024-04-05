@@ -20,7 +20,7 @@ import {
 import { ButtonPleumDesign } from "../../common/button";
 import { ColorSet } from "@/constants";
 import Link from "next/link";
-import { CardItemPleumDesign, CardItemRent } from "../../common/card";
+import { CardItemRent } from "../../common/card";
 import { DataVehicle } from "../../types/car";
 
 type Props = {};

@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "@/style/components/common/form/form.module.css";
+import classes from "./input.module.css";
 
 type Props = {
   id: string;

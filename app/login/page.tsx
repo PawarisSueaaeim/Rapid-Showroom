@@ -2,7 +2,7 @@
 "use client";
 import { Alert, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import classes from "@/style/page/login/login.module.css";
+import classes from "./login.module.css";
 import { InputEmail, InputPassword } from "@/components/common/Input";
 import { ButtonPleumDesign } from "@/components/common/button";
 import { ColorSet } from "@/constants";

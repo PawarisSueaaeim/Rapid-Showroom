@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import classes from "@/style/page/sucess/sucess.module.css";
+import classes from "./sucess.module.css";
 
 type Props = {};
 

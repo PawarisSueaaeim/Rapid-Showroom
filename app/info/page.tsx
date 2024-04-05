@@ -16,7 +16,7 @@ import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import moment from "moment";
-import classes from "@/style/page/info/info.module.css";
+import classes from "./info.module.css";
 import { isBankNumber, isPhoneNumber } from "@/utils/regex";
 import { IsLoading } from "@/components/common/loading";
 import { BasicModal } from "@/components/common/modal";

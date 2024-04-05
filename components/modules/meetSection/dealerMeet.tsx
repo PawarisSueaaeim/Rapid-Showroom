@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { Box, CircularProgress, Modal } from "@mui/material";
 import { ButtonCapsule, ButtonPleumDesign } from "../../common/button";
-import { DateSelection, InputCustom, TimeSelection } from "../../common/Input";
-import { isThaiText, isPhoneNumber, isEmail } from "@/utils/regex";
+import { InputCustom } from "@/components/common/Input";
+import { DateSelection, TimeSelection } from "@/components/common/selection";
+import { isPhoneNumber, isEmail } from "@/utils/regex";
 import ReCAPTCHA from "react-google-recaptcha";
-import classes from "@/style/components/module/dealerMeet.module.css";
+import classes from "./dealerMeet.module.css";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";

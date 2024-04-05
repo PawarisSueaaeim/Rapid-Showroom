@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 15rem;
+}
+
+.container_sold_out {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.carousel {
+  width: 60%;
+  padding: 2rem;
+}
+
+.btn_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+  gap: 1rem;
+}
+
+.dealer_meet {
+  width: 100%;
+}
+
+.page_not_found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+@media screen and (max-width: 920px) {
+  .carousel {
+    width: 80%;
+  }
+  .container {
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .carousel {
+    width: 100%;
+  }
+  .container {
+    padding: 3rem 0rem;
+  }
+}
