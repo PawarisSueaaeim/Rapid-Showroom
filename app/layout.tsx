@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     apple: "/icons/apple-icon.png"
   },
   title: "Rapid Showroom",
-  description: "ซื้อขายรถมื้อสอง สะดวกรวดเร็วทัน",
+  description: "ซื้อขายรถมือสอง สะดวกรวดเร็วทันใจ",
 };
 
 export default function RootLayout({
